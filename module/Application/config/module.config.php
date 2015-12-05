@@ -15,6 +15,19 @@ return array(
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
             // using the path /application/:controller/:action
+            'home' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/',
+                    'constraints' => array(                        
+                        'action' => '(?!\bpage\b)(?!\border_by\b)[a-zA-Z][a-zA-Z0-9_-]*',
+                    ),                    
+                    'defaults' => array(
+                        'controller' => 'application\Controller\Index',
+                        'action' => 'index',
+                    ),
+                ),
+            ),
             'application' => array(
                 'type'    => 'Literal',
                 'options' => array(

@@ -14,7 +14,6 @@
         <!-- Le styles -->
         <?php
         echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
-                
                 ->prependStylesheet($this->basePath() . '/css/animate.css')
                 ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
                 ->prependStylesheet('http://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800,900')
@@ -27,7 +26,7 @@
 
         <!-- Scripts -->
         <?php
-        echo $this->headScript()         
+        echo $this->headScript()
                 ->prependFile($this->basePath() . '/js/video.js')
                 ->prependFile($this->basePath() . '/js/wow.min.js')
                 ->prependFile($this->basePath() . '/js/jquery.openCarousel.js')
@@ -42,7 +41,7 @@
 
             });
         </script>
-        
+
         <link href="http://vjs.zencdn.net/5.0.2/video-js.css" rel="stylesheet">
 
         <script>
@@ -108,7 +107,7 @@
         <div class="header_bottom">
             <div class="container">	 			
                 <div class="logo">
-                    <h1><a href="index.html">Vintage<span>Restaurant</span></a></h1>
+                    <h1><a href="<?php echo $this->url('home')?>"><img src="<?php echo $this->basePath().'/img/logo.png'?>"><span></span></a></h1>
                 </div>				
                 <div class="navigation">	
                     <div>
@@ -143,95 +142,11 @@
                 <div class="clearfix"></div>		   
             </div>
         </div>	
-        <div id="cbp-fwslider" class="cbp-fwslider wow fadeInLeft" data-wow-delay="0.4s" id="work">
-            <div class="slider-line"></div>
-            <ul>
-                <li><a href="#"><img src="<?php echo $this->basePath('img/slide0.jpg') ?>" class="img-responsive" alt="img01"/></a></li>
-                <li><a href="#"><img src="<?php echo $this->basePath('img/slide1.jpg');?>" class="img-responsive" alt="img02"/></a></li>
-                <li><a href="#"><img src="<?php echo $this->basePath('img/slide2.jpg') ?>" class="img-responsive" alt="img03"/></a></li>
-            </ul>
-            <script src="<?php echo $this->basePath('js/jquery.cbpFWSlider.min.js');?>" type="text/javascript"></script>
-        </div>
     </div>
     <!-- Ends Header -->
 
-    <div class="main"> 
-        
-        <div class="content-bottom wow fadeInLeft" data-wow-delay="0.4s" id="work">   
-            <div class="container">   
-                <div class="row">
-                    <div class="col-md-8">
-                        <div class="welcome_desc">
-                            <h3>Our Team</h3>
-                            <div class="course_demo">
-                                <ul id="flexiselDemo3">	
-                                    <li><img src="<?php echo $this->basePath('img/v1.jpg');?>" class="img-responsive" /><div class="desc">
-                                            <h3>VATAN VINDAL</h3>
-                                            <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
-                                        </div></li>
-                                    <li><img src="<?php echo $this->basePath('img/v2.jpg');?>" class="img-responsive" /><div class="desc">
-                                            <h3>PADMINI AGARWAL</h3>
-                                            <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
-                                        </div></li>
-                                    <li><img src="<?php echo $this->basePath('img/v3.jpg');?>" class="img-responsive" /><div class="desc">
-                                            <h3>DEVANSHU NAGPAL</h3>
-                                            <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
-                                        </div></li>
-                                    <li><img src="<?php echo $this->basePath('img/v4.jpg');?>" class="img-responsive" /><div class="desc">
-                                            <h3>ASHNA MISHRA</h3>
-                                            <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
-                                        </div></li>
-                                    <li><img src="<?php echo $this->basePath('img/v5.jpg');?>" class="img-responsive" /><div class="desc">
-                                            <h3>SHOBIT TYAGI</h3>
-                                            <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
-                                        </div></li>		    	  	       	   	    	
-                                </ul>
-                                <script type="text/javascript">
-                                                $(window).load(function () {
-                                                    $("#flexiselDemo3").flexisel({
-                                                        visibleItems: 4,
-                                                        animationSpeed: 1000,
-                                                        autoPlay: true,
-                                                        autoPlaySpeed: 3000,
-                                                        pauseOnHover: true,
-                                                        enableResponsiveBreakpoints: true,
-                                                        responsiveBreakpoints: {
-                                                            portrait: {
-                                                                changePoint: 480,
-                                                                visibleItems: 1
-                                                            },
-                                                            landscape: {
-                                                                changePoint: 640,
-                                                                visibleItems: 2
-                                                            },
-                                                            tablet: {
-                                                                changePoint: 768,
-                                                                visibleItems: 2
-                                                            }
-                                                        }
-                                                    });
 
-                                                });
-                                </script>
-                                <script type="text/javascript" src="<?php echo $this->basePath('js/jquery.flexisel.js');?>"></script>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 middle_right">                        
-                        <video id="example_video_1" class="video-js vjs-default-skin" controls preload="auto" width="400px" height="300px"
-  poster="http://video-js.zencoder.com/oceans-clip.png"
-  data-setup='{"example_option":true}'>
- <source src="http://video-js.zencoder.com/oceans-clip.mp4" type='video/mp4' />
-</video>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <?php //echo $this->content; ?>
+    <?php echo $this->content;  ?>
 
 
     <div class="footer">
@@ -281,13 +196,14 @@
                 </div>
                 <div class="footer_nav">
                     <ul>
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="<?php echo $this->url('home')?>">Home</a></li>
                         <li><a href="#">Terms of use</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
                 </div>
                 <div class="clearfix"></div>
+                <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=73064553"></script>
             </div>
         </div>
     </div>
