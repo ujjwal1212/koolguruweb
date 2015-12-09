@@ -16,6 +16,26 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        return new ViewModel();
+        
+    }
+    
+    public function locateusAction(){
+        
+    }
+    
+    public function aboutusAction(){
+        
+    }
+    
+    public function visionAction(){
+        
+    }
+    
+    public function missionAction(){
+        
+    }
+    
+    public function contactusAction(){
+        
     }
 }
