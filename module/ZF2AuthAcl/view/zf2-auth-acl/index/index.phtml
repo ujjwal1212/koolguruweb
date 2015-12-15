@@ -42,7 +42,7 @@ if (count($flashMessage)) :
     <div class="login_base">
 
         <?php if (empty($errorflashMessage)) { ?>
-            <div id="global-success-msg" class="success global-success"><?php // echo $this->flashMessage(); ?></div>
+            <div id="global-success-msg" class="success global-success"><?php // echo $this->flashMessage();  ?></div>
 
         <?php } else { ?>
             <div id="global-error-msg"   class="error global-error"><?php
@@ -52,7 +52,7 @@ if (count($flashMessage)) :
                 ?></div>
 
         <?php } ?>
-        <div class="logo"></div>
+        <!--<div class="logo"></div>-->
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">Login</h3>
@@ -98,37 +98,39 @@ if (count($flashMessage)) :
 
             </div>
         </div>
+    </div>
+</div>
 
-        <div class="version-number">Version: Beta 1.0</div>
+<div class="version-number">Version: Beta 1.0</div>
 
 
 
-        <script type="text/javascript">
-            //validation for no 
-            $(document).ready(function () {
-                $('#loginForm').validate({
-                    rules: {
-                        email: {
-                            required: true,
-                            email: true
-                        },
-                        password: {
-                            required: true,
-                        }
+<script type="text/javascript">
+    //validation for no 
+    $(document).ready(function () {
+        $('#loginForm').validate({
+            rules: {
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                }
 
-                    },
-                    messages: {
-                        email: {
-                            required: "Please enter email id.",
-                            email: "Please enter valid email id.",
-                        },
-                        password: {
-                            required: "Please enter password.",
-                        }
-                    }
-                });
+            },
+            messages: {
+                email: {
+                    required: "Please enter email id.",
+                    email: "Please enter valid email id.",
+                },
+                password: {
+                    required: "Please enter password.",
+                }
+            }
+        });
 
-            });
+    });
 
 
 //            var checkExistingSessionsss = function () {
@@ -158,35 +160,35 @@ if (count($flashMessage)) :
 //            }
 
 
-            $("#loginForm").on("submit", function (event) {
-                $('#loginForm').valid();
-                var email = $('#email').val();
-                var email = $('#password').val();
-                if (email != '' && password != '') {
-                    $.ajax({
-                        type: "POST",
-                        url: app.base_url + "/login/checksinglesession",
-                        async: false,
-                        data: {'email': email},
-                        success: function (result) {
-                            if (result > 0) {
-                                var retVal = confirm("You are already logged in. Click 'Ok' to continue and logout from other logged in sessions.");
-                                if (retVal == false) {
-                                    event.preventDefault();
-                                    return false;
-                                } else {
-                                    return true;
-                                }
-                            } else {
-                                return true;
-                            }
-                        },
-                    });
-                }
+    $("#loginForm").on("submit", function (event) {
+        $('#loginForm').valid();
+        var email = $('#email').val();
+        var email = $('#password').val();
+        if (email != '' && password != '') {
+            $.ajax({
+                type: "POST",
+                url: app.base_url + "/login/checksinglesession",
+                async: false,
+                data: {'email': email},
+                success: function (result) {
+                    if (result > 0) {
+                        var retVal = confirm("You are already logged in. Click 'Ok' to continue and logout from other logged in sessions.");
+                        if (retVal == false) {
+                            event.preventDefault();
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    } else {
+                        return true;
+                    }
+                },
             });
+        }
+    });
 
 
 
 
 
-        </script> 
+</script> 
