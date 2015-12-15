@@ -122,17 +122,73 @@ text-decoration: none;
     display:none;
     z-index:29;
 }
-/* Login Form */
-#loginForm {
-	float:right;
-    width:280px; 
-    margin-top:15px;
-    padding:20px;
-    background:#FFF;
-	-webkit-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.47);
-	-moz-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.47);
-	-o-box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.47);
-	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.47);
+/*---------------CSS for Login Page---------------*/
+
+.full_height {
+    height: 100%;
+    position: relative;
+    background: #f8f8f8;
+}
+.login_base {
+    width: 450px;
+    height: 450px;
+    margin: auto;
+    /*position: absolute;*/
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+.login_base .logo {
+    border: 0;
+    margin: 0 auto 35px auto;
+    height: 45px;
+    width: 254px;
+    -moz-background-size: 254px 45px;
+    background-size: 254px 45px;
+    -webkit-background-size: 254px 45px;
+    float: none;
+}
+.login_base .panel {
+    box-shadow: none;
+    border-radius: 2px;
+    border-color: #ebebeb;
+}
+.login_base .panel-heading {
+    background: #58453F;
+    border-radius: 2px 2px 0 0;
+}
+.login_base h3.panel-title {
+    color: #fff;
+    font-size: 22px;
+    font-family: 'open_sanslight';
+    padding-left: 10px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 3px;
+}
+.login_base .panel-body {
+    padding: 25px;
+}
+.login_base p {
+    margin: 8px 0 20px;
+}
+.login_base .input {
+    width: 100%;
+}
+.recover_link {
+    text-transform: none;
+    margin-top: 7px;
+    display: inline-block;
+    text-decoration: underline;
+}
+.forgot-password-btn {
+    margin: 20px 0 0 0 !important;
+}
+#loginForm .custom-label {
+    font-family: 'open_sanssemibold';
+    font-size: 12px;
+    color: #6a6a6a;
 }
 .search_box {
 	background:#FFF;
