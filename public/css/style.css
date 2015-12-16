@@ -1712,3 +1712,15 @@ ul.comment-list {
 	padding: 10px;
 }
 }
+
+.form-select{
+    width: 70%;
+    color: #858585;
+    font-size: 0.8725em;
+    padding: 7px;
+    outline: none;
+    margin: 5px 0;
+    font-family: 'Open Sans', sans-serif;
+    background: #ffffff;
+    border: 1px solid #DFDFDF;
+}
