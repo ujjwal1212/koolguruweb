@@ -95,8 +95,8 @@ class IndexController extends AbstractActionController {
                         $session->offsetSet('roleCode', $userDetails[0]['role_code']);
                         $session->offsetSet('fname', $userDetails[0]['fname']);
                         $session->offsetSet('lname', $userDetails[0]['lname']);
-                        $this->getServiceLocator()->get('Zend\Log')->info('Login Successful for user ' . $data['email']);
-                        // Redirect to page after successful login                        
+//                        $this->getServiceLocator()->get('Zend\Log')->info('Login Successful for user ' . $data['email']);
+                        // Redirect to page after successful login     
                         return $this->redirect()->toRoute('application', array());
                     } else {
                         $this->flashMessenger()->addMessage(array(
@@ -147,7 +147,7 @@ class IndexController extends AbstractActionController {
         $authService = $this->getServiceLocator()->get('AuthService');
         $session = new Container('User');
         $session->getManager()->destroy();
-        $this->getServiceLocator()->get('Zend\Log')->info('Logout Successful for user ' . $session->offsetGet('email'));
+//        $this->getServiceLocator()->get('Zend\Log')->info('Logout Successful for user ' . $session->offsetGet('email'));
         $authService->clearIdentity();
         return $this->redirect()->toRoute('login', array());
     }

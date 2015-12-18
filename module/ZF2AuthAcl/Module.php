@@ -47,11 +47,11 @@ class Module {
             'priority' => 'priority',
             'message' => 'message'
         );
-        $writer = new \Zend\Log\Writer\Db($adapter, 'watchdog', $mapping);
-
-        $logger = new \Zend\Log\Logger();
-        $logger->addWriter($writer);
-        $serviceManager->setService('Zend\Log', $logger);
+//        $writer = new \Zend\Log\Writer\Db($adapter, 'watchdog', $mapping);
+//
+//        $logger = new \Zend\Log\Logger();
+//        $logger->addWriter($writer);
+//        $serviceManager->setService('Zend\Log', $logger);
     }
 
     function boforeDispatch(MvcEvent $event) {
@@ -71,9 +71,6 @@ class Module {
         $action = $event->getRouteMatch()->getParam('action');
 
         $requestedResourse = $controller . "-" . $action;
-//echo "<pre />";
-//print_r($controller);
-//die;
         $session = new Container('User');
         if ($session->offsetExists('email')) {
             if ($requestedResourse == 'ZF2AuthAcl\Controller\Index-index' || in_array($requestedResourse, $whiteList)) {
@@ -88,8 +85,11 @@ class Module {
 
                 $acl = $serviceManager->get('Acl');
                 $acl->initAcl();
-
-                $status = $acl->isAccessAllowed($userRole, $controller, $action);
+                if ($userRole == 'super admin') {
+                    $status = 1;
+                } else {
+                    $status = $acl->isAccessAllowed($userRole, $controller, $action);
+                }
                 if (!$status) {
                     $viewModel = $event->getViewModel();
                     $viewModel->setTemplate('error/permission');
