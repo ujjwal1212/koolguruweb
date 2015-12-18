@@ -28,39 +28,17 @@ class UserTable {
         if ($order_by == 'user_id' || $order_by == 'first_name' || $order_by == 'last_name' || $order_by == 'gender' || $order_by == 'status') {
             $order_by = 'u.' . $order_by;
         }
-        $sql_qual = "(SELECT distinct(q.name+', ')
-                        FROM qualification as q
-                        INNER JOIN [ev_qualifications] AS [eq] ON [eq].[qualification_id] = [q].[id]
-                        where eq.ev_user_id = [u].[user_id]
-                        FOR XML PATH(''))";
-        $sql_center = "(SELECT distinct(c.name+', ')
-                        FROM center as c
-                        INNER JOIN [ev_centers] AS [ec] ON [ec].[center_id] = [c].[id]
-                        where ec.ev_user_id = [u].[user_id]
-                        FOR XML PATH(''))";
 
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('u' => 'users'));
-        $select->columns(array('user_id', 'national_id', 'fname', 'lname', 'gender', 'status', 'qual_name' => new Expression($sql_qual), 'center_name' => new Expression($sql_center), 'dataname' => new \Zend\Db\Sql\Expression("CONCAT(fname,' ',lname)")))
+        $select->columns(array('user_id', 'national_id','email', 'fname', 'lname', 'gender', 'status', 'dataname' => new \Zend\Db\Sql\Expression("CONCAT(fname,' ',lname)")))
                 ->join(array('ur' => 'user_role'), 'u.user_id = ur.user_id', array(), 'left')
-                ->join(array('r' => 'role'), 'ur.role_id = r.rid', array(), 'left')
-                ->join(array('evq' => 'ev_qualifications'), 'evq.ev_user_id=u.user_id', array(), 'left')
-                ->join(array('evc' => 'ev_centers'), 'evc.ev_user_id=u.user_id', array(), 'left')
-                ->join(array('q' => 'qualification'), 'q.id=evq.qualification_id', array(), 'left')
-                ->join(array('c' => 'center'), 'c.id=evc.center_id', array(), 'left')
-                ->where(array('r.role_code' => 'ev'))
-                ->group(array('u.user_id', 'u.national_id', 'u.fname', 'u.lname', 'u.gender', 'u.status'))
+                ->join(array('r' => 'role'), 'ur.role_id = r.rid', array('role_name'), 'left')
+                ->group(array('u.user_id', 'u.national_id', 'u.fname', 'u.lname', 'u.gender', 'u.status','u.email','r.role_name'))
                 ->order($order_by . ' ' . $order);
 
-        if (isset($qualificationArray) && $qualificationArray != '') {
-            $select->where->in("q.id", $qualificationArray);
-        }
-
-        if (isset($centerArray) && $centerArray != '') {
-            $select->where->in("c.id", $centerArray);
-        }
-
+       
         if (isset($searchText) && trim($searchText) != '') {
             $select->where->NEST->like('u.fname', "%" . $searchText . "%")
             ->or->like('u.lname', "%" . $searchText . "%")
@@ -148,20 +126,6 @@ class UserTable {
     public function userRole($currentRole) {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select()->from(array('r' => 'role'), array('rid', 'role_name'));
-
-        switch ($currentRole) {
-            case 'sa':
-                $select->where->in('r.role_code', array('aa', 'ad', 'ca', 'ga', 'ev'));
-                break;
-            case 'aa':
-                $select->where->in('r.role_code', array('ca', 'ga', 'ev'));
-                break;
-//            case 'ca':
-//                $select->where(array('r.role_code' => 'ev'));
-//                break;
-            default:
-                return array();
-        }
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();
@@ -171,19 +135,6 @@ class UserTable {
         }
 
         return $result;
-    }
-
-    public function getUserCenterId($userid) {
-        $userid = (int) $userid;
-        $sql = new Sql($this->tableGateway->getAdapter());
-        $select = $sql->select();
-        $select->from(array('cu' => 'center_users'));
-        $select->columns(array('center_id'))
-                ->where(array('cu.user_id' => $userid));
-        $statement = $sql->prepareStatementForSqlObject($select);
-        $resultset = $this->resultSetPrototype->initialize($statement->execute())
-                ->toArray();
-        return $resultset;
     }
 
     /**
@@ -226,17 +177,16 @@ class UserTable {
             'national_id' => $user['national_id'],
             'fname' => $user['fname'],
             'lname' => $user['lname'],
-            'mname' => $user['mname'],
+//            'mname' => $user['mname'],
             'email' => $user['email'],
             'status' => $user['status'],
-            'training_status' => $user['training_status'],
-            'address' => $user['address'],
-            'region' => $user['region'],
-            'city' => $user['city'],
-            'phone_number' => $user['phone_number'],
-            'fax_number' => $user['fax_number'],
-            'pincode' => $user['pincode'],
-            'profile_image' => $user['profile_image'],
+//            'address' => $user['address'],
+//            'region' => $user['region'],
+//            'city' => $user['city'],
+//            'phone_number' => $user['phone_number'],
+//            'fax_number' => $user['fax_number'],
+//            'pincode' => $user['pincode'],
+//            'profile_image' => $user['profile_image'],
             'country' => $user['country'],
             'gender' => $user['gender'],
             'age' => $user['age'],
@@ -261,8 +211,8 @@ class UserTable {
             $data = array(
                 'user_id' => $user_id,
                 'role_id' => $user['role'],
-                'assigned_date' => time(),
-                'assigned_by' => $user['created_by'],
+//                'assigned_date' => time(),
+//                'assigned_by' => $user['created_by'],
             );
             $insert->values($data);
             $selectString = $sql->getSqlStringForSqlObject($insert);
@@ -310,33 +260,7 @@ class UserTable {
         }
     }
 
-    public function getActiveEvUsers($where = array(), $columns = array()) {
-        try {
-            $sql = new Sql($this->tableGateway->getAdapter());
-            $select = $sql->select()->from(array(
-                'user' => $this->table
-            ));
-
-            if (count($where) > 0) {
-                $select->where($where);
-            }
-
-            if (count($columns) > 0) {
-                $select->columns($columns);
-            }
-            $select->join(array('userRole' => 'user_role'), 'userRole.user_id = user.user_id', array('role_id'), 'LEFT');
-            $select->join(array('role' => 'role'), 'userRole.role_id = role.rid', array('role_name', 'role_code'), 'LEFT');
-            $select->where(array('user.status' => 1));
-            $statement = $sql->prepareStatementForSqlObject($select);
-            //echo '<pre>'; print_r($statement); die;
-            $users = $this->resultSetPrototype->initialize($statement->execute())
-                    ->toArray();
-            return $users;
-        } catch (\Exception $e) {
-            throw new \Exception($e->getPrevious()->getMessage());
-        }
-    }
-
+   
     /**
      * Function to fetch a specific user record
      * @param type $id

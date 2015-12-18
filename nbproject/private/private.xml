@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/myapp/koolguruweb/config/application.config.php</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb/module/Student/Module.php</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb/module/Student/config/module.config.php</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb/module/Application/view/layout/layout.phtml</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb/module/Student/src/Student/Controller/StudentController.php</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb/module/Student/view/student/student/index.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Admin/view/admin/admin/index.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/layout/layout.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/index.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/ZF2AuthAcl/view/zf2-auth-acl/index/index.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/public/css/style.css</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Admin/src/Admin/Controller/AdminController.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Admin/config/module.config.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Admin/Module.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/config/application.config.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/ZF2AuthAcl/src/ZF2AuthAcl/Controller/IndexController.php</file>
         </group>
     </open-files>
 </project-private>

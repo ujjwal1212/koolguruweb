@@ -1,0 +1,101 @@
+
+<section class="sub-header">
+    <div class="container">
+
+        <div class="sub-header-title">
+            <?php
+            $title = 'Create User Role';
+            $this->headScript()->appendFile($this->basePath() . '/js/radio-checkbox.js');
+            ?>
+            <a class="back-icon" href="<?php echo $this->url('userrole', array('action' => 'index')); ?>"></a>
+            <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
+                <!-- <div class="sub-header-breadcrumb">
+                    <a href="<?php echo $this->url('home') ?>"><span class="home"></span></a>    
+                    <span class="breadcrumb-arrow"> > </span>
+                    <a href="#">MANAGE User</a>
+                    <span class="breadcrumb-arrow"> > </span>
+                    <span>Add User</span>
+                  </div>-->
+                <?php
+                /* Adding Breadcrumb */
+                echo $this->navigation('navigation')
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                ?>
+            </h1>
+        </div>
+        <div class="sub-header-actions"></div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="forms" id="add-user-form">
+        <div id="global-success-msg" class="success global-success"></div>
+        <div id="global-error-msg"   class="error global-error"><?php echo $this->flashMessage(); ?></div>
+
+        <?php
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('userrole', array('action' => 'add')));
+        $form->setAttribute('class', 'detect_changes');
+        $form->prepare();
+        echo $this->form()->openTag($form);
+        ?>
+        <section id="basic_details">
+            <?php echo "<h2 class='h2'></h2>"; ?>
+            <ul>
+                <li class="form-row">
+                    <?php
+                    echo"<label class='label'>Role Name:<span class='required'>*</span></label>";
+                    echo $this->formElement($form->get('role_name'));
+                    ?>
+                </li>
+                <li class="form-row">
+                    <?php
+                    echo"<label class='label'>Role Code:<span class='required'>*</span></label>";
+                    echo $this->formElement($form->get('role_code'));
+                    ?>
+                </li>
+                <li class="form-row">
+                    <?php
+                    echo"<label class='label'>Parent Role:<span class='required'>*</span></label>";
+                    echo $this->formElement($form->get('parent_role'));
+                    ?>
+                </li>
+            </ul>
+            <input id="action_name" type="hidden" value="add"/>
+            <div id="permission">
+                <ul>
+                    <li class="form-row" id='permission_label'>
+                        <?php
+                        echo"<label class='label'>ACCESS PERMISSIONS:<span class='required'>*</span></label>";
+                        ?>
+                    </li>
+
+                </ul>
+                <table id='permissionTable' class='table prerequsite-table permission-table'>
+                    <thead>
+                        <tr>
+                            <th>MODULE</th>
+                            <th>READ ONLY</th>
+                            <th>FULL ACCESS</th>
+                            <th>DISABLE</th>
+                        </tr>
+                    </thead>
+                    <tbody
+                </tbody>
+
+            </table>
+        </div>
+
+    </section>
+
+
+    <section id="contact_details">
+        <div class="form-footer"><?php
+            echo $this->formInput($form->get('submit'));
+            echo $this->form()->closeTag();
+            ?> </div>
+    </section>
+</div>
+</div>

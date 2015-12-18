@@ -41,8 +41,6 @@ class User extends AbstractTableGateway
             }
             $select->join(array('userRole' => 'user_role'), 'userRole.user_id = user.user_id', array('role_id'), 'LEFT');
             $select->join(array('role' => 'role'), 'userRole.role_id = role.rid', array('role_name','role_code'), 'LEFT');
-            $select->join(array('center_users' => 'center_users'), 'userRole.user_id = center_users.user_id', array('center_id'), 'LEFT');
-            $select->join(array('center' => 'center'), 'center_users.center_id = center.id', array('center_code'=>'center_id','center_type'), 'LEFT');
             
             $statement = $sql->prepareStatementForSqlObject($select);
             $users = $this->resultSetPrototype->initialize($statement->execute())

@@ -23,6 +23,16 @@ return array(
                     ),
                 ),
             ),
+            'logout' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route' => '/',
+                    'defaults' => array(
+                        'controller' => 'ZF2AuthAcl\Controller\Index',
+                        'action' => 'logout',
+                    ),
+                ),
+            ),
         )
     ),
     'view_manager' => array(
