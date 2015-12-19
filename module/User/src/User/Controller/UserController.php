@@ -244,7 +244,6 @@ class UserController extends AbstractActionController {
                         if (isset($national_id) && $national_id !== '' && $validatorId->isValid($national_id) && $validatorEmail->isValid($email)) {
                             $flag = 1;
                         } else if ($national_id == '' && $validatorEmail->isValid($email)) {
-                            //die('here');
                             $flag = 1;
                         } else {
                             $flag = 0;
@@ -255,7 +254,7 @@ class UserController extends AbstractActionController {
                             $data['status'] = 0;
                             $createdUserId = $this->getUserTable()->saveUser($data);
                             if (isset($createdUserId) && $createdUserId != '') {
-                                $this->getServiceLocator()->get('Zend\Log')->info('User with Id ' . $createdUserId . ' added by user ' . $session->offsetGet('userId'));
+//                                $this->getServiceLocator()->get('Zend\Log')->info('User with Id ' . $createdUserId . ' added by user ' . $session->offsetGet('userId'));
                             }
                             $hashValueReturn = $this->getUserTable()->saveActivationEmail($email);
                             $this->sendActivationLink($email, $hashValueReturn);

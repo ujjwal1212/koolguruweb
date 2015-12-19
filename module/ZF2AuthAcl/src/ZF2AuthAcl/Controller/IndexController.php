@@ -358,7 +358,7 @@ class IndexController extends AbstractActionController {
 //                    ));
                     $this->getRecoverEmailTable()->deleteActivationEmail($EmailReturn[0]['email']);
 //                    $this->flashMessenger()->setNamespace('success')->addMessage('Password has been changed successfully.');
-                    return $this->redirect()->toUrl('../../login/index/updated');
+                    return $this->redirect()->toRoute('login');
                 }
             }
         }

@@ -160,12 +160,7 @@ class UserTable {
         $data = array('password' => $encyptPass, 'status' => 1);
         $this->tableGateway->update($data, array('email' => $email));
 
-        // UPDATE CENTER STATUS
-        $adapter = $this->tableGateway->getAdapter();
-        $sql_center_status = "UPDATE center SET status = 'Active' WHERE email='" . $email . "' ";
-        $optionalParameters1 = '';
-        $statement = $adapter->createStatement($sql_center_status, $optionalParameters1);
-        $statement->execute();
+        
     }
 
     /**
