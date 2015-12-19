@@ -42,7 +42,11 @@ if (count($flashMessage)) :
     <div class="login_base">
 
         <?php if (empty($errorflashMessage)) { ?>
-            <div id="global-success-msg" class="success global-success"><?php // echo $this->flashMessage();  ?></div>
+            <div id="global-error-msg-page"   class="global-page-success"><?php
+                foreach ($errorflashMessage as $errMsg) {
+                    echo $errMsg;
+                }
+                ?></div>
 
         <?php } else { ?>
             <div id="global-error-msg"   class="error global-error"><?php

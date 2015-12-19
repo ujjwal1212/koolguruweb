@@ -11,12 +11,25 @@ endif;
             <?php
             //$this->headScript()->appendFile($this->basePath() . '/js/radio-checkbox.js');
             $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+            ?>
 
-            if (empty($errorflashMessage)) {
-                ?>
-                <div id="global-success-msg" class="success global-success"></div>
+                <?php if (empty($errorflashMessage)) { ?>
+                <div id="global-success-msg-page" class="global-page-success">
+                    <?php
+                    $successflashMessage = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
+                    foreach ($successflashMessage as $succMsg) {
+                        echo $errMsg;
+                    }
+                    ?>
+
+                </div>
+                <?php } else { ?>
+                <div id="global-error-msg-page"   class="global-page-error"><?php
+                    foreach ($errorflashMessage as $errMsg) {
+                        echo $errMsg;
+                    }
+                    ?></div>
             <?php } ?>
-            <div id="global-error-msg"   class="error global-error"><?php echo $this->flashMessage(); ?></div>
             <?php
             $title = 'Edit User';
 //            echo "<pre>";
@@ -45,7 +58,7 @@ endif;
         <div class="sub-header-actions">.
             <?php if ($this->userStatus == '1' && $roleCode == 'sa') { ?>
                 <a class="big-btn green-btn" href="<?php echo $this->url('user', array('action' => 'edit', 'id' => $this->id, 'msg' => 1)); ?>">RESEND ACTIVATION LINK</a>
-            <?php } ?>
+<?php } ?>
         </div>
     </div>
 </section>
@@ -60,7 +73,7 @@ endif;
         echo $this->form()->openTag($form);
         ?>
         <section id="basic_details">
-            <?php echo "<h2 class='h2'>Basic Details</h2>"; ?>
+<?php echo "<h2 class='h2'>Basic Details</h2>"; ?>
             <ul>
                 <li class="form-row"><?php echo $this->formHidden($form->get('user_id')); ?></li>
                 <li class="form-row">
@@ -99,7 +112,7 @@ endif;
                     ?></li>
                 <li class="form-row">
                     <?php echo"<label class='label'>Gender:<span class='required'>*</span></label>"; ?>
-                    <?php echo $this->formElement($form->get('gender')); ?>
+<?php echo $this->formElement($form->get('gender')); ?>
                 </li>
             </ul>
         </section>
@@ -107,7 +120,7 @@ endif;
         <div class="form-divider marginTB20"></div>
 
         <section id="contact_details">
-            <?php echo "<h2 class='h2'>Contact Details</h2>"; ?>
+<?php echo "<h2 class='h2'>Contact Details</h2>"; ?>
             <ul>
                 <li class="form-row"><?php
                     echo $this->formlabel($form->get('status'));

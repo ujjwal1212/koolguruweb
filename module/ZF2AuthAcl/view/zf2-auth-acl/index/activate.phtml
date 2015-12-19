@@ -11,7 +11,7 @@ $errorflashMessage = $this->flashMessenger()->getCurrentMessagesFromNamespace('e
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         /**
          * Function to validate the assessment form
          */
@@ -36,14 +36,14 @@ $errorflashMessage = $this->flashMessenger()->getCurrentMessagesFromNamespace('e
             }
         });
 
-        jQuery.validator.addMethod("passwordCheck", function(value, element) {
+        jQuery.validator.addMethod("passwordCheck", function (value, element) {
             var pass_length = value.length;
             if (pass_length >= 8 && pass_length <= 20) {
                 return true;
             }
         }, "Password should be atleast 8 characters and maximum of 20 characters!");
 
-        jQuery.validator.addMethod("matchPass", function(value, element) {
+        jQuery.validator.addMethod("matchPass", function (value, element) {
             var Pass = $('#password').val().trim();
             if (value == '' || Pass == value) {
                 return true;
@@ -51,8 +51,21 @@ $errorflashMessage = $this->flashMessenger()->getCurrentMessagesFromNamespace('e
         }, "Password and Retype Password does not match!");
     });
 </script>
-<?php if (empty($errorflashMessage)) {  ?>
-            <div id="global-success-msg-page" class="global-page-success"><?php echo $this->flashMessage(); ?></div>
+
+<div class="full_height">
+
+
+    <div class="login_base">
+        <?php if (empty($errorflashMessage)) { ?>
+            <div id="global-success-msg-page" class="global-page-success">
+                <?php
+                $successflashMessage = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
+                foreach ($successflashMessage as $succMsg) {
+                    echo $errMsg;
+                }
+                ?>
+
+            </div>
         <?php } else { ?>
             <div id="global-error-msg-page"   class="global-page-error"><?php
                 foreach ($errorflashMessage as $errMsg) {
@@ -61,14 +74,8 @@ $errorflashMessage = $this->flashMessenger()->getCurrentMessagesFromNamespace('e
                 ?></div>
         <?php } ?>
 
-<div class="full_height">
-
-
-    <div class="login_base">
-      
-      
         <div class="logo"></div>
-        
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title"><?php echo $this->escapeHtml($title); ?></h3>

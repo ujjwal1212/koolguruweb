@@ -106,23 +106,14 @@ class RecoverEmailTable implements ServiceLocatorAwareInterface {
     }
 
     public function sendEmailToUser($subject, $reciever_message, $email) {
-
-        $sql = new Sql($this->tableGateway->getAdapter());
-        $select = $sql->select();
-        $select->from('config', array('site_data'));
-        $select->where(array('id' => '2'));
-        $statement = $sql->prepareStatementForSqlObject($select);
-        $results = $statement->execute();
-        foreach ($results as $row) {
-            
-        }
-        $admin_email = $row['site_data'];
-
-
         //send email        
         $message = new Message();
+        // Setup SMTP transport using LOGIN authentication
+        $get_smtp_details = $this->getServiceLocator()->get('Config');
+        $smtp_details = $get_smtp_details['smtp_details'];
+        $admin_email = $smtp_details['connection_config']['username'];
         $message->addTo($email)
-                ->addFrom($admin_email, 'SSS ABMS Admin')
+                ->addFrom($admin_email, 'No-reply Koolguru')
                 ->setSubject($subject)
                 ->setBody($reciever_message);
 

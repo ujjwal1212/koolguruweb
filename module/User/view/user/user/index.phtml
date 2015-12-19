@@ -35,9 +35,22 @@ if (!$this->isAjax) {
 
     <div class="container">
         <?php if (empty($errorflashMessage)) { ?>
-            <div id="global-success-msg" class="success global-success"><?php // echo $this->flashMessage(); ?></div>
+            <div id="global-success-msg-page" class="global-page-success">
+                <?php
+                $successflashMessage = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
+                foreach ($successflashMessage as $succMsg) {
+                    echo $errMsg;
+                }
+                ?>
+
+            </div>
+        <?php } else { ?>
+            <div id="global-error-msg-page"   class="global-page-error"><?php
+                foreach ($errorflashMessage as $errMsg) {
+                    echo $errMsg;
+                }
+                ?></div>
         <?php } ?>
-        <div id="global-error-msg"   class="error global-error"></div>
         <?php
         $search_form = $this->form;
         $search_form->setAttribute('action', $this->url('user', array('action' => 'index')));
@@ -124,7 +137,7 @@ if (!$this->isAjax) {
                             <td class="name"><?php echo $this->escapeHtml($user->fname . ' ' . $user->lname); ?></td>
                             <td class="hours"><?php echo $this->escapeHtml($user->email); ?></td> 
                             <td class="hours"><?php echo $this->escapeHtml($user->role_name); ?></td> 
-<!--                            <td class="actions">
+        <!--                            <td class="actions">
                                 <a href="<?php echo $this->url('user', array('action' => 'edit', 'id' => $user->user_id, 'page' => $this->page)); ?>"> 
                                     <span class="edit-icon" title="edit"></span></a>
                             </td>-->

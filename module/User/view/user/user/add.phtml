@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#country").select2();
     });
 </script>
@@ -8,14 +8,25 @@
     <div class="container">
 
         <div class="sub-header-title">
-            <?php
-            $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+            <?php $errorflashMessage = $this->flashMessenger()->getErrorMessages(); ?>
 
-            if (empty($errorflashMessage)) {
-                ?>
-                <div id="global-success-msg" class="success global-success"></div>
+            <?php if (empty($errorflashMessage)) { ?>
+                <div id="global-success-msg-page" class="global-page-success">
+                    <?php
+                    $successflashMessage = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
+                    foreach ($successflashMessage as $succMsg) {
+                        echo $errMsg;
+                    }
+                    ?>
+
+                </div>
+            <?php } else { ?>
+                <div id="global-error-msg-page"   class="global-page-error"><?php
+                    foreach ($errorflashMessage as $errMsg) {
+                        echo $errMsg;
+                    }
+                    ?></div>
             <?php } ?>
-            <div id="global-error-msg"   class="error global-error"><?php // echo $this->flashMessage(); ?></div>
             <?php
             $title = 'Create User';
             //$this->headScript()->appendFile($this->basePath() . '/js/radio-checkbox.js');
