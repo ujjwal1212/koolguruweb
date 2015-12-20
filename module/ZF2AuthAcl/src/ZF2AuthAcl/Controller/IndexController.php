@@ -149,7 +149,7 @@ class IndexController extends AbstractActionController {
         $session->getManager()->destroy();
 //        $this->getServiceLocator()->get('Zend\Log')->info('Logout Successful for user ' . $session->offsetGet('email'));
         $authService->clearIdentity();
-        return $this->redirect()->toRoute('login', array());
+        return $this->redirect()->toRoute('home', array());
     }
 
     public function welcomeAction() {

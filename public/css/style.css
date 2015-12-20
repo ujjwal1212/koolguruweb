@@ -72,7 +72,7 @@ body a{
 }
 /*-------LOGIN STARTS HERE -------*/
 #loginContainer {
-    position:relative;
+    position:absolute;
 	display: block;
 }
 /* Login Button */
@@ -223,7 +223,7 @@ text-decoration: none;
 /***** Header-bottom *****/
 .logo {
 	float: left;
-	padding:30px 0;
+	padding:8px 0;
 }
 .logo a{
 	display:block;
@@ -1139,6 +1139,10 @@ h2.staff_head{
 	line-height:1.8em;
 	margin:1em 0;
 }
+
+.header_bottom{
+    background: rgba(237, 192, 138, 0.25);
+}
 .post1 .post1_header {
 	font-size: 13px;
 	position: relative;
@@ -1820,8 +1824,9 @@ ul.comment-list {
 
 .search-holder {
     position: relative;
-    height: 52px;
+    height: 30px;
     display: inline-block;
+    float: right;
 }
 .search {
     width: 370px;
@@ -1936,7 +1941,7 @@ ul.comment-list {
 .dashboard-icon { background-image: url(themes/images/dashboardIcon.svg); vertical-align: middle !important; }
 
 .sub-header {
-    height: 76px;
+    height: 110px;
     background: #f8f8f8;
 }
 .sub-header .container {
@@ -1955,7 +1960,7 @@ ul.comment-list {
 }
 .sub-header .h1 {
     display: inline-block;
-    margin: 0 10px;
+    margin: 34px 10px;
 }
 
 /*---------------CSS for Breadcrumb---------------*/
@@ -2364,3 +2369,21 @@ ul li {
 }
 /*-----------CSS for Mandatory Field Ends-----------*/
 /*-----------Green Button Top Bottom Margin css starts-----------*/
+.logout-btn {
+    float: right;
+    background: #54423C;
+    font-size: 11px !important;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    color: #fff!important;
+    text-transform: uppercase !important;
+    padding: 10px 14px!important;
+    margin: 41px 10px;
+    -moz-transition: background 1s;
+    transition: background 1s;
+    -webkit-transition: background 1s;
+}
+.logout-btn:hover {
+    background: #444 !important;
+}
