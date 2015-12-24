@@ -63,20 +63,26 @@ class StudentController extends AbstractActionController{
     public function indexAction() {
         $enableTab = array();
         $enableTabContent = array();
+        $degreeList = array();
+        $stateList = array();
+        $degreeList = $this->getDegreeTable()->getDegreeList();        
+        $stateList = $this->getStateTable()->getStateList();
+        
         $studentId = '';
-        //$studentId = 2;
+        $studentId = 3;
         $request = $this->getRequest();
         if ($request->isPost()) {
             $data = $request->getPost();
             $studentId = $this->getStudentTable()->saveStudent($data);
         }
-        $degreeList = $this->getDegreeTable()->getDegreeList();        
-        $stateList = $this->getStateTable()->getStateList();
-        $form = new StudentForm('studentForm',$degreeList,$stateList);
         
+        $form = new StudentForm('studentForm',$degreeList,$stateList);
+        if($studentId != ''){
+            $studentDet = $this->getStudentTable()->getSudent($studentId);            
+            $form->bind($studentDet);
+        }
         $enableTab = $this->getStudentTable()->getEnableTabList($studentId);
         $enableTabContent = $this->getStudentTable()->getEnableTabContentList($studentId);
-        //$enableTabContent = array(TRUE,TRUE,0,0);
         
         return array(
             'form' => $form,'enableTab' => $enableTab,
