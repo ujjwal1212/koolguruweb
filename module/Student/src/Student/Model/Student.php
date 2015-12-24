@@ -30,11 +30,11 @@ class Student implements InputFilterAwareInterface {
     public function exchangeArray($data) {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
         $this->created = (isset($data['created'])) ? $data['created'] : null; 
-        $this->updated = (isset($data['state_name'])) ? $data['state_name'] : null; 
-        $this->fname = (isset($data['state_name'])) ? $data['state_name'] : null; 
-        $this->mname = (isset($data['state_name'])) ? $data['state_name'] : null; 
-        $this->lname = (isset($data['state_name'])) ? $data['state_name'] : null; 
-        $this->sex = (isset($data['state_name'])) ? $data['state_name'] : null; 
+        $this->updated = (isset($data['updated'])) ? $data['updated'] : null; 
+        $this->fname = (isset($data['fname'])) ? $data['fname'] : null; 
+        $this->mname = (isset($data['mname'])) ? $data['mname'] : null; 
+        $this->lname = (isset($data['lname'])) ? $data['lname'] : null; 
+        $this->sex = (isset($data['sex'])) ? $data['sex'] : null; 
         $this->father_occupation = (isset($data['father_occupation'])) ? $data['father_occupation'] : null; 
         $this->highest_degree = (isset($data['highest_degree'])) ? $data['highest_degree'] : null; 
         $this->completion_year = (isset($data['completion_year'])) ? $data['completion_year'] : null; 
