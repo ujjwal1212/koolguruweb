@@ -14,7 +14,7 @@ return array(
                 'options' => array(
                     'route' => '/student[/:action][/:id]',
                     'constraints' => array(
-                        'action' => '(?!\bpage\b)[a-zA-Z][a-zA-Z0-9_-]*',
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[0-9]+',
                     ),
                     'defaults' => array(
@@ -27,7 +27,7 @@ return array(
     ),    
     'view_manager' => array(
         'template_path_stack' => array(
-            'admin' => __DIR__ . '/../view',
+            'student' => __DIR__ . '/../view',
         ),
     ),
 );
