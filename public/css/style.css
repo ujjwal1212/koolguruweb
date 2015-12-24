@@ -2387,3 +2387,16 @@ ul li {
 .logout-btn:hover {
     background: #444 !important;
 }
+.questiontitle{
+    margin-left: 29px;
+    margin-top: 1px;        
+}
+.questionborder{
+    border-bottom: 1px solid #e9e9e9;    
+}
+
+.option-margin{
+    margin-left: 20px!important;
+    margin-top: 10px!important;
+    margin-bottom: 10px!important;
+}

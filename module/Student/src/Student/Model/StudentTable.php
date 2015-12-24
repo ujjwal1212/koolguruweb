@@ -83,6 +83,27 @@ class StudentTable {
         return $student_id;
     }
     
+    public function updateStudent($student,$id){
+        $user_data = array(            
+            'fname' => $student['fname'],
+            'mname' => $student['mname'],
+            'lname' => $student['lname'],
+            'sex' => $student['sex'],
+            'father_occupation' => $student['father_occupation'],
+            'highest_degree' => $student['highest_degree'],
+            'completion_year' => $student['completion_year'],
+            'native_state' => $student['native_state'],
+            'city' => $student['city'],
+            'mobile' => $student['mobile'],   
+            'email' => $student['email'],   
+            'created' => time(),
+            'updated' => time(),
+            'status' => 0,
+        );
+        $this->tableGateway->update($user_data, array('id' => $id));
+        return $id;
+    }
+    
     public function getEnableTabList($studentId){
         $enabletablist = array();
         $studentDet = array();

@@ -100,24 +100,11 @@ endif;
                                 </label>
                                 <input id="mobile_menu" type="checkbox">
                                 <ul class="nav">
-                                    <li><a href="index.html">Home</a></li>                  
-                                    <li class="dropdown"><a href="room.html">Reservation</a>
-                                        <ul class="dropdown2">
-                                            <li><a href="room.html">Room 1</a></li>
-                                            <li><a href="room.html">Room 2</a></li>
-                                            <li><a href="room.html">Single Room</a></li>
-                                            <li><a href="room.html">Double Room</a></li>
-                                            <li><a href="room.html">Room 3</a></li>
-                                        </ul>
-                                    </li>             
-                                    <li class="dropdown"><a href="about.html">About</a></li>
-                                    </li>           
-                                    <li class="dropdown"><a href="blog.html">Blog</a>
-                                        <ul>
-                                            <li><a href="blog.html">Blog 1</a></li>
-                                            <li><a href="blog.html">Blog 2</a></li>
-                                        </ul>
-                                    </li>        
+                                    <li><a href="<?php echo $this->url('home'); ?>">Home</a></li>
+                                    <li></li>
+                                    <li><a href="<?php echo $this->url('student'); ?>">Registration</a></li>  
+                                    <li></li>
+                                    <li><a href="about.html">About</a></li>                                    
                                     <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'contactus')); ?>">Contact</a></li>
                                     <div class="clearfix"></div>
                                 </ul>

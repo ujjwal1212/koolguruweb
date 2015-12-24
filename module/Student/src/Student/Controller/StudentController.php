@@ -65,15 +65,21 @@ class StudentController extends AbstractActionController{
         $enableTabContent = array();
         $degreeList = array();
         $stateList = array();
+        $verbalQuestions = array();
+        
         $degreeList = $this->getDegreeTable()->getDegreeList();        
         $stateList = $this->getStateTable()->getStateList();
         
         $studentId = '';
-        $studentId = 3;
+        $studentId = 7;
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $data = $request->getPost();
-            $studentId = $this->getStudentTable()->saveStudent($data);
+            $data = $request->getPost();            
+            if(empty($data['student_id'])){
+                $studentId = $this->getStudentTable()->saveStudent($data);
+            }else{
+                $studentId = $this->getStudentTable()->updateStudent($data,$studentId);
+            }
         }
         
         $form = new StudentForm('studentForm',$degreeList,$stateList);
@@ -81,12 +87,34 @@ class StudentController extends AbstractActionController{
             $studentDet = $this->getStudentTable()->getSudent($studentId);            
             $form->bind($studentDet);
         }
+        $form->get('student_id')->setValue($studentId);
+        
         $enableTab = $this->getStudentTable()->getEnableTabList($studentId);
         $enableTabContent = $this->getStudentTable()->getEnableTabContentList($studentId);
         
+        if($enableTabContent[1] == 1){
+            $t['title'] = 'Which city is the capital of Uttar Pradesh ?';
+            $t['options'] = array('kanpur','Indore','Allahabad','Lucknow');
+            $t['correct'] = 4;
+            $verbalQuestions[] = $t;
+            
+            $t['title'] = '(2+5)^2 = ?';
+            $t['options'] = array(4,64,49,81);
+            $t['correct'] = 3;
+            $verbalQuestions[] = $t;
+            
+            $t['title'] = 'Where United Nations Exist ?';
+            $t['options'] = array('USA','China','UK','Russia');
+            $t['correct'] = 1;
+            $verbalQuestions[] = $t;
+        }
+        //asd($enableTabContent,0);
+        //asd($verbalQuestions);
+        
         return array(
             'form' => $form,'enableTab' => $enableTab,
-            'enableTabContent' => $enableTabContent
+            'enableTabContent' => $enableTabContent,
+            'verbalQuestions' => $verbalQuestions
         );
     }
     
