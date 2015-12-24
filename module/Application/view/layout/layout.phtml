@@ -40,12 +40,6 @@ endif;
 
         ;
         ?>
-        <script>
-            $(function () {
-                $('#cbp-fwslider').cbpFWSlider();
-
-            });
-        </script>
 
         <link href="http://vjs.zencdn.net/5.0.2/video-js.css" rel="stylesheet">
 
@@ -73,6 +67,8 @@ endif;
                     }
                 });
             });
+            
+            var app = {};
         </script>
     </head>
     <body>        
@@ -216,3 +212,4 @@ endif;
     <?php echo $this->inlineScript() ?>
 </body>
 </html>
+
