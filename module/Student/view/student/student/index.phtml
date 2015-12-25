@@ -1,0 +1,243 @@
+<style>
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
+@import url("http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css");
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font: 14px/1 'Open Sans', sans-serif;
+  color: #555;
+  background: #eee;
+}
+
+h1 {
+  padding: 50px 0;
+  font-weight: 400;
+  text-align: center;
+}
+
+p {
+  margin: 0 0 20px;
+  line-height: 1.5;
+}
+
+main {
+  min-width: 520px;
+  max-width: 1000px;
+  padding: 50px;
+  margin: 0 auto;
+  background: #fff;
+  float:left;
+}
+
+section {
+  display: none;
+  padding: 20px 0 0;
+  border-top: 1px solid #ddd;
+}
+
+input {
+  display: none;
+}
+
+label {
+  display: inline-block;
+  margin: 0 0 -1px;
+  padding: 15px 25px;
+  font-weight: 600;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid transparent;
+}
+
+label:before {
+  font-family: fontawesome;
+  font-weight: normal;
+  margin-right: 10px;
+}
+
+label[for*='1']:before {
+  content: '\f1cb';
+}
+
+label[for*='2']:before {
+  content: '\f17d';
+}
+
+label[for*='3']:before {
+  content: '\f16b';
+}
+
+label[for*='4']:before {
+  content: '\f1a9';
+}
+
+label:hover {
+  color: #888;
+  cursor: pointer;
+}
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid orange;
+  border-bottom: 1px solid #fff;
+}
+
+#tab1:checked ~ #content1,
+#tab2:checked ~ #content2,
+#tab3:checked ~ #content3,
+#tab4:checked ~ #content4 {
+  display: block;
+}
+
+@media screen and (max-width: 650px) {
+  label {
+    font-size: 0;
+  }
+
+  label:before {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+@media screen and (max-width: 400px) {
+  label {
+    padding: 15px;
+  }
+}
+
+    </style>
+
+
+<div class="main"> 
+    <div class="reservation_top">
+        <div class="container">
+            <main>
+  
+  <input id="tab1" type="radio" name="tabs" checked>
+  <label for="tab1">Personal Detail</label>
+    
+  <input id="tab2" type="radio" name="tabs">
+  <label for="tab2">Dribbble</label>
+    
+  <input id="tab3" type="radio" name="tabs">
+  <label for="tab3">Dropbox</label>
+    
+  <input id="tab4" type="radio" name="tabs">
+  <label for="tab4">Drupal</label>
+    
+  <section id="content1">
+      <h3>Registration Form</h3>
+  <div class="contact-form">
+                        <form method="post" action="contact-post.html">
+                            <input type="text" id="fname" name="fname" class="textbox" value="First Name" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                        this.value = 'First Name';
+                                    }">
+                            
+                            <input type="text" id="mname" name="mname" class="textbox" value="Middle Name" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                        this.value = 'Middle Name';
+                                    }">
+                            
+                            <input type="text" id="lname" name="lname" class="textbox" value="Last Name" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                        this.value = 'Last Name';
+                                    }">
+                            <select id="gender" name="gender" class="form-select">
+                                <option value="0">Sex</option>
+                                <option option="1">Female</option>
+                                <option option="2">Male</option>
+                            </select>
+                            
+                            <input type="text" id="father_occupation" name="father_occupation" class="textbox" value="Father Occupation" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                        this.value = 'Father Occupation';
+                                    }">
+                            
+                            <select id="degree" name="degree" class="form-select">
+                                <option value="0">Degree/Pursuing</option>
+                                <option option="1">MBA</option>
+                                <option option="2">MCA</option>
+                                <option option="2">BTech</option>
+                                <option option="2">MTech</option>
+                                <option option="2">Diploma</option>
+                            </select>
+                            <?php $currentyear = date('Y',time());?>
+                                
+                            <select id="completion_year" name="completion_year" class="form-select">
+                                <option value="0">Completion year</option>
+                                <?php for($i=1970 ; $i<=$currentyear; $i++){?>
+                                    <option option="<?php echo $i;?>"><?php echo $i;?></option>
+                                <?php } ?>                                
+                            </select>
+                            
+                            <select id="state" name="state" class="form-select">
+                                <option value="0">Native State</option>
+                                <option option="1">MBA</option>
+                                <option option="2">MCA</option>
+                                <option option="2">BTech</option>
+                                <option option="2">MTech</option>
+                                <option option="2">Diploma</option>
+                            </select>
+
+                            
+                            <input type="text" id="city" name="city" class="textbox" value="Native City" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                        this.value = 'Native City';
+                                    }">
+                            
+                            <input type="text" id="mobile" name="mobile" class="textbox" value="Mobile Number" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                        this.value = 'Mobile Number';
+                                    }">
+                            
+                            <input type="text" class="textbox" id="email" namme="email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {
+                                        this.value = 'Email';
+                                    }">
+                            
+                            <input type="submit" value="Send">
+                            <div class="clearfix"></div>
+                        </form>
+                    </div>
+  </section>
+    
+  <section id="content2">
+    <p>
+      Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin ball tip turducken. Pork belly meatball t-bone bresaola tail filet mignon kevin turkey ribeye shank flank doner cow kielbasa shankle. Pig swine chicken hamburger, tenderloin turkey rump ball tip sirloin frankfurter meatloaf boudin brisket ham hock. Hamburger venison brisket tri-tip andouille pork belly ball tip short ribs biltong meatball chuck. Pork chop ribeye tail short ribs, beef hamburger meatball kielbasa rump corned beef porchetta landjaeger flank. Doner rump frankfurter meatball meatloaf, cow kevin pork pork loin venison fatback spare ribs salami beef ribs.
+    </p>
+    <p>
+      Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon brisket beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger beef kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock brisket shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
+    </p>
+  </section>
+    
+  <section id="content3">
+    <p>
+      Bacon ipsum dolor sit amet beef venison beef ribs kielbasa. Sausage pig leberkas, t-bone sirloin shoulder bresaola. Frankfurter rump porchetta ham. Pork belly prosciutto brisket meatloaf short ribs.
+    </p>
+    <p>
+      Brisket meatball turkey short loin boudin leberkas meatloaf chuck andouille pork loin pastrami spare ribs pancetta rump. Frankfurter corned beef beef tenderloin short loin meatloaf swine ground round venison.
+    </p>
+  </section>
+    
+  <section id="content4">
+    <p>
+      Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin ball tip turducken. Pork belly meatball t-bone bresaola tail filet mignon kevin turkey ribeye shank flank doner cow kielbasa shankle. Pig swine chicken hamburger, tenderloin turkey rump ball tip sirloin frankfurter meatloaf boudin brisket ham hock. Hamburger venison brisket tri-tip andouille pork belly ball tip short ribs biltong meatball chuck. Pork chop ribeye tail short ribs, beef hamburger meatball kielbasa rump corned beef porchetta landjaeger flank. Doner rump frankfurter meatball meatloaf, cow kevin pork pork loin venison fatback spare ribs salami beef ribs.
+    </p>
+    <p>
+      Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon brisket beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger beef kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock brisket shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
+    </p>
+  </section>
+    
+</main>
+            <div class="row">                
+                <div class="col-md-7 contact_right">
+                    
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
