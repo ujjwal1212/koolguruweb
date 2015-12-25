@@ -11,6 +11,7 @@ use User\Model\PermissionTable;
 use User\Model\UserRole;
 use User\Model\UserRoleTable;
 
+
 class Module {
 
     public function getAutoloaderConfig() {
