@@ -2047,6 +2047,10 @@ ul.comment-list {
     margin: 30px 0;
 }
 
+#form-footer {
+    margin-bottom: 30px;
+}
+
 .forms .input-width-214px {
     width: 214px;
 }
@@ -2386,4 +2390,78 @@ ul li {
 }
 .logout-btn:hover {
     background: #444 !important;
+}
+
+.edit-icon { background:url(themes/images/editIcon.svg) no-repeat center !important; }
+.delete-icon { background:url(themes/images/deleteIcon.svg) no-repeat center; }
+.update-icon{ background: url(themes/images/update.svg) no-repeat center; }
+.download-icon{ background: url(themes/images/downloadIcon.svg) no-repeat center; }
+.upload-icon{ background: url(themes/images/uploadIcon.svg) no-repeat center; }
+.cancel-icon { background: url(themes/images/cancelIcon.svg) no-repeat center; }
+
+.back-icon { 
+    background:url(themes/images/backIcon.svg) no-repeat center; 	
+    -moz-transition: background 1s;  
+    transition: background 1s;  
+    -webkit-transition: background 1s;
+}
+
+.back-icon:hover { background:url(themes/images/backIconHover.svg) no-repeat center; }
+
+.forgot-back-icon { background:url(themes/images/forgotBackIcon.svg) no-repeat center; }
+.preview-icon { background:url(themes/images/previewIcon.svg) no-repeat center; }
+.icon-chevron-up { background:url(themes/images/sortingUp.svg) no-repeat center; }
+.icon-chevron-down { background:url(themes/images/sortingDown.svg) no-repeat center; }
+
+.edit-icon,
+.update-icon,
+.download-icon,
+.cancel-icon,
+.upload-icon {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    cursor: pointer;
+}
+.cancel-icon {
+    width: 14px;
+    height: 14px;
+}
+.delete-icon {
+    width: 11px;
+    height: 16px;
+    display: inline-block;
+    cursor: pointer;
+}
+.back-icon {
+    width: 43px;
+    height: 43px;
+    display: inline-block;
+    cursor: pointer;
+}
+.forgot-back-icon {
+    width: 29px;
+    height: 29px;
+    display: inline-block;
+    cursor: pointer;
+}
+.preview-icon {
+    width: 16px;
+    height: 11px;
+    display: inline-block;
+    cursor: pointer;
+}
+.icon-chevron-up,
+.icon-chevron-down {
+    width: 10px;
+    height: 5px;
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.table .icon-chevron-down,
+.table .icon-chevron-up {
+    display: inline-block;
+    vertical-align: middle;
 }

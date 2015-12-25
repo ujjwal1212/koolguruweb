@@ -6,7 +6,8 @@ return array(
         'ZF2AuthAcl',
         'admin',
         'student',
-        'user'
+        'user',
+        'Questionarie',
     ),
 
     // These are various options for the listeners attached to the ModuleManager

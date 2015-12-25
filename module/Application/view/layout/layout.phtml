@@ -25,6 +25,7 @@ endif;
                 ->prependStylesheet('http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300:700')
                 ->prependStylesheet($this->basePath() . '/css/nav.css')
                 ->prependStylesheet($this->basePath() . '/css/slider.css')
+                ->prependStylesheet($this->basePath() . '/js/fancybox/jquery.fancybox.css')
                 ->prependStylesheet($this->basePath() . '/css/style.css')
                 ->prependStylesheet($this->basePath() . '/css/bootstrap.css')
         ?>
@@ -34,6 +35,7 @@ endif;
         echo $this->headScript()
                 ->prependFile($this->basePath() . '/js/video.js')
                 ->prependFile($this->basePath() . '/js/wow.min.js')
+                ->prependFile($this->basePath() . '/js/fancybox/jquery.fancybox.pack.js', 'text/javascript', array())
                 ->prependFile($this->basePath() . '/js/jquery.openCarousel.js')
                 ->prependFile($this->basePath() . '/js/modernizr.custom.js')
                 ->prependFile($this->basePath() . '/js/jquery.min.js')
