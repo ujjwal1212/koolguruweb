@@ -63,6 +63,8 @@ class Module {
             'ZF2AuthAcl\Controller\Index-index',
             'ZF2AuthAcl\Controller\Index-logout',
             'ZF2AuthAcl\Controller\Index-checksinglesession',
+            'Student\Controller\Student-index',
+            'ZF2AuthAcl\Controller\Index-studentLogin',
         );
 
         //$requestUri = $request->getRequestUri();
@@ -137,6 +139,13 @@ class Module {
                 'AuthService' => function ($serviceManager) {
                     $adapter = $serviceManager->get('Zend\Db\Adapter\Adapter');
                     $dbAuthAdapter = new DbAuthAdapter($adapter, 'users', 'email', 'password');
+                    $auth = new AuthenticationService();
+                    $auth->setAdapter($dbAuthAdapter);
+                    return $auth;
+                },
+                'StudentAuthService' => function ($serviceManager) {
+                    $adapter = $serviceManager->get('Zend\Db\Adapter\Adapter');
+                    $dbAuthAdapter = new DbAuthAdapter($adapter, 'student', 'email', 'password');
                     $auth = new AuthenticationService();
                     $auth->setAdapter($dbAuthAdapter);
                     return $auth;

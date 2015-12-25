@@ -71,7 +71,7 @@ class StudentController extends AbstractActionController{
         $stateList = $this->getStateTable()->getStateList();
         
         $studentId = '';
-        $studentId = 7;
+//        $studentId = 7;
         $request = $this->getRequest();
         if ($request->isPost()) {
             $data = $request->getPost();            

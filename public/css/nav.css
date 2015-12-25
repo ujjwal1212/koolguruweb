@@ -45,12 +45,12 @@ ul.nav{
 	background:none;
 }
 .nav > li:nth-child(1) > a:hover, .nav > li:nth-child(5) > a:hover, .nav > li:nth-child(3) > a:hover{
-	background:#dcbc86;
+	background:rgb(119, 180, 218);
 }
 .nav > li:hover > a{
 	color: #fff;
-	border-color:#D1AC6D;
-	background:url(../img/menu-arrow-hover.png) no-repeat 51% 66% #dcbc86;
+	border-color:#FFF;
+	background:url(../img/menu-arrow-hover.png) no-repeat 51% 66% rgb(119, 180, 218);
 }
 .nav li > ul li a:hover{
 	text-decoration:none;
@@ -105,7 +105,7 @@ ul.nav{
 }
 .nav > li > ul  li:hover {
 	color:#FFF;
-	background:#dcbc86;
+	background:rgb(119, 180, 218);
 	-moz-transition: all 0.5s linear;
 	-webkit-transition: all 0.5s linear;
 	-o-transition: all 0.5s linear;
@@ -116,7 +116,7 @@ ul.nav{
 }
 .nav ul  li:hover > a {
 	color:#FFF;
-	background:#dcbc86;
+	background:rgb(119, 180, 218);
 }
 /* Second and third dropdown level */
 .nav > li > ul li ul {
@@ -295,7 +295,7 @@ input#mobile_menu { display: none; }
 	background: url(../img/menu-arrow.png) no-repeat 97% 48%;
 	}
 	.nav > li:hover > a{
-		background:url(../img/menu-arrow-hover.png) no-repeat 97% 48% #dcbc86;
+		background:url(../img/menu-arrow-hover.png) no-repeat 97% 48% rgb(119, 180, 218);
 	}
 	.nav .fulldrop, .nav .coldrop {
 		width:95%;

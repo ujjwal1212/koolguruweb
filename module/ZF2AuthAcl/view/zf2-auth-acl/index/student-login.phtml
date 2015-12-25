@@ -1,4 +1,3 @@
-<?php $this->headScript()->appendFile($this->basePath() . '/js/radio-checkbox.js'); ?>
 <div>
     <?php if (isset($this->successMessage)) { ?>
         <div id="global-success-msg-page" class="global-page-success">
@@ -92,7 +91,7 @@ if (count($flashMessage)) :
                     <div class="col-xs-5"> <?php
                         echo $this->formRow($form->get('loginCsrf'));
                         echo $this->formElement($form->get('submit'));
-                        ?></div><div class="col-xs-7 text-right"><a class="recover_link grey-anchor" href="<?php echo $this->url('login', array('action' => 'recoverlink'));
+                        ?></div><div class="col-xs-7 text-right"><a class="recover_link grey-anchor" href="<?php echo $this->url('studentlogin', array('action' => 'recoverstudentlink'));
                         ?>">Did you forgot your password ?</a></div></p>
 
                     <?php

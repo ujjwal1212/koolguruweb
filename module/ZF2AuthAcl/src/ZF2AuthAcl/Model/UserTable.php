@@ -32,13 +32,13 @@ class UserTable {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('u' => 'users'));
-        $select->columns(array('user_id', 'national_id','email', 'fname', 'lname', 'gender', 'status', 'dataname' => new \Zend\Db\Sql\Expression("CONCAT(fname,' ',lname)")))
+        $select->columns(array('user_id', 'national_id', 'email', 'fname', 'lname', 'gender', 'status', 'dataname' => new \Zend\Db\Sql\Expression("CONCAT(fname,' ',lname)")))
                 ->join(array('ur' => 'user_role'), 'u.user_id = ur.user_id', array(), 'left')
                 ->join(array('r' => 'role'), 'ur.role_id = r.rid', array('role_name'), 'left')
-                ->group(array('u.user_id', 'u.national_id', 'u.fname', 'u.lname', 'u.gender', 'u.status','u.email','r.role_name'))
+                ->group(array('u.user_id', 'u.national_id', 'u.fname', 'u.lname', 'u.gender', 'u.status', 'u.email', 'r.role_name'))
                 ->order($order_by . ' ' . $order);
 
-       
+
         if (isset($searchText) && trim($searchText) != '') {
             $select->where->NEST->like('u.fname', "%" . $searchText . "%")
             ->or->like('u.lname', "%" . $searchText . "%")
@@ -142,6 +142,25 @@ class UserTable {
      * @param type $email
      * @param type $pswrd
      */
+    public function updateStudentRecoveryPassword($email, $pswrd) {
+        $userPassword = new UserPassword();
+        $encyptPass = $userPassword->create($pswrd);
+        $data = array('password' => $encyptPass);
+        $adapter = $this->tableGateway->getAdapter();
+        $sql = new Sql($adapter);
+        $update = $sql->update();
+        $update->table('student');
+        $update->set($data);
+        $update->where(array('email' => $email));
+        $selectString = $sql->getSqlStringForSqlObject($update);
+        $results = $adapter->query($selectString, $adapter::QUERY_MODE_EXECUTE);
+    }
+
+    /**
+     * Function to update the recovered password for student
+     * @param type $email
+     * @param type $pswrd
+     */
     public function updateRecoveryPassword($email, $pswrd) {
         $userPassword = new UserPassword();
         $encyptPass = $userPassword->create($pswrd);
@@ -159,8 +178,6 @@ class UserTable {
         $encyptPass = $userPassword->create($pswrd);
         $data = array('password' => $encyptPass, 'status' => 1);
         $this->tableGateway->update($data, array('email' => $email));
-
-        
     }
 
     /**
@@ -255,7 +272,6 @@ class UserTable {
         }
     }
 
-   
     /**
      * Function to fetch a specific user record
      * @param type $id
@@ -291,6 +307,23 @@ class UserTable {
         $sql = new Sql($adapter);
         $select = $sql->select();
         $select->from('users');
+        $select->where(array('email' => $email));
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $result = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+
+        return $result;
+    }
+
+    /**
+     * Function to get the details of activation from email Id
+     * @param type $email
+     */
+    public function checkStudentActiveEmail($email) {
+        $adapter = $this->tableGateway->getAdapter();
+        $sql = new Sql($adapter);
+        $select = $sql->select();
+        $select->from('student');
         $select->where(array('email' => $email));
         $statement = $sql->prepareStatementForSqlObject($select);
         $result = $this->resultSetPrototype->initialize($statement->execute())

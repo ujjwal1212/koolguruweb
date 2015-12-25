@@ -23,6 +23,20 @@ return array(
                     ),
                 ),
             ),
+            'studentlogin' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/studentlogin[/:action][/:hash]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[a-zA-Z0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'ZF2AuthAcl\Controller\Index',
+                        'action' => 'studentLogin',
+                    ),
+                ),
+            ),
             'logout' => array(
                 'type' => 'Zend\Mvc\Router\Http\Literal',
                 'options' => array(
