@@ -83,11 +83,6 @@ class IndexController extends AbstractActionController {
                     ));
                     if ($userDetails[0]['status'] == 1) {
                         $session = new Container('User');
-                        if ($userDetails[0]['role_code'] == 'ca' && $userDetails[0]['center_id'] != '') {
-                            $session->offsetSet('center_id', $userDetails[0]['center_id']);
-                            $session->offsetSet('center_code', $userDetails[0]['center_code']);
-                            $session->offsetSet('center_type', $userDetails[0]['center_type']);
-                        }
                         $session->offsetSet('email', $data['email']);
                         $session->offsetSet('userId', $userDetails[0]['user_id']);
                         $session->offsetSet('roleId', $userDetails[0]['role_id']);
@@ -143,9 +138,103 @@ class IndexController extends AbstractActionController {
         return $view;
     }
 
+    public function studentLoginAction() {
+        $request = $this->getRequest();
+        $view = new ViewModel();
+        $loginForm = new LoginForm('loginForm');
+        $loginForm->setInputFilter(new LoginFilter());
+
+        if ($request->isPost()) {
+            $data = $request->getPost();
+            $loginForm->setData($data);
+
+            if ($loginForm->isValid()) {
+                $data = $loginForm->getData();
+
+                // DELETE MULTIPLE SESSIONS
+                //$this->getUserTable()->deleteMultipleSessions($data['email']);
+                // DELETE MULTIPLE SESSIONS
+
+
+                $userPassword = new UserPassword();
+                $encyptPass = $userPassword->create($data['password']);
+                $authService = $this->getServiceLocator()->get('StudentAuthService');
+                $authService->getAdapter()
+                        ->setIdentity($data['email'])
+                        ->setCredential($encyptPass);
+
+                $result = $authService->authenticate();
+                if ($result->isValid()) {
+                    $userDetails = $this->_getStudentDetails(array(
+                        'student.email' => $data['email']
+                            ), array(
+                        'id', 'status', 'fname', 'mname', 'lname'
+                    ));
+                    if ($userDetails[0]['status'] == 1) {
+                        $session = new Container('User');
+                        $session->offsetSet('email', $data['email']);
+                        $session->offsetSet('userId', $userDetails[0]['id']);
+                        $session->offsetSet('roleId', 1);
+                        $session->offsetSet('roleName', 'student');
+                        $session->offsetSet('roleCode', 'st');
+                        $session->offsetSet('fname', $userDetails[0]['fname']);
+                        $session->offsetSet('lname', $userDetails[0]['lname']);
+//                        $this->getServiceLocator()->get('Zend\Log')->info('Login Successful for user ' . $data['email']);
+                        // Redirect to page after successful login     
+                        return $this->redirect()->toRoute('application', array());
+                    } else {
+                        $this->flashMessenger()->addMessage(array(
+                            'error' => 'You are not authorized to login'
+                        ));
+                        // Redirect to page after login failure
+                    }
+                } else {
+                    $this->flashMessenger()->addMessage(array(
+                        'error' => 'invalid credentials.'
+                    ));
+                    // Redirect to page after login failure
+                }
+                return $this->redirect()->toRoute('studentlogin', array());
+                // Logic for login authentication
+            } else {
+                $errors = $loginForm->getMessages();
+                // prx($errors);
+            }
+        } else {
+            if (isset($_SERVER['HTTP_REFERER'])) {
+                $action = explode('/', $_SERVER['HTTP_REFERER']);
+                $status = $this->params()->fromRoute('hash', 0);
+                if ($status === 'updated') {
+                    //echo $status; die;
+                    if (in_array('resetpassword', $action)) {
+                        if (in_array('login', $action)) {
+                            $successMessage = 'Password reset successfully, Please login using new password.';
+                        } else {
+                            $successMessage = 'Password has been changed successfully, Please re-login using new password.';
+                        }
+                    } else if (in_array('activate', $action)) {
+                        $successMessage = 'Password created successfully, Please login using new password.';
+                    } else if (in_array('recoverpassword', $action)) {
+                        $successMessage = 'Password has been changed successfully, Please re-login using new password.';
+                    }
+                }
+            }
+        }
+        if (isset($successMessage)) {
+            $view->setVariable('successMessage', $successMessage);
+        }
+        $view->setVariable('loginForm', $loginForm);
+        return $view;
+    }
+
     public function logoutAction() {
-        $authService = $this->getServiceLocator()->get('AuthService');
         $session = new Container('User');
+        if ($session->offsetGet('roleCode') == 'st') {
+            $authService = $this->getServiceLocator()->get('StudentAuthService');
+        } else {
+            $authService = $this->getServiceLocator()->get('AuthService');
+        }
+
         $session->getManager()->destroy();
 //        $this->getServiceLocator()->get('Zend\Log')->info('Logout Successful for user ' . $session->offsetGet('email'));
         $authService->clearIdentity();
@@ -167,6 +256,13 @@ class IndexController extends AbstractActionController {
 
         $userTable = $this->getServiceLocator()->get("UserTable");
         $users = $userTable->getUsers($where, $columns);
+        return $users;
+    }
+
+    private function _getStudentDetails($where, $columns) {
+
+        $userTable = $this->getServiceLocator()->get("UserTable");
+        $users = $userTable->getStudent($where, $columns);
         return $users;
     }
 
@@ -227,6 +323,62 @@ class IndexController extends AbstractActionController {
     }
 
     /**
+     * Function to send recover password email link to reset password.
+     */
+    public function recoverstudentlinkAction() {
+
+        $errNo = 0;
+        $request = $this->getRequest();
+        $form = new RecoverPasswordForm();
+
+        if ($request->isPost()) {
+            $recoveryData = $request->getPost();
+            $email = $recoveryData['email'];
+            if ($email != '') {
+                $validator = new \Zend\Validator\EmailAddress();
+                if ($validator->isValid($email)) {
+                    // email appears to be valid
+                    // check existence of email in UserTable
+
+                    $validatorExist = new \Zend\Validator\Db\NoRecordExists(
+                            array(
+                        'table' => 'student',
+                        'field' => 'email',
+                        'adapter' => $this->getAdapter()
+                            )
+                    );
+
+                    if ($validatorExist->isValid($email)) {
+                        $errNo = 3; // Email not in DB  
+                    } else {
+                        // check email address is active
+                        $validEmail = $this->getUserTable()->checkStudentActiveEmail($email);
+                        if ($validEmail[0]['status'] == 0) {
+                            $errNo = 5;
+                        } else if ($validEmail[0]['status'] == 1) {
+                            $errNo = 4; // Email in DB. send email link to user. 
+                            // delete the record of email from iyc_recover 
+                            $this->getRecoverEmailTable()->deleteRecoverEmail($email);
+                            // add new record
+                            $hashValueReturn = $this->getRecoverEmailTable()->addRecoverEmail($email);
+                            // send link to recover password
+                            $this->sendRecoverEmailStudent($hashValueReturn, $email);
+                        } else {
+                            $errNo = 3;
+                        }
+                    }
+                } else {
+                    $errNo = 2; // email invalid Error
+                }
+            } else {
+                $errNo = 1; // blank data Error
+            }
+        }
+
+        return array('form' => $form, 'errRecVar' => $errNo);
+    }
+
+    /**
      * Function to send recove link to user to update password
      * @param type $hashValueReturn
      * @param type $email
@@ -247,6 +399,82 @@ class IndexController extends AbstractActionController {
         //                     You have sent us a request for your password reset...\n\n";
         //$reciever_message .= "Please go to $url to reset your password";
         $this->getRecoverEmailTable()->sendEmailToUser($subject, $content, $email);
+    }
+
+    /**
+     * Function to send recover link to student to update password
+     * @param type $hashValueReturn
+     * @param type $email
+     */
+    public function sendRecoverEmailStudent($hashValueReturn, $email) {
+
+        $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
+        $ref_file_name = explode('studentlogin', $_SERVER['HTTP_REFERER']);
+        $requesturi = $this->getRequest()->getUri();
+        $this->baseUrl = $requesturi->getHost() . $renderer->basePath();
+        $url = $ref_file_name[0] . 'studentlogin/recoverstudentpassword/' . $hashValueReturn;
+        $emailData = array('email' => $email, 'url' => $url);
+        $content = $renderer->render('zf2-auth-acl/index/tpl/recovertpl', array('emailData' => $emailData));
+        //subject of the email
+        $subject = 'Reset password';
+        //body of the email
+        //$reciever_message = "User $email\n\n 
+        //                     You have sent us a request for your password reset...\n\n";
+        //$reciever_message .= "Please go to $url to reset your password";
+        $this->getRecoverEmailTable()->sendEmailToUser($subject, $content, $email);
+    }
+
+    /**
+     * Functio to reset password
+     * @return type
+     */
+    public function recoverstudentpasswordAction() {
+        $errNo = 0;
+        $request = $this->getRequest();
+        $form = new RecoverPasswordForm();
+        $recoverObj = new RecoverEmail();
+        $hash_value = $this->params()->fromRoute('hash', 0);
+
+        $validatorExist = new \Zend\Validator\Db\NoRecordExists(
+                array(
+            'table' => 'recover',
+            'field' => 'hash_value',
+            'adapter' => $this->getAdapter()
+                )
+        );
+        if ($validatorExist->isValid($hash_value)) {
+            $errNo = 1; // hash not in DB  
+            //$form->setMessages(array(array('password' => 'expired')));
+            $form->get('submit')->setAttributes(array('disabled' => 'disabled', 'class' => 'disable-btn big-btn green-btn'));
+            $form->get('password')->setAttributes(array('disabled' => 'disabled',));
+            $form->get('repassword')->setAttributes(array('disabled' => 'disabled',));
+//            $this->flashMessenger()->addMessage(array(
+//                'error' => 'link is either expired/used'
+//            ));
+//            return $this->redirect()->toUrl($this->request->getBasePath() . '/');
+        }
+
+        if ($request->isPost() && $errNo == 0) {
+            $form->setInputFilter($recoverObj->getInputFilter());
+            $form->getInputFilter()->get('oldpassword')->setRequired(false);
+            $form->getInputFilter()->get('oldpassword')->setAllowEmpty(true);
+            $form->setData($request->getPost());
+            //if ($form->isValid()) {
+            $Data = $request->getPost();
+            $EmailReturn = $this->getRecoverEmailTable()->getEmailbyHash($hash_value);
+            if ($EmailReturn->email != '') {
+                $this->getUserTable()->updateStudentRecoveryPassword($EmailReturn->email, $Data['password']);
+                $errNo = 2; // password updated success
+//                    $this->flashMessenger()->addMessage(array(
+//                        'error' => 'Password has been changed successfully.'
+//                    ));
+                $this->getRecoverEmailTable()->deleteRecoverEmail($EmailReturn->email);
+                return $this->redirect()->toUrl('../../studentlogin/index/updated');
+            }
+            //}
+        }
+
+        return array('form' => $form, 'errRecVar' => $errNo);
     }
 
     /**

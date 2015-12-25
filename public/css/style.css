@@ -36,7 +36,7 @@ body a{
 	display: block;
 }
 .header_top{	
-	background:#58453F;
+	background:rgb(119, 180, 218);
 }
 .headertop_nav{
 	float:left;
@@ -127,7 +127,7 @@ text-decoration: none;
 .full_height {
     height: 100%;
     position: relative;
-    background: #F6F6F6;
+    /*background: #F6F6F6;*/
 }
 .login_base {
     width: 450px;
@@ -153,9 +153,10 @@ text-decoration: none;
     box-shadow: none;
     border-radius: 2px;
     border-color: #ebebeb;
+    margin-top: 100px;
 }
 .login_base .panel-heading {
-    background: #58453F;
+    background: rgb(119, 180, 218);
     border-radius: 2px 2px 0 0;
 }
 .login_base h3.panel-title {
@@ -744,7 +745,7 @@ ul#general-info{
 /*** Footer ***/
 .footer {
    padding:5em 0;
-   background:#58453F;
+   background:rgb(119, 180, 218);
 }
 .search {
 	/*border-bottom: 2px solid #cdcdcd;*/
@@ -787,7 +788,7 @@ ul#general-info{
 }
 .footer_grid p{
 	font-size:0.95em;
-	color:#AF9A94;
+	color:#fff;
 	line-height:1.8em;
 }
 .footer-list ul{
@@ -814,8 +815,13 @@ span.yellow a:hover {
 .footer-list li.list_top{
 	margin-bottom:2em;
 }
+
+.footer-list li a {
+	color:#fff;
+	/*font-size:0.95em;*/
+}
 .company_address p {
-	color:#AF9A94;
+	color:#fff;
 	font-size:0.95em;
 	padding: 2px 0;
 }
@@ -1141,7 +1147,7 @@ h2.staff_head{
 }
 
 .header_bottom{
-    background: rgba(237, 192, 138, 0.25);
+    background: rgba(119, 180, 218, 0.16);
 }
 .post1 .post1_header {
 	font-size: 13px;
@@ -1922,7 +1928,7 @@ ul.comment-list {
     -webkit-transition: background 1s;
 }
 
-.green-btn { background: #58453F; color: #fff; }
+.green-btn { background: rgb(119, 180, 218); color: #fff; }
 .green-btn:hover { background: #58451E; color: #fff; }
 .grey-btn { background: #444444; color: #fff; }
 .grey-btn:hover { background: #222222; color: #fff; }
@@ -2371,7 +2377,7 @@ ul li {
 /*-----------Green Button Top Bottom Margin css starts-----------*/
 .logout-btn {
     float: right;
-    background: #54423C;
+    background: rgb(119, 180, 218);
     font-size: 11px !important;
     -moz-border-radius: 3px;
     border-radius: 3px;
@@ -2472,5 +2478,63 @@ ul li {
 .table .icon-chevron-down,
 .table .icon-chevron-up {
     display: inline-block;
+    vertical-align: middle;
+}
+
+.error-container {
+    margin: 100px auto;
+    text-align: center;
+}
+.error-type {
+    padding: 70px 0;
+    margin: 30px 0;
+    font-family: 'open_sansbold';
+    color: #03a678;
+    font-size: 100px;
+    border-bottom: 1px solid #eeeeee;
+}
+
+.error-icon {
+    background: url(themes/images/forbidden.svg) no-repeat center;
+    background-size: 120px;
+    border: 0;
+}
+
+.error-content,
+.error-links {
+    font-family: 'open_sanslight';
+    color: #727272;
+    font-size: 30px;
+}
+.error-links,
+.error-links a {
+    margin: 40px 0;
+    font-size: 22px;
+    text-transform: none;
+}
+.error-links a {
+    color: #03a678;
+}
+.error-icon {
+    background: url(themes/images/forbidden.svg) no-repeat center;
+    background-size: 120px;
+    border: 0;
+}
+.error-500-content {
+    display: inline-block;
+    vertical-align: middle;
+}
+.error-500-content span {
+    font-size: 26px;
+    display: block;
+    color: #454545;
+    text-transform: uppercase;
+    margin: 0 15px 15px 15px;
+}
+.error-500-content {
+    font-size: 52px;
+    border: 0;
+    padding: 0;
+    margin: 0;
     vertical-align: middle;
 }

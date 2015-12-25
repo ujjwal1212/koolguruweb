@@ -366,49 +366,6 @@ class LevelController extends AbstractActionController {
         $this->getRecoverEmailTable()->sendEmailToUser($subject, $reciever_message, $email);
     }
 
-    public function getCenterReplicationService($data, $center_last_id, $type) {
-        $session = new Container('User');
-        /* Make service  call for center replication -- at the time of center creation. LA needs to be implement activate profile unless center is not activated profile in LA */
-        $client = new LAAdapter();
-        $configUrls = $this->getServiceLocator()->get('Config');
-        if ($type == 'createPublish') {
-            $centerCode = $data['center_type'] . $center_last_id; // at the time of center creation we have generated center_id as cusotm id like 'COE10001'
-        } else if ($type == 'draftPublish') {
-            $centerCode = $center_last_id; // Its center_id because its already created.
-        }
-        $centerObj = array(
-            'center_id' => $centerCode,
-            'center_name' => $data['name'],
-            'center_site_ref' => $centerCode,
-            'logout_url' => '' // It should be managed by LA system
-        );
-
-        // To Eligibility of center type either it should be replicate on LA or not.
-        $configData = $this->getServiceLocator()->get('Config');
-        $eligbleCenterTypeArray = $configData['eligble_center_type_for_replication_on_LA'];
-        if (in_array($data->center_type, $eligbleCenterTypeArray)) {
-            $response = $client->replicateCenters(json_encode($centerObj), $configUrls);
-            if (isset($response->success) && !empty($response->success)) {
-                $this->getUserTable()->createUser($data, $center_last_id);
-                $email = $data->email;
-                $hashValueReturn = $this->getUserTable()->saveActivationEmail($email);
-                $this->sendActivationLink($email, $hashValueReturn);
-                $this->getServiceLocator()->get('Zend\Log')->info('Center created successfully - an activation email has been sent to the Center Administrator. it is added by user ' . $session->offsetGet('userId'));
-                $this->flashMessenger()->setNamespace('success')->addMessage('Center created successfully - an activation email has been sent to the Center Administrator');
-            } else {
-                $this->getServiceLocator()->get('Zend\Log')->info('Center can\'t be published due to ' . $response->error . '. by user ' . $session->offsetGet('userId'));
-                $this->flashMessenger()->setNamespace('error')->addMessage('Center can\'t be published due to ' . $response->error);
-            }
-        } else {
-            $this->getUserTable()->createUser($data, $center_last_id);
-            $email = $data->email;
-            $hashValueReturn = $this->getUserTable()->saveActivationEmail($email);
-            $this->sendActivationLink($email, $hashValueReturn);
-            $this->getServiceLocator()->get('Zend\Log')->info('Center created successfully - an activation email has been sent to the Center Administrator. it is added by user ' . $session->offsetGet('userId'));
-            $this->flashMessenger()->setNamespace('success')->addMessage('Center created successfully - an activation email has been sent to the Center Administrator');
-        }
-    }
-
 }
 
 ?>

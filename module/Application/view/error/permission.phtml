@@ -1,7 +1,7 @@
 <?php
 echo $this->doctype();
-if (isset($_SESSION['User']['roleCode'])):
-    $roleCode = $_SESSION['User']['roleCode'];
+if (isset($_SESSION['User']['userId'])):
+    $roleCode = $_SESSION['User']['userId'];
 endif;
 ?>
 
@@ -124,7 +124,7 @@ endif;
                         <div class="header-top-right">
                             <div class="login_box">
                                 <div id="loginContainer">
-                                    <a href="<?php echo $this->url('studentlogin') ?>" class="logout-btn">Login</a>
+                                    <a href="<?php echo $this->url('login') ?>" class="logout-btn">Login</a>
                                 </div>
                             </div> 
                         </div>
@@ -137,7 +137,22 @@ endif;
     <!-- Ends Header -->
 
 
-    <?php echo $this->content; ?>
+    <!-- Move message Divs to each pages individually as per design required -->
+        <!--<div class="success"><?php //echo $this->flashMessage();             ?></div>
+        <div class="error"></div>-->            
+        <div class="container">
+
+            <section class="error-container">
+                <p class="error-type error-icon"></p>
+                <div class="forbidden-content">
+                    <p class="error-content">Access Denied!</p>
+                    <p class="error-links">You are not authorized to view this page.</p>
+                </div>
+            </section>
+
+
+
+        </div>
 
 
     <div class="footer">
