@@ -76,10 +76,11 @@ class Module {
         $session = new Container('User');
         if ($session->offsetExists('email')) {
             if ($requestedResourse == 'ZF2AuthAcl\Controller\Index-index' || in_array($requestedResourse, $whiteList)) {
-                $url = '/';
-                $response->setHeaders($response->getHeaders()
-                                ->addHeaderLine('Location', $url));
-                $response->setStatusCode(302);
+                $response->sendHeaders();
+//                $url = '/';
+//                $response->setHeaders($response->getHeaders()
+//                                ->addHeaderLine('Location', $url));
+//                $response->setStatusCode(302);
             } else {
 
                 $serviceManager = $event->getApplication()->getServiceManager();
