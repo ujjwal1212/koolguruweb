@@ -1,0 +1,212 @@
+<?php
+$errorflashMessage = $this->flashMessenger()->getErrorMessages();
+$title = 'Manage Level';
+$this->headTitle($title);
+$default_order = 'ASC';
+$url_order = $this->order == 'ASC' ? 'DESC' : 'ASC';
+$query = '';
+if (isset($data['search_box'])) {
+    $query .= '&search_box=' . $data['search_box'];
+}
+if (isset($_SESSION['User']['roleCode'])):
+    $roleCode = $_SESSION['User']['roleCode'];
+endif;
+if (!$this->isAjax) {
+    ?>
+    <section class="sub-header">
+        <div class="container">
+
+
+            <div class="sub-header-title">
+                <span class="manage-center-icon"></span>
+                <h1 class="h1"><?php echo $this->escapeHtml($title); ?>   
+                    <?php
+                    /* Adding Breadcrumb */
+                    echo $this->navigation('navigation')
+                            ->breadcrumbs()
+                            ->setMinDepth(0)
+                            ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                    ?>
+                </h1>
+            </div>
+            <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
+                <div class="sub-header-actions">
+                    <!--<a class="big-btn green-btn import-btn" id="import_center" href="#">IMPORT</a>-->
+                    <a class="big-btn green-btn" href="<?php echo $this->url('level', array('action' => 'add')); ?>">CREATE</a>
+                </div>
+            <?php } ?>
+
+        </div>
+    </section>
+
+    <div class="container">
+
+        <?php if (empty($errorflashMessage)) { ?>
+            <div id="global-success-msg-page" class="global-page-success">
+                <?php
+                $successflashMessage = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
+                foreach ($successflashMessage as $succMsg) {
+                    echo $errMsg;
+                }
+                ?>
+
+            </div>
+        <?php } else { ?>
+            <div id="global-error-msg-page"   class="global-page-error"><?php
+                foreach ($errorflashMessage as $errMsg) {
+                    echo $errMsg;
+                }
+                ?></div>
+        <?php } ?>
+        <?php
+        $search_form = $this->form;
+        $search_form->setAttribute('action', $this->url('level', array('action' => 'index')));
+        $search_form->prepare();
+        echo $this->form()->openTag($search_form);
+        ?>
+        <div class="action-table">
+            <div class="filter-table">
+                <div class="listing-counts-per-page">
+                    <div class="listing-search-dropdown pull-left">
+                        <span>
+                            <?php
+                            echo $this->formRow($search_form->get('list_count'));
+                            ?>
+                        </span>
+                    </div>
+                </div>
+                <?php
+                echo $this->formRow($search_form->get('order_by'));
+                echo $this->formRow($search_form->get('order'));
+                ?>
+            </div>
+            <div class="search-table">
+
+                <span class="search-holder">
+                    <?php
+                    echo $this->formRow($search_form->get('search_box'));
+                    echo $this->formRow($search_form->get('search_box_value'));
+                    echo $this->formRow($search_form->get('searchbutton'));
+                    echo $this->form()->closeTag();
+                    ?>
+                </span>
+
+
+            </div>
+        </div>
+        <?php
+    }
+    ?>
+    <div id="grid-list">
+        <?php if ($this->row_count == 0) { ?>
+            <table  class="table center-listing table-disable">
+                <thead>
+                    <tr>
+                        <th class="id">
+                            <a href="javascript:void(0);">ID<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="name">
+                            <a href="javascript:void(0);">NAME<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="type">
+                            <a href="javascript:void(0);">DESCRIPTION<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <?php if ($roleCode == 'sa') { ?>
+                            <th class="actions">ACTIONS</th>
+                        <?php } ?>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="7"><div class="no-records"><span class="info-icon"></span>No records found !</div></td>
+                    </tr>
+                </tbody>
+            </table>
+        <?php } else { ?>
+            <table  class="table center-listing">
+                <thead>
+                    <tr>
+                        <th class="id">
+                            <a href="javascript:void(0);" onclick="grid.sort('id', '<?php echo ($this->order_by == 'id') ? $url_order : $default_order; ?>');">ID<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="name">
+                            <a href="javascript:void(0);" onclick="grid.sort('name', '<?php echo ($this->order_by == 'name') ? $url_order : $default_order; ?>');">NAME<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="type">
+                            DESCRIPTION
+                        </th> 
+                        <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
+                            <th class="actions">ACTIONS</th>
+                        <?php } ?>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($this->paginator as $level) :
+                        ?>
+                        <tr>
+                            <td class="id"><?php echo $this->escapeHtml($level['id']); ?></td>
+                            <td class="name"><a class="blue-anchor" href="<?php echo $this->url('level', array('action' => 'view', 'id' => $level['id'])); ?>"><?php echo $this->escapeHtml($level['name']); ?></a></td>
+                            <td class="type"><?php echo $this->escapeHtml($level['description']); ?></td>        
+                            <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
+                                <td class="actions">
+                                    <a href="<?php echo $this->url('level', array('action' => 'edit', 'id' => $level['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
+                                </td>
+                            <?php } ?>
+                        </tr>
+
+                        <?php
+                    endforeach;
+                    ?>
+                </tbody>
+            </table>
+            <div class="listing-counts-per-page">
+                <div class="listing-search-dropdown pull-left">
+                    <?php
+                    if (!$this->isAjax) {
+//                                    echo $this->formRow($search_form->get('list_count'));
+//                                    echo $this->form()->closeTag();
+                        //$this->inlineScript()->appendFile('js/sss_js/center.js');
+                    }
+                    ?>
+                </div>
+                <div class="entries-count pull-right">
+                    <?php
+                    if ($this->row_count > ($this->list_count * $this->page)) {
+                        ?>
+                        <span class="entries">Showing <?php echo 1 + ($this->list_count * ($this->page - 1)); ?> to <?php echo $this->list_count * ($this->page); ?> of <?php echo $this->row_count; ?> entries.</span>
+                        <?php
+                    } else {
+                        ?>
+                        <span class="entries">Showing <?php echo 1 + ($this->list_count * ($this->page - 1)); ?> to <?php echo $this->row_count; ?> of <?php echo $this->row_count; ?> entries.</span>                
+                    <?php } ?>
+                </div>
+            </div>
+
+            <?php
+            // add at the end of the file after the table
+            echo $this->paginationControl(
+                    // the paginator object
+                    $this->paginator, 'sliding',
+                    // the partial to use to render the control
+                    array('partial/paginator.phtml', 'Level'),
+                    // the route to link to when a user clicks a control link
+                    array(
+                'route' => 'level',
+                'routeParams' => array('action' => 'index'),
+                'jsFunction' => 'grid.list',
+                'query' => $this->data
+                    )
+            );
+            ?>
+
+            <?php
+        }
+        $this->inlineScript()->appendFile('js/koolguru/searchgrid.js');
+        ?>
+
+    </div>
+
+
+</div>
