@@ -168,9 +168,9 @@ class IndexController extends AbstractActionController {
                     $userDetails = $this->_getStudentDetails(array(
                         'student.email' => $data['email']
                             ), array(
-                        'id', 'status', 'fname', 'mname', 'lname'
+                        'id', 'status', 'fname', 'mname', 'lname','isprofilecompleted'
                     ));
-                    if ($userDetails[0]['status'] == 1) {
+                    if ($userDetails[0]['status'] == 1) {                        
                         $session = new Container('User');
                         $session->offsetSet('email', $data['email']);
                         $session->offsetSet('userId', $userDetails[0]['id']);
@@ -179,9 +179,10 @@ class IndexController extends AbstractActionController {
                         $session->offsetSet('roleCode', 'st');
                         $session->offsetSet('fname', $userDetails[0]['fname']);
                         $session->offsetSet('lname', $userDetails[0]['lname']);
+                        $session->offsetSet('isprofilecompleted', $userDetails[0]['isprofilecompleted']);
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Login Successful for user ' . $data['email']);
                         // Redirect to page after successful login     
-                        return $this->redirect()->toRoute('application', array());
+                        return $this->redirect()->toRoute('student', array());
                     } else {
                         $this->flashMessenger()->addMessage(array(
                             'error' => 'You are not authorized to login'
