@@ -26,7 +26,9 @@ endif;
                 ->prependStylesheet('http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300:700')
                 ->prependStylesheet($this->basePath() . '/css/nav.css')
                 ->prependStylesheet($this->basePath() . '/css/slider.css')
+                ->prependStylesheet($this->basePath() . '/js/select2/select2.css')
                 ->prependStylesheet($this->basePath() . '/js/fancybox/jquery.fancybox.css')
+                ->prependStylesheet($this->basePath() . '/js/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css')
                 ->prependStylesheet($this->basePath() . '/css/style.css')
                 ->prependStylesheet($this->basePath() . '/css/bootstrap.css')
         ?>
@@ -36,9 +38,14 @@ endif;
         echo $this->headScript()
                 ->prependFile($this->basePath() . '/js/video.js')
                 ->prependFile($this->basePath() . '/js/wow.min.js')
+                ->prependFile($this->basePath() . '/js/select2/select2.js', 'text/javascript', array())
                 ->prependFile($this->basePath() . '/js/fancybox/jquery.fancybox.pack.js', 'text/javascript', array())
+                ->prependFile($this->basePath() . '/js/radio-checkbox.js', 'text/javascript', array())
                 ->prependFile($this->basePath() . '/js/jquery.openCarousel.js')
                 ->prependFile($this->basePath() . '/js/modernizr.custom.js')
+                ->prependFile($this->basePath() . '/js/ajax/libs/jquery.form/3.32/jquery.form.js')
+                ->prependFile($this->basePath() . '/js/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js')
+                ->prependFile($this->basePath() . '/js/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js')
                 ->prependFile($this->basePath() . '/js/jquery.min.js')
 
         ;
@@ -71,7 +78,7 @@ endif;
                     }
                 });
             });
-            
+
             
         </script>
     </head>
@@ -82,13 +89,13 @@ endif;
                 <div class="container">
 
                     <div class="headertop_nav">
-                            <ul>
-                                <li>Call Us </li>
-                                <li> :(000) 123-456 </li> 
-                                <li> Email us : </li> 
-                                <li>info@koolguru.co.in</li> 
-                            </ul>
-                        </div>
+                        <ul>
+                            <li>Call Us </li>
+                            <li> :(000) 123-456 </li> 
+                            <li> Email us : </li> 
+                            <li>info@koolguru.co.in</li> 
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div class="header_bottom">
