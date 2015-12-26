@@ -64,6 +64,7 @@ class Module {
             'ZF2AuthAcl\Controller\Index-logout',
             'ZF2AuthAcl\Controller\Index-checksinglesession',
             'Student\Controller\Student-index',
+            'Student\Controller\Student-studentregistration',
             'ZF2AuthAcl\Controller\Index-studentLogin',
         );
 

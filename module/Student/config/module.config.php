@@ -12,7 +12,7 @@ return array(
             'student' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/student[/:action][/:id]',
+                    'route' => '/student[/:action][/:id][/:msg]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id' => '[0-9]+',
@@ -23,6 +23,23 @@ return array(
                     ),
                 ),
             ),
+            
+            
+            'studentregistration' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/studentregistration[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Student\Controller\Student',
+                        'action' => 'studentregistration',
+                    ),
+                ),
+            ),
+            
         ),
     ),    
     'view_manager' => array(

@@ -18,6 +18,7 @@ use Student\Model\State;
 use Student\Model\StateTable;
 use Student\Model\Student;
 use Student\Model\StudentTable;
+use Zend\Session\Container;
 
 class StudentController extends AbstractActionController{
     
@@ -25,7 +26,7 @@ class StudentController extends AbstractActionController{
     protected $StateTable;
     protected $StudentTable;
     protected $adapter;
-    
+        
     public function getAdapter() {
         if (!$this->adapter) {
             $sm = $this->getServiceLocator();
@@ -61,6 +62,28 @@ class StudentController extends AbstractActionController{
     }
     
     public function indexAction() {
+        $studentId = '';
+        $session = new Container('User');         
+        $studentId = $session->offsetGet('userId'); 
+        $profilecompleted = 0;
+        $profilecompleted = $session->offsetGet('isprofilecompleted'); 
+        if(!$profilecompleted){
+            return $this->redirect()->toRoute('studentregistration');
+        }
+        return array(
+            'studentId' => $studentId
+        );
+    }
+    
+    public function studentRegistrationAction() {
+        $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
+        $js_path = $renderer->basePath('js/koolguru/student');        
+        $headScript = $this->getServiceLocator()->get('viewhelpermanager')
+	    ->get('headScript');
+	    
+        $headScript->appendFile($js_path.'/student_registration.js');
+        
+        
         $enableTab = array();
         $enableTabContent = array();
         $degreeList = array();
@@ -71,10 +94,12 @@ class StudentController extends AbstractActionController{
         $stateList = $this->getStateTable()->getStateList();
         
         $studentId = '';
-//        $studentId = 7;
+        $session = new Container('User');         
+        $studentId = $session->offsetGet('userId');        
+        //$studentId = 7;
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $data = $request->getPost();            
+            $data = $request->getPost();  
             if(empty($data['student_id'])){
                 $studentId = $this->getStudentTable()->saveStudent($data);
             }else{
@@ -96,17 +121,26 @@ class StudentController extends AbstractActionController{
             $t['title'] = 'Which city is the capital of Uttar Pradesh ?';
             $t['options'] = array('kanpur','Indore','Allahabad','Lucknow');
             $t['correct'] = 4;
-            $verbalQuestions[] = $t;
+            $t['maxmark'] = 1;
+            $t['minmark'] = 0;
+            $questionid = 18;
+            $verbalQuestions[$questionid] = $t;
             
             $t['title'] = '(2+5)^2 = ?';
             $t['options'] = array(4,64,49,81);
             $t['correct'] = 3;
-            $verbalQuestions[] = $t;
+            $t['maxmark'] = 1;
+            $t['minmark'] = 0;
+            $questionid = 25;
+            $verbalQuestions[$questionid] = $t;
             
             $t['title'] = 'Where United Nations Exist ?';
             $t['options'] = array('USA','China','UK','Russia');
             $t['correct'] = 1;
-            $verbalQuestions[] = $t;
+            $t['maxmark'] = 1;
+            $t['minmark'] = 0;
+            $questionid = 45;
+            $verbalQuestions[$questionid] = $t;
         }
         //asd($enableTabContent,0);
         //asd($verbalQuestions);
