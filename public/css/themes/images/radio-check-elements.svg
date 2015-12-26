@@ -18,7 +18,7 @@
 <path fill="#E8E8E8" stroke="#C4C3BB" stroke-miterlimit="10" d="M68,24c3.59,0,6.5,2.91,6.5,6.5S71.59,37,68,37s-6.5-2.91-6.5-6.5
 	S64.41,24,68,24z"/>
 <g>
-	<path fill="#03A678" stroke="#03A678" stroke-miterlimit="10" d="M49.75,24.5c3.59,0,6.5,2.91,6.5,6.5s-2.91,6.5-6.5,6.5
+	<path fill="rgb(119, 180, 218)" stroke="#03A678" stroke-miterlimit="10" d="M49.75,24.5c3.59,0,6.5,2.91,6.5,6.5s-2.91,6.5-6.5,6.5
 		s-6.5-2.91-6.5-6.5S46.16,24.5,49.75,24.5z"/>
 	<circle fill="#FFFFFF" stroke="#FAFCFB" stroke-miterlimit="10" cx="49.75" cy="31" r="2"/>
 </g>

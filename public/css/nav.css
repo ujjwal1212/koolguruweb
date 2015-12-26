@@ -24,7 +24,7 @@ ul.nav{
 .nav > li {
 	display: inline-block;
 	float:left;
-	background: url(../images/menu-divider.png) no-repeat right;
+/*	background: url(../images/menu-divider.png) no-repeat right;*/
 }
 .nav > li:nth-child(5){
 	background:none;
