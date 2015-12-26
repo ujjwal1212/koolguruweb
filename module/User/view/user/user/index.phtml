@@ -1,6 +1,5 @@
 <?php
 //If this is not ajax request load javascript
-//$this->inlineScript()->appendFile('js/sss_js/unit.js');
 $title = 'Manage Users';
 $this->headTitle($title);
 $default_order = 'ASC';
@@ -181,7 +180,7 @@ if (!$this->isAjax) {
     </div>
 
     <?php
-    $this->inlineScript()->appendFile('js/sss_js/searchgrid.js');
+    $this->inlineScript()->appendFile('js/koolguru/searchgrid.js');
     ?>
 </div>
 
