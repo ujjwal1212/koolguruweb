@@ -7,9 +7,15 @@
         border-top: 1px solid #ddd;
     }
 
-    .tab-radio {
+    .container .tab-radio {
         display: none;
     }
+    input:checked + label {
+    color: #555;
+    border: 1px solid #ddd;
+    border-top: 2px solid orange;
+    border-bottom: 1px solid #fff;
+}
 
     label {
         display: inline-block;
@@ -124,34 +130,37 @@ $form->prepare();
                             <?php echo $this->formElement($form->get('city')); ?>
                             <?php echo $this->formElement($form->get('mobile')); ?>
                             <?php echo $this->formElement($form->get('email')); ?>
-                            <input type="submit" value="Send">
+                            <input type="submit" value="Send" id="regsubmit" name="regsubmit">
+                            <?php echo $this->form()->closeTag($form);?>
                             <div class="clearfix"></div>
                         </div>
                     <?php } ?>
                 </section>
 
                 <section id="content2">
-                    <?php if ($enableTabContent[1]) { ?>
-
-                        <div class="span2_of_1">
-                            <?php $i = 1;
-                            foreach ($verbalQuestions as $ky => $quest) { ?>
-                                <div class="questionborder" style='margin-top:10px'>
-                                    <span class="badge pull-left"><?php echo $i; ?></span>
-                                    <h4 class="questiontitle"><?php echo $quest['title']; ?></h4>
-                                    <div class="book_date btm">  
-        <?php foreach ($quest['options'] as $key => $options) { ?>
-                                            <input class="option-margin" id="<?php echo $ky . '-' . $key; ?>" name="<?php echo $i; ?>" type="radio">
-                                            <span><?php echo $options; ?></span>
-                                            <br>
-        <?php } ?>                                                                                  
-                                    </div>
+                    <div class="contact-form">
+                        <form action="/myapp/koolguruweb/public/student/studentregistration" method="post" name="verbal-form" id="verbal-form"> 
+                            <?php if ($enableTabContent[1]) { ?>
+                                <div class="span2_of_1">
+                                    <?php $i = 1;
+                                    foreach ($verbalQuestions as $ky => $quest) { ?>
+                                        <div class="questionborder" style='margin-top:10px'>
+                                            <span class="badge pull-left"><?php echo $i; ?></span>
+                                            <h4 class="questiontitle"><?php echo $quest['title']; ?></h4>
+                                            <div class="book_date btm">  
+                                                <?php foreach ($quest['options'] as $key => $options) { ?>
+                                                    <input class="option-margin" id="<?php echo $ky . '-' . $key; ?>" name="<?php echo $i; ?>" type="radio">
+                                                    <span><?php echo $options; ?></span>
+                                                    <br>
+                                                <?php } ?>                                                                                  
+                                            </div>
+                                        </div>
+                                    <?php $i++;} ?>
                                 </div>
-        <?php $i++;
-    } ?>
-                        </div>
-
-<?php } ?>
+                            <?php } ?>
+                            <input type="submit" value="Submit" id="verbalsubmit" name="verbalsubmit">
+                        </form>
+                    </div>
                 </section>
 
                 <section id="content3">
