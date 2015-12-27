@@ -1859,6 +1859,8 @@ ul.comment-list {
 }
 .search.large-search-box {
     width: 445px;
+    border-radius: 20px;
+    height: 42px;
 }
 
 
@@ -1900,7 +1902,7 @@ ul.comment-list {
     width: 42px;
     height: 42px;
     position: absolute;
-    top: 14px;
+    top: 13px;
     right: 0px;
     -moz-background-size: 42px;
     background-size: 42px;
@@ -1939,6 +1941,7 @@ ul.comment-list {
     text-transform: uppercase;
     display: inline-block;
     cursor: pointer;
+    margin-bottom: 25px;
 }
 .big-btn:hover,
 .big-btn:active,
