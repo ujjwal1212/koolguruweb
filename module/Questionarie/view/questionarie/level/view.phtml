@@ -1,0 +1,220 @@
+<?php
+if (isset($_SESSION['User']['roleCode'])):
+    $roleCode = $_SESSION['User']['roleCode'];
+endif;
+?>
+<section class="sub-header">
+    <div class="container">
+        <div class="sub-header-title">
+            <?php
+            $title = 'View Center';
+            $this->headTitle($title);
+            $data = $this->data;
+            ?>
+            <a class="back-icon" href="<?php echo $this->url('center', array('action' => 'index')); ?>"></a>
+
+            <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
+                <!--                <div class="sub-header-breadcrumb">
+                                    <a href="<?php //echo $this->url('home')             ?>"><span class="home"></span></a>    
+                                    <span class="breadcrumb-arrow"> > </span>
+                                    <a href="#">MANAGE Center</a>
+                                    <span class="breadcrumb-arrow"> > </span>
+                                    <span>View Center</span>
+                                </div>-->
+                <?php
+                /* Adding Breadcrumb */
+                echo $this->navigation('navigation')
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                ?>
+            </h1>
+        </div>
+        <div class="sub-header-actions">
+            <?php if ($data['center']->status == 'InActive' && $roleCode == 'aa') { ?>
+                <a class="big-btn green-btn" href="<?php echo $this->url('center', array('action' => 'view', 'id' => $data['center']->id, 'msg' => 1)); ?>">RESEND ACTIVATION LINK</a>
+            <?php } ?>
+            <?php if ($roleCode == 'aa') { ?>
+                <a class="big-btn green-btn" href="<?php echo $this->url('center', array('action' => 'edit', 'id' => $data['center']->id)); ?>">EDIT</a>
+            <?php } ?>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="forms">
+        <div id="global-success-msg" class="success global-success"><?php echo $this->flashMessage(); ?></div>
+        <div id="global-error-msg" class="error global-error"></div>
+        <section class="profile-details center-details">
+            <div class="short_profile_left">
+                <ul>
+                    <li class="name detail-row">
+                        <?php echo $data['center']->name; ?>
+                        <span class="separator-img"></span>
+                        <span class="green-circle-status"></span>
+                        <span class="status">        
+                            <?php echo $data['center']->status; ?>
+                        </span>
+                    </li>
+                    <li class="nid detail-row">
+                        <span class="nid-icon" title="Center ID"></span><span class="detail"> <?php echo $data['center']->center_id ?></span>
+                    </li>
+                    <?php if (isset($data['center']->phone) && $data['center']->phone != '') { ?>
+                        <li class="phone detail-row"><span class="phone-icon" title="phone"></span>
+                            <span class="detail"> <?php echo $data['center']->phone; ?></span>
+                        </li>
+                    <?php } ?>
+                    <?php if (isset($data['center']->email) && $data['center']->email != '') { ?>
+                        <li class="mail detail-row"><span class="mail-icon" title="Email ID"></span>
+                            <span class="detail"> <?php echo $data['center']->email ?></span>
+                        </li>
+                    <?php } ?>
+                </ul>  
+
+                <!--<div class="cid">
+                    ID: <?php /* ?><?php echo $data['center']->id ?><?php */ ?>
+                            </div>
+                <div class="name">
+                <?php /* ?> <?php echo $data['center']->name; ?><?php */ ?>
+                </li>
+                <?php /* ?> <?php if (isset($data['center']->phone)) { ?><?php */ ?>
+                    <li class="phone detail-row">
+                <?php /* ?> <?php echo $data['center']->phone; ?><?php */ ?>
+                    </li>
+                <?php /* ?><?php } ?><?php */ ?>
+                <li class="mail detail-row">
+                <?php /* ?><?php echo $data['center']->email ?><?php */ ?>
+                </div>-->
+            </div>   
+
+            <div class="short_profile_right">
+                <?php if ($data['center']->center_logo != '') { ?>
+                    <div class="logo-info-view">
+                        <img src="<?php echo $this->basePath(); ?>/uploads/center_logo/resized_logo/<?php echo $data['center']->center_logo; ?>">
+                    </div>     
+                <?php } ?>
+
+<!--                    <span class="view-logo"></span>-->
+
+            </div>
+        </section>
+        <div class="view-data-divider"></div>
+
+        <section class="view-detail">
+            <table class="pull-left detail_profile_left">
+                <tr>
+                    <td class="field">NAME:</td>
+                    <td class="detail"> <?php echo $data['center']->name; ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">GROUP NAME:</td>
+                    <td class="detail"><?php echo $data['center']->group_name; ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">SHORT NAME:</td>
+                    <td class="detail"><?php echo $data['center']->short_name; ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">TYPE:</td>
+                    <td class="detail"><?php echo $data['center']->center_type; ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">GENDER:</td>
+                    <td class="detail"><?php
+                        if ($data['center']->gender == 'M') {
+                            echo'MALE';
+                        } else {
+                            echo'FEMALE';
+                        }
+                        ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">EMAIL ID:</td>
+                    <td class="detail"><?php echo $data['center']->email ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">SECONDARY EMAIL ID:</td>
+                    <td class="detail"><?php echo $data['center']->secondary_email ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">PHONE NO:</td>
+                    <td class="detail"><?php echo $data['center']->phone; ?></td> 
+                </tr>
+            </table>
+            <table class="pull-right detail_profile_right">
+                <tr>
+                    <td class="field">CONTACT PERSON:</td>
+                    <td class="detail"><?php echo $data['center']->point_of_contact ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">WEBSITE:</td>
+                    <td class="detail"><a href="<?php echo $data['center']->website ?>" target="_next" class="lowercase-anchor"><?php echo $data['center']->website ?></a></td> 
+                </tr>
+                <tr>
+                    <td class="field">REGION:</td>
+                    <td class="detail"><?php echo $data['region'] ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">CITY:</td>
+                    <td class="detail"><?php echo $data['city']; ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">AREA PINCODE:</td>
+                    <td class="detail"><?php echo $data['center']->zip ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">ADDRESS:</td>
+                    <td class="detail"><?php echo $data['center']->address_1 . ' ' . $data['center']->address_2 ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">FAX:</td>
+                    <td class="detail"><?php echo $data['center']->fax ?></td> 
+                </tr>
+            </table>
+
+        </section>
+        <div class="view-data-divider"></div>
+        <section class="associated-info-content">
+            <div class="view-associated-info detail_profile_left pull-left">
+
+                <h4 class="h4">Qualification(s) Approved:</h4>
+                <ul class="view-associated-info-Heading">
+                    <?php foreach ($data['qualification'] as $qualification): ?>
+                        <li>
+                            <?php
+                            echo $qualification['qname']
+                            ?>
+                        </li>
+                    <?php endforeach; ?></ul>
+            </div>
+            <?php
+            if (isset($data['satellite_centers'][0]['name']) && $data['satellite_centers'][0]['name'] != '') {
+                ?>
+                <div class="view-associated-info detail_profile_right pull-right">
+                    <h4 class="h4">Satellite Centers:</h4>
+                    <ul class="view-associated-info-Heading">
+                        <?php
+                        foreach ($data['satellite_centers'] as $satellite):
+                            ?>
+                            <li> 
+                                <?php
+                                echo $satellite['name']
+                                ?>
+                            </li>
+                            <?php
+                        endforeach;
+                    }
+                    ?></ul>
+            </div>
+        </section>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
