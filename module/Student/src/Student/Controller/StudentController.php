@@ -99,12 +99,19 @@ class StudentController extends AbstractActionController{
         //$studentId = 7;
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $data = $request->getPost();  
-            if(empty($data['student_id'])){
-                $studentId = $this->getStudentTable()->saveStudent($data);
+            $data = $request->getPost();
+            if(isset($data['verbalsubmit'])){
+                asd($data);
             }else{
-                $studentId = $this->getStudentTable()->updateStudent($data,$studentId);
+                if(isset($data['regsubmit'])){
+                    if(empty($data['student_id'])){
+                        $studentId = $this->getStudentTable()->saveStudent($data);
+                    }else{
+                        $studentId = $this->getStudentTable()->updateStudent($data,$studentId);
+                    }
+                }
             }
+            
         }
         
         $form = new StudentForm('studentForm',$degreeList,$stateList);

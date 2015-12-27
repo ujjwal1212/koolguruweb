@@ -169,7 +169,7 @@ class IndexController extends AbstractActionController {
                         'student.email' => $data['email']
                             ), array(
                         'id', 'status', 'fname', 'mname', 'lname','isprofilecompleted'
-                    ));
+                    ));                   
                     if ($userDetails[0]['status'] == 1) {                        
                         $session = new Container('User');
                         $session->offsetSet('email', $data['email']);
