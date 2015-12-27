@@ -102,7 +102,6 @@ class LevelController extends AbstractActionController {
      */
     public function addAction() {
         $session = new Container('User');
-        $center_types = $this->getServiceLocator()->get('Config');
         $form = new LevelForm('level');
 
         $form->get('created_date')->setValue(time());
@@ -117,7 +116,7 @@ class LevelController extends AbstractActionController {
             $form->setInputFilter($level->getInputFilter());
             $form->setData($data);
 
-            if ($form->isValid() || 1) {
+            if ($form->isValid()) {
                 $level->exchangeArray($form->getData());
                 $data->created_date = time();
                 $data->created_by = $session->offsetGet('userId');
@@ -161,59 +160,36 @@ class LevelController extends AbstractActionController {
     public function editAction() {
 
         $id = (int) $this->params()->fromRoute('id', 0);
+        
         if (!$id) {
-            return $this->redirect()->toRoute('center', array('action' => 'add'));
+            return $this->redirect()->toRoute('level', array('action' => 'add'));
         }
         $page = (int) $this->params()->fromRoute('page', 0);
 
         $session = new Container('User');
-        $center_group = $this->getCenterGroupTable()->fetchAll(false, $order_by = 'id', $order = 'DESC', $searchText = NULL);
-        $center_types = $this->getServiceLocator()->get('Config');
-        $regionList = $this->getRegionTable()->fetchAll();
-        $form = new CenterForm($center_group, $center_types['center_types'], $regionList);
 
-        $center_detail = $this->getCenterTable()->getCenter($id);
-        $cityList = $this->getCityTable()->getRegionCity($center_detail->state);
-        $form->get('city')->setAttribute('options', $cityList);
-        $form->get('email')->setAttribute('readonly', 'readonly');
+
+        $form = new LevelForm('level');
+
+        $levelDetail = $this->getLevelTable()->getLevel($id);
+
         $form->get('id')->setValue($id);
-        $form->bind($center_detail);
+        $form->bind($levelDetail);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $center = new Center();
+            $level = new Level();
             $data = $request->getPost();
-            $form->setInputFilter($center->getInputFilter());
+            $level->exchangeArray($data);
+            $form->setInputFilter($level->getInputFilter());
             $form->setData($data);
-            if (isset($data->city) && $data->city !== '') {
-                $cityData = $this->getCityTable()->getCityId($data->city);
-                $cityValue[$cityData->id] = $cityData->name;
-                $form->get('city')->setAttribute('options', $cityValue);
-            }
-
-            if (isset($data->group_name) && $data->group_name !== '') {
-                $centerGroup = $this->getCenterGroupTable()->getCenterGroup($data->group_name);
-                $data->group_id = $centerGroup[0]['id'];
-            }
-            if ($form->isValid() || 1) {
-                //$center->exchangeArray($form->getData());
+            if ($form->isValid()) {
                 $data->updated_date = time();
                 $data->updated_by = $session->offsetGet('userId');
 
-                $validatorEmail = new \Zend\Validator\Db\NoRecordExists(
-                        array(
-                    'table' => 'center',
-                    'field' => 'email',
-                    'adapter' => $this->getAdapter(),
-                    'exclude' => array(
-                        'field' => 'id',
-                        'value' => $id,
-                    )
-                        )
-                );
                 $validatorName = new \Zend\Validator\Db\NoRecordExists(
                         array(
-                    'table' => 'center',
+                    'table' => 'level',
                     'field' => 'name',
                     'adapter' => $this->getAdapter(),
                     'exclude' => array(
@@ -222,72 +198,26 @@ class LevelController extends AbstractActionController {
                     )
                         )
                 );
-                if ($validatorEmail->isValid(trim($data->email)) && $validatorName->isValid(trim($data->name))) {
+                if ($validatorName->isValid(trim($data->name))) {
                     $no_duplicate_data = 1;
                 } else {
                     $flashMessage = $this->flashMessenger()->getErrorMessages();
                     if (empty($flashMessage)) {
-                        $this->flashMessenger()->setNamespace('error')->addMessage('Email Id or Center Name already Exists.');
+                        $this->flashMessenger()->setNamespace('error')->addMessage('Level Name already Exists.');
                     }
                     $no_duplicate_data = 0;
                 }
-
-
                 if ($no_duplicate_data == 1) {
-                    $nonFile = $request->getPost()->toArray();
-                    // Make file object for center image
-                    $firstQueImg = $this->params()->fromFiles('center_logo');
-                    if ($firstQueImg['name'] != '') {
-                        // Upload center image
-                        $adapter = new \Zend\File\Transfer\Adapter\Http();
-                        $uploadDirPath = './public/uploads/center_logo/';
-                        $adapter->setDestination($uploadDirPath);
+                    $levelId = $this->getLevelTable()->saveLevel($level);
+//                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
+                    $this->flashMessenger()->setNamespace('success')->addMessage('Level updated successfully');
 
-                        $adapter->receive($firstQueImg['name']);
-                        $piece = explode('.', $firstQueImg['name']);
-                        //asd($piece);
-                        $piece[0] = $piece[0] . '_' . time();
-                        $file_name = implode('.', $piece);
-                        // Define variable for image upload directory
-                        $firstQueImgPath = $uploadDirPath . $file_name;
-                        $firstimgsavepath = 'uploads/center_logo/' . $file_name;
-                        $firstimgsavepath2 = 'uploads/center_logo/resized_logo/' . $file_name;
-                        // Now rename the center images
-                        rename($uploadDirPath . $firstQueImg['name'], $firstQueImgPath);
 
-                        // RESIZE Image                    
-                        $thumbnailer = $this->getServiceLocator()->get('WebinoImageThumb');
-                        $thumb1 = $thumbnailer->create("public/" . $firstimgsavepath, $options = array());
-                        $thumb1->resize(100, 100);
-                        $thumb1->save("public/" . $firstimgsavepath2);
-                        $data['center_logo'] = $file_name;
-                    } else {
-                        $data['center_logo'] = $center_detail->center_logo;
-                    }
-                    $this->getCenterTable()->updateCenter($data);
-
-                    if ($data->submit == 'Publish') {
-                        //$this->getUserTable()->updateUserCenter($data, $center_detail->email);
-                        $where_user_email = array('email' => $center_detail->email);
-                        $check_user_exists = $this->getUserTable()->isUserExists($where_user_email);
-                        if (count($check_user_exists) > 0) {
-                            $this->getUserTable()->updateUserCenter($data, $center_detail->email);
-                            $this->flashMessenger()->setNamespace('success')->addMessage('Center updated successfully');
-                        } else {
-                            $data->created_date = time();
-                            $data->created_by = $session->offsetGet('userId');
-                            /* service call for center replication on LA */
-                            $this->getCenterReplicationService($data, $center_detail->id, $type = 'draftPublish');
-                        }
-                    } else {
-                        $this->getServiceLocator()->get('Zend\Log')->info('Center updated successfully by user ' . $session->offsetGet('userId'));
-                        $this->flashMessenger()->setNamespace('success')->addMessage('Center updated successfully');
-                    }
-                    return $this->redirect()->toRoute('center');
+                    return $this->redirect()->toRoute('level');
                 }
             }
         }
-        return array('form' => $form, 'center_detail' => $center_detail, 'id' => $id, 'page' => $page);
+        return array('form' => $form, 'levelDetail' => $levelDetail, 'id' => $id, 'page' => $page);
     }
 
     /**
