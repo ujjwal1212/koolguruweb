@@ -2868,4 +2868,13 @@ input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px white inset; }
 .upper-submit{
     float: right;
 }
+.kooltab{
+    background: #e5e5ff;
+    border-bottom: 4px solid #0000e6;
+    margin: 0 10px 0 0;
+    display: inline-block;
+    height: 50px;
+    padding: 10px;
+    cursor:pointer;
+}
 
