@@ -4,16 +4,18 @@ namespace Questionarie\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use Questionarie\Model\Level;
+use Questionarie\Model\Question;
 use Zend\Session\Container;
 use Questionarie\Form\SearchForm;
-use Questionarie\Form\LevelForm;
+use Questionarie\Form\QuestionForm;
 use Zend\Db\Sql\Select;
 
-class LevelController extends AbstractActionController {
+class QuestionController extends AbstractActionController {
 
-    protected $levelTable;
     protected $adapter;
+    protected $QuestionsOptionsTable;
+    protected $QuestionTable;
+    protected $levelTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -21,6 +23,22 @@ class LevelController extends AbstractActionController {
             $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
         }
         return $this->adapter;
+    }
+
+    public function getQuestionTable() {
+        if (!$this->QuestionTable) {
+            $sm = $this->getServiceLocator();
+            $this->QuestionTable = $sm->get('Questionarie\Model\QuestionTable');
+        }
+        return $this->QuestionTable;
+    }
+
+    public function getQuestionsOptionsTable() {
+        if (!$this->QuestionsOptionsTable) {
+            $sm = $this->getServiceLocator();
+            $this->QuestionOptionTable = $sm->get('Questionarie\Model\QuestionOptionsTable');
+        }
+        return $this->QuestionOptionTable;
     }
 
     public function getLevelTable() {
@@ -32,7 +50,7 @@ class LevelController extends AbstractActionController {
     }
 
     /**
-     * Action for Manage Level listing page
+     * Action for Manage Question listing page
      * @return \Zend\View\Model\ViewModel
      */
     public function indexAction() {
@@ -57,7 +75,7 @@ class LevelController extends AbstractActionController {
             $form->get('order')->setValue($order);
             $form->setData($data);
             if ($form->isValid()) {
-                $paginator = $this->getLevelTable()->fetchAll(true, $order_by, $order, $searchText);
+                $paginator = $this->getQuestionTable()->fetchAll(true, $order_by, $order, $searchText);
             }
         } else {
             // grab the paginator from the CenterTable
@@ -97,12 +115,13 @@ class LevelController extends AbstractActionController {
     }
 
     /**
-     * Action for adding new Level
+     * Action for adding new Question
      * @return type
      */
     public function addAction() {
         $session = new Container('User');
-        $form = new LevelForm('level');
+        $levelList = $this->getLevelTable()->getLevelDropdown();
+        $form = new QuestionForm('question', $levelList);
 
         $form->get('created_date')->setValue(time());
         $form->get('created_by')->setValue($session->offsetGet('userId'));
@@ -111,50 +130,32 @@ class LevelController extends AbstractActionController {
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $level = new Level();
+            $question = new Question();
             $data = $request->getPost();
-            $form->setInputFilter($level->getInputFilter());
+            $form->setInputFilter($question->getInputFilter());
             $form->setData($data);
-
             if ($form->isValid()) {
-                $level->exchangeArray($form->getData());
+                $question->exchangeArray($form->getData());
                 $data->created_date = time();
                 $data->created_by = $session->offsetGet('userId');
                 $data->updated_date = time();
                 $data->updated_by = $session->offsetGet('userId');
 
-                $validatorName = new \Zend\Validator\Db\NoRecordExists(
-                        array(
-                    'table' => 'level',
-                    'field' => 'name',
-                    'adapter' => $this->getAdapter()
-                        )
-                );
-                if ($validatorName->isValid(trim($data->name))) {
-                    $no_duplicate_data = 1;
-                } else {
-                    $flashMessage = $this->flashMessenger()->getErrorMessages();
-                    if (empty($flashMessage)) {
-                        $this->flashMessenger()->setNamespace('error')->addMessage('Level with this Name already Exists.');
-                    }
-                    $no_duplicate_data = 0;
-                }
-
-                if ($no_duplicate_data == 1) {
-                    $levelId = $this->getLevelTable()->saveLevel($level);
+                $questionId = $this->getQuestionTable()->saveQuestion($question);
+                $this->getQuestionsOptionsTable()->saveQuestionOptions($data, $questionId);
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
-                    $this->flashMessenger()->setNamespace('success')->addMessage('Level created successfully');
+                $this->flashMessenger()->setNamespace('success')->addMessage('Question created successfully');
 
 
-                    return $this->redirect()->toRoute('level');
-                }
+                return $this->redirect()->toRoute('question');
             }
         }
+
         return array('form' => $form);
     }
 
     /**
-     * function to edit Level
+     * function to edit Question
      * @return type
      */
     public function editAction() {
@@ -162,66 +163,47 @@ class LevelController extends AbstractActionController {
         $id = (int) $this->params()->fromRoute('id', 0);
 
         if (!$id) {
-            return $this->redirect()->toRoute('level', array('action' => 'add'));
+            return $this->redirect()->toRoute('question', array('action' => 'add'));
         }
         $page = (int) $this->params()->fromRoute('page', 0);
 
         $session = new Container('User');
 
 
-        $form = new LevelForm('level');
-
-        $levelDetail = $this->getLevelTable()->getLevel($id);
-
+        $levelList = $this->getLevelTable()->getLevelDropdown();
+        $form = new QuestionForm('question', $levelList);
+        $question = $this->getQuestionTable()->getQuestion($id);
+        $questionOptions = $this->getQuestionsOptionsTable()->getOptions($id);
         $form->get('id')->setValue($id);
-        $form->bind($levelDetail);
+        $form->bind($question);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $level = new Level();
+            $question = new Question();
             $data = $request->getPost();
-            $level->exchangeArray($data);
-            $form->setInputFilter($level->getInputFilter());
+            $question->exchangeArray($data);
+            $form->setInputFilter($question->getInputFilter());
             $form->setData($data);
+            
             if ($form->isValid()) {
                 $data->updated_date = time();
                 $data->updated_by = $session->offsetGet('userId');
 
-                $validatorName = new \Zend\Validator\Db\NoRecordExists(
-                        array(
-                    'table' => 'level',
-                    'field' => 'name',
-                    'adapter' => $this->getAdapter(),
-                    'exclude' => array(
-                        'field' => 'id',
-                        'value' => $id,
-                    )
-                        )
-                );
-                if ($validatorName->isValid(trim($data->name))) {
-                    $no_duplicate_data = 1;
-                } else {
-                    $flashMessage = $this->flashMessenger()->getErrorMessages();
-                    if (empty($flashMessage)) {
-                        $this->flashMessenger()->setNamespace('error')->addMessage('Level Name already Exists.');
-                    }
-                    $no_duplicate_data = 0;
-                }
-                if ($no_duplicate_data == 1) {
-                    $levelId = $this->getLevelTable()->saveLevel($level);
+
+                $questionId = $this->getQuestionTable()->saveQuestion($question);
+                $this->getQuestionsOptionsTable()->saveQuestionOptions($data, $id);
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
-                    $this->flashMessenger()->setNamespace('success')->addMessage('Level updated successfully');
+                $this->flashMessenger()->setNamespace('success')->addMessage('Question updated successfully');
 
 
-                    return $this->redirect()->toRoute('level');
-                }
+                return $this->redirect()->toRoute('question');
             }
         }
-        return array('form' => $form, 'levelDetail' => $levelDetail, 'id' => $id, 'page' => $page);
+        return array('form' => $form, 'questionOptions' => $questionOptions, 'id' => $id, 'page' => $page);
     }
 
     /**
-     * function to delete Center
+     * function to delete Question
      * @return type
      */
     public function deleteAction() {
@@ -229,7 +211,7 @@ class LevelController extends AbstractActionController {
     }
 
     /**
-     * function for Level view
+     * function for Question view
      * @return type
      */
     public function viewAction() {

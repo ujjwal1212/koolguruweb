@@ -22,9 +22,6 @@ $(document).ready(function() {
                 // hide by shifting left
                 $this.css({position: 'absolute', left: '-9999px'});
             }
-            if ($('input[name=booking_option]')) {
-                $span.addClass($(this).val());
-            }
             // Events
             $this.on({
                 click: function() {
@@ -36,12 +33,6 @@ $(document).ready(function() {
                         }
                     }
                     $span.toggleClass('checked', $this.is(':checked'));
-                    if ($('input[name=booking_option]') && $('#book_status').val() == 'booked') {
-                        $('input[name=booking_option]').next('span.disabled').removeClass('focus')
-                        $('input[name=booking_option]').next('span.disabled').removeClass('checked')
-                        $('input[name=booking_option]').next('span.checked-disabled').addClass('focus');
-                        $('input[name=booking_option]').next('span.checked-disabled').addClass('checked');
-                    }
                 },
                 focus: function() {
                     $span.addClass('focus');
