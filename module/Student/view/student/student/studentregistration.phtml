@@ -1,100 +1,14 @@
 <style>
-    @import url("http://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
-    @import url("http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css");
-    section {
-        display: none;
-        padding: 20px 0 0;
-        border-top: 1px solid #ddd;
-    }
-
-    .container .tab-radio {
-        display: none;
-    }
-    input:checked + label {
-    color: #555;
-    border: 1px solid #ddd;
-    border-top: 2px solid orange;
-    border-bottom: 1px solid #fff;
-}
-
-    label {
-        display: inline-block;
-        margin: 0 0 -1px;
-        padding: 15px 25px;
-        font-weight: 600;
-        text-align: center;
-        color: #bbb;
-        border: 1px solid transparent;
-    }
-
-    label:before {
-        font-family: fontawesome;
-        font-weight: normal;
-        margin-right: 10px;
-    }
-
-    label[for*='1']:before {
-        content: '\f1cb';
-    }
-
-    label[for*='2']:before {
-        content: '\f17d';
-    }
-
-    label[for*='3']:before {
-        content: '\f16b';
-    }
-
-    label[for*='4']:before {
-        content: '\f1a9';
-    }
-
-    label:hover {
-        color: #888;
-        cursor: pointer;
-    }
-
-    input:checked + label {
-        color: #555;
-        border: 1px solid #ddd;
-        border-top: 2px solid orange;
-        border-bottom: 1px solid #fff;
-    }
-
-    #tab1:checked ~ #content1,
-    #tab2:checked ~ #content2,
-    #tab3:checked ~ #content3,
-    #tab4:checked ~ #content4 {
-        display: block;
-    }
-
-    @media screen and (max-width: 650px) {
-        label {
-            font-size: 0;
-        }
-
-        label:before {
-            margin: 0;
-            font-size: 18px;
-        }
-    }
-    @media screen and (max-width: 400px) {
-        label {
-            padding: 15px;
-        }
-    }
-
-    .textbox:after {
-        content: url(img/right.png);
-    }
 
 </style>
 
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url('student', array('action' => 'studentregistration')));
+$form->setAttribute('class', 'detect_changes');
 $form->prepare();
-//asd($verbalQuestions);
+$errorflashMessage = $this->flashMessenger()->getErrorMessages();
+//asd($errorflashMessage);
 ?>
 
 <div class="main"> 
@@ -113,55 +27,148 @@ $form->prepare();
                 <input id="tab4" type="radio" name="tabs" class="tab-radio">
                 <label for="tab4">Carrier Oriented Question</label>
 
-                <section id="content1">
-                    <?php if ($enableTabContent[0]) { ?>
-                        <h3>Registration Form</h3>
-                        <div class="contact-form">
-                            <?php echo $this->form()->openTag($form); ?>
-                            <?php echo $this->formElement($form->get('student_id')); ?>
-                            <?php echo $this->formElement($form->get('fname')); ?>
-                            <?php echo $this->formElement($form->get('mname')); ?>
-                            <?php echo $this->formElement($form->get('lname')); ?>
-                            <?php echo $this->formElement($form->get('sex')); ?>
-                            <?php echo $this->formElement($form->get('father_occupation')); ?>
-                            <?php echo $this->formElement($form->get('highest_degree')); ?>
-                            <?php echo $this->formElement($form->get('completion_year')); ?>
-                            <?php echo $this->formElement($form->get('native_state')); ?>
-                            <?php echo $this->formElement($form->get('city')); ?>
-                            <?php echo $this->formElement($form->get('mobile')); ?>
-                            <?php echo $this->formElement($form->get('email')); ?>
-                            <input type="submit" value="Send" id="regsubmit" name="regsubmit">
-                            <?php echo $this->form()->closeTag($form);?>
-                            <div class="clearfix"></div>
-                        </div>
-                    <?php } ?>
-                </section>
+                <?php echo $this->form()->openTag($form); ?>
+                <div class="container">
+                    <div class="forms" id="student-registration-form">
+                        <section id="basic_details">
+                            <h2 class='h2'>Basic Details</h2>
+                            <ul>
+                                <li class="form-row">
+                                    <label class='label'>First Name:<span class='required'>*</span></label>
+                                    <?php
+                                    echo $this->formElement($form->get('fname'));
+                                    echo $this->formElement($form->get('student_id'));
+                                    ?>
+                                </li>
+                                <li class="form-row">
+                                    <label class='label'>Middle Name:</label>
+                                    <?php
+                                    echo $this->formElement($form->get('mname'));
+                                    ?>
+                                </li>
+                                <li class="form-row">
+                                    <label class='label'>Last Name:<span class='required'>*</span></label>
+                                    <?php
+                                    echo $this->formElement($form->get('lname'));
+                                    ?>
+                                </li>
+                                <li class="form-row">
+                                    <label class='label'>Gender:<span class='required'>*</span></label>
+                                    <?php
+                                    echo $this->formElement($form->get('sex'));
+                                    ?>
+                                </li>
 
-                <section id="content2">
-                    <div class="contact-form">
-                        <form action="/myapp/koolguruweb/public/student/studentregistration" method="post" name="verbal-form" id="verbal-form"> 
-                            <?php if ($enableTabContent[1]) { ?>
-                                <div class="span2_of_1">
-                                    <?php $i = 1;
-                                    foreach ($verbalQuestions as $ky => $quest) { ?>
-                                        <div class="questionborder" style='margin-top:10px'>
-                                            <span class="badge pull-left"><?php echo $i; ?></span>
-                                            <h4 class="questiontitle"><?php echo $quest['title']; ?></h4>
-                                            <div class="book_date btm">  
-                                                <?php foreach ($quest['options'] as $key => $options) { ?>
-                                                    <input class="option-margin" id="<?php echo $ky . '-' . $key; ?>" name="<?php echo $i; ?>" type="radio">
-                                                    <span><?php echo $options; ?></span>
-                                                    <br>
-                                                <?php } ?>                                                                                  
-                                            </div>
-                                        </div>
-                                    <?php $i++;} ?>
-                                </div>
-                            <?php } ?>
-                            <input type="submit" value="Submit" id="verbalsubmit" name="verbalsubmit">
-                        </form>
+                                <li class="form-row">
+                                    <label class='label'>Father Occupation:<span class='required'>*</span></label>
+                                    <?php
+                                    echo $this->formElement($form->get('father_occupation'));
+                                    ?>
+                                </li>
+
+                                <li class="form-row">
+                                    <label class='label'>Highest Degree:<span class='required'>*</span></label>
+                                    <?php
+                                    echo $this->formElement($form->get('highest_degree'));
+                                    ?>
+                                </li>
+
+                                <li class="form-row">
+                                    <label class='label'>Completion Year:<span class='required'>*</span></label>
+                                    <?php
+                                    echo $this->formElement($form->get('completion_year'));
+                                    ?>
+                                </li>
+
+                                <li class="form-row">
+                                    <label class='label'>Native State:<span class='required'>*</span></label>
+                                    <?php
+                                    echo $this->formElement($form->get('native_state'));
+                                    ?>
+                                </li>
+
+                                <li class="form-row">
+                                    <label class='label'>City:<span class='required'>*</span></label>
+                                    <?php
+                                    echo $this->formElement($form->get('city'));
+                                    ?>
+                                </li>
+
+                                <li class="form-row">
+                                    <label class='label'>Mobile:<span class='required'>*</span></label>
+                                    <?php
+                                    echo $this->formElement($form->get('mobile'));
+                                    ?>
+                                </li>
+
+                                <li class="form-row">
+                                    <label class='label'>Email:<span class='required'>*</span></label>
+                                    <?php
+                                    echo $this->formElement($form->get('email'));
+                                    ?>
+                                </li>
+                            </ul>
+                            <div class="form-footer">
+                                <?php
+                                echo $this->formInput($form->get('regsubmit'));
+                                echo $this->form()->closeTag();
+                                ?>
+                            </div>
+                        </section>
                     </div>
-                </section>
+                </div>
+
+                
+                <?php if ($enableTabContent[1]) { ?>
+                    <form action="/myapp/koolguruweb/public/student/studentregistration" method="post" name="user-verbal" class="detect_changes" id="user-verbal">
+                        <input type='hidden' name='student_id' id='student_id' value='<?php echo $student_id;?>'>
+                        <div class="container">
+                        <div class="forms" id="student-registration-verbal">
+                        <section id="basic_details">
+                            <h2 class="h2">Verbal Ability</h2>
+                            
+                            <?php $i = 1;foreach ($verbalQuestions as $ky => $quest) {//asd($quest);?>
+                                <div class="questionborder" style='margin-top:10px'>
+                                    <span class="badge pull-left"><?php echo $i; ?></span>
+                                    <h4 class="questiontitle"><?php echo $quest['title']; ?></h4>
+                                    <div class="book_date btm">
+                                        <ul>
+                                            <?php foreach ($quest['options'] as $key => $options) { 
+                                                if($key == ($quest['correct']-1) ){
+                                                    $val = $quest['maxmark'];
+                                                }else{
+                                                    $val = $quest['minmark'];
+                                                }
+                                                ?>
+                                                <li class="form-row">                                     
+                                                    <label class="custom-label" onclick="">
+                                                        <input type="radio" name="<?php echo $ky; ?>" id="<?php echo $ky . '-' . $key; ?>" value="<?php echo $val.'~'.($key+1).'~'.$quest['maxmark'];?>" style="position: absolute; left: -9999px;">
+                                                        <?php echo $options;?></label>
+                                                </li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            <?php $i++;} ?>
+                            <div class="form-footer">
+                            <?php if(!empty($studentStatus) && isset($studentStatus[0]['verbal_reg_status']) && $studentStatus[0]['verbal_reg_status']==1){?>
+                            <?php }else{?>
+                            <input name="verbalsubmit" type="submit" id="verbalsubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">                            </div>
+                            <?php } ?>
+                        </section>
+                    </div>
+                </div></form>
+                
+                
+                
+                
+                
+                
+                <?php } ?>
+                
+                
+                
+                
 
                 <section id="content3">
 <?php if ($enableTabContent[2]) { ?>
@@ -196,9 +203,9 @@ $form->prepare();
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {        
+    $(document).ready(function () {
         var tab = new Array();
-        tab = [<?php echo '"' . implode('","', $enableTab) . '"' ?>];        
+        tab = [<?php echo '"' . implode('","', $enableTab) . '"' ?>];
         app.studentTab.enabletab = tab;
         app.studentTab.applytabbing(app.studentTab.enabletab);
     });

@@ -27,10 +27,7 @@ class StudentForm extends Form {
             'attributes' => array(
                 'type' => 'text',
                 'id' => 'fname',
-                'class' => 'input',
-                'onfocus' => 'this.value = "";',
-                'onblur' => "if (this.value == '') {this.value = 'First Name'}",
-                'value' => 'First Name'
+                'class' => 'input'
             ),
             'options' => array(
             ),
@@ -40,10 +37,7 @@ class StudentForm extends Form {
             'attributes' => array(
                 'type' => 'text',
                 'id' => 'mname',
-                'class' => 'input',
-                'onfocus' => 'this.value = "";',
-                'onblur' => "if (this.value == '') {this.value = 'Middle Name'}",
-                'value' => 'Middle Name'
+                'class' => 'input'
             ),
             'options' => array(
             ),
@@ -54,10 +48,7 @@ class StudentForm extends Form {
             'attributes' => array(
                 'type' => 'text',
                 'id' => 'lname',
-                'class' => 'input',
-                'onfocus' => 'this.value = "";',
-                'onblur' => "if (this.value == '') {this.value = 'Last Name'}",
-                'value' => 'Last Name'
+                'class' => 'input'
             ),
             'options' => array(
             ),
@@ -82,10 +73,7 @@ class StudentForm extends Form {
             'attributes' => array(
                 'type' => 'text',
                 'id' => 'father_occupation',
-                'class' => 'input',
-                'onfocus' => 'this.value = "";',
-                'onblur' => "if (this.value == '') {this.value = 'Father Occupation'}",
-                'value' => 'Father Occupation'
+                'class' => 'input'
             ),
             'options' => array(
             ),
@@ -146,10 +134,7 @@ class StudentForm extends Form {
             'attributes' => array(
                 'type' => 'text',
                 'id' => 'city',
-                'class' => 'input',
-                'onfocus' => 'this.value = "";',
-                'onblur' => "if (this.value == '') {this.value = 'Native City'}",
-                'value' => 'Native City'
+                'class' => 'input'
             ),
             'options' => array(
             ),
@@ -160,10 +145,7 @@ class StudentForm extends Form {
             'attributes' => array(
                 'type' => 'text',
                 'id' => 'mobile',
-                'class' => 'input',
-                'onfocus' => 'this.value = "";',
-                'onblur' => "if (this.value == '') {this.value = 'Mobile Number'}",
-                'value' => 'Mobile Number'
+                'class' => 'input'
             ),
             'options' => array(
             ),
@@ -174,10 +156,7 @@ class StudentForm extends Form {
             'attributes' => array(
                 'type' => 'text',
                 'id' => 'email',
-                'class' => 'input',
-                'onfocus' => 'this.value = "";',
-                'onblur' => "if (this.value == '') {this.value = 'Email'}",
-                'value' => 'Email'
+                'class' => 'input'
             ),
             'options' => array(
             ),
@@ -186,11 +165,12 @@ class StudentForm extends Form {
        
         
         $this->add(array(
-            'name' => 'submit',
+            'name' => 'regsubmit',
             'attributes' => array(
                 'type' => 'submit',
                 'value' => 'Submit',
-                'id' => 'submitbutton',                
+                'id' => 'regsubmit',
+                'class' => 'green-btn big-btn margin-Top10-Btm40',
             ),
         ));
     }
