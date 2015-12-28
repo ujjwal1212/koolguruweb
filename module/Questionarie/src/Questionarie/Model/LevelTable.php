@@ -105,4 +105,19 @@ class LevelTable {
         }
         return $row;
     }
+    
+    public function getLevelDropdown() {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select()
+                ->from(array('l'=>'level'))
+                ->columns(array('id','name'));
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        $finalList = array();
+        foreach($resultset as $result){
+            $finalList[$result['id']] = $result['name'];
+        }
+        return $finalList;
+    }
 }
