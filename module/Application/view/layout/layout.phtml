@@ -24,7 +24,7 @@ endif;
                 ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
                 ->prependStylesheet('http://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800,900')
                 ->prependStylesheet('http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300:700')
-                ->prependStylesheet($this->basePath() . '/css/nav.css')
+//                ->prependStylesheet($this->basePath() . '/css/nav.css')
                 ->prependStylesheet($this->basePath() . '/css/slider.css')
                 ->prependStylesheet($this->basePath() . '/js/select2/select2.css')
                 ->prependStylesheet($this->basePath() . '/js/fancybox/jquery.fancybox.css')
@@ -38,6 +38,7 @@ endif;
         echo $this->headScript()
                 ->prependFile($this->basePath() . '/js/video.js')
                 ->prependFile($this->basePath() . '/js/wow.min.js')
+                ->prependFile($this->basePath() . '/js/bootstrap.min.js')
                 ->prependFile($this->basePath() . '/js/select2/select2.js', 'text/javascript', array())
                 ->prependFile($this->basePath() . '/js/fancybox/jquery.fancybox.pack.js', 'text/javascript', array())
                 ->prependFile($this->basePath() . '/js/koolguru/custom.js', 'text/javascript', array())
@@ -59,7 +60,7 @@ endif;
 
         <script>
             $(function () {
-                
+
                 var button = $('#loginButton');
                 var box = $('#loginBox');
                 var form = $('#loginForm');
@@ -79,7 +80,7 @@ endif;
                 });
             });
 
-            
+
         </script>
     </head>
     <body>        
@@ -104,23 +105,57 @@ endif;
                         <h1><a href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath() . '/img/logo.png' ?>"><span></span></a></h1>
                     </div>	
                     <?php if (isset($roleCode)) { ?>
-<!--                        <div class="navigation">	
+                        <div class="navigation">	
                             <div>
-                                <label class="mobile_menu" for="mobile_menu">
-                                    <span>Menu</span>
-                                </label>
-                                <input id="mobile_menu" type="checkbox">
-                                <ul class="nav">
-                                    <li><a href="<?php echo $this->url('home'); ?>">Home</a></li>
-                                    <li></li>
-                                    <li><a href="<?php echo $this->url('student'); ?>">Registration</a></li>  
-                                    <li></li>
-                                    <li><a href="about.html">About</a></li>                                    
-                                    <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'contactus')); ?>">Contact</a></li>
-                                    <div class="clearfix"></div>
+                                <ul class="nav navbar-nav">
+                                    <li>
+                                        <a href="<?php echo $this->url('home') ?>" class="dropdown-toggle" ><span class="home-icon"></span><?php echo $this->translate('Home', __NAMESPACE__) ?></a>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span>Pathways<span  		
+                                                class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))  ?>">View</a></li>-->
+                                            <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))  ?>">Requests</a></li>-->
+                                            <!--<li><a href="javascript:void(0);">Renewals</a></li>-->
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span>Student
+                                            <span class="caret" ></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))  ?>">Manage Trainees</a></li>-->
+                                            <!--<li><a href="javascript:void(0);">Update Enrollment Status</a></li>-->
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="cohort-icon"></span>
+                                            Question Bank<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="<?php echo $this->url('question', array('action' => 'index')) ?>">Manage Questions</a></li>
+                                            <li><a href="<?php echo $this->url('level', array('action' => 'index')) ?>">Manage Levels</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="booking-icon"></span>
+                                            Quiz<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <!--<li class="dropdown-header">Assessment</li>-->
+                                            <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))  ?>">Book Assessment</a></li>-->
+                                            <!--<li class="divider"></li>-->
+                                            <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))  ?>">External Verifier Visit</a></li>-->                                            
+                                        </ul>
+                                    </li>
+                                    <li class="dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                            <span class="admin-icon"></span>Administration<span class="caret"></span></a>
+                                        <ul class="dropdown-menu" role="menu">
+
+                                        </ul>
+                                    </li>
                                 </ul>
                             </div>			
-                        </div>-->
+                        </div>
 
                         <div class="header-top-right">
                             <div class="login_box">
