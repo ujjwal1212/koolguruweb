@@ -17,6 +17,8 @@ $(document).ready(function () {
                 this.hidetab(i);
             }
             $('#content-'+tabno).show();
+            console.log(this.enabletab[tabno]);
+            $('#tab-'+tabno).addClass('activetab');
         },
         
         hidetab : function(tabno){

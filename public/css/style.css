@@ -2875,6 +2875,11 @@ input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px white inset; }
     display: inline-block;
     height: 50px;
     padding: 10px;
+    //cursor:pointer;
+    color: white !important;
+}
+.activetab{
     cursor:pointer;
+    color: black !important;
 }
 
