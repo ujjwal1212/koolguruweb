@@ -216,46 +216,19 @@ class QuestionController extends AbstractActionController {
      */
     public function viewAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
-        $msg = (int) $this->params()->fromRoute('msg', 0);
-        $center = $this->getCenterTable()->getCenter($id);
 
-        $region = NULL;
-        if (isset($center->state) && $center->state != '') {
-            $region = $this->getRegionTable()->getRegion($center->state);
-            $region = $region->name;
+        if (!$id) {
+            return $this->redirect()->toRoute('question', array('action' => 'add'));
         }
+        $page = (int) $this->params()->fromRoute('page', 0);
 
-        $city = NULL;
-        if (isset($center->city) && $center->city != '') {
-            $cityId = $this->getCityTable()->getCityId($center->city);
-            $city = $cityId->name;
-        }
+        $session = new Container('User');
 
-        if (isset($msg) && $msg == 1) {
-            $email = $center->email;
-            //function to delete row from activation with $center->email
-            $this->getRecoverEmailTable()->deleteActivationEmail($email);
-            $hashValueReturn = $this->getUserTable()->saveActivationEmail($email);
-            $this->sendActivationLink($email, $hashValueReturn);
-            $flashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
-            if (empty($flashMessage)) {
-                $this->flashMessenger()->setNamespace('success')->addMessage('Activation Email has been sent successfully');
-            }
-            return $this->redirect()->toRoute('center');
-        }
-
-        $satellite_centers = $this->getCenterTable()->getSatelliteCenter($id);
-        $qualification = $this->getCenterTable()->getCenterQualificationRegion($id);
-        $data = array(
-            'center' => $center,
-            'satellite_centers' => $satellite_centers,
-            'qualification' => $qualification,
-            'region' => $region,
-            'city' => $city
-        );
+        $question = $this->getQuestionTable()->getQuestionDetails($id);
+        $questionOptions = $this->getQuestionsOptionsTable()->getOptions($id);
         return array(
-            'id' => $id,
-            'data' => $data,
+            'question' => $question,
+            'questionOptions' => $questionOptions,
         );
     }
 

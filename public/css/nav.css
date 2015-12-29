@@ -39,7 +39,7 @@ ul.nav{
 	border-width:5px 0 0 0;
 	border-style:solid;
 	border-color:rgba(255, 255, 255, 0);
-	background:url(../img/menu-arrow.png) no-repeat 51% 66%;
+	/*background:url(../img/menu-arrow.png) no-repeat 51% 66%;*/
 }
 .nav > li:nth-child(1) > a,.nav > li:nth-child(5) > a,.nav > li:nth-child(3) > a {
 	background:none;
@@ -50,7 +50,7 @@ ul.nav{
 .nav > li:hover > a{
 	color: #fff;
 	border-color:#FFF;
-	background:url(../img/menu-arrow-hover.png) no-repeat 51% 66% rgb(119, 180, 218);
+	/*background:url(../img/menu-arrow-hover.png) no-repeat 51% 66% rgb(119, 180, 218);*/
 }
 .nav li > ul li a:hover{
 	text-decoration:none;
