@@ -109,5 +109,19 @@ class QuestionTable {
         }
         return $row;
     }
+    
+    public function getQuestionDetails($id) {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('q' => 'questions'))
+                ->join(array('l'=>'level'),'q.level = l.id',array('level_name'=>'name'),'left');
+        $select->columns(array('id', 'name', 'description','type','status','min_marks','max_marks'));
+        $select->where(array('q.id'=>$id));
+
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        return $resultset;
+    }
 
 }

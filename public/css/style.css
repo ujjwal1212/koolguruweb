@@ -2315,6 +2315,72 @@ legend,
     font-family: 'open_sansbold';
     font-size: 10px;
 }
+.home-icon { background-image:url(themes/images/homeIcon.svg); margin-right: 2px; }
+.qualification-icon { background-image:url(themes/images/qualificationIcon.svg); margin-right: 3px; margin-top: 2px; }
+.trainee-icon { background-image:url(themes/images/traineeIcon.svg); margin-top: 2px; margin-right: 0px; background-size: 14px; }
+.center-icon { background-image:url(themes/images/centerIcon.svg); }
+.booking-icon { background-image:url(themes/images/bookingIcon.svg); margin-top: 2px; }
+.grading-icon { background-image:url(themes/images/gradingIcon.svg); margin-top: 2px; }
+.reports-icon { background-image:url(themes/images/reportsIcon.svg); margin-top: 2px; }
+.admin-icon { background-image:url(themes/images/adminIcon.svg); background-size: 15px; }
+.calendar-icon { background-image:url(themes/images/calendar_icon2.svg); margin-top: 2px; background-size: 19px; }
+.visit-icon { background-image:url(themes/images/visitIcon.svg); }
+.appeal-icon { background-image:url(themes/images/appeal.svg); margin-top: 1px; margin-right: 3px; }
+.cohort-icon { background-image:url(themes/images/cohort.svg);  margin-top: 2px; }
+
+
+.navbar-inverse .navbar-nav>li>a { color: #fff; text-shadow: none; }
+
+.navbar-inverse .navbar-nav>.open>a, 
+.navbar-inverse .navbar-nav>.open>a:hover, 
+.navbar-inverse .navbar-nav>.open>a:focus { 
+    background: transparent;
+}
+
+.navbar-nav>li>.dropdown-menu { background: #222; }
+.dropdown-menu>li>a { color: #7b7b7b; }
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus { background: transparent; color: #404040; }
+.dropdown-menu .divider { background-color: #e8e8e8; margin: 0; }
+
+.caret { background:url(themes/images/caret.svg) no-repeat center; border: 0; }
+.eng-flag-icon { background:url(themes/images/engFlagIcon.png);}
+
+@media all and (max-width: 960px) {
+    .container {
+        width: 900px;
+    }
+    .navbar-nav>li>a {
+        padding: 10px 12px 10px 0px;
+    }
+    .icon-chevron-down,
+    .icon-chevron-up {
+        width: 7px;
+        margin: 0 5px;
+    }
+}
+@media all and (min-width: 960px) and (max-width: 1023px) {
+    .container {
+        width: 950px;
+    }
+    .navbar-nav>li>a {
+        padding: 10px 10px 10px 0px;
+    }
+    .icon-chevron-down,
+    .icon-chevron-up {
+        width: 7px;
+        margin: 0 5px;
+    }
+}
+@media all and (max-width: 1152px) and (min-width: 1024px) {
+    .navbar-nav>li>a {
+        padding: 10px 15px 10px 0px;
+    }
+    .icon-chevron-down,
+    .icon-chevron-up {
+        top: 15px;
+        right: 0px;
+    }
+}
 .language .dropdown-menu {
     min-width: 130px !important;
 }
@@ -2340,7 +2406,7 @@ legend,
     -moz-border-radius: 0;
     border-radius: 0;
     -webkit-border-radius: 0;
-    border-top: 3px solid #11906c;
+    border-top: 3px solid #428bca;
     -moz-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
     box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
     -webkit-box-shadow: 0 1px 10px rgba(0, 0, 0, 0.05);
@@ -2393,7 +2459,14 @@ a.dropdown-toggle:hover {
 .visit-icon,
 .appeal-icon,
 .cohort-icon,
-.eng-flag-icon,
+.eng-flag-icon {
+    display: inline-block;
+    vertical-align: top;
+    width: 20px;
+    height: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
 ul.view-associated-info-Heading li {
     padding: 4px 0;
@@ -2881,5 +2954,89 @@ input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px white inset; }
 .activetab{
     cursor:pointer;
     color: black !important;
+}
+
+/**View Page CSS**/
+.profile-details .name,
+.short_profile_left .name {
+    font-family: 'open_sanslight';
+    color: #444;
+    font-size: 22px;
+    text-transform: capitalize;
+}
+
+.field,
+.detail {
+    font-size: 12px;
+    color: #444444;
+}
+.field {
+    font-family: 'open_sansregular';
+    text-transform: uppercase;
+}
+.detail {
+    font-family: 'open_sanssemibold';
+}
+.detail-row {
+    margin-bottom: 15px;
+}
+.short_profile_left,
+.short_profile_right {
+    display: inline-block;
+    width: 49%;
+    vertical-align: top;
+    margin-bottom: 10px;
+}
+.short_profile_left .detail-row {
+    margin-bottom: 12px;
+}
+li.description .detail {
+    font-family: 'open_sansregular';
+}
+
+.green-circle-status {
+    display: inline-block;
+    background: #03a678;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin: 0px 5px 0px 0px;
+}
+.red-circle-status {
+    display: inline-block;
+    background: #dc615f;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    margin: 0px 5px 0px 0px;
+}
+.status-txt {
+    font-size: 12px;
+    text-transform: uppercase;
+}
+.status,
+.active-trainees {
+    font-family: 'open_sansregular';
+    font-size: 14px;
+    text-transform: capitalize;
+}
+.view-associated-info-Heading {
+    margin-bottom: 15px;
+}
+.view-data-divider {
+    margin: 15px 0px 38px;
+    border-bottom: 1px solid #eeeeee;
+    border-top: 0;
+}
+.view-associated-info .h2 {
+    margin-bottom: 20px;
+}
+.separator-img {
+    background-color: #d8d8d8;
+    width: 1px;
+    height: 31px;
+    display: inline-block;
+    margin: 0px 7px 0px 10px;
+    vertical-align: middle;
 }
 
