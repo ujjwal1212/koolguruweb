@@ -42,6 +42,7 @@ endif;
                 ->prependFile($this->basePath() . '/js/select2/select2.js', 'text/javascript', array())
                 ->prependFile($this->basePath() . '/js/fancybox/jquery.fancybox.pack.js', 'text/javascript', array())
                 ->prependFile($this->basePath() . '/js/koolguru/custom.js', 'text/javascript', array())
+                ->prependFile($this->basePath() . '/js/index.js', 'text/javascript', array())
                 ->prependFile($this->basePath() . '/js/jquery.openCarousel.js')
                 ->prependFile($this->basePath() . '/js/modernizr.custom.js')
                 ->prependFile($this->basePath() . '/js/ajax/libs/jquery.form/3.32/jquery.form.js')
@@ -90,21 +91,7 @@ endif;
                 <div class="container">
 
                     <div class="headertop_nav">
-                        <ul>
-                            <li>Call Us </li>
-                            <li> :(000) 123-456 </li> 
-                            <li> Email us : </li> 
-                            <li>info@koolguru.co.in</li> 
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="header_bottom">
-                <div class="container">	 			
-                    <div class="logo">
-                        <h1><a href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath() . '/img/logo.png' ?>"><span></span></a></h1>
-                    </div>	
-                    <?php if (isset($roleCode)) { ?>
+                        <?php if(isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa')){?>
                         <div class="navigation">	
                             <div>
                                 <ul class="nav navbar-nav">
@@ -115,8 +102,8 @@ endif;
                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span>Pathways<span  		
                                                 class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))  ?>">View</a></li>-->
-                                            <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))  ?>">Requests</a></li>-->
+                                            <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))   ?>">View</a></li>-->
+                                            <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))   ?>">Requests</a></li>-->
                                             <!--<li><a href="javascript:void(0);">Renewals</a></li>-->
                                         </ul>
                                     </li>
@@ -124,7 +111,7 @@ endif;
                                         <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span>Student
                                             <span class="caret" ></span></a>
                                         <ul class="dropdown-menu" role="menu">
-                                            <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))  ?>">Manage Trainees</a></li>-->
+                                            <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))   ?>">Manage Trainees</a></li>-->
                                             <!--<li><a href="javascript:void(0);">Update Enrollment Status</a></li>-->
                                         </ul>
                                     </li>
@@ -141,9 +128,9 @@ endif;
                                             Quiz<span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <!--<li class="dropdown-header">Assessment</li>-->
-                                            <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))  ?>">Book Assessment</a></li>-->
+                                            <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))   ?>">Book Assessment</a></li>-->
                                             <!--<li class="divider"></li>-->
-                                            <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))  ?>">External Verifier Visit</a></li>-->                                            
+                                            <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))   ?>">External Verifier Visit</a></li>-->                                            
                                         </ul>
                                     </li>
                                     <li class="dropdown">
@@ -156,6 +143,25 @@ endif;
                                 </ul>
                             </div>			
                         </div>
+                        
+                        <?php }else{?>
+                        <ul>
+                            <li>Call Us </li>
+                            <li> :(000) 123-456 </li> 
+                            <li> Email us : </li> 
+                            <li>info@koolguru.co.in</li> 
+                        </ul>
+                        <?php }?>
+                    </div>
+                </div>
+            </div>
+            <div class="header_bottom">
+                <div class="container">	 			
+                    <div class="logo">
+                        <h1><a href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath() . '/img/logo.png' ?>"><span></span></a></h1>
+                    </div>	
+                    <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa')) { ?>
+                        
 
                         <div class="header-top-right">
                             <div class="login_box">
