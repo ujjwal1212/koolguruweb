@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/layout/layout.phtml</file>
             <file>file:/C:/wamp/www/koolguruweb/module/Questionarie/src/Questionarie/Controller/QuestionController.php</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Questionarie/view/questionarie/question/edit.phtml</file>
             <file>file:/C:/wamp/www/koolguruweb/public/css/style.css</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Questionarie/view/questionarie/question/add.phtml</file>
-            <file>file:/C:/wamp/www/koolguruweb/config/autoload/navigation.php</file>
         </group>
     </open-files>
 </project-private>

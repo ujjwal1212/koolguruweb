@@ -145,8 +145,6 @@ class QuestionController extends AbstractActionController {
                 $this->getQuestionsOptionsTable()->saveQuestionOptions($data, $questionId);
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
                 $this->flashMessenger()->setNamespace('success')->addMessage('Question created successfully');
-
-
                 return $this->redirect()->toRoute('question');
             }
         }
@@ -194,7 +192,6 @@ class QuestionController extends AbstractActionController {
                 $this->getQuestionsOptionsTable()->saveQuestionOptions($data, $id);
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
                 $this->flashMessenger()->setNamespace('success')->addMessage('Question updated successfully');
-
 
                 return $this->redirect()->toRoute('question');
             }
