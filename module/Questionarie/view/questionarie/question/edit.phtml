@@ -33,10 +33,13 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 
 <div class="container">
     <div class="forms" id="add-trainee-form">
-        <?php if (empty($errorflashMessage)) { ?>
+        <?php
+        $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+        $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+        if (empty($errorflashMessage) && !empty($successflashMessage)) {
+            ?>
             <div id="global-success-msg-page" class="global-page-success">
                 <?php
-                $successflashMessage = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
                 foreach ($successflashMessage as $succMsg) {
                     echo $errMsg;
                 }
