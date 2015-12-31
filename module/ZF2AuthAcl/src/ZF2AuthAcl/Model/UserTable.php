@@ -179,6 +179,25 @@ class UserTable {
         $data = array('password' => $encyptPass, 'status' => 1);
         $this->tableGateway->update($data, array('email' => $email));
     }
+    /**
+     * Function to update the new password for student
+     * @param type $email
+     * @param type $pswrd
+     */
+    public function updatestudentActivationPassword($email, $pswrd) {
+        $userPassword = new UserPassword();
+        $encyptPass = $userPassword->create($pswrd);
+        $data = array('password' => $encyptPass, 'status' => 1);
+        $adapter = $this->tableGateway->getAdapter();
+        $sql = new Sql($adapter);
+        $update = $sql->update();
+        $update->table('student');
+        $update->set($data);
+        $update->where(array('email' => $email));
+        $updateString = $sql->getSqlStringForSqlObject($update);
+        $results = $adapter->query($updateString, $adapter::QUERY_MODE_EXECUTE);
+        return $results;
+    }
 
     /**
      * Function to insert the user data into the table
