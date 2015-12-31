@@ -593,6 +593,69 @@ class IndexController extends AbstractActionController {
         }
         return array('form' => $form, 'errRecVar' => $errNo);
     }
+    
+    /**
+     * Functio to set password for first time user
+     * @return type
+     */
+    public function activatestudentAction() {
+        $errNo = 0;
+        $request = $this->getRequest();
+        $form = new RecoverPasswordForm();
+        $recoverObj = new RecoverEmail();
+        $hash_value = $this->params()->fromRoute('hash', 0);
+        $validatorExist = new \Zend\Validator\Db\NoRecordExists(
+                array(
+            'table' => 'activation',
+            'field' => 'hash_value',
+            'adapter' => $this->getAdapter()
+                )
+        );
+        $activationRow = $this->getRecoverEmailTable()->getActivateRowbyHash($hash_value);
+
+        if (isset($activationRow[0]['requested_on'])) {
+            $requestedOn = strtotime($activationRow[0]['requested_on']) + 259200;
+            $currentTime = time();
+            if ($currentTime > $requestedOn) {
+                if (isset($activationRow[0]['email'])) {
+                    $this->getRecoverEmailTable()->deleteActivationEmail($activationRow[0]['email']);
+                }
+            }
+        }
+
+        $form->get('submit')->setAttributes(array('value' => 'Activate',));
+        if ($validatorExist->isValid($hash_value)) {
+            $errNo = 1; // hash not in DB
+            $form->get('submit')->setAttributes(array('disabled' => 'disabled', 'class' => 'disable-btn big-btn green-btn'));
+            $form->get('password')->setAttributes(array('disabled' => 'disabled',));
+            $form->get('repassword')->setAttributes(array('disabled' => 'disabled'));
+            $this->flashMessenger()->setNamespace('error')->addMessage('Activation link is either expired/used');
+        } else {
+            $this->flashMessenger()->clearMessagesFromContainer();
+        }
+        if ($request->isPost() && $errNo == 0) {
+            $form->setData($request->getPost());
+            $form->getInputFilter()->get('password')->setRequired(true);
+            $form->getInputFilter()->get('password')->setAllowEmpty(false);
+            $form->getInputFilter()->get('repassword')->setRequired(true);
+            $form->getInputFilter()->get('repassword')->setAllowEmpty(false);
+            if ($form->isValid()) {
+                $Data = $request->getPost();
+                $EmailReturn = $this->getRecoverEmailTable()->getActivationEmailbyHash($hash_value);
+                if ($EmailReturn[0]['email'] != '') {
+                    $this->getUserTable()->updatestudentActivationPassword($EmailReturn[0]['email'], $Data['password']);
+                    $errNo = 2; // password updated success
+//                    $this->flashMessenger()->addMessage(array(
+//                        'error' => 'Password has been changed successfully.'
+//                    ));
+                    $this->getRecoverEmailTable()->deleteActivationEmail($EmailReturn[0]['email']);
+//                    $this->flashMessenger()->setNamespace('success')->addMessage('Password has been changed successfully.');
+                    return $this->redirect()->toRoute('studentlogin');
+                }
+            }
+        }
+        return array('form' => $form, 'errRecVar' => $errNo);
+    }
 
     /**
      * SINGLE SESSION PER USER CODE
