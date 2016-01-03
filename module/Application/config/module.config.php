@@ -28,6 +28,21 @@ return array(
                     ),
                 ),
             ),
+            
+            'demoquiz' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/demoquiz[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'application\Controller\Index',
+                        'action' => 'demoquiz',
+                    ),
+                ),
+            ),
             'application' => array(
                 'type'    => 'Literal',
                 'options' => array(
