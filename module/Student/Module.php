@@ -13,6 +13,8 @@ use Student\Model\StudentVerbal;
 use Student\Model\StudentVerbalTable;
 use Student\Model\StudentStatus;
 use Student\Model\StudentStatusTable;
+use Student\Model\StudentQuants;
+use Student\Model\StudentQuantsTable;
 use Questionarie\Model\Question;
 use Questionarie\Model\QuestionTable;
 use Questionarie\Model\QuestionOption;
@@ -113,6 +115,18 @@ class Module {
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new QuestionOption());
                     return new TableGateway('questions_options', $dbAdapter, null, $resultSetPrototype);
+                },
+                        
+                'Student\Model\StudentQuantsTable' => function($sm) {                    
+                    $tableGateway = $sm->get('StudentQuantsTableGateway');
+                    $table = new StudentQuantsTable($tableGateway);
+                    return $table;
+                },
+                'StudentQuantsTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new StudentQuants());
+                    return new TableGateway('student_reg_quant_ability', $dbAdapter, null, $resultSetPrototype);
                 },
                 
             ),

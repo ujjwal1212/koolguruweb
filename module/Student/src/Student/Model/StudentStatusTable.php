@@ -35,6 +35,15 @@ class StudentStatusTable {
         return $studentId;
     }
     
+    public function updateQuantStatus($data,$studentId){       
+        $user_data = array();
+        $user_data['quant_status'] = $data['verbal_reg_status'];
+        $user_data['marks_obtain_quant'] = $data['marks_obtain_verbal'];
+        $user_data['quant_reg_created'] = time();
+        $this->tableGateway->update($user_data, array('student_id' => $studentId));
+        return $studentId;
+    }
+    
     public function createStudentStatus($data,$studentId){       
         $user_data = array();
         $user_data['student_id'] = $studentId;

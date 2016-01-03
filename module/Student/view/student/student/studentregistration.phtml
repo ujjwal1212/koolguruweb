@@ -110,7 +110,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                     </div>
                 </div>
 
-
+                <!-- Tab for verbal ability -->
                 <div class="tabs" id='content-2'>
                     <?php if ($enableTabContent[1]) { ?>
                     <form action="/myapp/koolguruweb/public/student/studentregistration" method="post" name="user-verbal" class="detect_changes" id="user-verbal">
@@ -128,7 +128,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                                                 <ul>
                                                     <?php
                                                     foreach ($quest['options'] as $key => $options) {
-                                                        if ($key == ($quest['correct'] - 1)) {
+                                                        if ($key == ($quest['correct'])) {
                                                             $val = $quest['maxmark'];
                                                         } else {
                                                             $val = $quest['minmark'];
@@ -136,7 +136,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                                                         ?>
                                                         <li class="form-row">                                     
                                                             <label class="custom-label" onclick="">
-                                                                <input type="radio" name="<?php echo $ky; ?>" id="<?php echo $ky . '-' . $key; ?>" value="<?php echo $val . '~' . ($key + 1) . '~' . $quest['maxmark']; ?>" style="position: absolute; left: 173px;">
+                                                                <input type="radio" name="<?php echo $ky; ?>" id="<?php echo $ky . '-' . $key; ?>" value="<?php echo $val . '~' . ($key) . '~' . $quest['maxmark']; ?>" style="position: absolute; left: 173px;">
                                                                 <span style="position: absolute; left: 200px;"><?php echo $options; ?><span></label>
                                                         </li>
         <?php } ?>
@@ -146,10 +146,10 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                                             <?php $i++;
                                         } ?>
                                     <div class="form-footer">
-                                    <?php //if (!empty($studentStatus) && isset($studentStatus[0]['verbal_reg_status']) && $studentStatus[0]['verbal_reg_status'] == 1) { ?>
-                                    <?php //} else { ?>
+                                    <?php if (!empty($studentStatus) && isset($studentStatus[0]['verbal_reg_status']) && $studentStatus[0]['verbal_reg_status'] == 1) { ?>
+                                    <?php } else { ?>
                                             <input name="verbalsubmit" type="submit" id="verbalsubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">                            </div>
-                                    <?php //} ?>
+                                    <?php } ?>
                                 </section>
                             </div>
                         </div>
@@ -157,15 +157,50 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 <?php } ?>
                 </div>
                 
-
+                <!-- Tab for verbal ability -->
                 <div class="tabs" id='content-3'>
-                        <?php if ($enableTabContent[2]) { ?>
-                        <p>
-                            Bacon ipsum dolor sit amet beef venison beef ribs kielbasa. Sausage pig leberkas, t-bone sirloin shoulder bresaola. Frankfurter rump porchetta ham. Pork belly prosciutto brisket meatloaf short ribs.
-                        </p>
-                        <p>
-                            Brisket meatball turkey short loin boudin leberkas meatloaf chuck andouille pork loin pastrami spare ribs pancetta rump. Frankfurter corned beef beef tenderloin short loin meatloaf swine ground round venison.
-                        </p>
+                    <?php if ($enableTabContent[2]) { ?>
+                        <form action="/myapp/koolguruweb/public/student/studentregistration" method="post" name="user-verbal" class="detect_changes" id="user-verbal">
+                        <input type='hidden' name='student_id' id='student_id' value='<?php echo $student_id; ?>'>
+                        <div class="container">
+                            <div class="forms" id="student-registration-verbal">
+                                <section id="basic_details">
+                                    <h2 class="h2">Quantitative Ability</h2>                            
+                                    <?php $i = 1;
+                                    foreach ($quantQuestions as $ky => $quest) {//asd($quest); ?>
+                                        <div class="questionborder" style='margin-top:10px'>
+                                            <span class="badge pull-left"><?php echo $i; ?></span>
+                                            <h4 class="questiontitle"><?php echo $quest['title']; ?></h4>
+                                            <div class="book_date btm">
+                                                <ul>
+                                                    <?php
+                                                    foreach ($quest['options'] as $key => $options) {
+                                                        if ($key == ($quest['correct'])) {
+                                                            $val = $quest['maxmark'];
+                                                        } else {
+                                                            $val = $quest['minmark'];
+                                                        }
+                                                        ?>
+                                                        <li class="form-row">                                     
+                                                            <label class="custom-label" onclick="">
+                                                                <input type="radio" name="<?php echo $ky; ?>" id="<?php echo $ky . '-' . $key; ?>" value="<?php echo $val . '~' . ($key) . '~' . $quest['maxmark']; ?>" style="position: absolute; left: 173px;">
+                                                                <span style="position: absolute; left: 200px;"><?php echo $options; ?><span></label>
+                                                        </li>
+        <?php } ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                            <?php $i++;
+                                        } ?>
+                                    <div class="form-footer">
+                                    <?php if (!empty($studentStatus) && isset($studentStatus[0]['quant_status']) && $studentStatus[0]['quant_status'] == 1) { ?>
+                                    <?php } else { ?>
+                                            <input name="quantsubmit" type="submit" id="quantsubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">                            </div>
+                                    <?php } ?>
+                                </section>
+                            </div>
+                        </div>
+                    </form>
                     <?php } ?>
                 </div>
 

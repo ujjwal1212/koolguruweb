@@ -144,7 +144,6 @@ class QuestionTable {
             $select->where(array('q.status'=>$cond['status']));
         }
         
-
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();
