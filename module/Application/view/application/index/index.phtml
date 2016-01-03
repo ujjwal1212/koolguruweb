@@ -1,8 +1,14 @@
 <script>
-            $(function () {
-                $('#cbp-fwslider').cbpFWSlider();
-            });
-        </script>
+    $(function () {
+        $('#cbp-fwslider').cbpFWSlider();
+    });
+</script>
+<style>
+<?php
+echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/css/button.css');
+?>
+</style>
 <div class="main"> 
     <div id="cbp-fwslider" class="cbp-fwslider wow fadeInLeft" data-wow-delay="0.4s" id="work">
         <div class="slider-line"></div>
@@ -17,6 +23,7 @@
         <div class="container">   
             <div class="row">
                 <div class="col-md-8">
+                    <iframe src="http://docs.google.com/gview?url=http://koolguru.co.in/ppt/Quadratic.pptx&embedded=true" style="width:600px;height:350px" frameborder="0"></iframe>
                     <div class="welcome_desc">
                         <h3>Our Team</h3>
                         <div class="course_demo">
@@ -43,37 +50,43 @@
                                     </div></li>		    	  	       	   	    	
                             </ul>
                             <script type="text/javascript">
-                                $(window).load(function () {
-                                    $("#flexiselDemo3").flexisel({
-                                        visibleItems: 4,
-                                        animationSpeed: 1000,
-                                        autoPlay: true,
-                                        autoPlaySpeed: 3000,
-                                        pauseOnHover: true,
-                                        enableResponsiveBreakpoints: true,
-                                        responsiveBreakpoints: {
-                                            portrait: {
-                                                changePoint: 480,
-                                                visibleItems: 1
-                                            },
-                                            landscape: {
-                                                changePoint: 640,
-                                                visibleItems: 2
-                                            },
-                                            tablet: {
-                                                changePoint: 768,
-                                                visibleItems: 2
-                                            }
-                                        }
-                                    });
+    $(window).load(function () {
+        $("#flexiselDemo3").flexisel({
+            visibleItems: 4,
+            animationSpeed: 1000,
+            autoPlay: true,
+            autoPlaySpeed: 3000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint: 480,
+                    visibleItems: 1
+                },
+                landscape: {
+                    changePoint: 640,
+                    visibleItems: 2
+                },
+                tablet: {
+                    changePoint: 768,
+                    visibleItems: 2
+                }
+            }
+        });
 
-                                });
+    });
                             </script>
                             <script type="text/javascript" src="<?php echo $this->basePath('js/jquery.flexisel.js'); ?>"></script>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 middle_right">                        
+                <div class="col-md-4 middle_right">       
+                    <span class="button-wrap">
+                        <a href="#" class="button button-pill button-raised button-primary">Register Now</a>
+                    </span>
+                    <span class="button-wrap">
+                        <a href="#" class="button button-pill button-raised button-primary">Demo Quiz</a>
+                    </span>
                     <video id="example_video_1" class="video-js vjs-default-skin" controls preload="auto" width="400px" height="300px"
                            poster="http://video-js.zencoder.com/oceans-clip.png"
                            data-setup='{"example_option":true}'>
