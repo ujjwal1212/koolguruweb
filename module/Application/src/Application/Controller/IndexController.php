@@ -14,8 +14,7 @@ use Zend\View\Model\ViewModel;
 
 class IndexController extends AbstractActionController
 {
-    public function indexAction()
-    {
+    public function indexAction(){
         
     }
     
@@ -37,5 +36,8 @@ class IndexController extends AbstractActionController
     
     public function contactusAction(){
         
+    }
+    public function demoquizAction(){
+        return array();
     }
 }
