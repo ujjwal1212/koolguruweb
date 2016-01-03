@@ -25,6 +25,11 @@ use Student\Model\StudentVerbal;
 use Student\Model\StudentVerbalTable;
 use Student\Model\StudentStatus;
 use Student\Model\StudentStatusTable;
+use Questionarie\Model\Question;
+use Questionarie\Model\QuestionTable;
+
+use Questionarie\Model\QuestionOption;
+use Questionarie\Model\QuestionOptionTable;
 
 class StudentController extends AbstractActionController {
 
@@ -33,6 +38,8 @@ class StudentController extends AbstractActionController {
     protected $StudentTable;
     protected $StudentVerbalTable;
     protected $StudentStatusTable;
+    protected $QuestionTable;
+    protected $QuestionOptionTable;
     protected $adapter;
     protected $UserTable;
     protected $RecoverEmailTable;
@@ -87,6 +94,24 @@ class StudentController extends AbstractActionController {
             $this->StudentStatusTable = $sm->get('Student\Model\StudentStatusTable');
         }
         return $this->StudentStatusTable;
+    }
+    
+    public function getQuestionTable() {
+        if (!$this->QuestionTable) {
+            $sm = '';
+            $sm = $this->getServiceLocator();
+            $this->QuestionTable = $sm->get('Questionarie\Model\QuestionTable');
+        }
+        return $this->QuestionTable;
+    }
+    
+    public function getQuestionOptionTable() {
+        if (!$this->QuestionOptionTable) {
+            $sm = '';
+            $sm = $this->getServiceLocator();
+            $this->QuestionOptionTable = $sm->get('Questionarie\Model\QuestionOptionTable');
+        }
+        return $this->QuestionOptionTable;
     }
     
     /**
@@ -152,6 +177,7 @@ class StudentController extends AbstractActionController {
         $request = $this->getRequest();
         $form = new StudentForm('studentForm', $degreeList, $stateList);
         $form->setInputFilter(new StudentFilter());
+        
         if ($request->isPost()) {
             $data = $request->getPost();
             $email = $data->email;
@@ -175,7 +201,6 @@ class StudentController extends AbstractActionController {
             }
             if ($flag) {
                 if (isset($data['verbalsubmit'])) {
-
                     $this->getStudentVerbalTable()->saveStudentVerbalDetail($data);
                     $total = 0;
                     foreach ($data as $key => $det) {
@@ -189,21 +214,27 @@ class StudentController extends AbstractActionController {
                     if (isset($data['regsubmit'])) {
                         if ($form->isValid()) {
                             if (empty($data['student_id'])) {
-                                $studentId = $this->getStudentTable()->saveStudent($data);
+                                $student_id = $this->getStudentTable()->saveStudent($data);
                                 $hashValueReturn = $this->getUserTable()->saveActivationEmail($email);
                                 $this->sendActivationLink($email, $hashValueReturn);
                                 $status['registration_status'] = 1;
-                                $this->getStudentStatusTable()->createStudentStatus($status, $studentId);
+                                $this->getStudentStatusTable()->createStudentStatus($status, $student_id);
                             } else {
                                 $studentId = $this->getStudentTable()->updateStudent($data, $studentId);
                             }
                         }
                     }
+                }                
+            } else {
+                $flashMessage = $this->flashMessenger()->getErrorMessages();
+                if (empty($flashMessage)) {
+                    $this->flashMessenger()->setNamespace('error')->addMessage('Student Email Id Already Exist'
+                    );
                 }
-
-
-
-                if ($studentId != '') {
+            }
+        }
+        
+        if ($studentId != '') {
                     $studentDet = $this->getStudentTable()->getSudent($studentId);
                     $form->bind($studentDet);
                 }
@@ -213,10 +244,37 @@ class StudentController extends AbstractActionController {
                 if (!empty($studentId)) {
                     $studentStatus = $this->getStudentStatusTable()->getStudentStatus($studentId);
                 }
-
-                $enableTab = $this->getStudentTable()->getEnableTabList($studentId, $studentStatus);
-                $enableTabContent = $this->getStudentTable()->getEnableTabContentList($studentId, $studentStatus);
-                if ($enableTabContent[1] == 1) {
+        $enableTab = $this->getStudentTable()->getEnableTabList($studentId, $studentStatus);
+        $enableTabContent = $this->getStudentTable()->getEnableTabContentList($studentId, $studentStatus);
+        
+        if ($enableTabContent[1] == 1) {
+                    $cond = array();                    
+                    $cond['level'] = 1;
+                    $cond['status'] = 1;
+                    $questions = array();
+                    $questions = $this->getQuestionTable()->getStudentQuestions($cond);
+                    //asd($questions,0);
+                    if(!empty($questions)){
+                        foreach($questions as $ques){
+                            if(isset($ques['id'])){                                
+                                $options = $this->getQuestionOptionTable()->getOptions($ques['id']);
+                                asd($options);
+                            }
+                            $t = array();
+//                            if(){
+//                                
+//                            }
+                            $t['title'] = $ques['name'];
+                            $t['options'] = array('kanpur', 'Indore', 'Allahabad', 'Lucknow');
+                            $t['correct'] = 4;
+                            $t['maxmark'] = 1;
+                            $t['minmark'] = 0;
+                            $verbalQuestions[$ques['id']] = $t;
+                        }
+                    }
+                    
+                    
+                    asd($questions);
                     $t['title'] = 'Which city is the capital of Uttar Pradesh ?';
                     $t['options'] = array('kanpur', 'Indore', 'Allahabad', 'Lucknow');
                     $t['correct'] = 4;
@@ -241,15 +299,8 @@ class StudentController extends AbstractActionController {
                     $questionid = 45;
                     $verbalQuestions[$questionid] = $t;
                 }
-            } else {
-                $flashMessage = $this->flashMessenger()->getErrorMessages();
-                if (empty($flashMessage)) {
-                    $this->flashMessenger()->setNamespace('error')->addMessage('Student Email Id Already Exist'
-                    );
-                }
-            }
-        }
-
+        
+        
         return array(
             'form' => $form, 'enableTab' => $enableTab,
             'enableTabContent' => $enableTabContent,

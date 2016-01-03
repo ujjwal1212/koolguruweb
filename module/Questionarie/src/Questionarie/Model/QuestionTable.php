@@ -123,5 +123,32 @@ class QuestionTable {
                 ->toArray();
         return $resultset;
     }
+    
+    public function getStudentQuestions($cond) {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('q' => 'questions'))
+                ->join(array('l'=>'level'),'q.level = l.id',array('level_name'=>'name','level_id'=>'id'),'left');
+                
+        $select->columns(array('id', 'name', 'description','type','status','min_marks','max_marks'));
+        
+        if(isset($cond['id'])){
+            $select->where(array('q.id'=>$cond['id']));
+        }
+        
+        if(isset($cond['level'])){
+            $select->where(array('l.id'=>$cond['level']));
+        }
+        
+        if(isset($cond['status'])){
+            $select->where(array('q.status'=>$cond['status']));
+        }
+        
+
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        return $resultset;
+    }
 
 }

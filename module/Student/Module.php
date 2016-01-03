@@ -13,6 +13,10 @@ use Student\Model\StudentVerbal;
 use Student\Model\StudentVerbalTable;
 use Student\Model\StudentStatus;
 use Student\Model\StudentStatusTable;
+use Questionarie\Model\Question;
+use Questionarie\Model\QuestionTable;
+use Questionarie\Model\QuestionOption;
+use Questionarie\Model\QuestionOptionTable;
 
 class Module {
 
@@ -87,6 +91,30 @@ class Module {
                     $resultSetPrototype->setArrayObjectPrototype(new StudentStatus());
                     return new TableGateway('student_status', $dbAdapter, null, $resultSetPrototype);
                 },
+                'Questionarie\Model\QuestionTable' => function($sm) {                    
+                    $tableGateway = $sm->get('QuestionTableGateway');
+                    $table = new QuestionTable($tableGateway);
+                    return $table;
+                },
+                'QuestionTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Question());
+                    return new TableGateway('question', $dbAdapter, null, $resultSetPrototype);
+                },
+                        
+                'Questionarie\Model\QuestionOptionTable' => function($sm) {                    
+                    $tableGateway = $sm->get('QuestionOptionTableGateway');
+                    $table = new QuestionOptionTable($tableGateway);
+                    return $table;
+                },
+                'QuestionOptionTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new QuestionOption());
+                    return new TableGateway('questions_options', $dbAdapter, null, $resultSetPrototype);
+                },
+                
             ),
         );
     }
