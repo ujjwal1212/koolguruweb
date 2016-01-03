@@ -2,6 +2,7 @@ $(document).ready(function () {
     var student_tab = {};
     student_tab = {
         enabletab: '',
+        enabletabcontent : '',
         applytabbing: function (tablist) { 
             for (var i = 0; i <= tablist.length; i++) {
                 var tabval = parseInt(tablist[i]);
@@ -9,19 +10,22 @@ $(document).ready(function () {
                     this.openTag(i+1);
                 }
             }
-        },
-        openTag: function (tabno) {   
-            var counttab = 0;
-            counttab = $('.kooltab').length;
-            for (var i = 1; i <= counttab; i++) {
-                this.hidetab(i);
-            }
-            $('#content-'+tabno).show();
-            console.log(this.enabletab[tabno]);
-            $('#tab-'+tabno).addClass('activetab');
+        },        
+        openTag: function (tabno) { 
+            $('.kooltab').each(function(){
+                var tabid = $(this).attr('id');
+                tabid = tabid.replace("tab-", "");                
+                $('#tab-'+tabid).removeClass('activetab');
+                $('#content-'+tabid).hide();
+                if(parseInt(tabid) == parseInt(tabno)){
+                    $('#tab-'+tabid).addClass('activetab');
+                    $('#content-'+tabno).show();
+                }
+            });
+            
         },
         
-        hidetab : function(tabno){
+        hidetab : function(tabno){  
             $('#content-'+tabno).hide();
         },
         
