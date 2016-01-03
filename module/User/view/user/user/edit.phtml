@@ -1,0 +1,140 @@
+<?php
+if (isset($_SESSION['User']['roleCode'])):
+    $roleCode = $_SESSION['User']['roleCode'];
+endif;
+?>
+<script type="text/javascript" src="/vivek/SSS_ABMS/public/js/radio-checkbox.js"></script>
+<section class="sub-header">
+    <div class="container">
+
+        <div class="sub-header-title">
+            <?php
+            //$this->headScript()->appendFile($this->basePath() . '/js/radio-checkbox.js');
+            $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+            ?>
+
+                <?php if (empty($errorflashMessage)) { ?>
+                <div id="global-success-msg-page" class="global-page-success">
+                    <?php
+                    $successflashMessage = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
+                    foreach ($successflashMessage as $succMsg) {
+                        echo $errMsg;
+                    }
+                    ?>
+
+                </div>
+                <?php } else { ?>
+                <div id="global-error-msg-page"   class="global-page-error"><?php
+                    foreach ($errorflashMessage as $errMsg) {
+                        echo $errMsg;
+                    }
+                    ?></div>
+            <?php } ?>
+            <?php
+            $title = 'Edit User';
+//            echo "<pre>";
+//            print_r($this->id);
+//            die;
+            //$this->headScript()->appendFile($this->basePath() . '/js/radio-checkbox.js');
+            ?>
+            <a class="back-icon" href="<?php echo $this->url('user', array('action' => 'index')); ?>"></a>
+            <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
+                <!-- <div class="sub-header-breadcrumb">
+                    <a href="<?php echo $this->url('home') ?>"><span class="home"></span></a>    
+                    <span class="breadcrumb-arrow"> > </span>
+                    <a href="#">MANAGE User</a>
+                    <span class="breadcrumb-arrow"> > </span>
+                    <span>Edit User</span>
+                  </div>-->
+                <?php
+                /* Adding Breadcrumb */
+                echo $this->navigation('navigation')
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                ?>
+            </h1>
+        </div>
+        <div class="sub-header-actions">.
+            <?php if ($this->userStatus == '1' && $roleCode == 'sa') { ?>
+                <a class="big-btn green-btn" href="<?php echo $this->url('user', array('action' => 'edit', 'id' => $this->id, 'msg' => 1)); ?>">RESEND ACTIVATION LINK</a>
+<?php } ?>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="forms" id="edit-user-form">
+
+        <?php
+        $form = $this->form;
+        $form->setAttribute('action', $this->url('user', array('action' => 'edit', 'id' => $this->id)));
+        $form->prepare();
+        echo $this->form()->openTag($form);
+        ?>
+        <section id="basic_details">
+<?php echo "<h2 class='h2'>Basic Details</h2>"; ?>
+            <ul>
+                <li class="form-row"><?php echo $this->formHidden($form->get('user_id')); ?></li>
+                <li class="form-row">
+                    <?php
+                    echo"<label class='label'>Select Role:<span class='required'>*</span></label>";
+                    echo $this->formElement($form->get('role'));
+                    ?>
+                </li>
+                <li class="form-row">
+                    <?php
+                    echo"<label class='label'>National Identification Number:</label>";
+                    echo $this->formElement($form->get('national_id'));
+                    ?>
+                </li>
+                <li class="form-row">
+                    <?php
+                    echo"<label class='label'>First Name:<span class='required'>*</span></label>";
+                    echo $this->formElement($form->get('fname'));
+                    ?>
+                </li>
+                <li class="form-row">
+                    <?php
+                    echo"<label class='label'>Last Name:<span class='required'>*</span></label>";
+                    echo $this->formElement($form->get('lname'));
+                    ?>
+                </li>
+                <li class="form-row">
+                    <?php
+                    echo"<label class='label'>Primary Email Id:<span class='required'>*</span></label>";
+                    echo $this->formElement($form->get('email'));
+                    ?>
+                </li>
+                <li class="form-row"><?php
+                    echo $this->formlabel($form->get('age'));
+                    echo $this->formElement($form->get('age'));
+                    ?></li>
+                <li class="form-row">
+                    <?php echo"<label class='label'>Gender:<span class='required'>*</span></label>"; ?>
+<?php echo $this->formElement($form->get('gender')); ?>
+                </li>
+            </ul>
+        </section>
+
+        <div class="form-divider marginTB20"></div>
+
+        <section id="contact_details">
+<?php echo "<h2 class='h2'>Contact Details</h2>"; ?>
+            <ul>
+                <li class="form-row"><?php
+                    echo $this->formlabel($form->get('status'));
+                    echo $this->formElement($form->get('status'));
+                    ?></li>
+                <li class="form-row"><?php
+                    echo"<label class='label'>Country:<span class='required'>*</span></label>";
+                    echo $this->formElement($form->get('country'));
+                    ?></li>
+            </ul>
+            <div class="form-footer"><?php
+                echo $this->formInput($form->get('submit'));
+                echo $this->form()->closeTag();
+                ?></div>
+        </section>
+    </div>
+</div>
