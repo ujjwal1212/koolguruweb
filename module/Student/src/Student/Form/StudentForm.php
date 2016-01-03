@@ -13,7 +13,7 @@ class StudentForm extends Form {
     public function __construct($name = null,$degreelist,$stateList) {
         //asd($degreelist);
         // we want to ignore the name passed
-        parent::__construct('user');
+        parent::__construct($name);
 
         $this->setAttribute('method', 'post');
         $this->add(array(
@@ -64,7 +64,7 @@ class StudentForm extends Form {
             ),
             'attributes' => array(
                 'id' => 'sex',
-                'class' => 'form-select',
+//                'class' => 'form-select',
             ),
         ));
         
@@ -88,8 +88,8 @@ class StudentForm extends Form {
                 'value_options' => $degreelist
             ),
             'attributes' => array(
-                'id' => 'sex',
-                'class' => 'form-select',
+                'id' => 'highest_degree',
+//                'class' => 'form-select',
             ),
         ));
         
@@ -103,7 +103,7 @@ class StudentForm extends Form {
             ),
             'attributes' => array(
                 'id' => 'native_state',
-                'class' => 'form-select',
+//                'class' => 'form-select',
             ),
         ));
         
@@ -123,7 +123,7 @@ class StudentForm extends Form {
             ),
             'attributes' => array(
                 'id' => 'completion_year',
-                'class' => 'form-select',
+//                'class' => 'form-select',
             ),
         ));
         
