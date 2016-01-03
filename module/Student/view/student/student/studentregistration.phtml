@@ -1,7 +1,3 @@
-<style>
-
-</style>
-
 <?php
 $form = $this->form;
 $form->setAttribute('action', $this->url('student', array('action' => 'studentregistration')));
@@ -140,8 +136,8 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                                                         ?>
                                                         <li class="form-row">                                     
                                                             <label class="custom-label" onclick="">
-                                                                <input type="radio" name="<?php echo $ky; ?>" id="<?php echo $ky . '-' . $key; ?>" value="<?php echo $val . '~' . ($key + 1) . '~' . $quest['maxmark']; ?>" style="position: absolute; left: -9999px;">
-                                                        <?php echo $options; ?></label>
+                                                                <input type="radio" name="<?php echo $ky; ?>" id="<?php echo $ky . '-' . $key; ?>" value="<?php echo $val . '~' . ($key + 1) . '~' . $quest['maxmark']; ?>" style="position: absolute; left: 173px;">
+                                                                <span style="position: absolute; left: 200px;"><?php echo $options; ?><span></label>
                                                         </li>
         <?php } ?>
                                                 </ul>
@@ -150,10 +146,10 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                                             <?php $i++;
                                         } ?>
                                     <div class="form-footer">
-                                    <?php if (!empty($studentStatus) && isset($studentStatus[0]['verbal_reg_status']) && $studentStatus[0]['verbal_reg_status'] == 1) { ?>
-    <?php } else { ?>
+                                    <?php //if (!empty($studentStatus) && isset($studentStatus[0]['verbal_reg_status']) && $studentStatus[0]['verbal_reg_status'] == 1) { ?>
+                                    <?php //} else { ?>
                                             <input name="verbalsubmit" type="submit" id="verbalsubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">                            </div>
-    <?php } ?>
+                                    <?php //} ?>
                                 </section>
                             </div>
                         </div>
@@ -191,12 +187,40 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 <script type="text/javascript">
     $(document).ready(function () {
         var tab = new Array();
+        var enabletabcontent = new Array();
         tab = [<?php echo '"' . implode('","', $enableTab) . '"' ?>];
-        app.studentTab.enabletab = tab;        
-        app.studentTab.hidetab(1);
-        app.studentTab.hidetab(2);
-        app.studentTab.hidetab(3);
-        app.studentTab.hidetab(4);
-        app.studentTab.applytabbing(app.studentTab.enabletab);
+        enabletabcontent = [<?php echo '"' . implode('","', $enableTabContent) . '"' ?>];        
+        app.studentTab.enabletab = tab;   
+        app.studentTab.enabletabcontent = enabletabcontent;
+        
+        $('.kooltab').each(function(){
+            var tabid = $(this).attr('id');
+            tabid = tabid.replace("tab-", "");
+            app.studentTab.hidetab(parseInt(tabid));
+        });
+        
+        console.log(app.studentTab);
+        //console.log(app.studentTab.enabletabcontent);
+        $.each(app.studentTab.enabletabcontent, function( index, value ) {            
+            if(value == 1){
+                $('#tab-'+(index+1)).addClass('enabletab');
+                $('#tab-'+(index+1)).click();
+            }
+        });
+        
+        $.each(app.studentTab.enabletab, function( index, value ) {            
+            if(value == 1){
+                $('#tab-'+(index+1)).addClass('activetab');
+            }
+        });
+        
+
+        
+//        app.studentTab.hidetab(1);
+//        app.studentTab.hidetab(2);
+//        app.studentTab.hidetab(3);
+//        app.studentTab.hidetab(4);
+//        app.studentTab.applytabbing(app.studentTab.enabletab);
+//        app.studentTab.enableTabContent();
     });
 </script>
