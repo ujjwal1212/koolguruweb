@@ -25,9 +25,10 @@ use Student\Model\StudentVerbal;
 use Student\Model\StudentVerbalTable;
 use Student\Model\StudentStatus;
 use Student\Model\StudentStatusTable;
+use Student\Model\StudentQuants;
+use Student\Model\StudentQuantsTable;
 use Questionarie\Model\Question;
 use Questionarie\Model\QuestionTable;
-
 use Questionarie\Model\QuestionOption;
 use Questionarie\Model\QuestionOptionTable;
 
@@ -40,6 +41,7 @@ class StudentController extends AbstractActionController {
     protected $StudentStatusTable;
     protected $QuestionTable;
     protected $QuestionOptionTable;
+    protected $StudentQuantsTable;
     protected $adapter;
     protected $UserTable;
     protected $RecoverEmailTable;
@@ -95,7 +97,7 @@ class StudentController extends AbstractActionController {
         }
         return $this->StudentStatusTable;
     }
-    
+
     public function getQuestionTable() {
         if (!$this->QuestionTable) {
             $sm = '';
@@ -104,7 +106,7 @@ class StudentController extends AbstractActionController {
         }
         return $this->QuestionTable;
     }
-    
+
     public function getQuestionOptionTable() {
         if (!$this->QuestionOptionTable) {
             $sm = '';
@@ -114,6 +116,15 @@ class StudentController extends AbstractActionController {
         return $this->QuestionOptionTable;
     }
     
+    public function getStudentQuantsTable() {
+        if (!$this->StudentQuantsTable) {
+            $sm = '';
+            $sm = $this->getServiceLocator();
+            $this->StudentQuantsTable = $sm->get('Student\Model\StudentQuantsTable');
+        }
+        return $this->StudentQuantsTable;
+    }
+
     /**
      * Get Instance RecoverEmailTable class
      * @return type
@@ -125,7 +136,7 @@ class StudentController extends AbstractActionController {
         }
         return $this->RecoverEmailTable;
     }
-    
+
     /**
      * Function to get instance of user table
      * @return type
@@ -166,6 +177,7 @@ class StudentController extends AbstractActionController {
         $degreeList = array();
         $stateList = array();
         $verbalQuestions = array();
+        $quantQuestions = array();
 
         $degreeList = $this->getDegreeTable()->getDegreeList();
         $stateList = $this->getStateTable()->getStateList();
@@ -177,31 +189,37 @@ class StudentController extends AbstractActionController {
         $request = $this->getRequest();
         $form = new StudentForm('studentForm', $degreeList, $stateList);
         $form->setInputFilter(new StudentFilter());
-        
+
         if ($request->isPost()) {
-            $data = $request->getPost();
-            $email = $data->email;
-            $validator = new \Zend\Validator\EmailAddress();
-            if ($validator->isValid($email)) {
-                // email appears to be valid
-                // check existence of email in studentTable
-                $validatorEmail = new \Zend\Validator\Db\NoRecordExists(
-                        array(
-                    'table' => 'student',
-                    'field' => 'email',
-                    'adapter' => $this->getAdapter()
-                        )
-                );
-            }
-            $form->setData($data);
-            if ($validatorEmail->isValid($email)) {
+            $data = $request->getPost();            
+            if (isset($data['regsubmit'])) {
+                $email = $data->email;
+                $validator = new \Zend\Validator\EmailAddress();
+                if ($validator->isValid($email)) {
+                    // email appears to be valid
+                    // check existence of email in studentTable
+                    $validatorEmail = new \Zend\Validator\Db\NoRecordExists(
+                            array(
+                        'table' => 'student',
+                        'field' => 'email',
+                        'adapter' => $this->getAdapter()
+                            )
+                    );
+                }
+                $form->setData($data);
+                if ($validatorEmail->isValid($email)) {
+                    $flag = 1;
+                } else {
+                    $flag = 0;
+                }
+            }elseif (isset($data['verbalsubmit'])) {
                 $flag = 1;
-            } else {
-                $flag = 0;
+            }elseif (isset($data['quantsubmit'])) {
+                $flag = 1;
             }
             if ($flag) {
-                if (isset($data['verbalsubmit'])) {
-                    $this->getStudentVerbalTable()->saveStudentVerbalDetail($data);
+                if(isset($data['quantsubmit'])){
+                    $this->getStudentQuantsTable()->saveStudentQuantsDetail($data);
                     $total = 0;
                     foreach ($data as $key => $det) {
                         $split = explode('~', $det);
@@ -209,6 +227,16 @@ class StudentController extends AbstractActionController {
                     }
                     $status['verbal_reg_status'] = 1;
                     $status['marks_obtain_verbal'] = $total;
+                    $this->getStudentStatusTable()->updateQuantStatus($status, $studentId);
+                }else if (isset($data['verbalsubmit'])) {
+                    $this->getStudentVerbalTable()->saveStudentVerbalDetail($data);
+                    $total = 0;
+                    foreach ($data as $key => $det) {
+                        $split = explode('~', $det);
+                        $total += $split[0];
+                    }
+                    $status['quant_status'] = 1;
+                    $status['marks_obtain_quant'] = $total;
                     $this->getStudentStatusTable()->updateVerbalStatus($status, $studentId);
                 } else {
                     if (isset($data['regsubmit'])) {
@@ -224,7 +252,7 @@ class StudentController extends AbstractActionController {
                             }
                         }
                     }
-                }                
+                }
             } else {
                 $flashMessage = $this->flashMessenger()->getErrorMessages();
                 if (empty($flashMessage)) {
@@ -233,90 +261,99 @@ class StudentController extends AbstractActionController {
                 }
             }
         }
-        
+
         if ($studentId != '') {
-                    $studentDet = $this->getStudentTable()->getSudent($studentId);
-                    $form->bind($studentDet);
-                }
-                $form->get('student_id')->setValue($studentId);
-
-
-                if (!empty($studentId)) {
-                    $studentStatus = $this->getStudentStatusTable()->getStudentStatus($studentId);
-                }
+            $studentDet = $this->getStudentTable()->getSudent($studentId);
+            $form->bind($studentDet);
+        }
+        $form->get('student_id')->setValue($studentId);
+        if (!empty($studentId)) {
+            $studentStatus = $this->getStudentStatusTable()->getStudentStatus($studentId);
+        }
         $enableTab = $this->getStudentTable()->getEnableTabList($studentId, $studentStatus);
         $enableTabContent = $this->getStudentTable()->getEnableTabContentList($studentId, $studentStatus);
-        
+
+        // Tab conytent enable for verbal ability
         if ($enableTabContent[1] == 1) {
-                    $cond = array();                    
-                    $cond['level'] = 1;
-                    $cond['status'] = 1;
-                    $questions = array();
-                    $questions = $this->getQuestionTable()->getStudentQuestions($cond);
-                    //asd($questions,0);
-                    if(!empty($questions)){
-                        foreach($questions as $ques){
-                            if(isset($ques['id'])){                                
-                                $options = $this->getQuestionOptionTable()->getOptions($ques['id']);
-                                asd($options);
+            $cond = array();
+            $cond['level'] = 1;
+            $cond['status'] = 1;
+            $questions = array();
+            $questions = $this->getQuestionTable()->getStudentQuestions($cond);
+            $verbalQuestions = array();
+            if (!empty($questions)) {
+                foreach ($questions as $ques) {
+                    $qoptions = array();
+                    $correct_option = '';
+                    if (isset($ques['id'])) {
+                        $optionlist = array();
+                        $options = $this->getQuestionOptionTable()->getOptions($ques['id']);
+                        foreach ($options as $v) {
+                            $qoptions[$v['id']] = $v['description'];
+                            if ($v['is_correct'] == 1) {
+                                $correct_option = $v['id'];
                             }
-                            $t = array();
-//                            if(){
-//                                
-//                            }
-                            $t['title'] = $ques['name'];
-                            $t['options'] = array('kanpur', 'Indore', 'Allahabad', 'Lucknow');
-                            $t['correct'] = 4;
-                            $t['maxmark'] = 1;
-                            $t['minmark'] = 0;
-                            $verbalQuestions[$ques['id']] = $t;
                         }
                     }
-                    
-                    
-                    asd($questions);
-                    $t['title'] = 'Which city is the capital of Uttar Pradesh ?';
-                    $t['options'] = array('kanpur', 'Indore', 'Allahabad', 'Lucknow');
-                    $t['correct'] = 4;
-                    $t['maxmark'] = 1;
-                    $t['minmark'] = 0;
-                    $questionid = 18;
-                    $verbalQuestions[$questionid] = $t;
-
-                    $t['title'] = '(2+5)^2 = ?';
-                    $t['options'] = array(4, 64, 49, 81);
-                    $t['correct'] = 3;
-                    $t['maxmark'] = 1;
-                    $t['minmark'] = 0;
-                    $questionid = 25;
-                    $verbalQuestions[$questionid] = $t;
-
-                    $t['title'] = 'Where United Nations Exist ?';
-                    $t['options'] = array('USA', 'China', 'UK', 'Russia');
-                    $t['correct'] = 1;
-                    $t['maxmark'] = 1;
-                    $t['minmark'] = 0;
-                    $questionid = 45;
-                    $verbalQuestions[$questionid] = $t;
+                    $t = array();
+                    $t['title'] = $ques['name'];
+                    $t['options'] = $qoptions;
+                    $t['correct'] = $correct_option;
+                    $t['maxmark'] = $ques['max_marks'];
+                    $t['minmark'] = $ques['min_marks'];
+                    $verbalQuestions[$ques['id']] = $t;
                 }
-        
-        
+            }
+        }
+
+        // Tab conytent enable for Quantitative ability
+        if ($enableTabContent[2] == 1) {
+            $cond = array();
+            $cond['level'] = 3;
+            $cond['status'] = 1;
+            $questions = array();
+            $questions = $this->getQuestionTable()->getStudentQuestions($cond);            
+            if (!empty($questions)) {
+                foreach ($questions as $ques) {
+                    $qoptions = array();
+                    $correct_option = '';
+                    if (isset($ques['id'])) {
+                        $optionlist = array();
+                        $options = $this->getQuestionOptionTable()->getOptions($ques['id']);
+                        foreach ($options as $v) {
+                            $qoptions[$v['id']] = $v['description'];
+                            if ($v['is_correct'] == 1) {
+                                $correct_option = $v['id'];
+                            }
+                        }
+                    }
+                    $t = array();
+                    $t['title'] = $ques['name'];
+                    $t['options'] = $qoptions;
+                    $t['correct'] = $correct_option;
+                    $t['maxmark'] = $ques['max_marks'];
+                    $t['minmark'] = $ques['min_marks'];
+                    $quantQuestions[$ques['id']] = $t;
+                }
+            }
+        }        
         return array(
             'form' => $form, 'enableTab' => $enableTab,
             'enableTabContent' => $enableTabContent,
             'verbalQuestions' => $verbalQuestions,
             'student_id' => $studentId,
-            'studentStatus' => $studentStatus
+            'studentStatus' => $studentStatus,
+            'quantQuestions' => $quantQuestions
         );
     }
-    
+
     /**
      * Function to send a activation link to user
      * @param type $email
      */
     public function sendActivationLink($email, $hashValueReturn) {
         $session = new Container('User');
-        $adminEmail = 'support@koolguru.co.in';//$session->offsetGet('email');
+        $adminEmail = 'support@koolguru.co.in'; //$session->offsetGet('email');
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $requesturi = $this->getRequest()->getUri();
         $this->baseUrl = $requesturi->getHost() . $renderer->basePath();

@@ -31,8 +31,9 @@ endif;
                 ->prependStylesheet($this->basePath() . '/js/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css')
                 ->prependStylesheet($this->basePath() . '/css/style.css')
                 ->prependStylesheet($this->basePath() . '/css/bootstrap.css')
+                 ->prependStylesheet($this->basePath() . '/css/video.css')
         ?>
-
+        
         <!-- Scripts -->
         <?php
         echo $this->headScript()
@@ -53,7 +54,7 @@ endif;
         ;
         ?>
 
-        <link href="http://vjs.zencdn.net/5.0.2/video-js.css" rel="stylesheet">
+        
 
         <script>
             new WOW().init();
@@ -249,4 +250,4 @@ endif;
     <?php echo $this->inlineScript() ?>
 </body>
 </html>
-
+<script src="http://vjs.zencdn.net/5.4.4/video.js"></script>

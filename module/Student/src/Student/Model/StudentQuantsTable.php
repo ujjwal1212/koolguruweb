@@ -14,11 +14,11 @@ use Zend\Paginator\Paginator;
 use Zend\Db\Sql\Expression;
 use Zend\Session\Container;
 
-class StudentVerbalTable {
+class StudentQuantsTable {
 
     protected $tableGateway;
     protected $adapter;
-    public $table = 'student_reg_verbal_ability';
+    public $table = 'student_reg_quant_ability';
 
     public function __construct(TableGateway $tableGateway) {       
         $this->tableGateway = $tableGateway;
@@ -26,10 +26,10 @@ class StudentVerbalTable {
     }
     
     
-    public function saveStudentVerbalDetail($studentDet){        
+    public function saveStudentQuantsDetail($studentDet){        
         $studentid = $studentDet['student_id'];
         unset($studentDet['student_id']);
-        unset($studentDet['verbalsubmit']);
+        unset($studentDet['quantsubmit']);
         foreach($studentDet as $key => $det){
             $split = explode('~',$det);
             $user_data = array(            
@@ -45,21 +45,4 @@ class StudentVerbalTable {
         $id = $this->tableGateway->lastInsertValue;
         return $id;
     }
-    
-    
-    
-//    public function getStudentDet(){
-//        $sql = new Sql($this->tableGateway->getAdapter());
-//        $select = $sql->select()->from(array('r' => 'srva'), array('id', 'degree_name'));
-//        $statement = $sql->prepareStatementForSqlObject($select);
-//        $resultset = $this->resultSetPrototype->initialize($statement->execute())
-//                ->toArray();
-//        $result = array();        
-//        foreach ($resultset as $degree) {
-//            $result[$degree['id']] = $degree['degree_name'];
-//        }
-//        return $result;
-//    }
-    
-
 }
