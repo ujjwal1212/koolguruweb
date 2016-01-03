@@ -160,9 +160,7 @@ endif;
                     <div class="logo">
                         <h1><a href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath() . '/img/logo.png' ?>"><span></span></a></h1>
                     </div>	
-                    <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa')) { ?>
-                        
-
+                    <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa' || $roleCode == 'st')) { ?>
                         <div class="header-top-right">
                             <div class="login_box">
                                 <div id="loginContainer">
@@ -186,7 +184,7 @@ endif;
     </div>
     <!-- Ends Header -->
 
-
+    
     <?php echo $this->content; ?>
 
 
