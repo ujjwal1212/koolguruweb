@@ -234,8 +234,6 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
             app.studentTab.hidetab(parseInt(tabid));
         });
         
-        console.log(app.studentTab);
-        //console.log(app.studentTab.enabletabcontent);
         $.each(app.studentTab.enabletabcontent, function( index, value ) {            
             if(value == 1){
                 $('#tab-'+(index+1)).addClass('enabletab');
