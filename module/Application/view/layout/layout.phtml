@@ -18,10 +18,11 @@ endif;
         ?>
 
         <!-- Le styles -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <?php
         echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
                 ->prependStylesheet($this->basePath() . '/css/animate.css')
-                ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
+//                ->prependStylesheet($this->basePath() . '/css/font-awesome.min.css')
                 ->prependStylesheet('http://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700,800,900')
                 ->prependStylesheet('http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300:700')
 //                ->prependStylesheet($this->basePath() . '/css/nav.css')
@@ -29,8 +30,8 @@ endif;
                 ->prependStylesheet($this->basePath() . '/js/select2/select2.css')
                 ->prependStylesheet($this->basePath() . '/js/fancybox/jquery.fancybox.css')
                 ->prependStylesheet($this->basePath() . '/js/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css')
-                ->prependStylesheet($this->basePath() . '/css/style.css')
                 ->prependStylesheet($this->basePath() . '/css/bootstrap.css')
+                ->prependStylesheet($this->basePath() . '/css/style.css')
                 ->prependStylesheet($this->basePath() . '/css/video.css')
         ?>
 
@@ -103,8 +104,8 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span>Pathways<span  		
                                                     class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))    ?>">View</a></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))    ?>">Requests</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))       ?>">View</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))       ?>">Requests</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Renewals</a></li>-->
                                             </ul>
                                         </li>
@@ -112,7 +113,7 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span>Student
                                                 <span class="caret" ></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))    ?>">Manage Trainees</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))       ?>">Manage Trainees</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Update Enrollment Status</a></li>-->
                                             </ul>
                                         </li>
@@ -129,9 +130,9 @@ endif;
                                                 Quiz<span class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
                                                 <!--<li class="dropdown-header">Assessment</li>-->
-                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))    ?>">Book Assessment</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))       ?>">Book Assessment</a></li>-->
                                                 <!--<li class="divider"></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))    ?>">External Verifier Visit</a></li>-->                                            
+                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))       ?>">External Verifier Visit</a></li>-->                                            
                                             </ul>
                                         </li>
                                         <li class="dropdown">
@@ -238,6 +239,13 @@ endif;
                             <p>India</p>
                             <p>Phone:(00) 222 666 444</p>                            
                             <p>Email: <span><a href="mailto:info@koolguru.co.in">info@koolguru.co.in</a></span></p>
+                            <ul class="social-network social-circle">
+                            <!--<li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>-->
+                                <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>	
                         </div>
                     </div>
                     <div class="clearfix"></div>
