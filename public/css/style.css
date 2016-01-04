@@ -3108,3 +3108,141 @@ li.description .detail {
 .btn-arg{
     padding-top: 110px;
 }
+
+/**Profie logout section CSS **/
+
+.notifications {
+    float: right;
+}
+.email-icon {  background-image:url(themes/images/emailIcon.svg); }
+.notification-icon {  background-image:url(themes/images/notificationIcon.svg); }
+.help-icon {  background-image:url(themes/images/helpIcon.svg); }
+.user-icon {  background-image:url(themes/images/userIcon.svg); }
+.grey-caret {  background-image:url(themes/images/greyCaret.svg); }
+
+.email-icon,
+.notification-icon,
+.user-icon,
+.grey-caret,
+.help-icon {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+}
+.user-icon {
+    width: 50px;
+    height: 50px;
+}
+.email-icon,
+.notification-icon {
+    margin-right: 25px;
+}
+header .grey-caret {
+    width: 10px;
+}
+.help-icon {
+    width: 17px;
+    height: 17px;
+    margin-right: 5px;
+}
+
+.user-menu {
+    top: 60px;
+    left: -160px;
+    min-width: 240px;
+    padding: 15px 0 0 0;
+}
+.user-menu li {
+    padding: 0px 10px;
+}
+.user-menu:before {
+    left: 180px;
+}
+.user-email {
+    font-family: 'open_sanssemibold';
+    font-size: 11px;
+    display: block;
+}
+.view-profile {
+    color: #fff !important;
+    text-transform: uppercase !important;
+    font-family: 'open_sanssemibold' !important;
+    font-size: 10px !important;
+    display: inline-block !important;
+    margin: 15px 0;
+    padding: 8px 12px!important;
+}
+.view-profile:hover {
+    background: #05835f !important;
+}
+.change-password {
+    font-family: 'open_sansbold' !important;
+    font-size: 10px !important;
+    color: #757575 !important;
+    text-transform: uppercase !important;
+    display: inline-block !important;
+    text-decoration: underline;
+    margin-left: 3px;
+    padding: 10px 0 !important;
+    /*Adding only for release1*/
+}
+.change-password:hover {
+    background: transparent !important;
+}
+.user-menu-footer {
+    padding: 9px 5px !important;
+    /*Not needed in release1:background: #f8f8f8;*/
+
+    border-top: 1px solid #f3f3f3;
+}
+.user-menu-footer a {
+    display: inline-block !important;
+}
+.logout-btn {
+    float: right;
+    background: #4d90fe;
+    font-size: 10px !important;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    color: #fff!important;
+    text-transform: uppercase !important;
+    padding: 8px 14px!important;
+    margin: 5px 10px;
+    -moz-transition: background 1s;
+    transition: background 1s;
+    -webkit-transition: background 1s;
+}
+.logout-btn:hover {
+    background: #444 !important;
+}
+.help:hover {
+    background: transparent !important;
+}
+
+/* Temprorary CSS for landing page after login */
+
+.jumbotron {
+    background: none;
+}
+.jumbotron h1 {
+    font-family: 'open_sansregular';
+    color: #111;
+    font-size: 32px;
+    text-align: center;
+    background: url('themes/images/ajax_loading.gif') no-repeat center top;
+    height: 166px;
+    padding: 140px 0 0 34px;
+}
+.jumbotron h2 {
+    font-family: 'open_sansregular';
+    color: #aaa;
+    font-size: 20px;
+    text-align: center;
+    padding-left: 17px;
+}

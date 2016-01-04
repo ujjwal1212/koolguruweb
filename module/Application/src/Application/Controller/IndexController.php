@@ -11,11 +11,15 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Session\Container;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction(){
-        
+        $session = new Container('User');
+        if($session->offsetExists('email') && $session->offsetGet('roleCode') == 'st'){
+            $this->redirect()->toRoute('student');
+        }
     }
     
     public function locateusAction(){
