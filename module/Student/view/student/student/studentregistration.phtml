@@ -113,7 +113,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                 <!-- Tab for verbal ability -->
                 <div class="tabs" id='content-2'>
                     <?php if ($enableTabContent[1]) { ?>
-                    <form action="/myapp/koolguruweb/public/student/studentregistration" method="post" name="user-verbal" class="detect_changes" id="user-verbal">
+                    <form action="<?php echo $this->basePath();?>/studentregistration" method="post" name="user-verbal" class="detect_changes" id="user-verbal">
                         <input type='hidden' name='student_id' id='student_id' value='<?php echo $student_id; ?>'>
                         <div class="container">
                             <div class="forms" id="student-registration-verbal">
@@ -160,7 +160,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                 <!-- Tab for verbal ability -->
                 <div class="tabs" id='content-3'>
                     <?php if ($enableTabContent[2]) { ?>
-                        <form action="/myapp/koolguruweb/public/student/studentregistration" method="post" name="user-verbal" class="detect_changes" id="user-verbal">
+                        <form action="<?php echo $this->basePath();?>/studentregistration" method="post" name="user-verbal" class="detect_changes" id="user-verbal">
                         <input type='hidden' name='student_id' id='student_id' value='<?php echo $student_id; ?>'>
                         <div class="container">
                             <div class="forms" id="student-registration-verbal">

@@ -115,7 +115,7 @@ class StudentController extends AbstractActionController {
         }
         return $this->QuestionOptionTable;
     }
-    
+
     public function getStudentQuantsTable() {
         if (!$this->StudentQuantsTable) {
             $sm = '';
@@ -155,9 +155,9 @@ class StudentController extends AbstractActionController {
         $studentId = $session->offsetGet('userId');
         $profilecompleted = 0;
         $profilecompleted = $session->offsetGet('isprofilecompleted');
-        if (!$profilecompleted) {
-            return $this->redirect()->toRoute('studentregistration');
-        }
+//        if (!$profilecompleted) {
+//            return $this->redirect()->toRoute('studentregistration');
+//        }
         return array(
             'studentId' => $studentId
         );
@@ -191,7 +191,7 @@ class StudentController extends AbstractActionController {
         $form->setInputFilter(new StudentFilter());
 
         if ($request->isPost()) {
-            $data = $request->getPost();            
+            $data = $request->getPost();
             if (isset($data['regsubmit'])) {
                 $email = $data->email;
                 $validator = new \Zend\Validator\EmailAddress();
@@ -212,24 +212,14 @@ class StudentController extends AbstractActionController {
                 } else {
                     $flag = 0;
                 }
-            }elseif (isset($data['verbalsubmit'])) {
+            } elseif (isset($data['verbalsubmit'])) {
                 $flag = 1;
-            }elseif (isset($data['quantsubmit'])) {
+            } elseif (isset($data['quantsubmit'])) {
                 $flag = 1;
             }
             if ($flag) {
-                if(isset($data['quantsubmit'])){
+                if (isset($data['quantsubmit'])) {
                     $this->getStudentQuantsTable()->saveStudentQuantsDetail($data);
-                    $total = 0;
-                    foreach ($data as $key => $det) {
-                        $split = explode('~', $det);
-                        $total += $split[0];
-                    }
-                    $status['verbal_reg_status'] = 1;
-                    $status['marks_obtain_verbal'] = $total;
-                    $this->getStudentStatusTable()->updateQuantStatus($status, $studentId);
-                }else if (isset($data['verbalsubmit'])) {
-                    $this->getStudentVerbalTable()->saveStudentVerbalDetail($data);
                     $total = 0;
                     foreach ($data as $key => $det) {
                         $split = explode('~', $det);
@@ -237,6 +227,16 @@ class StudentController extends AbstractActionController {
                     }
                     $status['quant_status'] = 1;
                     $status['marks_obtain_quant'] = $total;
+                    $this->getStudentStatusTable()->updateQuantStatus($status, $studentId);
+                } else if (isset($data['verbalsubmit'])) {
+                    $this->getStudentVerbalTable()->saveStudentVerbalDetail($data);
+                    $total = 0;
+                    foreach ($data as $key => $det) {
+                        $split = explode('~', $det);
+                        $total += $split[0];
+                    }
+                    $status['verbal_reg_status'] = 1;
+                    $status['marks_obtain_verbal'] = $total;
                     $this->getStudentStatusTable()->updateVerbalStatus($status, $studentId);
                 } else {
                     if (isset($data['regsubmit'])) {
@@ -312,7 +312,7 @@ class StudentController extends AbstractActionController {
             $cond['level'] = 3;
             $cond['status'] = 1;
             $questions = array();
-            $questions = $this->getQuestionTable()->getStudentQuestions($cond);            
+            $questions = $this->getQuestionTable()->getStudentQuestions($cond);
             if (!empty($questions)) {
                 foreach ($questions as $ques) {
                     $qoptions = array();
@@ -336,7 +336,7 @@ class StudentController extends AbstractActionController {
                     $quantQuestions[$ques['id']] = $t;
                 }
             }
-        }        
+        }
         return array(
             'form' => $form, 'enableTab' => $enableTab,
             'enableTabContent' => $enableTabContent,

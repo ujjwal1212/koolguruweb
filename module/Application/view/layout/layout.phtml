@@ -31,9 +31,9 @@ endif;
                 ->prependStylesheet($this->basePath() . '/js/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css')
                 ->prependStylesheet($this->basePath() . '/css/style.css')
                 ->prependStylesheet($this->basePath() . '/css/bootstrap.css')
-                 ->prependStylesheet($this->basePath() . '/css/video.css')
+                ->prependStylesheet($this->basePath() . '/css/video.css')
         ?>
-        
+
         <!-- Scripts -->
         <?php
         echo $this->headScript()
@@ -54,7 +54,7 @@ endif;
         ;
         ?>
 
-        
+
 
         <script>
             new WOW().init();
@@ -92,67 +92,67 @@ endif;
                 <div class="container">
 
                     <div class="headertop_nav">
-                        <?php if(isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa')){?>
-                        <div class="navigation">	
-                            <div>
-                                <ul class="nav navbar-nav">
-                                    <li>
-                                        <a href="<?php echo $this->url('home') ?>" class="dropdown-toggle" ><span class="home-icon"></span><?php echo $this->translate('Home', __NAMESPACE__) ?></a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span>Pathways<span  		
-                                                class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))   ?>">View</a></li>-->
-                                            <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))   ?>">Requests</a></li>-->
-                                            <!--<li><a href="javascript:void(0);">Renewals</a></li>-->
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span>Student
-                                            <span class="caret" ></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))   ?>">Manage Trainees</a></li>-->
-                                            <!--<li><a href="javascript:void(0);">Update Enrollment Status</a></li>-->
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="cohort-icon"></span>
-                                            Question Bank<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="<?php echo $this->url('question', array('action' => 'index')) ?>">Manage Questions</a></li>
-                                            <li><a href="<?php echo $this->url('level', array('action' => 'index')) ?>">Manage Levels</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="booking-icon"></span>
-                                            Quiz<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <!--<li class="dropdown-header">Assessment</li>-->
-                                            <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))   ?>">Book Assessment</a></li>-->
-                                            <!--<li class="divider"></li>-->
-                                            <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))   ?>">External Verifier Visit</a></li>-->                                            
-                                        </ul>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                                            <span class="admin-icon"></span>Administration<span class="caret"></span></a>
-                                        <ul class="dropdown-menu" role="menu">
+                        <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa')) { ?>
+                            <div class="navigation">	
+                                <div>
+                                    <ul class="nav navbar-nav">
+                                        <li>
+                                            <a href="<?php echo $this->url('home') ?>" class="dropdown-toggle" ><span class="home-icon"></span><?php echo $this->translate('Home', __NAMESPACE__) ?></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span>Pathways<span  		
+                                                    class="caret"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))    ?>">View</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))    ?>">Requests</a></li>-->
+                                                <!--<li><a href="javascript:void(0);">Renewals</a></li>-->
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span>Student
+                                                <span class="caret" ></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))    ?>">Manage Trainees</a></li>-->
+                                                <!--<li><a href="javascript:void(0);">Update Enrollment Status</a></li>-->
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="cohort-icon"></span>
+                                                Question Bank<span class="caret"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <li><a href="<?php echo $this->url('question', array('action' => 'index')) ?>">Manage Questions</a></li>
+                                                <li><a href="<?php echo $this->url('level', array('action' => 'index')) ?>">Manage Levels</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="booking-icon"></span>
+                                                Quiz<span class="caret"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
+                                                <!--<li class="dropdown-header">Assessment</li>-->
+                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))    ?>">Book Assessment</a></li>-->
+                                                <!--<li class="divider"></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))    ?>">External Verifier Visit</a></li>-->                                            
+                                            </ul>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                                <span class="admin-icon"></span>Administration<span class="caret"></span></a>
+                                            <ul class="dropdown-menu" role="menu">
 
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>			
-                        </div>
-                        
-                        <?php }else{?>
-                        <ul>
-                            <li>Call Us </li>
-                            <li> :(000) 123-456 </li> 
-                            <li> Email us : </li> 
-                            <li>info@koolguru.co.in</li> 
-                        </ul>
-                        <?php }?>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>			
+                            </div>
+
+                        <?php } else { ?>
+                            <ul>
+                                <li>Call Us </li>
+                                <li> :(000) 123-456 </li> 
+                                <li> Email us : </li> 
+                                <li>info@koolguru.co.in</li> 
+                            </ul>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -163,11 +163,24 @@ endif;
                     </div>	
                     <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa' || $roleCode == 'st')) { ?>
                         <div class="header-top-right">
-                            <div class="login_box">
-                                <div id="loginContainer">
-                                    <a href="<?php echo $this->url('logout') ?>" class="logout-btn">Logout</a>
-                                </div>
-                            </div> 
+                            <ul class="notifications">
+                                <li id="header-user-dropdown" class=" dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="user-icon"></span>
+                                        <span class="grey-caret"></span></a>
+                                    <ul class="dropdown-menu user-menu" role="menu">
+                                        <li><?php echo $_SESSION['User']->fname . ' ' . $_SESSION['User']->lname; ?><span class="user-email"><?php echo $_SESSION['User']->email; ?></span></li>
+                                        <li>
+                                            <a href="javascript:void(0)" class="change-password">Change Password</a>
+                                        </li>
+                                        <li class="user-menu-footer">
+                                            <!--<a href="javascript:void(0);" class="help"><span class="help-icon"></span>Help</a>-->
+                                            <a href="<?php echo $this->url('logout') ?>" class="logout-btn">Logout</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul> 
                         </div>
                     <?php } else { ?>
                         <div class="header-top-right">
@@ -185,7 +198,7 @@ endif;
     </div>
     <!-- Ends Header -->
 
-    
+
     <?php echo $this->content; ?>
 
 
