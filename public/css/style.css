@@ -3256,7 +3256,7 @@ header .grey-caret {
 ul.social-network {
     list-style: none;
     display: inline;
-    margin-left:0 !important;
+    margin-left:-50px !important;
     padding: 0;
 }
 ul.social-network li {
@@ -3322,7 +3322,7 @@ a.socialIcon:hover, .socialHoverClass {
     transition: all 0.2s;
 }
 .social-circle i {
-    color: #fff;
+    color: grey;
     -webkit-transition: all 0.8s;
     -moz-transition: all 0.8s;
     -o-transition: all 0.8s;
