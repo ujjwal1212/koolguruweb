@@ -1,0 +1,137 @@
+<?php if ($this->pageCount): ?>
+    <?php
+    $this->routeParams = isset($this->routeParams) ? $this->routeParams : array();
+    $query = http_build_query($this->query);
+    $popup = '';
+    if ($query != '') {
+        $popup = $query;
+        $query = '&' . $query;
+    }
+    ?>
+    <?php
+    if ($this->qual_id):
+        $query .="&qualification_id=" . $this->qual_id;
+    endif;
+    ?>
+
+    <?php if (isset($this->query['list_count']) || empty($popup)) { ?>
+        <div class="listing-search-dropdown">
+            <span>Show </span>
+            <span><select name="items_per_page" id="items_per_page" class="list_count">
+                    <?php for ($i = 10; $i <= 30; $i+=10) { ?>
+                        <option value="<?php echo $i; ?>" <?php echo ($i == $this->query['list_count']) ? 'selected="selected"' : ''; ?> ><?php echo $i; ?></option>     
+                    <?php } ?>
+                </select></span>
+            <span>Entries Per Page  </span>
+        </div>                  
+    <?php } ?>
+
+    <div class="pagination pagination-centered">
+        <ul>
+            <!-- First page link -->
+            <?php if (isset($this->previous)): ?>
+                <li class="enabled">
+                        <a class="first"  href="javascript:void(0);" onClick="<?php echo $this->jsFunction; ?>('<?php echo $this->url($this->route, $this->routeParams); ?>?page=<?php echo $this->first; ?><?php echo $query ?>')"></a>
+                                                                                  
+                <?php else: ?>
+                <li class="disabled">
+                    <a class="first" href="javascript:void(0);"></a>
+                </li>
+                </li>
+            <?php endif; ?>
+
+
+
+            <!-- Previous page link -->
+            <?php if (isset($this->previous)): ?>
+                <li class="enabled">
+                    <?php
+                    if (isset($this->jsFunction) && $this->jsFunction != '') {
+                        ?>
+                    <a class="previous"  href="javascript:void(0);" onClick="<?php echo $this->jsFunction; ?>('<?php echo $this->url($this->route, $this->routeParams); ?>?page=<?php echo $this->previous; ?><?php echo $query ?>')"></a>
+                            <?php
+                        } else {
+                            ?>
+
+                            <a href="<?php echo $this->url($this->route, $this->routeParams); ?>?page=<?php echo $this->previous; ?><?php echo $query ?>" class="previous">
+                            <?php } ?>
+
+                        </a>
+                </li>
+
+            <?php else: ?>
+                <li class="disabled">
+                    <a class="previous" href="javascript:void(0);"></a>
+                </li>
+            <?php endif; ?>
+            <!-- Numbered page links -->
+            <?php foreach ($this->pagesInRange as $page): ?>
+                <?php if ($page != $this->current): ?>
+                    <li>
+                        <?php
+                        if (isset($this->jsFunction) && $this->jsFunction != '') {
+                            ?>
+                            <a href="javascript:void(0);" onClick="<?php echo $this->jsFunction; ?>('<?php echo $this->url($this->route, $this->routeParams); ?>?page=<?php echo $page; ?><?php echo $query ?>')">
+                                <?php
+                            } else {
+                                ?>
+                                <a href="<?php echo $this->url($this->route, $this->routeParams); ?>?page=<?php echo $page; ?><?php echo $query ?>">
+                                <?php } ?>                            
+                                <?php echo $page; ?>
+                            </a>
+                    </li>
+                <?php else: ?>
+                    <li class="active">
+                        <a href="javascript:void(0);"><?php echo $page; ?></a>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach; ?>
+
+            <!-- Next page link -->
+            <?php if (isset($this->next)): ?>
+                <li class="enabled">
+                    <?php
+                    if (isset($this->jsFunction) && $this->jsFunction != '') {
+                        ?>
+                        <a class="next" href="javascript:void(0);" onClick="<?php echo $this->jsFunction; ?>('<?php echo $this->url($this->route, $this->routeParams); ?>?page=<?php echo $this->next; ?><?php echo $query ?>')">
+                            <?php
+                        } else {
+                            ?>
+                            <a href="<?php echo $this->url($this->route, $this->routeParams); ?>?page=<?php echo $this->next; ?><?php echo $query ?>" class="next">
+                            <?php } ?>
+                        </a>
+                </li>
+            <?php else: ?>
+                <li class="disabled">
+                    <a class="next" href="javascript:void(0);">
+                    </a>
+                </li>
+            <?php endif; ?>
+
+            <!-- Last page link -->
+            <?php if (isset($this->next)): ?>
+                <li class="enabled">
+                    <a class="last"  href="javascript:void(0);" onClick="<?php echo $this->jsFunction; ?>('<?php echo $this->url($this->route, $this->routeParams); ?>?page=<?php echo $this->last; ?><?php echo $query ?>')"></a>
+                <?php else: ?>
+                <li class="disabled">
+                    <a class="last" href="javascript:void(0);"></a>
+                </li>
+                </li>
+            <?php endif; ?>
+        </ul>
+
+    </div>
+<?php endif; ?>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select#items_per_page').change(function() {
+            $('#list_count').val($(this).val());
+            grid.search();
+        });
+        //Adding select2 for paging dropdown 
+        if ($('#items_per_page').length) {
+            $("#items_per_page,select.generic").select2({minimumResultsForSearch: -1});
+
+        }
+    });
+</script>
