@@ -91,7 +91,9 @@ endif;
         <div class="header">    
             <div class="header_top">
                 <div class="container">
-
+                    <div class="logo">
+                        <h1><a href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath() . '/img/logo.png' ?>" class="img-logo"><span>INNOVATE TO EDUCATE</span></a></h1>
+                    </div>
                     <div class="headertop_nav">
                         <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa')) { ?>
                             <div class="navigation">	
@@ -104,8 +106,8 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span>Pathways<span  		
                                                     class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))       ?>">View</a></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))       ?>">Requests</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))        ?>">View</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))        ?>">Requests</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Renewals</a></li>-->
                                             </ul>
                                         </li>
@@ -113,7 +115,7 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span>Student
                                                 <span class="caret" ></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))       ?>">Manage Trainees</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))        ?>">Manage Trainees</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Update Enrollment Status</a></li>-->
                                             </ul>
                                         </li>
@@ -130,9 +132,9 @@ endif;
                                                 Quiz<span class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
                                                 <!--<li class="dropdown-header">Assessment</li>-->
-                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))       ?>">Book Assessment</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))        ?>">Book Assessment</a></li>-->
                                                 <!--<li class="divider"></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))       ?>">External Verifier Visit</a></li>-->                                            
+                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))        ?>">External Verifier Visit</a></li>-->                                            
                                             </ul>
                                         </li>
                                         <li class="dropdown">
@@ -155,13 +157,8 @@ endif;
                             </ul>
                         <?php } ?>
                     </div>
-                </div>
-            </div>
-            <div class="header_bottom">
-                <div class="container">	 			
-                    <div class="logo">
-                        <h1><a href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath() . '/img/logo.png' ?>"><span></span></a></h1>
-                    </div>	
+                    <div class="container">	 			
+
                     <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa' || $roleCode == 'st')) { ?>
                         <div class="header-top-right">
                             <ul class="notifications">
@@ -185,15 +182,28 @@ endif;
                         </div>
                     <?php } else { ?>
                         <div class="header-top-right">
-                            <div class="login_box">
-                                <div id="loginContainer">
-                                    <a href="<?php echo $this->url('studentlogin') ?>" class="logout-btn">Login</a>
-                                </div>
-                            </div> 
+                            <ul class="notifications">
+                                <li id="header-user-dropdown" class=" dropdown">
+                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                        <span class="user-icon"></span>
+                                        <span class="grey-caret"></span></a>
+                                    <ul class="dropdown-menu user-menu" role="menu">
+                                        <li class="user-menu-footer">
+                                            <!--<a href="javascript:void(0);" class="help"><span class="help-icon"></span>Help</a>-->
+                                            <a href="<?php echo $this->url('studentlogin') ?>" class="logout-btn">Login</a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                            </ul> 
                         </div>
                     <?php } ?>
                 </div>
-            </div>	
+                </div>
+            </div>
+<!--            <div class="header_bottom">
+                
+            </div>	-->
 
         </div>
     </div>
