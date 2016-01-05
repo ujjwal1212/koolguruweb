@@ -3,6 +3,13 @@
         $('#cbp-fwslider').cbpFWSlider();
     });
 </script>
+<?php
+echo $this->doctype();
+$roleCode = '';
+if (isset($_SESSION['User']['roleCode'])):
+    $roleCode = $_SESSION['User']['roleCode'];
+endif;
+?>
 <style>
 <?php
 echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
@@ -86,12 +93,14 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
                            data-setup='{"example_option":true}'>
                         <source src="http://koolguru.co.in/video/1.mp4" type='video/mp4' />
                     </video>
+                    <?php if($roleCode == ''){?>
                     <span class="button-wrap" style="margin-top:10px">
                         <a href="<?php echo $this->url('student') ?>" class="button button-pill button-raised button-primary">Register Now</a>
                     </span>
                     <span class="button-wrap" style="margin-top:10px">
                         <a href="<?php echo $this->url('demoquiz') ?>" class="button button-pill button-raised button-primary">Demo Chapter</a>
                     </span>
+                    <?php }?>
                 </div>
             </div>
         </div>
