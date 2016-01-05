@@ -2142,7 +2142,7 @@ legend,
     font-size: 10px;
     color: #6a6a6a;
 }
-.label, legend { color: #6a6a6a; }
+.label, legend { color: #6a6a6a !important; }
 /*---------------CSS for Pagination---------------*/
 
 .entries {

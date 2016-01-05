@@ -155,9 +155,9 @@ class StudentController extends AbstractActionController {
         $studentId = $session->offsetGet('userId');
         $profilecompleted = 0;
         $profilecompleted = $session->offsetGet('isprofilecompleted');
-//        if (!$profilecompleted) {
-//            return $this->redirect()->toRoute('studentregistration');
-//        }
+        if (!$profilecompleted) {
+            return $this->redirect()->toRoute('studentregistration');
+        }
         return array(
             'studentId' => $studentId
         );
