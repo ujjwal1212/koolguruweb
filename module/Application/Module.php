@@ -11,6 +11,10 @@ namespace Application;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Zend\Db\TableGateway\TableGateway;
+use Zend\Db\ResultSet\ResultSet;
+use Application\Model\Sendquery;
+use Application\Model\SendqueryTable;
 
 class Module
 {
@@ -33,6 +37,24 @@ class Module
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
+            ),
+        );
+    }
+    
+    public function getServiceConfig() {
+        return array(
+            'factories' => array(
+                'Application\Model\SendqueryTable' => function($sm) {
+                    $tableGateway = $sm->get('SendqueryTableGateway');
+                    $table = new SendqueryTable($tableGateway);
+                    return $table;
+                },
+                'SendqueryTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Sendquery());
+                    return new TableGateway('send_query', $dbAdapter, null, $resultSetPrototype);
+                },
             ),
         );
     }
