@@ -52,7 +52,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
                                         <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
                                     </div></li>
                                 <li><img src="<?php echo $this->basePath('img/v5.jpg'); ?>" class="img-responsive" /><div class="desc">
-                                        <h3>SHOBIT TYAGI</h3>
+                                        <h3>SHOBHIT TYAGI</h3>
                                         <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
                                     </div></li>		    	  	       	   	    	
                             </ul>
@@ -88,11 +88,28 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
                     </div>
                 </div>
                 <div class="col-md-4 middle_right"> 
-                    <video id="example_video_1" class="video-js vjs-default-skin" preload="auto" controls preload="auto" width="400px" height="300px"
-                           poster="http://video-js.zencoder.com/oceans-clip.png"
-                           data-setup='{"example_option":true}'>
-                        <source src="http://koolguru.co.in/video/1.mp4" type='video/mp4' />
-                    </video>
+                    <div class="container">
+                        <main>
+                            <label for="tab1" id='tab-1' class="kooltab enabletab activetab" onclick="app.demoVideotab.openTag(1)">Motivational Video</label>                
+                            <label for="tab2" id='tab-2' class="kooltab enabletab activetab" onclick="app.demoVideotab.openTag(2)"><span>Theme Video</span></label>                
+                        </main>
+                    </div>
+                    <div class="tabs" id='content-1'>
+                        <br>
+                        <video id="video-1" class="video-js vjs-default-skin" preload="auto" controls preload="auto" width="400px" height="300px"
+                               poster=""
+                               data-setup='{"example_option":true}'>
+                            <source src="http://koolguru.co.in/video/1.mp4" type='video/mp4' onclick="demo_vedi_click(this)"/>
+                        </video>
+                    </div>
+                    <div class="tabs" id='content-2'>
+                        <br>
+                        <video id="video-2" class="video-js vjs-default-skin" preload="auto" controls preload="auto" width="400px" height="300px"
+                               poster="http://video-js.zencoder.com/oceans-clip.png"
+                               data-setup='{"example_option":true}'>
+                            <source src="http://koolguru.co.in/video/2.mp4" type='video/mp4' />
+                        </video>
+                    </div>
                     <?php if($roleCode == ''){?>
                     <span class="button-wrap" style="margin-top:10px">
                         <a href="<?php echo $this->url('student') ?>" class="button button-pill button-raised button-primary">Register Now</a>
@@ -106,3 +123,14 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.kooltab').each(function(){
+            var tabid = $(this).attr('id');
+            tabid = tabid.replace("tab-", "");
+            app.demoVideotab.hidetab(parseInt(tabid));
+        });
+        $('#tab-1').click();
+    });
+    
+    </script>

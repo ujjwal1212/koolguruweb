@@ -247,13 +247,15 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
             }
         });
         
-
-        
-//        app.studentTab.hidetab(1);
-//        app.studentTab.hidetab(2);
-//        app.studentTab.hidetab(3);
-//        app.studentTab.hidetab(4);
-//        app.studentTab.applytabbing(app.studentTab.enabletab);
-//        app.studentTab.enableTabContent();
+        $('#mobile').blur(function(){
+            var mob = $(this).val();
+            var url = '<?php echo $this->basePath().'/save_mobile?mobile=';?>'+mob;
+            console.log(url);
+            //if(mob.length == 10){
+                $.ajax({url: url, success: function(result){
+                    
+                }});
+            //}
+        })
     });
 </script>

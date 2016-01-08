@@ -36,6 +36,12 @@ class IndexController extends AbstractActionController
         return $this->SendqueryTable;
     }
     public function indexAction(){
+        $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
+        $js_path = $renderer->basePath('js/koolguru/application');
+        $headScript = $this->getServiceLocator()->get('viewhelpermanager')
+                ->get('headScript');
+
+        $headScript->appendFile($js_path . '/demovideos.js');
         $session = new Container('User');
         if($session->offsetExists('email') && $session->offsetGet('roleCode') == 'st'){
             $this->redirect()->toRoute('student');
@@ -65,12 +71,21 @@ class IndexController extends AbstractActionController
                 ->get('headScript');
 
         $headScript->appendFile($js_path . '/contact_us.js');
+        $errorMsg = '';
+        $successMsg = '';
         $request = $this->getRequest();
         if ($request->isPost()) {
             $data = $request->getPost();
             $this->getSendqueryTable()->saveQuery($data);
+            $errorMsg = $this->flashMessenger()->getCurrentMessagesFromNamespace('error');
+            $successMsg = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
+            //$successMsg = 'Thanks you for the submission, We will get back to you soon!';
             $this->flashMessenger()->addMessage('Thanks you for the submission, We will get back to you soon!');
         }
+        return new ViewModel(array(
+            'errorMsg' => $errorMsg,
+            'successMsg' => $successMsg
+        ));
         
     }
     public function demoquizAction(){
