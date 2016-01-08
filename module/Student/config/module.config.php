@@ -40,6 +40,21 @@ return array(
                 ),
             ),
             
+            'save_mobile' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/save_mobile[/:action][/:mobile]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Student\Controller\Student',
+                        'action' => 'savemobile',
+                    ),
+                ),
+            ),
+            
         ),
     ),    
     'view_manager' => array(

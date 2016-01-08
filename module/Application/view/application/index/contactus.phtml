@@ -37,6 +37,26 @@
                                 <?php 
                                 //$flashMessenger = $this->flashMessenger();
                                 //echo $flashMessenger->getMessages();?>
+                                <?php
+        $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+        $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+        if (empty($errorflashMessage) && !empty($successflashMessage)) {
+            ?>
+            <div id="global-success-msg-page" class="global-page-success">
+                <?php
+                foreach ($successflashMessage as $succMsg) {
+                    echo $errMsg;
+                }
+                ?>
+
+            </div>
+        <?php } else { ?>
+            <div id="global-error-msg-page"   class="global-page-error"><?php
+                foreach ($errorflashMessage as $errMsg) {
+                    echo $errMsg;
+                }
+                ?></div>
+        <?php } ?>
                                 <h3 class="h3">Contact Form</h3>
                                 <ul>
                                     <li class="form-row">

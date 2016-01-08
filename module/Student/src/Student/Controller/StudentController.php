@@ -367,5 +367,11 @@ class StudentController extends AbstractActionController {
         $reciever_message .= "Note:-\n 1.This link will automatically expire after 72 hours.\n 2.In case your link is expired please write to $adminEmail.\n 3.Please do not reply to this email.";
         $this->getRecoverEmailTable()->sendEmailToUser($subject, $reciever_message, $email);
     }
+    
+    
+    public function savemobileAction(){
+       $mobile = (int) $this->params()->fromRoute('mobile', 0);
+        asd($mobile);
+    }
 
 }
