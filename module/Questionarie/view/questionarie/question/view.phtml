@@ -1,0 +1,104 @@
+<?php
+if (isset($_SESSION['User']['roleCode'])):
+    $roleCode = $_SESSION['User']['roleCode'];
+endif;
+?>
+<section class="sub-header">
+    <div class="container">
+        <div class="sub-header-title">
+            <?php
+            $title = 'View Question';
+            $this->headTitle($title);
+            ?>
+            <a class="back-icon" href="<?php echo $this->url('question', array('action' => 'index')); ?>"></a>
+
+            <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
+
+                <?php
+                /* Adding Breadcrumb */
+                echo $this->navigation('navigation')
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                ?>
+            </h1>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="forms">
+        <section class="profile-details center-details">
+            <div class="short_profile_left">
+                <ul>
+                    <li class="name detail-row">
+                        <?php echo $question[0]['name']; ?>
+                        <span class="separator-img"></span>
+                        <?php if($question[0]['status'] == '0'){ ?>
+                        <span class="green-circle-status"></span>
+                        <span class="status">        
+                            <?php echo 'ACTIVE'; ?>
+                        </span>
+                        <?php }else{?>
+                        <span class="red-circle-status"></span>
+                        <span class="status">        
+                            <?php echo 'IN-ACTIVE'; ?>
+                        </span>
+                        <?php }?>
+                    </li>
+                    <li class="nid detail-row">
+                        <span class="nid-icon" title="Type"></span><span class="detail"> TYPE : <?php echo $question[0]['type'] == 0?'MULTI CHOICE ONE ANSWER':'MULTI CHOICE MULTIPLE ANSWER'; ?></span>
+                    </li>
+                    <li class="nid detail-row">
+                        <span class="nid-icon" title="Minimum marks"></span><span class="detail"> MINIMUM MARKS : <?php echo $question[0]['min_marks'] ?></span>
+                    </li>
+                    <li class="nid detail-row">
+                        <span class="nid-icon" title="Maximum marks"></span><span class="detail"> MAXIMUM MARKS : <?php echo $question[0]['max_marks'] ?></span>
+                    </li>
+                    <li class="nid detail-row">
+                        <span class="nid-icon" title="Level"></span><span class="detail"> LEVEL : <?php echo $question[0]['level_name'] ?></span>
+                    </li>
+                </ul>  
+            </div> 
+        </section>
+        <div class="view-data-divider"></div>
+
+        <section class="view-detail">
+            <table border="1" class="table center-listing" id="option_table">
+                <thead>
+                    <tr>
+                        <th class="fname"><input type='hidden' id='action' value='add'><?php echo $this->escapeHtml('OPTION DESCRIPTION'); ?></th>
+                        <th class="lname"><input type='hidden' id='qual_name' value=''><?php echo $this->escapeHtml('IS CORRECT'); ?></th>
+                        <!--<th class="actions"><?php echo $this->escapeHtml('ACTION'); ?></th>-->
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $i = 0;
+                    foreach ($questionOptions as $option) {
+                        ?>
+                        <tr id="<?php echo $i; ?>">
+                            <td class='fname'><input type='hidden' name='option_description[]' value="<?php echo $option['description']; ?>"/><?php echo $option['description']; ?></td>
+                            <td class='lname'><input type='hidden' name='option_correct[]' value="<?php echo $option['is_correct']; ?>"/><?php echo $option['is_correct'] == 0 ? 'No' : 'Yes'; ?></td>
+                            <!--<td><a href='javascript:void(0)' class='btnDelete delete-icon' onclick="DeleteRow('<?php echo $i; ?>')" id='row_<?php echo $i; ?>' title='delete'></a></td>-->
+                        </tr>
+                        <?php
+                        $i++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <div id="form-footer">
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
