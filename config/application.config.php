@@ -4,9 +4,9 @@ return array(
     'modules' => array(
         'Application',
         'ZF2AuthAcl',
-        'admin',
-        'student',
-        'user',
+        'Admin',
+        'Student',
+        'User',
         'Questionarie',
     ),
 
