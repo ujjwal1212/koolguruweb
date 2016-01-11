@@ -27,6 +27,8 @@ use Student\Model\StudentStatus;
 use Student\Model\StudentStatusTable;
 use Student\Model\StudentQuants;
 use Student\Model\StudentQuantsTable;
+use Student\Model\StudentMobile;
+use Student\Model\StudentMobileTableTable;
 use Questionarie\Model\Question;
 use Questionarie\Model\QuestionTable;
 use Questionarie\Model\QuestionOption;
@@ -42,9 +44,10 @@ class StudentController extends AbstractActionController {
     protected $QuestionTable;
     protected $QuestionOptionTable;
     protected $StudentQuantsTable;
-    protected $adapter;
+    protected $StudentMobileTable;
     protected $UserTable;
     protected $RecoverEmailTable;
+    protected $adapter;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -123,6 +126,15 @@ class StudentController extends AbstractActionController {
             $this->StudentQuantsTable = $sm->get('Student\Model\StudentQuantsTable');
         }
         return $this->StudentQuantsTable;
+    }
+    
+    public function getStudentMobileTable() {
+        if (!$this->StudentMobileTable) {
+            $sm = '';
+            $sm = $this->getServiceLocator();
+            $this->StudentMobileTable = $sm->get('Student\Model\StudentMobileTable');
+        }
+        return $this->StudentMobileTable;
     }
 
     /**
@@ -247,6 +259,7 @@ class StudentController extends AbstractActionController {
                                 $this->sendActivationLink($email, $hashValueReturn);
                                 $status['registration_status'] = 1;
                                 $this->getStudentStatusTable()->createStudentStatus($status, $student_id);
+                                $this->getStudentMobileTable()->updateMobileStatus($data['mobile'],$student_id);
                             } else {
                                 $studentId = $this->getStudentTable()->updateStudent($data, $studentId);
                             }
@@ -369,9 +382,20 @@ class StudentController extends AbstractActionController {
     }
     
     
-    public function savemobileAction(){
-       $mobile = (int) $this->params()->fromRoute('mobile', 0);
-        asd($mobile);
+    public function savemobileAction(){ 
+       $student = array();
+       //$mobile = $this->params()->fromRoute('mobile',0);
+       $mobile = $_GET['mobile'];
+       $student['mobile'] = $mobile;
+       $student['isregistered'] = 0;
+       $student['student_id'] = 0;
+       $student['created'] = time();
+       if(!$this->getStudentMobileTable()->getIsMobileExist($mobile)){
+           $this->getStudentMobileTable()->saveStudentMobile($student);
+       }
+       return false;
     }
+    
+    
 
 }

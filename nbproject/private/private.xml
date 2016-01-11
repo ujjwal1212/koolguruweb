@@ -5,9 +5,9 @@
         <group>
             <file>file:/C:/wamp/www/koolguruweb/module/Application/view/layout/layout.phtml</file>
             <file>file:/C:/wamp/www/koolguruweb/public/.htaccess</file>
-            <file>file:/C:/wamp/www/koolguruweb/public/js/koolguru/student/student_registration.js</file>
-            <file>file:/C:/wamp/www/koolguruweb/public/css/tab.css</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/demoquiz.phtml</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb/module/Student/view/student/student/studentregistration.phtml</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb/module/Student/src/Student/Model/StudentTable.php</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb/module/Student/src/Student/Controller/StudentController.php</file>
             <file>file:/C:/wamp/www/koolguruweb/public/css/style.css</file>
             <file>file:/C:/wamp/www/koolguruweb/module/User/src/User/Controller/UserController.php</file>
             <file>file:/C:/wamp/www/koolguruweb/module/Admin/Module.php</file>
