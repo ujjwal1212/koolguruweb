@@ -15,6 +15,8 @@ use Student\Model\StudentStatus;
 use Student\Model\StudentStatusTable;
 use Student\Model\StudentQuants;
 use Student\Model\StudentQuantsTable;
+use Student\Model\StudentMobile;
+use Student\Model\StudentMobileTable;
 use Questionarie\Model\Question;
 use Questionarie\Model\QuestionTable;
 use Questionarie\Model\QuestionOption;
@@ -127,6 +129,18 @@ class Module {
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new StudentQuants());
                     return new TableGateway('student_reg_quant_ability', $dbAdapter, null, $resultSetPrototype);
+                },
+                        
+                'Student\Model\StudentMobileTable' => function($sm) {                    
+                    $tableGateway = $sm->get('StudentMobileTableGateway');
+                    $table = new StudentMobileTable($tableGateway);
+                    return $table;
+                },
+                'StudentMobileTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new StudentMobile());
+                    return new TableGateway('student_mobile', $dbAdapter, null, $resultSetPrototype);
                 },
                 
             ),

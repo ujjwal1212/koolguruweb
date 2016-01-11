@@ -40,13 +40,13 @@ return array(
                 ),
             ),
             
-            'save_mobile' => array(
+            'savemobile' => array(
                 'type' => 'segment',
                 'options' => array(
-                    'route' => '/save_mobile[/:action][/:mobile]',
+                    'route' => '/savemobile[/:action][/:mobile]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                        'id' => '[0-9]+',
+                        'mobile' => '[0-9]+',
                     ),
                     'defaults' => array(
                         'controller' => 'Student\Controller\Student',
