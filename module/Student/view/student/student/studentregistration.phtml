@@ -249,7 +249,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         
         $('#mobile').blur(function(){
             var mob = $(this).val();
-            var url = '<?php echo $this->basePath().'/save_mobile?mobile=';?>'+mob;
+            var url = '<?php echo $this->basePath().'/savemobile?mobile=';?>'+mob;
             console.log(url);
             //if(mob.length == 10){
                 $.ajax({url: url, success: function(result){
