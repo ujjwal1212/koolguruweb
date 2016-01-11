@@ -66,6 +66,7 @@ class Module {
             'Student\Controller\Student-index',
             'Student\Controller\Student-studentregistration',
             'ZF2AuthAcl\Controller\Index-studentLogin',
+            'Student\Controller\Student-savemobile'
         );
 
         //$requestUri = $request->getRequestUri();
