@@ -250,12 +250,11 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         $('#mobile').blur(function(){
             var mob = $(this).val();
             var url = '<?php echo $this->basePath().'/savemobile?mobile=';?>'+mob;
-            console.log(url);
-            //if(mob.length == 10){
+            if(mob.replace(/ /g,'').length == 10 && $.isNumeric(mob)){
                 $.ajax({url: url, success: function(result){
                     
                 }});
-            //}
+            }
         })
     });
 </script>
