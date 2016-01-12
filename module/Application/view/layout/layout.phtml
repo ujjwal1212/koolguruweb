@@ -107,8 +107,8 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span>Pathways<span  		
                                                     class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))        ?>">View</a></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))        ?>">Requests</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))           ?>">View</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))           ?>">Requests</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Renewals</a></li>-->
                                             </ul>
                                         </li>
@@ -116,7 +116,7 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span>Student
                                                 <span class="caret" ></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))        ?>">Manage Trainees</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))           ?>">Manage Trainees</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Update Enrollment Status</a></li>-->
                                             </ul>
                                         </li>
@@ -133,16 +133,17 @@ endif;
                                                 Quiz<span class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
                                                 <!--<li class="dropdown-header">Assessment</li>-->
-                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))        ?>">Book Assessment</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))           ?>">Book Assessment</a></li>-->
                                                 <!--<li class="divider"></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))        ?>">External Verifier Visit</a></li>-->                                            
+                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))           ?>">External Verifier Visit</a></li>-->                                            
                                             </ul>
                                         </li>
                                         <li class="dropdown">
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                                                 <span class="admin-icon"></span>Administration<span class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
-
+                                                <li><a href="<?php echo $this->url('admin', array('action' => 'contactquery')) ?>">Contact Us Queries</a></li>
+                                                <li><a href="<?php echo $this->url('admin', array('action' => 'studentregister')) ?>">Student Register</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -150,61 +151,61 @@ endif;
                             </div>
 
                         <?php } else { ?>
-<!--                            <ul>
-                                <li>Call Us </li>
-                                <li> :(000) 123-456 </li> 
-                                <li> Email us : </li> 
-                                <li>info@koolguru.co.in</li> 
-                            </ul>-->
+                            <!--                            <ul>
+                                                            <li>Call Us </li>
+                                                            <li> :(000) 123-456 </li> 
+                                                            <li> Email us : </li> 
+                                                            <li>info@koolguru.co.in</li> 
+                                                        </ul>-->
                         <?php } ?>
                     </div>
                     <div class="container">	 			
 
-                    <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa' || $roleCode == 'st')) { ?>
-                        <div class="header-top-right">
-                            <ul class="notifications">
-                                <li id="header-user-dropdown" class=" dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="user-icon"></span>
-                                        <span class="grey-caret"></span></a>
-                                    <ul class="dropdown-menu user-menu" role="menu">
-                                        <li><?php echo $_SESSION['User']->fname . ' ' . $_SESSION['User']->lname; ?><span class="user-email"><?php echo $_SESSION['User']->email; ?></span></li>
-                                        <li>
-                                            <a href="javascript:void(0)" class="change-password">Change Password</a>
-                                        </li>
-                                        <li class="user-menu-footer">
-                                            <!--<a href="javascript:void(0);" class="help"><span class="help-icon"></span>Help</a>-->
-                                            <a href="<?php echo $this->url('logout') ?>" class="logout-btn">Logout</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                        <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa' || $roleCode == 'st')) { ?>
+                            <div class="header-top-right">
+                                <ul class="notifications">
+                                    <li id="header-user-dropdown" class=" dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                            <span class="user-icon"></span>
+                                            <span class="grey-caret"></span></a>
+                                        <ul class="dropdown-menu user-menu" role="menu">
+                                            <li><?php echo $_SESSION['User']->fname . ' ' . $_SESSION['User']->lname; ?><span class="user-email"><?php echo $_SESSION['User']->email; ?></span></li>
+                                            <li>
+                                                <a href="javascript:void(0)" class="change-password">Change Password</a>
+                                            </li>
+                                            <li class="user-menu-footer">
+                                                <!--<a href="javascript:void(0);" class="help"><span class="help-icon"></span>Help</a>-->
+                                                <a href="<?php echo $this->url('logout') ?>" class="logout-btn">Logout</a>
+                                            </li>
+                                        </ul>
+                                    </li>
 
-                            </ul> 
-                        </div>
-                    <?php } else { ?>
-                        <div class="header-top-right">
-                            <ul class="notifications">
-                                <li id="header-user-dropdown" class=" dropdown">
-                                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                                        <span class="user-icon"></span>
-                                        <span class="grey-caret"></span></a>
-                                    <ul class="dropdown-menu user-menu" role="menu">
-                                        <li class="user-menu-footer">
-                                            <!--<a href="javascript:void(0);" class="help"><span class="help-icon"></span>Help</a>-->
-                                            <a href="<?php echo $this->url('studentlogin') ?>" class="logout-btn">Login</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                </ul> 
+                            </div>
+                        <?php } else { ?>
+                            <div class="header-top-right">
+                                <ul class="notifications">
+                                    <li id="header-user-dropdown" class=" dropdown">
+                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                            <span class="user-icon"></span>
+                                            <span class="grey-caret"></span></a>
+                                        <ul class="dropdown-menu user-menu" role="menu">
+                                            <li class="user-menu-footer">
+                                                <!--<a href="javascript:void(0);" class="help"><span class="help-icon"></span>Help</a>-->
+                                                <a href="<?php echo $this->url('studentlogin') ?>" class="logout-btn">Login</a>
+                                            </li>
+                                        </ul>
+                                    </li>
 
-                            </ul> 
-                        </div>
-                    <?php } ?>
-                </div>
+                                </ul> 
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
-<!--            <div class="header_bottom">
-                
-            </div>	-->
+            <!--            <div class="header_bottom">
+                            
+                        </div>	-->
 
         </div>
     </div>

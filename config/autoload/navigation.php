@@ -90,47 +90,63 @@ return array(
 //                ),
             ),
             array(
-                    'label' => 'Manage Level',
-                    'route' => 'level',
-                    'pages' => array(
-                        array(
-                            'label' => ' Create Level',
-                            'route' => 'level',
-                            'action' => 'add',
-                        ),
-                        array(
-                            'label' => 'Edit Level',
-                            'route' => 'level',
-                            'action' => 'edit',
-                        ),
-                        array(
-                            'label' => 'View Level',
-                            'route' => 'level',
-                            'action' => 'view',
-                        ),
+                'label' => 'Manage Level',
+                'route' => 'level',
+                'pages' => array(
+                    array(
+                        'label' => ' Create Level',
+                        'route' => 'level',
+                        'action' => 'add',
+                    ),
+                    array(
+                        'label' => 'Edit Level',
+                        'route' => 'level',
+                        'action' => 'edit',
+                    ),
+                    array(
+                        'label' => 'View Level',
+                        'route' => 'level',
+                        'action' => 'view',
                     ),
                 ),
+            ),
             array(
-                    'label' => 'Manage Questions',
-                    'route' => 'question',
-                    'pages' => array(
-                        array(
-                            'label' => ' Create Question',
-                            'route' => 'question',
-                            'action' => 'add',
-                        ),
-                        array(
-                            'label' => 'Edit Question',
-                            'route' => 'question',
-                            'action' => 'edit',
-                        ),
-                        array(
-                            'label' => 'View Question',
-                            'route' => 'question',
-                            'action' => 'view',
-                        ),
+                'label' => 'Manage Questions',
+                'route' => 'question',
+                'pages' => array(
+                    array(
+                        'label' => ' Create Question',
+                        'route' => 'question',
+                        'action' => 'add',
+                    ),
+                    array(
+                        'label' => 'Edit Question',
+                        'route' => 'question',
+                        'action' => 'edit',
+                    ),
+                    array(
+                        'label' => 'View Question',
+                        'route' => 'question',
+                        'action' => 'view',
                     ),
                 ),
+            ),
+            array(
+                'label' => 'Manage Admin Activities',
+                'route' => 'admin',
+                'pages' => array(
+                    array(
+                        'label' => ' Manage Contact Queries',
+                        'route' => 'admin',
+                        'action' => 'contactquery',
+                    ),
+                    array(
+                        'label' => 'Manage Student Registration',
+                        'route' => 'admin',
+                        'action' => 'student register',
+                    ),
+                ),
+            ),
         ),
     ),
 );
