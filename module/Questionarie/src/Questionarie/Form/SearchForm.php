@@ -16,7 +16,7 @@ class SearchForm extends Form {
             'attributes' => array(
                 'type' => 'text',
                 'id' => 'search_box',
-                'placeholder' => 'Search by typing a level name',
+                'placeholder' => 'Search by typing a label name',
                 'class' => 'search input large-search-box'
             ),
             'options' => array(

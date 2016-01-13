@@ -16,11 +16,11 @@ use Zend\Session\Container;
 use Questionarie\Form\SearchForm;
 use Zend\Db\Sql\Select;
 
-
 class AdminController extends AbstractActionController {
 
     protected $adapter;
     protected $StudentMobileTable;
+    protected $SendqueryTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -29,7 +29,7 @@ class AdminController extends AbstractActionController {
         }
         return $this->adapter;
     }
-    
+
     public function getStudentMobileTable() {
         if (!$this->StudentMobileTable) {
             $sm = '';
@@ -37,6 +37,14 @@ class AdminController extends AbstractActionController {
             $this->StudentMobileTable = $sm->get('Student\Model\StudentMobileTable');
         }
         return $this->StudentMobileTable;
+    }
+
+    public function getSendqueryTable() {
+        if (!$this->SendqueryTable) {
+            $sm = $this->getServiceLocator();
+            $this->SendqueryTable = $sm->get('Application\Model\SendqueryTable');
+        }
+        return $this->SendqueryTable;
     }
 
     public function indexAction() {
@@ -65,11 +73,11 @@ class AdminController extends AbstractActionController {
             $form->get('order')->setValue($order);
             $form->setData($data);
             if ($form->isValid()) {
-                $paginator = $this->getStudentMobileTable()->fetchAll(true, $order_by, $order, $searchText);
+                $paginator = $this->getSendqueryTable()->fetchAll(true, $order_by, $order, $searchText);
             }
         } else {
             // grab the paginator from the CenterTable
-            $paginator = $this->getStudentMobileTable()->fetchAll(true, $order_by, $order, $searchText);
+            $paginator = $this->getSendqueryTable()->fetchAll(true, $order_by, $order, $searchText);
         }
         $row_count = $paginator->getTotalItemCount();
         // set the current page to what has been passed in query string, or to 1 if none set
@@ -163,6 +171,13 @@ class AdminController extends AbstractActionController {
             'errorMsg' => $errorMsg,
             'successMsg' => $successMsg
         ));
+    }
+
+    public function updatequerystatusAction() {
+        $id = $_GET['id'];
+        $query_data = $this->getSendqueryTable()->updateQueryStatus($id);
+
+        return true;
     }
 
 }
