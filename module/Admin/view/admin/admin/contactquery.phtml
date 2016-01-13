@@ -94,8 +94,152 @@ if (!$this->isAjax) {
     }
     ?>
     <div id="grid-list">
+        <?php if ($this->row_count == 0) { ?>
+            <table  class="table center-listing table-disable">
+                <thead>
+                    <tr>
+                        <th class="id">
+                            <a href="javascript:void(0);">ID<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="name">
+                            <a href="javascript:void(0);">NAME<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="type">
+                            <a href="javascript:void(0);">MOBILE NUMBER<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="type">
+                            <a href="javascript:void(0);">EMAIL<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="description">
+                            MESSAGE
+                        </th>
+                        <th class="type">
+                            <a href="javascript:void(0);">STATUS<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="ac">
+                            ACTION
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="7"><div class="no-records"><span class="info-icon"></span>No records found !</div></td>
+                    </tr>
+                </tbody>
+            </table>
+        <?php } else { ?>
+            <table  class="table center-listing">
+                <thead>
+                    <tr>
+                        <th class="id">
+                            <a href="javascript:void(0);" onclick="grid.sort('id', '<?php echo ($this->order_by == 'id') ? $url_order : $default_order; ?>');">ID<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="name">
+                            <a href="javascript:void(0);" onclick="grid.sort('name', '<?php echo ($this->order_by == 'name') ? $url_order : $default_order; ?>');">NAME<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th>
+                            <a href="javascript:void(0);" onclick="grid.sort('mobile', '<?php echo ($this->order_by == 'mobile') ? $url_order : $default_order; ?>');">MOBILE NUMBER<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th>
+                            <a href="javascript:void(0);" onclick="grid.sort('email', '<?php echo ($this->order_by == 'isregistered') ? $url_order : $default_order; ?>');">EMAIL<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="description">
+                            MESSAGE
+                        </th>
+                        <th class="type">
+                            <a href="javascript:void(0);">STATUS<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="ac">
+                            ACTION
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($this->paginator as $queryAdmin) :
+                        if (!$queryAdmin->status) {
+                            $status = 'New';
+                        } else {
+                            $status = 'Read';
+                        }
+                        ?>
+                        <tr>
+                            <td class="id"><?php echo $this->escapeHtml($queryAdmin['id']); ?></td>
+                            <td class="name"><?php echo $this->escapeHtml($queryAdmin['name']); ?></td>
+                            <td class="type"><?php echo $this->escapeHtml($queryAdmin['mobile']); ?></td> 
+                            <td class="type"><?php echo $this->escapeHtml($queryAdmin['email']); ?></td>  
+                            <td class="type"><?php echo $this->escapeHtml($queryAdmin['message']); ?></td>  
+                            <td class="actions"><?php echo $this->escapeHtml($status); ?></td> 
+                            <td class="type"><?php if ($status == 'New'): ?><input type="button" value="Mark as read" id="<?php echo $queryAdmin['id'] ?>" class="green-btn big-btn margin-Top10-Btm40 readmark"/><?php endif; ?></td>
+                        </tr>
+
+                        <?php
+                    endforeach;
+                    ?>
+                </tbody>
+            </table>
+            <div class="listing-counts-per-page">
+                <div class="listing-search-dropdown pull-left">
+                    <?php
+                    if (!$this->isAjax) {
+//                                    echo $this->formRow($search_form->get('list_count'));
+//                                    echo $this->form()->closeTag();
+                        //$this->inlineScript()->appendFile('js/sss_js/center.js');
+                    }
+                    ?>
+                </div>
+                <div class="entries-count pull-right">
+                    <?php
+                    if ($this->row_count > ($this->list_count * $this->page)) {
+                        ?>
+                        <span class="entries">Showing <?php echo 1 + ($this->list_count * ($this->page - 1)); ?> to <?php echo $this->list_count * ($this->page); ?> of <?php echo $this->row_count; ?> entries.</span>
+                        <?php
+                    } else {
+                        ?>
+                        <span class="entries">Showing <?php echo 1 + ($this->list_count * ($this->page - 1)); ?> to <?php echo $this->row_count; ?> of <?php echo $this->row_count; ?> entries.</span>                
+                    <?php } ?>
+                </div>
+            </div>
+
+            <?php
+            // add at the end of the file after the table
+            echo $this->paginationControl(
+                    // the paginator object
+                    $this->paginator, 'sliding',
+                    // the partial to use to render the control
+                    array('partial/paginator.phtml', 'Admin'),
+                    // the route to link to when a user clicks a control link
+                    array(
+                'route' => 'admin',
+                'routeParams' => array('action' => 'contactquery'),
+                'jsFunction' => 'grid.list',
+                'query' => $this->data
+                    )
+            );
+            ?>
+
+            <?php
+        }
+        $this->inlineScript()->appendFile('../js/koolguru/searchgrid.js');
+        ?>
 
     </div>
 
 
 </div>
+<script>
+    $(document).ready(function () {
+        $('.readmark').on('click', function () {
+            var id = $(this).attr('id');
+            var url = '<?php echo $this->basePath() . '/admin/updatequerystatus?id='; ?>' + id;
+
+            $.ajax({url: url, success: function (result) {
+                    window.location.reload();
+                }});
+
+        });
+    });
+
+</script>
