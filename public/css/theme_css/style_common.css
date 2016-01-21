@@ -1,0 +1,6 @@
+.view{float:left;border:0px solid #fff;overflow:hidden;position:relative;text-align:center;cursor:default;}
+.view .mask,.view .content{height:100%;left:0px;overflow:hidden;position:absolute;top:0px;width:100%;}
+.view img{display:block;position:relative;}
+.view h5{text-transform:uppercase;color:#fff;text-align:center;position:relative;font-size:16px;padding:10px;margin:20px 0;font-weight:700;}
+.view a.info{display:inline-block;text-decoration:none;padding:0px 14px;color:#f1c40f;text-transform:uppercase;font-weight:700;font-size:16px;}
+.view a.info:hover{color:#fff;}

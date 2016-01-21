@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/demoquiz.phtml</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Admin/view/admin/admin/contactquery.phtml</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Questionarie/view/questionarie/level/add.phtml</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Admin/src/Admin/Controller/AdminController.php</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Application/src/Application/Model/SendqueryTable.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/public/js/theme_js/custom.js</file>
+            <file>file:/C:/wamp/www/koolguruweb/public/css/theme_css/style.css</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/layout/layout.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/index.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/contactus.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/public/css/style.css</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/vision.phtml</file>
         </group>
     </open-files>
 </project-private>
