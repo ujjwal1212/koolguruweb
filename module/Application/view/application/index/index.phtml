@@ -17,6 +17,26 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
 ?>
 </style>
 <div class="main"> 
+    <?php
+    $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+    $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+    if (empty($errorflashMessage) && !empty($successflashMessage)) {
+        ?>
+        <div id="global-success-msg-page" class="global-page-success">
+            <?php
+            foreach ($successflashMessage as $succMsg) {
+                echo $succMsg;
+            }
+            ?>
+
+        </div>
+    <?php } else { ?>
+        <div id="global-error-msg-page"   class="global-page-error"><?php
+            foreach ($errorflashMessage as $errMsg) {
+                echo $errMsg;
+            }
+            ?></div>
+    <?php } ?>
     <div id="cbp-fwslider" class="cbp-fwslider wow fadeInLeft" data-wow-delay="0.4s" id="work">
         <div class="slider-line"></div>
         <ul>

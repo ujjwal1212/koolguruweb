@@ -127,7 +127,7 @@ class StudentController extends AbstractActionController {
         }
         return $this->StudentQuantsTable;
     }
-    
+
     public function getStudentMobileTable() {
         if (!$this->StudentMobileTable) {
             $sm = '';
@@ -259,9 +259,11 @@ class StudentController extends AbstractActionController {
                                 $this->sendActivationLink($email, $hashValueReturn);
                                 $status['registration_status'] = 1;
                                 $this->getStudentStatusTable()->createStudentStatus($status, $student_id);
-                                $this->getStudentMobileTable()->updateMobileStatus($data['mobile'],$student_id);
+                                $this->getStudentMobileTable()->updateMobileStatus($data['mobile'], $student_id);
+                                $this->flashMessenger()->setNamespace('success')->addMessage('An email has been sent to your email address, please verify your email address.');
                             } else {
                                 $studentId = $this->getStudentTable()->updateStudent($data, $studentId);
+                                $this->flashMessenger()->setNamespace('success')->addMessage('Details updated successfully.');
                             }
                         }
                     }
@@ -380,22 +382,19 @@ class StudentController extends AbstractActionController {
         $reciever_message .= "Note:-\n 1.This link will automatically expire after 72 hours.\n 2.In case your link is expired please write to $adminEmail.\n 3.Please do not reply to this email.";
         $this->getRecoverEmailTable()->sendEmailToUser($subject, $reciever_message, $email);
     }
-    
-    
-    public function savemobileAction(){ 
-       $student = array();
-       //$mobile = $this->params()->fromRoute('mobile',0);
-       $mobile = $_GET['mobile'];
-       $student['mobile'] = $mobile;
-       $student['isregistered'] = 0;
-       $student['student_id'] = 0;
-       $student['created'] = time();
-       if(!$this->getStudentMobileTable()->getIsMobileExist($mobile)){
-           $this->getStudentMobileTable()->saveStudentMobile($student);
-       }
-       return false;
+
+    public function savemobileAction() {
+        $student = array();
+        //$mobile = $this->params()->fromRoute('mobile',0);
+        $mobile = $_GET['mobile'];
+        $student['mobile'] = $mobile;
+        $student['isregistered'] = 0;
+        $student['student_id'] = 0;
+        $student['created'] = time();
+        if (!$this->getStudentMobileTable()->getIsMobileExist($mobile)) {
+            $this->getStudentMobileTable()->saveStudentMobile($student);
+        }
+        return false;
     }
-    
-    
 
 }

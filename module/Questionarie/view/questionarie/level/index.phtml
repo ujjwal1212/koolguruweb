@@ -15,7 +15,26 @@ if (!$this->isAjax) {
     ?>
     <section class="sub-header">
         <div class="container">
+            <?php
+            $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+            $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+            if (empty($errorflashMessage) && !empty($successflashMessage)) {
+                ?>
+                <div id="global-success-msg-page" class="global-page-success">
+                    <?php
+                    foreach ($successflashMessage as $succMsg) {
+                        echo $succMsg;
+                    }
+                    ?>
 
+                </div>
+            <?php } else { ?>
+                <div id="global-error-msg-page"   class="global-page-error"><?php
+                    foreach ($errorflashMessage as $errMsg) {
+                        echo $errMsg;
+                    }
+                    ?></div>
+            <?php } ?>
 
             <div class="sub-header-title">
                 <span class="manage-center-icon"></span>
@@ -41,7 +60,7 @@ if (!$this->isAjax) {
 
     <div class="container">
 
-         <?php
+        <?php
         $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
         if (empty($errorflashMessage) && !empty($successflashMessage)) {
