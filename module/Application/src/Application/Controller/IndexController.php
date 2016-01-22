@@ -80,7 +80,7 @@ class IndexController extends AbstractActionController
             $errorMsg = $this->flashMessenger()->getCurrentMessagesFromNamespace('error');
             $successMsg = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
             //$successMsg = 'Thanks you for the submission, We will get back to you soon!';
-            $this->flashMessenger()->addMessage('Thanks you for the submission, We will get back to you soon!');
+            $this->flashMessenger()->setNamespace('success')->addMessage('Thanks you for the submission, We will get back to you soon!');
         }
         return new ViewModel(array(
             'errorMsg' => $errorMsg,
