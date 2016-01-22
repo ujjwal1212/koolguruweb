@@ -1,6 +1,6 @@
 <?php
 
-namespace Questionarie\Model;
+namespace Admin\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\ResultSet;
@@ -13,7 +13,7 @@ use Zend\Db\Sql\Where;
 Use Zend\Db\Sql\Expression;
 use Zend\Session\Container;
 
-class QuestionTable {
+class CarrierpathTable {
 
     protected $tableGateway;
 
@@ -68,39 +68,38 @@ class QuestionTable {
      * Function to Save Question Record to Database.
      * @throws \Exception
      */
-    public function saveQuestion(Question $Question) {
+    public function saveCarrierpath(Carrierpath $carrier) {  
+       
         $data = array(
-            'name' => trim($Question->name),
-            'description' => $Question->description,
-            'level' => $Question->level,
-            'min_marks' => $Question->min_marks,
-            'max_marks' => $Question->max_marks,
-            'type' => $Question->type,
-            'status' => $Question->status
+            'name' => trim($carrier->name),
+            'min_verbal_perc' => $carrier->min_verbal_perc,
+            'max_verbal_perc' => $carrier->max_verbal_perc,
+            'min_quant_perc' => $carrier->min_quant_perc,
+            'max_quant_perc' => $carrier->max_quant_perc
         );
 
-        $id = (int) $Question->id;
+        $id = (int) $carrier->id;        
         if ($id == 0) {
             $data['created_date'] = time();
-            $data['created_by'] = $Question->created_by;
+            $data['created_by'] = $carrier->created_by;
             $data['updated_date'] = time();
-            $data['updated_by'] = $Question->created_by;
+            $data['updated_by'] = $carrier->created_by;
             if ($this->tableGateway->insert($data)) {
-                $questionId = $this->tableGateway->getLastInsertValue();
+                $Id = $this->tableGateway->getLastInsertValue();
             }
         } else {
-            if ($this->getQuestion($id)) {
+            if ($this->getCarrier($id)) {
                 $data['updated_date'] = time();
-                $data['updated_by'] = $Question->updated_by;
-                $questionId = $this->tableGateway->update($data, array('id' => $id));
+                $data['updated_by'] = $carrier->updated_by;
+                $Id = $this->tableGateway->update($data, array('id' => $id));
             } else {
-                throw new \Exception('Question id does not exist');
+                throw new \Exception('Carrier id does not exist');
             }
         }
-        return $questionId;
+        return $Id;
     }
 
-    public function getQuestion($id) {
+    public function getCarrier($id) {
         $id = (int) $id;
         $rowset = $this->tableGateway->select(array('id' => $id));
         $row = $rowset->current();
@@ -137,7 +136,7 @@ class QuestionTable {
         }
         
         if(isset($cond['level'])){
-            $select->where(array('l.name'=>$cond['level']));
+            $select->where(array('l.id'=>$cond['level']));
         }
         
         if(isset($cond['status'])){

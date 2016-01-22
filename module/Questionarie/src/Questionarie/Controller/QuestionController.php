@@ -157,7 +157,6 @@ class QuestionController extends AbstractActionController {
      * @return type
      */
     public function editAction() {
-
         $id = (int) $this->params()->fromRoute('id', 0);
 
         if (!$id) {
@@ -166,6 +165,7 @@ class QuestionController extends AbstractActionController {
         $page = (int) $this->params()->fromRoute('page', 0);
 
         $session = new Container('User');
+
 
 
         $levelList = $this->getLevelTable()->getLevelDropdown();
@@ -186,7 +186,6 @@ class QuestionController extends AbstractActionController {
             if ($form->isValid()) {
                 $data->updated_date = time();
                 $data->updated_by = $session->offsetGet('userId');
-
 
                 $questionId = $this->getQuestionTable()->saveQuestion($question);
                 $this->getQuestionsOptionsTable()->saveQuestionOptions($data, $id);

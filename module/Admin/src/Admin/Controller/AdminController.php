@@ -14,12 +14,15 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 use Questionarie\Form\SearchForm;
+use Admin\Form\CarrierpathForm;
+use Admin\Model\Carrierpath;
 use Zend\Db\Sql\Select;
 
 class AdminController extends AbstractActionController {
 
     protected $adapter;
     protected $StudentMobileTable;
+    protected $CarrierpathTable;
     protected $SendqueryTable;
 
     public function getAdapter() {
@@ -28,6 +31,14 @@ class AdminController extends AbstractActionController {
             $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
         }
         return $this->adapter;
+    }
+    
+    public function getCarrierpathTable() {
+        if (!$this->CarrierpathTable) {
+            $sm = $this->getServiceLocator();
+            $this->CarrierpathTable = $sm->get('Admin\Model\CarrierpathTable');
+        }
+        return $this->CarrierpathTable;
     }
 
     public function getStudentMobileTable() {
@@ -49,6 +60,43 @@ class AdminController extends AbstractActionController {
 
     public function indexAction() {
         
+    }
+    
+    public function carrierPathAction() {
+        return new ViewModel(array(
+            
+        ));
+    }
+    
+    public function addcarrierpathAction(){
+        $session = new Container('User');
+        $form = new CarrierpathForm('carrier path');
+        
+        $form->get('created_date')->setValue(time());
+        $form->get('created_by')->setValue($session->offsetGet('userId'));
+        $form->get('updated_date')->setValue(time());
+        $form->get('updated_by')->setValue($session->offsetGet('userId'));
+        $request = $this->getRequest();
+        
+        if ($request->isPost()) {            
+            $data = $request->getPost();
+            $carrierpath = new Carrierpath();
+            $form->setInputFilter($carrierpath->getInputFilter());
+            $form->setData($data);
+            if ($form->isValid()) {
+                $carrierpath->exchangeArray($form->getData());
+                $data->created_date = time();
+                $data->created_by = $session->offsetGet('userId');
+                $data->updated_date = time();
+                $data->updated_by = $session->offsetGet('userId');
+
+                $Id = $this->getCarrierpathTable()->saveCarrierpath($carrierpath);                
+                $this->flashMessenger()->setNamespace('success')->addMessage('Carrier Path created successfully');
+                return $this->redirect()->toRoute('addcarrierpath');
+            }
+        }
+        
+        return array('form' => $form);
     }
 
     public function contactQueryAction() {

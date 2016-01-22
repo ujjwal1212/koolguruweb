@@ -30,6 +30,7 @@ class StudentVerbalTable {
         $studentid = $studentDet['student_id'];
         unset($studentDet['student_id']);
         unset($studentDet['verbalsubmit']);
+        unset($studentDet['marks_total_verbal']);
         foreach($studentDet as $key => $det){
             $split = explode('~',$det);
             $user_data = array(            

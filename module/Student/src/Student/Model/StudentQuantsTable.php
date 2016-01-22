@@ -30,6 +30,7 @@ class StudentQuantsTable {
         $studentid = $studentDet['student_id'];
         unset($studentDet['student_id']);
         unset($studentDet['quantsubmit']);
+        unset($studentDet['marks_total_quant']);
         foreach($studentDet as $key => $det){
             $split = explode('~',$det);
             $user_data = array(            

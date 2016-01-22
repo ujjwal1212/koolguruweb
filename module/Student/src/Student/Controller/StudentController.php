@@ -230,7 +230,8 @@ class StudentController extends AbstractActionController {
                 $flag = 1;
             }
             if ($flag) {
-                if (isset($data['quantsubmit'])) {
+                if (isset($data['quantsubmit'])) {                    
+                    $quanttotal = $data['marks_total_quant'];
                     $this->getStudentQuantsTable()->saveStudentQuantsDetail($data);
                     $total = 0;
                     foreach ($data as $key => $det) {
@@ -238,17 +239,25 @@ class StudentController extends AbstractActionController {
                         $total += $split[0];
                     }
                     $status['quant_status'] = 1;
+                    
                     $status['marks_obtain_quant'] = $total;
+                    $status['marks_total_quant'] = $quanttotal;
+                    $status['quant_perc'] = ($total*100/$quanttotal);
+                    
                     $this->getStudentStatusTable()->updateQuantStatus($status, $studentId);
-                } else if (isset($data['verbalsubmit'])) {
+                } else if (isset($data['verbalsubmit'])) { 
+                    //asd($data,0);
+                    $vertotal = $data['marks_total_verbal'];
                     $this->getStudentVerbalTable()->saveStudentVerbalDetail($data);
-                    $total = 0;
+                    $total = 0;                   
                     foreach ($data as $key => $det) {
-                        $split = explode('~', $det);
+                        $split = explode('~', $det);                        
                         $total += $split[0];
                     }
                     $status['verbal_reg_status'] = 1;
                     $status['marks_obtain_verbal'] = $total;
+                    $status['marks_total_verbal'] = $vertotal;
+                    $status['verbal_perc'] = ($total*100/$vertotal);
                     $this->getStudentStatusTable()->updateVerbalStatus($status, $studentId);
                 } else {
                     if (isset($data['regsubmit'])) {
@@ -324,7 +333,7 @@ class StudentController extends AbstractActionController {
         // Tab conytent enable for Quantitative ability
         if ($enableTabContent[2] == 1) {
             $cond = array();
-            $cond['level'] = 3;
+            $cond['level'] = 2;
             $cond['status'] = 1;
             $questions = array();
             $questions = $this->getQuestionTable()->getStudentQuestions($cond);

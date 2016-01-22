@@ -31,15 +31,19 @@ class StudentStatusTable {
         $user_data['verbal_reg_status'] = $data['verbal_reg_status'];
         $user_data['marks_obtain_verbal'] = $data['marks_obtain_verbal'];
         $user_data['verbal_reg_created'] = time();
+        $user_data['marks_total_verbal'] = $data['marks_total_verbal'];
+        $user_data['verbal_perc'] = $data['verbal_perc'];
         $this->tableGateway->update($user_data, array('student_id' => $studentId));
         return $studentId;
     }
     
-    public function updateQuantStatus($data,$studentId){       
+    public function updateQuantStatus($data,$studentId){
         $user_data = array();
         $user_data['quant_status'] = $data['quant_status'];
-        $user_data['marks_obtain_quant'] = $data['marks_obtain_quant'];
-        $user_data['quant_reg_created'] = time();
+        $user_data['marks_obtain_quant'] = $data['marks_obtain_quant'];        
+        $user_data['quant_reg_created'] = time();        
+        $user_data['marks_total_quant'] = $data['marks_total_quant'];
+        $user_data['quant_perc'] = $data['quant_perc'];        
         $this->tableGateway->update($user_data, array('student_id' => $studentId));
         return $studentId;
     }
