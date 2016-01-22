@@ -16,27 +16,84 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
         ->prependStylesheet($this->basePath() . '/css/button.css');
 ?>
 </style>
-<div class="banner-bg">
-    <div id="home" class="banner-section container">
-        <div class="row">
-            <div class="col-md-6 col-sm-6 ">
-                <h2 class="banner-title color-white "> One stop for all your <span class="text-extrabold"> Higher competition needs</span> </h2>
-                <p class="banner_text color-white"><span class="text-bold">KOOLGURU </span>- We envision to revolutionize the education making it more greener, affordable and result-oriented.</p>
-                <?php if ($roleCode == '') { ?>
-                    <div class="banner-button"> 
-                        <a role="button" class="btn gk-download-btn btn_color_yellow gk-btn-margin scroll" href="<?php echo $this->url('student') ?>">Register Now</a> 
-                        <a role="button" class="btn gk-download-btn btn_color_blue scroll" href="<?php echo $this->url('demoquiz') ?>">Demo Chapter</a>
+<div class="main"> 
+    <div id="cbp-fwslider" class="cbp-fwslider wow fadeInLeft" data-wow-delay="0.4s" id="work">
+        <div class="slider-line"></div>
+        <ul>
+            <li><a href="#"><img src="<?php echo $this->basePath('img/slide0.jpg') ?>" class="img-responsive" alt="img01"/></a></li>
+            <li><a href="#"><img src="<?php echo $this->basePath('img/slide1.jpg'); ?>" class="img-responsive" alt="img02"/></a></li>
+            <li><a href="#"><img src="<?php echo $this->basePath('img/slide2.jpg') ?>" class="img-responsive" alt="img03"/></a></li>
+        </ul>
+        <script src="<?php echo $this->basePath('js/jquery.cbpFWSlider.min.js'); ?>" type="text/javascript"></script>
+    </div>
+    <div class="content-bottom wow fadeInLeft" data-wow-delay="0.4s" id="work">   
+        <div class="container">   
+            <div class="row">
+                <div class="col-md-8">
+<!--                    <iframe src="http://docs.google.com/gview?url=http://koolguru.co.in/ppt/Quadratic.pptx&embedded=true" style="width:600px;height:350px" frameborder="0"></iframe>-->
+                    <div class="welcome_desc">
+                        <h3>Our Team</h3>
+                        <div class="course_demo">
+                            <ul id="flexiselDemo3">	
+                                <li><img src="<?php echo $this->basePath('img/v1.jpg'); ?>" class="img-responsive" /><div class="desc">
+                                        <h3>VATAN VINDAL</h3>
+                                        <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
+                                    </div></li>
+                                <li><img src="<?php echo $this->basePath('img/v2.jpg'); ?>" class="img-responsive" /><div class="desc">
+                                        <h3>PADMINI AGARWAL</h3>
+                                        <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
+                                    </div></li>
+                                <li><img src="<?php echo $this->basePath('img/v3.jpg'); ?>" class="img-responsive" /><div class="desc">
+                                        <h3>DEVANSHU NAGPAL</h3>
+                                        <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
+                                    </div></li>
+                                <li><img src="<?php echo $this->basePath('img/v4.jpg'); ?>" class="img-responsive" /><div class="desc">
+                                        <h3>ASHNA MISHRA</h3>
+                                        <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
+                                    </div></li>
+                                <li><img src="<?php echo $this->basePath('img/v5.jpg'); ?>" class="img-responsive" /><div class="desc">
+                                        <h3>SHOBHIT TYAGI</h3>
+                                        <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
+                                    </div></li>		    	  	       	   	    	
+                            </ul>
+                            <script type="text/javascript">
+    $(window).load(function () {
+        $("#flexiselDemo3").flexisel({
+            visibleItems: 4,
+            animationSpeed: 1000,
+            autoPlay: true,
+            autoPlaySpeed: 3000,
+            pauseOnHover: true,
+            enableResponsiveBreakpoints: true,
+            responsiveBreakpoints: {
+                portrait: {
+                    changePoint: 480,
+                    visibleItems: 1
+                },
+                landscape: {
+                    changePoint: 640,
+                    visibleItems: 2
+                },
+                tablet: {
+                    changePoint: 768,
+                    visibleItems: 2
+                }
+            }
+        });
+
+    });
+                            </script>
+                            <script type="text/javascript" src="<?php echo $this->basePath('js/jquery.flexisel.js'); ?>"></script>
+                        </div>
                     </div>
-                <?php } ?>
-            </div>
-            <div class="col-md-6 col-sm-6">
-                <div class="contact_form">
+                </div>
+                <div class="col-md-4 middle_right"> 
                     <div class="container">
                         <main>
                             <label for="tab1" id='tab-1' class="kooltab enabletab activetab" onclick="app.demoVideotab.openTag(1)">Motivational Video</label>                
                             <label for="tab2" id='tab-2' class="kooltab enabletab activetab" onclick="app.demoVideotab.openTag(2)"><span>Theme Video</span></label>                
                         </main>
-                    </div>  
+                    </div>
                     <div class="tabs" id='content-1'>
                         <br>
                         <video id="video-1" class="video-js vjs-default-skin" preload="auto" controls preload="auto" width="400px" height="300px"
@@ -53,181 +110,27 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
                             <source src="http://koolguru.co.in/video/2.mp4" type='video/mp4' />
                         </video>
                     </div>
+                    <?php if($roleCode == ''){?>
+                    <span class="button-wrap" style="margin-top:10px">
+                        <a href="<?php echo $this->url('student') ?>" class="button button-pill button-raised button-primary">Register Now</a>
+                    </span>
+                    <span class="button-wrap" style="margin-top:10px">
+                        <a href="<?php echo $this->url('demoquiz') ?>" class="button button-pill button-raised button-primary">Demo Chapter</a>
+                    </span>
+                    <?php }?>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div id="about" class="download-section section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 features-right-info animated" data-animation="fadeInLeft" data-animation-delay="500">
-                <h4 class="section-subtitle color-grey">Who are we anyways? </h4>
-                <hr>
-                <h2 class="section-title color-grey"> About us</h2>
-            </div>
-            <div class="col-md-12 features-right-info animated no_padding" data-animation="fadeInRight" data-animation-delay="500">
-                <p class="banner_text text-center color-black">“ Innovate to Educate” With this Slogan  in mind, we are here to revolutionize the education  process & learning methodology .For us Education is  pure  passion not an Industry  , an art of   learning , teaching & Knowledge sharing  . We  are here to help  building  aptitude  & develop attitude which leads to reach the Altitude  We are team of highly experienced  domain professional  , our goal is to bring about a revolution in the field of education by making it interactive by  using state of art technology to benefit the larger sections of the society. Results would be our driving force.</p>
-                <p class="mission_text text-center text-extrabold">Mission : “Whenever you are in doubt or your self becomes too much on you,apply the following test...Recall the face of the poorest and the weakest man you have seen and ask yourself..if the step you contemplate is going to be of any use to him”....Mr. M. K. Gandhi
-                    Our mission is to make education benefit every single individual in the most effective way.</p>
-            </div>
-        </div>
-    </div>
-</div>
-<div id="team" class="features-section section-padding">
-    <div class="container">
-        <div class="row"> </div>
-    </div>
-</div>
-<div id="advisors" class="features-section section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 features-right-info animated" data-animation="fadeInLeft" data-animation-delay="500">
-                <h4 class="section-subtitle color-grey">the way to progress</h4>
-                <hr>
-                <h2 class="section-title color-grey"> our advisors</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xs-12 animated" data-animation="fadeInUp" data-animation-delay="800">
-                <div class="gk-pointer-features gk-left-arrow"><img src="images/left-arrow-icon.png" alt="Pointer" class="img-responsive"></div>
-                <div id="reviews-slider" class="carousel slide reviews-slider-section" data-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="item container">
-                            <div class="row item-grid">
-                                <div class="col-lg-7 col-md-6 reviews-info color-grey">
-                                    <div class="reviews-msg">
-                                        <p class="light info-margin">Ajit Tripathi is the Director in the PwC UK Data and Analytics Practice in London. Prior to joining PwC, Ajit worked at Barclays in London and Goldman Sachs in Tokyo. He is an expert at big data analytics and large scale distributed computing. Ajit holds a CFA charter and FRM certification apart from an MBA from IMD in Lausanne and a Bachelors in Electrical Engineering from IIT Kanpur. </p>
-                                    </div>
-                                    <div class="reviews-author">
-                                        <p class="text-bold text-uppercase author-margin color-yellow">Ajit tripathi</p>
-                                        <p class="author-sub">Director, PwC</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 col-md-5 reviews-image">
-                                    <div class="main-reviews-image container">
-                                        <div class="row"> <img class="img-responsive img-circle" src="images/reviews-1.png" alt="Jennifer" height="330" width="330"> </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item container active left">
-                            <div class="row item-grid">
-                                <div class="col-lg-7 col-md-6 reviews-info color-grey">
-                                    <div class="reviews-msg">
-                                        <p class="light info-margin"> Saurabh Arora is the Co-Founder of Lybrate, India’s first and fastest growing mobile-based healthcare platform. Saurabh Arora is a graduate of IIT Delhi. He has done his MBA from Columbia University. Lyberate is funded by industry giants like Tiger Global Management, Ratan Tata, Chairman Emeritus of Tata Sons, and Nexus Venture Partners. </p>
-                                    </div>
-                                    <div class="reviews-author">
-                                        <p class="text-bold text-uppercase author-margin color-yellow">Saurabh Arora</p>
-                                        <p class="author-sub">Co-founder & CEO, Lybrate</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 col-md-5 reviews-image">
-                                    <div class="main-reviews-image container">
-                                        <div class="row"> <img class="img-responsive img-circle" src="images/reviews-2.png" alt="Jennifer" height="330" width="330"> </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item container next left">
-                            <div class="row item-grid">
-                                <div class="col-lg-7 col-md-6 reviews-info color-grey">
-                                    <div class="reviews-msg">
-                                        <p class="light info-margin"> Amit Jain is the Co-Founder & CEO of Cardekho, India's #1 Auto Portal serving over 3 Million unique visitors a month in India. Amit is a graduate from IIT Delhi. Cardekho is funded by investment firms like Sequoia Capital, Hill house Capital, Tybourne Capital and Ratan Tata, Chairman Emeritus of Tata Sons. </p>
-                                    </div>
-                                    <div class="reviews-author">
-                                        <p class="text-bold text-uppercase author-margin color-yellow">Amit Jain</p>
-                                        <p class="author-sub">Co-founder & CEO, Cardekho</p>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5 col-md-5 reviews-image">
-                                    <div class="main-reviews-image container">
-                                        <div class="row"> <img class="img-responsive img-circle" src="images/reviews-3.png" alt="Jennifer" height="330" width="330"> </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reviews-indicators"> <a class="gk-slide-left" href="#reviews-slider" data-slide="prev"> <i class="fa fa-chevron-left color-grey"></i> </a> <a class="gk-slide-right" href="#reviews-slider" data-slide="next"> <i class="fa fa-chevron-right color-grey"></i> </a> </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!--<div id="download" class="download-section section-padding"> <div class="container"> <div class="row"> <div class="col-md-12 features-right-info animated" data-animation="fadeInLeft" data-animation-delay="500"> <h4 class="section-subtitle color-grey">and now</h4><hr> <h2 class="section-title color-grey">autoload app</h2> </div></div><div class="row"> <div class="col-lg-7 col-md-4 download-left-img animated" data-animation="fadeInLeft" data-animation-delay="500"> <img src="images/mobile.png" alt="Mobile Screnshots" class="img-responsive"> </div><div class="col-lg-5 col-md-7 download-right-info animated" data-animation="fadeInDown" data-animation-delay="800"> <h4 class="text-uppercase text-bold color-black">Download<span class="color-yellow"> autoload app</span></h4> <p class="banner_text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. </p><div class="download-button"> <a href="#" class="btn gk-download-btn btn_color_yellow gk-btn-margin" role="button"><i class="fa fa-apple"></i> Apple User</a> <a href="#" class="btn gk-download-btn btn_color_blue" role="button"><i class="fa fa-android"></i> Android User</a> </div></div></div></div></div>-->
-<div id="contact-us" class="contact-section section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 features-right-info animated" data-animation="fadeInLeft" data-animation-delay="500">
-                <h4 class="section-subtitle color-grey">and It's time to</h4>
-                <hr>
-                <h2 class="section-title color-grey"> Locate us</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4 col-sm-4 animated" data-animation-delay="500" data-animation="fadeInDown">
-                <div class="contact_form contact_form_below">
-                    <h4 class="text-uppercase text-bold color-black">let's meet <span class="color-yellow">face to face</span> </h4>
-                    <p class="contact_text">We are based in the heart of Delhi. Feel free to come to our office to discuss anything. 
-                        We will be glad to meet you.</p>
-                </div>
-                <div class="contact_form contact_form_below">
-                    <h4 class="text-uppercase text-bold color-black">Our <span class="color-yellow">location</span> </h4>
-                    <p class="contact_text">KoolGuru<br>79, Sector E pocket 2, Vasant Kunj, New Delhi 110070<br>India</p>
-                </div>
-                <div class="contact_form contact_form_below no_border">
-                    <h4 class="text-uppercase text-bold color-black">we're <span class="color-yellow">social</span> </h4>
-                    <ul class="social-network social-circle">
-                        <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-8 col-sm-8 animated" data-animation-delay="500" data-animation="fadeInRight">
-                <div class="google_map wow fadeInUp"> <iframe src="https://www.google.com/maps/embed/v1/place?key=AIzaSyALEX1UUmTZWFjIy-8p45Ee6tz6Y7CDJwo
-                                                              &q=28.537691, 77.129936" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe> </div>
-            </div>
-        </div>
-    </div>
-</div>
-<script type="text/javascript" src="<?php echo $this->basePath('js/jquery.flexisel.js'); ?>"></script>
-<script type="text/javascript">
-                                $(window).load(function () {
-                                    $("#flexiselDemo3").flexisel({
-                                        visibleItems: 4,
-                                        animationSpeed: 1000,
-                                        autoPlay: true,
-                                        autoPlaySpeed: 3000,
-                                        pauseOnHover: true,
-                                        enableResponsiveBreakpoints: true,
-                                        responsiveBreakpoints: {
-                                            portrait: {
-                                                changePoint: 480,
-                                                visibleItems: 1
-                                            },
-                                            landscape: {
-                                                changePoint: 640,
-                                                visibleItems: 2
-                                            },
-                                            tablet: {
-                                                changePoint: 768,
-                                                visibleItems: 2
-                                            }
-                                        }
-                                    });
-
-                                });
-</script>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.kooltab').each(function () {
+        $('.kooltab').each(function(){
             var tabid = $(this).attr('id');
             tabid = tabid.replace("tab-", "");
             app.demoVideotab.hidetab(parseInt(tabid));
         });
         $('#tab-1').click();
     });
-
-</script>
+    
+    </script>
