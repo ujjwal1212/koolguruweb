@@ -31,7 +31,6 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                     ?></div>
             <?php } ?>
             <main>
-
                 <label for="tab1" id='tab-1' class="kooltab" onclick="app.studentTab.openTag(1)">Personal Detail</label>                
                 <label for="tab2" id='tab-2' class="kooltab" onclick="app.studentTab.openTag(2)"><span>Verbal Ability</span></label>                
                 <label for="tab3" id='tab-3' class="kooltab" onclick="app.studentTab.openTag(3)">Quantitative Ability</label>                
@@ -139,8 +138,11 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                                 <div class="forms" id="student-registration-verbal">
                                     <section id="basic_details">
                                         <h2 class="h2">Verbal Ability</h2>                            
-                                        <?php $i = 1;
-                                        foreach ($verbalQuestions as $ky => $quest) {//asd($quest); 
+                                        <?php
+                                        $i = 1;
+                                        $varbal_total = 0;
+                                        foreach ($verbalQuestions as $ky => $quest) {//asd($quest);
+                                            $varbal_total = $varbal_total + $quest['maxmark'];
                                             ?>
                                             <div class="questionborder" style='margin-top:10px'>
                                                 <span class="badge pull-left"><?php echo $i; ?></span>
@@ -164,9 +166,11 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                                                                         </ul>
                                                                         </div>
                                                                         </div>
-                                                                        <?php $i++;
+                                                                        <?php
+                                                                        $i++;
                                                                     }
                                                                     ?>
+                                        <input type="hidden" name='marks_total_verbal' value='<?php echo $varbal_total;?>'>
                                                                     <div class="form-footer">
                                                                     <?php if (!empty($studentStatus) && isset($studentStatus[0]['verbal_reg_status']) && $studentStatus[0]['verbal_reg_status'] == 1) { ?>
                                                                     <?php } else { ?>
@@ -188,16 +192,21 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                                                                                 <div class="forms" id="student-registration-verbal">
                                                                                     <section id="basic_details">
                                                                                         <h2 class="h2">Quantitative Ability</h2>                            
-    <?php $i = 1;
-    foreach ($quantQuestions as $ky => $quest) {//asd($quest); 
-        ?>
+                                                                                        <?php
+                                                                                        $i = 1;
+                                                                                        $quant_total = 0;
+                                                                                        foreach ($quantQuestions as $ky => $quest) {//asd($quest); 
+                                                                                            $quant_total = $quant_total + $quest['maxmark'];
+                                                                                            ?>
                                                                                             <div class="questionborder" style='margin-top:10px'>
                                                                                                 <span class="badge pull-left"><?php echo $i; ?></span>
                                                                                                 <h4 class="questiontitle"><?php echo $quest['title']; ?></h4>
                                                                                                 <div class="book_date btm">
                                                                                                     <ul>
                                                                                                         <?php
+                                                                                                        
                                                                                                         foreach ($quest['options'] as $key => $options) {
+                                                                                                            
                                                                                                             if ($key == ($quest['correct'])) {
                                                                                                                 $val = $quest['maxmark'];
                                                                                                             } else {
@@ -213,12 +222,13 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                                                                                                                         </ul>
                                                                                                                         </div>
                                                                                                                         </div>
-                                                                                                                            <?php $i++;
+                                                                                                                            <?php
+                                                                                                                            $i++;
                                                                                                                         }
                                                                                                                         ?>
                                                                                                                     <div class="form-footer">
     <?php if (!empty($studentStatus) && isset($studentStatus[0]['quant_status']) && $studentStatus[0]['quant_status'] == 1) { ?>
-    <?php } else { ?>
+    <?php } else { ?><input type="hidden" name='marks_total_quant' value='<?php echo $quant_total;?>'>
                                                                                                                             <input name="quantsubmit" type="submit" id="quantsubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">                            </div>
                                                                                                                     <?php } ?>
                                                                                                                     </section>

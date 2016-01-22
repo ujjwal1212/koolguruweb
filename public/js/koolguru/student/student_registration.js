@@ -86,9 +86,15 @@ $(document).ready(function () {
             }
         },
         openTag: function (tabno) {
+            if($('#content-'+tabno).html().trim() == ''){                
+                return false;
+            }
             $('.kooltab').each(function () {
                 var tabid = $(this).attr('id');
                 tabid = tabid.replace("tab-", "");
+                
+                
+                
                 $('#tab-' + tabid).removeClass('activetab');
                 $('#content-' + tabid).hide();
                 if (parseInt(tabid) == parseInt(tabno)) {

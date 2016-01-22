@@ -11,6 +11,10 @@ namespace Admin;
 
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
+use Admin\Model\Carrierpath;
+use Admin\Model\CarrierpathTable;
+use Zend\Db\ResultSet\ResultSet;
+use Zend\Db\TableGateway\TableGateway;
 
 class Module
 {
@@ -34,6 +38,25 @@ class Module
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
                 ),
             ),
+        );
+    }
+    
+    
+    public function getServiceConfig() {
+        return array(
+            'factories' => array(                
+                'Admin\Model\CarrierpathTable' => function($sm) {
+                    $tableGateway = $sm->get('CarrierpathTableGateway');
+                    $table = new CarrierpathTable($tableGateway);
+                    return $table;
+                },
+                'CarrierpathTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Carrierpath());
+                    return new TableGateway('carrier_path', $dbAdapter, null, $resultSetPrototype);
+                },
+            )
         );
     }
 }
