@@ -107,8 +107,8 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span>Pathways<span  		
                                                     class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))           ?>">View</a></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))           ?>">Requests</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))             ?>">View</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))             ?>">Requests</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Renewals</a></li>-->
                                             </ul>
                                         </li>
@@ -116,7 +116,7 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span>Student
                                                 <span class="caret" ></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))           ?>">Manage Trainees</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))             ?>">Manage Trainees</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Update Enrollment Status</a></li>-->
                                             </ul>
                                         </li>
@@ -133,9 +133,9 @@ endif;
                                                 Quiz<span class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
                                                 <!--<li class="dropdown-header">Assessment</li>-->
-                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))           ?>">Book Assessment</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))             ?>">Book Assessment</a></li>-->
                                                 <!--<li class="divider"></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))           ?>">External Verifier Visit</a></li>-->                                            
+                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))             ?>">External Verifier Visit</a></li>-->                                            
                                             </ul>
                                         </li>
                                         <li class="dropdown">
@@ -151,12 +151,26 @@ endif;
                             </div>
 
                         <?php } else { ?>
-                            <!--                            <ul>
-                                                            <li>Call Us </li>
-                                                            <li> :(000) 123-456 </li> 
-                                                            <li> Email us : </li> 
-                                                            <li>info@koolguru.co.in</li> 
-                                                        </ul>-->
+                            <ul class="nav navbar-nav">
+                                <li>
+                                    <a href="<?php echo $this->url('home') ?>" class="dropdown-toggle" ><span class="home-icon"></span><?php echo $this->translate('Home', __NAMESPACE__) ?></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'mission')); ?>" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span><?php echo $this->translate('Mission', __NAMESPACE__) ?></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'vision')); ?>" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span><?php echo $this->translate('Vision', __NAMESPACE__) ?>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'aboutus')); ?>" class="dropdown-toggle" data-toggle="dropdown"><span class="cohort-icon"></span>
+                                        <?php echo $this->translate('About-us', __NAMESPACE__) ?></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'locateus')); ?>" class="dropdown-toggle" data-toggle="dropdown"><span class="booking-icon"></span>
+                                        <?php echo $this->translate('Contact Us', __NAMESPACE__) ?></a>
+                                </li>
+                            </ul>
                         <?php } ?>
                     </div>
                     <div class="container">	 			
