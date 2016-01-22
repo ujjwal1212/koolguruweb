@@ -10,11 +10,47 @@ use Zend\Form\Form;
  */
 class StudentForm extends Form {
 
-    public function __construct($name = null,$degreelist,$stateList) {
+    public function __construct($name = null, $degreelist, $stateList) {
         //asd($degreelist);
         // we want to ignore the name passed
         parent::__construct($name);
-
+        $stateList = array(
+            'AP' => 'Andhra Pradesh',
+            'AR' => 'Arunachal Pradesh',
+            'AS' => 'Assam',
+            'BR' => 'Bihar',
+            'CT' => 'Chhattisgarh',
+            'GA' => 'Goa',
+            'GJ' => 'Gujarat',
+            'HR' => 'Haryana',
+            'HP' => 'Himachal Pradesh',
+            'JK' => 'Jammu & Kashmir',
+            'JH' => 'Jharkhand',
+            'KA' => 'Karnataka',
+            'KL' => 'Kerala',
+            'MP' => 'Madhya Pradesh',
+            'MH' => 'Maharashtra',
+            'MN' => 'Manipur',
+            'ML' => 'Meghalaya',
+            'MZ' => 'Mizoram',
+            'NL' => 'Nagaland',
+            'OR' => 'Odisha',
+            'PB' => 'Punjab',
+            'RJ' => 'Rajasthan',
+            'SK' => 'Sikkim',
+            'TN' => 'Tamil Nadu',
+            'TR' => 'Tripura',
+            'UK' => 'Uttarakhand',
+            'UP' => 'Uttar Pradesh',
+            'WB' => 'West Bengal',
+            'AN' => 'Andaman & Nicobar',
+            'CH' => 'Chandigarh',
+            'DN' => 'Dadra and Nagar Haveli',
+            'DD' => 'Daman & Diu',
+            'DL' => 'Delhi',
+            'LD' => 'Lakshadweep',
+            'PY' => 'Puducherry',
+        );
         $this->setAttribute('method', 'post');
         $this->add(array(
             'name' => 'student_id',
@@ -41,8 +77,8 @@ class StudentForm extends Form {
             ),
             'options' => array(
             ),
-        ));        
-       
+        ));
+
         $this->add(array(
             'name' => 'lname',
             'attributes' => array(
@@ -53,21 +89,21 @@ class StudentForm extends Form {
             'options' => array(
             ),
         ));
-        
+
         $this->add(array(
             'type' => 'Select',
             'name' => 'sex',
             'options' => array(
-                'label' => 'Sex',                
+                'label' => 'Sex',
                 'empty_option' => 'Sex',
-                'value_options' => array('Male','Female')
+                'value_options' => array('Male', 'Female')
             ),
             'attributes' => array(
                 'id' => 'sex',
 //                'class' => 'form-select',
             ),
         ));
-        
+
         $this->add(array(
             'name' => 'father_occupation',
             'attributes' => array(
@@ -78,12 +114,12 @@ class StudentForm extends Form {
             'options' => array(
             ),
         ));
-        
+
         $this->add(array(
             'type' => 'Select',
             'name' => 'highest_degree',
             'options' => array(
-                'label' => 'Highest Degree',                
+                'label' => 'Highest Degree',
                 'empty_option' => 'Highest Degree',
                 'value_options' => $degreelist
             ),
@@ -92,12 +128,12 @@ class StudentForm extends Form {
 //                'class' => 'form-select',
             ),
         ));
-        
+
         $this->add(array(
             'type' => 'Select',
             'name' => 'native_state',
             'options' => array(
-                'label' => 'Native State',                
+                'label' => 'Native State',
                 'empty_option' => 'Native State',
                 'value_options' => $stateList
             ),
@@ -106,18 +142,18 @@ class StudentForm extends Form {
 //                'class' => 'form-select',
             ),
         ));
-        
+
         $currentyear = date('Y', time());
         $completionyear = array();
-        for($i = 1970; $i <= $currentyear; $i++){
+        for ($i = 1970; $i <= $currentyear; $i++) {
             $completionyear[] = $i;
         }
-        
+
         $this->add(array(
             'type' => 'Select',
             'name' => 'completion_year',
             'options' => array(
-                'label' => 'Completion year',                
+                'label' => 'Completion year',
                 'empty_option' => 'Completion year',
                 'value_options' => $completionyear
             ),
@@ -126,9 +162,9 @@ class StudentForm extends Form {
 //                'class' => 'form-select',
             ),
         ));
-        
-        
-        
+
+
+
         $this->add(array(
             'name' => 'city',
             'attributes' => array(
@@ -139,7 +175,7 @@ class StudentForm extends Form {
             'options' => array(
             ),
         ));
-        
+
         $this->add(array(
             'name' => 'mobile',
             'attributes' => array(
@@ -150,7 +186,7 @@ class StudentForm extends Form {
             'options' => array(
             ),
         ));
-        
+
         $this->add(array(
             'name' => 'email',
             'attributes' => array(
@@ -161,9 +197,9 @@ class StudentForm extends Form {
             'options' => array(
             ),
         ));
-        
-       
-        
+
+
+
         $this->add(array(
             'name' => 'regsubmit',
             'attributes' => array(
