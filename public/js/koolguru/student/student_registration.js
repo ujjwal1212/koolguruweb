@@ -1,7 +1,5 @@
 $(document).ready(function () {
-    $('#sex,#highest_degree,#completion_year,#native_state').select2({
-        minimumResultsForSearch: -1
-    });
+    $('#sex,#highest_degree,#completion_year,#native_state').select2();
     $('#studentForm').validate({
         rules: {
             fname: {
