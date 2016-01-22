@@ -35,25 +35,32 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
                         <h3>Our Team</h3>
                         <div class="course_demo">
                             <ul id="flexiselDemo3">	
-                                <li><img src="<?php echo $this->basePath('img/v1.jpg'); ?>" class="img-responsive" /><div class="desc">
+                                <li><img src="<?php echo $this->basePath('img/Abhijith V.JPG'); ?>" class="img-responsive" /><div class="desc">
+                                        <h3>ABHIJITH</h3>
+                                        <p>Abhijith is a graduate from IIM Bangalore (PGP 2013) and is currently working as Manager­market strategy 
+
+                                            in Mahindra & Mahindra.</p>
+                                    </div></li>
+                                <li><img src="<?php echo $this->basePath('img/Vatan Vindal.jpg'); ?>" class="img-responsive" /><div class="desc">
                                         <h3>VATAN VINDAL</h3>
-                                        <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
+                                        <p>Vatan Vindal is a Graduate from IIM Ahmedabad (PGP 2010) and is currently working with Autoload as Co-
+                                            founder and VP.</p>
                                     </div></li>
-                                <li><img src="<?php echo $this->basePath('img/v2.jpg'); ?>" class="img-responsive" /><div class="desc">
+                                <li><img src="<?php echo $this->basePath('img/Padmini.jpg'); ?>" class="img-responsive" /><div class="desc">
                                         <h3>PADMINI AGARWAL</h3>
-                                        <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
+                                        <p>Padmini Agarwal is a B.tech in Mechanical Engg. from IIT Roorkee (2012) and is the founder of Koolguru.</p>
                                     </div></li>
-                                <li><img src="<?php echo $this->basePath('img/v3.jpg'); ?>" class="img-responsive" /><div class="desc">
-                                        <h3>DEVANSHU NAGPAL</h3>
-                                        <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
+                                <li><img src="<?php echo $this->basePath('img/Ankur.png'); ?>" class="img-responsive" /><div class="desc">
+                                        <h3>ANKUR AGARWAL</h3>
+                                        <p>Ankur Agrawal is a techie turned manager, MBA from IIFT Delhi(2015) and now works for Flipkart in
+
+                                            Lifestyle Strategy.</p>
                                     </div></li>
-                                <li><img src="<?php echo $this->basePath('img/v4.jpg'); ?>" class="img-responsive" /><div class="desc">
-                                        <h3>ASHNA MISHRA</h3>
-                                        <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
-                                    </div></li>
-                                <li><img src="<?php echo $this->basePath('img/v5.jpg'); ?>" class="img-responsive" /><div class="desc">
-                                        <h3>SHOBHIT TYAGI</h3>
-                                        <p>Lorem ipsum dolor<br> sit amet, consectetuer.</p>
+                                <li><img src="<?php echo $this->basePath('img/archit garg.jpg'); ?>" class="img-responsive" /><div class="desc">
+                                        <h3>ARCHIT GARG</h3>
+                                        <p>A classic case example of the new­age Jugaad entreprenuer, Archit Garg is a B.tech in Mechanical Engg.
+
+                                            from IIT Roorkee (2012).</p>
                                     </div></li>		    	  	       	   	    	
                             </ul>
                             <script type="text/javascript">
@@ -110,14 +117,14 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
                             <source src="http://koolguru.co.in/video/2.mp4" type='video/mp4' />
                         </video>
                     </div>
-                    <?php if($roleCode == ''){?>
-                    <span class="button-wrap" style="margin-top:10px">
-                        <a href="<?php echo $this->url('student') ?>" class="button button-pill button-raised button-primary">Register Now</a>
-                    </span>
-                    <span class="button-wrap" style="margin-top:10px">
-                        <a href="<?php echo $this->url('demoquiz') ?>" class="button button-pill button-raised button-primary">Demo Chapter</a>
-                    </span>
-                    <?php }?>
+                    <?php if ($roleCode == '') { ?>
+                        <span class="button-wrap" style="margin-top:10px">
+                            <a href="<?php echo $this->url('student') ?>" class="button button-pill button-raised button-primary">Register Now</a>
+                        </span>
+                        <span class="button-wrap" style="margin-top:10px">
+                            <a href="<?php echo $this->url('demoquiz') ?>" class="button button-pill button-raised button-primary">Demo Chapter</a>
+                        </span>
+                    <?php } ?>
                 </div>
             </div>
         </div>
@@ -125,12 +132,12 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('.kooltab').each(function(){
+        $('.kooltab').each(function () {
             var tabid = $(this).attr('id');
             tabid = tabid.replace("tab-", "");
             app.demoVideotab.hidetab(parseInt(tabid));
         });
         $('#tab-1').click();
     });
-    
-    </script>
+
+</script>
