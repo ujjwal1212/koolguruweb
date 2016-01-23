@@ -71,6 +71,10 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <?php echo $this->formElement($form->get('name')); ?>
                     </li>
                     <li class="form-row">                    
+                        <label class='label'>Default Message: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('msg')); ?>
+                    </li>
+                    <li class="form-row">                    
                         <label class='label'>Minimum Verbal Ability Percentage: <span class='required'>*</span></label>
                         <?php echo $this->formElement($form->get('min_verbal_perc')); ?>
                     </li>

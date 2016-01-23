@@ -16,6 +16,7 @@ use Zend\Session\Container;
 use Questionarie\Form\SearchForm;
 use Admin\Form\CarrierpathForm;
 use Admin\Model\Carrierpath;
+use Admin\Model\CarrierpathTable;
 use Zend\Db\Sql\Select;
 
 class AdminController extends AbstractActionController {

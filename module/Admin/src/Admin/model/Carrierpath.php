@@ -10,7 +10,8 @@ use Zend\InputFilter\InputFilterInterface;
 class Carrierpath implements InputFilterAwareInterface {
 
     public $id;
-    public $name;    
+    public $name;
+    public $msg;
     public $min_verbal_perc;
     public $max_verbal_perc;
     public $min_quant_perc;
@@ -25,6 +26,7 @@ class Carrierpath implements InputFilterAwareInterface {
 
     public function exchangeArray($data) {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
+        $this->msg = (isset($data['msg'])) ? $data['msg'] : null;
         $this->name = (isset($data['name'])) ? $data['name'] : null;        
         $this->min_verbal_perc = (isset($data['min_verbal_perc'])) ? $data['min_verbal_perc'] : null;
         $this->max_verbal_perc = (isset($data['max_verbal_perc'])) ? $data['max_verbal_perc'] : null;

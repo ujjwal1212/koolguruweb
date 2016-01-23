@@ -69,7 +69,7 @@ class StudentStatusTable {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('ss' => 'student_status'))
-                ->columns(array('registration_status','verbal_reg_status','quant_status','carrier_status'));               
+                ->columns(array('registration_status','verbal_reg_status','quant_status','carrier_status','verbal_perc','quant_perc'));               
         $select->where(array('student_id' => $studentId));
         
         $statement = $sql->prepareStatementForSqlObject($select);

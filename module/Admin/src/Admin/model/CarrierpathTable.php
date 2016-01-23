@@ -72,6 +72,7 @@ class CarrierpathTable {
        
         $data = array(
             'name' => trim($carrier->name),
+            'msg' => trim($carrier->msg),
             'min_verbal_perc' => $carrier->min_verbal_perc,
             'max_verbal_perc' => $carrier->max_verbal_perc,
             'min_quant_perc' => $carrier->min_quant_perc,
@@ -142,6 +143,24 @@ class CarrierpathTable {
         if(isset($cond['status'])){
             $select->where(array('q.status'=>$cond['status']));
         }
+        
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        return $resultset;
+    }
+    
+    
+    public function getCarrierPath($verbal,$quant) {        
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('cp' => 'carrier_path'));
+        $select->columns(array('id', 'name','msg'));
+        $select->where('cp.min_verbal_perc <= '.$verbal);
+        $select->where('cp.max_verbal_perc >= '.$verbal);
+        
+        $select->where('cp.min_quant_perc <= '.$quant);
+        $select->where('cp.max_quant_perc >= '.$quant);
         
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())

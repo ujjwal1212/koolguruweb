@@ -293,6 +293,14 @@ $i++;
     <?php if ($enableTabContent[4]) { ?>
     <h4>“Thanks for Submitting the Registration Questionnaire and we are pleased to share our feedback and career advice”</h4>
     <h4><?php echo $carriersuggestedmsg;?></h4>
+    <?php if(!empty($carrier_path)){?>        
+        <?php $i = 1;foreach($carrier_path as $path){?>
+            <?php if($path['msg']!=''){?>
+            <span><?php echo $i;?></span> : <?php echo $path['msg'];?>
+            <?php } ?>
+    </br>
+        <?php $i++;}} ?>
+    
     <?php } ?>
 </main>            
 </div>
