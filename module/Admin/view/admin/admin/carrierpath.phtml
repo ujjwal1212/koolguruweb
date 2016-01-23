@@ -40,27 +40,6 @@ if (!$this->isAjax) {
     </section>
 
     <div class="container">
-
-        <?php
-        $errorflashMessage = $this->flashMessenger()->getErrorMessages();
-        $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
-        if (empty($errorflashMessage) && !empty($successflashMessage)) {
-            ?>
-            <div id="global-success-msg-page" class="global-page-success">
-                <?php
-                foreach ($successflashMessage as $succMsg) {
-                    echo $succMsg;
-                }
-                ?>
-
-            </div>
-        <?php } else { ?>
-            <div id="global-error-msg-page"   class="global-page-error"><?php
-                foreach ($errorflashMessage as $errMsg) {
-                    echo $errMsg;
-                }
-                ?></div>
-        <?php } ?>
         <?php
         //$search_form = $this->form;
         //$search_form->setAttribute('action', $this->url('question', array('action' => 'index')));
@@ -83,6 +62,26 @@ if (!$this->isAjax) {
                 //echo $this->formRow($search_form->get('order'));
                 ?>
             </div>
+            <?php
+            $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+            $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+            if (empty($error) && !empty($success)) {
+                ?>
+                <div id="global-success-msg-page" class="global-page-success">
+                    <?php
+                    foreach ($success as $succMsg) {
+                        echo $succMsg;
+                    }
+                    ?>
+
+                </div>
+            <?php } else { ?>
+                <div id="global-error-msg-page"   class="global-page-error"><?php
+                    foreach ($error as $errMsg) {
+                        echo $errMsg;
+                    }
+                    ?></div>
+            <?php } ?>
             <div class="search-table">
 
                 <span class="search-holder">
