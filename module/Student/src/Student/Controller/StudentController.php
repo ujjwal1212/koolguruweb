@@ -28,7 +28,11 @@ use Student\Model\StudentStatusTable;
 use Student\Model\StudentQuants;
 use Student\Model\StudentQuantsTable;
 use Student\Model\StudentMobile;
-use Student\Model\StudentMobileTableTable;
+use Student\Model\StudentMobileTable;
+use Student\Model\CarrierQuestion;
+use Student\Model\CarrierQuestionTable;
+use Student\Model\CarrierAnswers;
+use Student\Model\CarrierAnswersTable;
 use Questionarie\Model\Question;
 use Questionarie\Model\QuestionTable;
 use Questionarie\Model\QuestionOption;
@@ -45,6 +49,8 @@ class StudentController extends AbstractActionController {
     protected $QuestionOptionTable;
     protected $StudentQuantsTable;
     protected $StudentMobileTable;
+    protected $CarrierQuestionTable;
+    protected $CarrierAnswersTable;
     protected $UserTable;
     protected $RecoverEmailTable;
     protected $adapter;
@@ -136,6 +142,26 @@ class StudentController extends AbstractActionController {
         }
         return $this->StudentMobileTable;
     }
+    
+    public function getCarrierQuestionTable() {
+        if (!$this->CarrierQuestionTable) {
+            $sm = '';
+            $sm = $this->getServiceLocator();
+            $this->CarrierQuestionTable = $sm->get('Student\Model\CarrierQuestionTable');
+        }
+        return $this->CarrierQuestionTable;
+    }
+    
+    public function getCarrierAnswersTable() {
+        if (!$this->CarrierAnswersTable) {
+            $sm = '';
+            $sm = $this->getServiceLocator();
+            $this->CarrierAnswersTable = $sm->get('Student\Model\CarrierAnswersTable');
+        }
+        return $this->CarrierAnswersTable;
+    }
+    
+    
 
     /**
      * Get Instance RecoverEmailTable class
@@ -228,9 +254,31 @@ class StudentController extends AbstractActionController {
                 $flag = 1;
             } elseif (isset($data['quantsubmit'])) {
                 $flag = 1;
+            }elseif (isset($data['carriersubmit'])) {
+                $flag = 1;
             }
             if ($flag) {
-                if (isset($data['quantsubmit'])) {                    
+                
+                if (isset($data['carriersubmit'])) {
+                    $carans = array();
+                    $carans['student_id'] = $data['student_id']; 
+                    unset($data['student_id']);
+                    unset($data['carriersubmit']);                    
+                    foreach ($data as $key => $det) {
+                        $carans['question_id'] = $key; 
+                        $split = explode('~', $det);
+                        if(isset($split[1])){                            
+                            $carans['answer'] = $split[1];
+                        }else{
+                            $carans['answer'] = $split[0];
+                        }
+                        $this->getCarrierAnswersTable()->saveCarrierAnswers($carans);
+                    }
+                    
+                    $status['carrier_status'] = 1;
+                    $this->getStudentStatusTable()->updateCarrierStatus($status, $studentId);
+                   
+                }else if (isset($data['quantsubmit'])) {                    
                     $quanttotal = $data['marks_total_quant'];
                     $this->getStudentQuantsTable()->saveStudentQuantsDetail($data);
                     $total = 0;
@@ -296,7 +344,6 @@ class StudentController extends AbstractActionController {
         }
         $enableTab = $this->getStudentTable()->getEnableTabList($studentId, $studentStatus);
         $enableTabContent = $this->getStudentTable()->getEnableTabContentList($studentId, $studentStatus);
-
         // Tab conytent enable for verbal ability
         if ($enableTabContent[1] == 1) {
             $cond = array();
@@ -361,13 +408,29 @@ class StudentController extends AbstractActionController {
                 }
             }
         }
+        
+        // Tab conytent enable for Carrier oriented question
+        $carrierquestions = array();
+        if ($enableTabContent[3] == 1) {
+            $carrierquestions = $this->getCarrierQuestionTable()->getCarrierQuestions();
+        }
+        
+        $carriersuggestedmsg = '';
+        if ($enableTabContent[4] == 1) {
+            $carrieranswrs = $this->getCarrierAnswersTable()->getStudentAnwers($studentId,1);
+            $carriermessage = $this->getCarrierAnswersTable()->getCarrierMsg(1,$carrieranswrs[0]['answer']);
+            $carriersuggestedmsg = $carriermessage[0]['message'];
+        }
+        
         return array(
             'form' => $form, 'enableTab' => $enableTab,
             'enableTabContent' => $enableTabContent,
             'verbalQuestions' => $verbalQuestions,
             'student_id' => $studentId,
             'studentStatus' => $studentStatus,
-            'quantQuestions' => $quantQuestions
+            'quantQuestions' => $quantQuestions,
+            'carrierquestions' => $carrierquestions,
+            'carriersuggestedmsg' => $carriersuggestedmsg,
         );
     }
 

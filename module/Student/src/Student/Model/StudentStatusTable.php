@@ -48,6 +48,14 @@ class StudentStatusTable {
         return $studentId;
     }
     
+    public function updateCarrierStatus($data,$studentId){
+        $user_data = array();
+        $user_data['carrier_status'] = $data['carrier_status'];              
+        $user_data['carrier_reg_created'] = time();      
+        $this->tableGateway->update($user_data, array('student_id' => $studentId));
+        return $studentId;
+    }
+    
     public function createStudentStatus($data,$studentId){       
         $user_data = array();
         $user_data['student_id'] = $studentId;
@@ -61,7 +69,7 @@ class StudentStatusTable {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('ss' => 'student_status'))
-                ->columns(array('registration_status','verbal_reg_status','quant_status'));               
+                ->columns(array('registration_status','verbal_reg_status','quant_status','carrier_status'));               
         $select->where(array('student_id' => $studentId));
         
         $statement = $sql->prepareStatementForSqlObject($select);
