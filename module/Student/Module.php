@@ -17,6 +17,10 @@ use Student\Model\StudentQuants;
 use Student\Model\StudentQuantsTable;
 use Student\Model\StudentMobile;
 use Student\Model\StudentMobileTable;
+use Student\Model\CarrierQuestion;
+use Student\Model\CarrierQuestionTable;
+use Student\Model\CarrierAnswers;
+use Student\Model\CarrierAnswersTable;
 use Questionarie\Model\Question;
 use Questionarie\Model\QuestionTable;
 use Questionarie\Model\QuestionOption;
@@ -141,6 +145,29 @@ class Module {
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new StudentMobile());
                     return new TableGateway('student_mobile', $dbAdapter, null, $resultSetPrototype);
+                },                        
+                'Student\Model\CarrierQuestionTable' => function($sm) {                    
+                    $tableGateway = $sm->get('CarrierQuestionTableGateway');
+                    $table = new CarrierQuestionTable($tableGateway);
+                    return $table;
+                },
+                'CarrierQuestionTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new CarrierQuestion());
+                    return new TableGateway('carrier_oriented_question', $dbAdapter, null, $resultSetPrototype);
+                },
+                        
+                'Student\Model\CarrierAnswersTable' => function($sm) {                    
+                    $tableGateway = $sm->get('CarrierAnswersTableGateway');
+                    $table = new CarrierAnswersTable($tableGateway);
+                    return $table;
+                },
+                'CarrierAnswersTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new CarrierAnswers());
+                    return new TableGateway('student_carrier_oriented_answers', $dbAdapter, null, $resultSetPrototype);
                 },
                 
             ),

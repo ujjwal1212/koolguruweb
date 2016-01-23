@@ -108,25 +108,27 @@ class StudentTable {
         $enabletablist = array();
         $studentDet = array();
         if($studentId == ''){
-            $enabletablist = array(TRUE,0,0,0);
+            $enabletablist = array(TRUE,0,0,0,0);
         }else{
             $studentDet = $this->getSudent($studentId);            
             if(empty($studentDet)){
-                $enabletablist = array(TRUE,0,0,0);
+                $enabletablist = array(TRUE,0,0,0,0);
             }else{                
                 if(!empty($studentstatusdet)){
                     $studentstatusdet = $studentstatusdet[0];
                     if($studentstatusdet['registration_status'] == 0){
-                        $enabletablist = array(TRUE,0,0,0);
+                        $enabletablist = array(TRUE,0,0,0,0);
                     }else if($studentstatusdet['registration_status'] == 1 && $studentstatusdet['verbal_reg_status'] == 0){
-                        $enabletablist = array(0,TRUE,0,0);
+                        $enabletablist = array(0,TRUE,0,0,0);
                     }else if($studentstatusdet['registration_status'] == 1 && $studentstatusdet['verbal_reg_status'] == 1 && $studentstatusdet['quant_status'] == 0){
-                        $enabletablist = array(0,0,TRUE,0);
+                        $enabletablist = array(0,0,TRUE,0,0);
+                    }else if($studentstatusdet['registration_status'] == 1 && $studentstatusdet['carrier_status'] == 1 && $studentstatusdet['quant_status'] == 0){
+                        $enabletablist = array(0,0,0,TRUE,0);
                     }else{
-                        $enabletablist = array(0,0,0,TRUE);
+                        $enabletablist = array(0,0,0,0,TRUE);
                     }
                 }else{
-                    $enabletablist = array(TRUE,0,0,0);
+                    $enabletablist = array(TRUE,0,0,0,0);
                 }
             }
         }
@@ -137,21 +139,23 @@ class StudentTable {
         $enabletabContentlist = array();
         $studentDet = array();
         if($studentId == ''){
-            $enabletabContentlist = array(TRUE,0,0,0);
+            $enabletabContentlist = array(TRUE,0,0,0,0);
         }else{
             if(!empty($studentstatusdet)){
                 $studentstatusdet = $studentstatusdet[0];
                 if($studentstatusdet['registration_status'] == 0){
-                    $enabletabContentlist = array(TRUE,0,0,0);
+                    $enabletabContentlist = array(TRUE,0,0,0,0);
                 }else if($studentstatusdet['verbal_reg_status'] == 0){
-                    $enabletabContentlist = array(TRUE,TRUE,0,0);
+                    $enabletabContentlist = array(TRUE,TRUE,0,0,0);
                 }else if($studentstatusdet['quant_status'] == 0){
-                    $enabletabContentlist = array(TRUE,TRUE,TRUE,0);
+                    $enabletabContentlist = array(TRUE,TRUE,TRUE,0,0);
+                }else if($studentstatusdet['carrier_status'] == 0){
+                    $enabletabContentlist = array(TRUE,TRUE,TRUE,TRUE,0);
                 }else{
-                    $enabletabContentlist = array(TRUE,TRUE,TRUE,TRUE);
+                    $enabletabContentlist = array(TRUE,TRUE,TRUE,TRUE,TRUE);
                 }
             }else{
-                    $enabletabContentlist = array(TRUE,0,0,0);
+                    $enabletabContentlist = array(TRUE,0,0,0,0);
             }
         }
         return $enabletabContentlist;
