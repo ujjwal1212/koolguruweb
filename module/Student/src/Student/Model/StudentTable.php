@@ -98,7 +98,7 @@ class StudentTable {
             'email' => $student['email'],   
             'created' => time(),
             'updated' => time(),
-            'status' => 0,
+            'status' => 1,
         );
         $this->tableGateway->update($user_data, array('id' => $id));
         return $id;
