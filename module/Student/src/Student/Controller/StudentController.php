@@ -37,6 +37,8 @@ use Questionarie\Model\Question;
 use Questionarie\Model\QuestionTable;
 use Questionarie\Model\QuestionOption;
 use Questionarie\Model\QuestionOptionTable;
+use Admin\Model\Carrierpath;
+use Admin\Model\CarrierpathTable;
 
 class StudentController extends AbstractActionController {
 
@@ -51,6 +53,7 @@ class StudentController extends AbstractActionController {
     protected $StudentMobileTable;
     protected $CarrierQuestionTable;
     protected $CarrierAnswersTable;
+    protected $CarrierpathTable;
     protected $UserTable;
     protected $RecoverEmailTable;
     protected $adapter;
@@ -69,6 +72,16 @@ class StudentController extends AbstractActionController {
             $this->DegreeTable = $sm->get('Student\Model\DegreeTable');
         }
         return $this->DegreeTable;
+    }
+    
+    
+    public function getCarrierpathTable() {
+        if (!$this->CarrierpathTable) {
+            $sm = '';
+            $sm = $this->getServiceLocator();
+            $this->CarrierpathTable = $sm->get('Admin\Model\CarrierpathTable');
+        }
+        return $this->CarrierpathTable;
     }
 
     public function getStateTable() {
@@ -277,6 +290,8 @@ class StudentController extends AbstractActionController {
                     
                     $status['carrier_status'] = 1;
                     $this->getStudentStatusTable()->updateCarrierStatus($status, $studentId);
+                    $profile['isprofilecompleted'] = 1;
+                    $studentId = $this->getStudentTable()->updateStudentProfile($profile, $studentId);
                    
                 }else if (isset($data['quantsubmit'])) {                    
                     $quanttotal = $data['marks_total_quant'];
@@ -416,10 +431,14 @@ class StudentController extends AbstractActionController {
         }
         
         $carriersuggestedmsg = '';
+        $carrier_path = array();
         if ($enableTabContent[4] == 1) {
             $carrieranswrs = $this->getCarrierAnswersTable()->getStudentAnwers($studentId,1);
             $carriermessage = $this->getCarrierAnswersTable()->getCarrierMsg(1,$carrieranswrs[0]['answer']);
             $carriersuggestedmsg = $carriermessage[0]['message'];
+            
+            $carrier_path = $this->getCarrierpathTable()->getCarrierPath($studentStatus[0]['verbal_perc'],$studentStatus[0]['quant_perc']);
+            
         }
         
         return array(
@@ -431,6 +450,7 @@ class StudentController extends AbstractActionController {
             'quantQuestions' => $quantQuestions,
             'carrierquestions' => $carrierquestions,
             'carriersuggestedmsg' => $carriersuggestedmsg,
+            'carrier_path' => $carrier_path,
         );
     }
 

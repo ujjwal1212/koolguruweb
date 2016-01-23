@@ -39,6 +39,20 @@ class CarrierpathForm extends Form {
                 ),
             ),
         ));
+        $this->add(array(
+            'name' => 'msg',
+            'attributes' => array(
+                'type' => 'text',
+                'id' => 'msg',
+                'class' => 'input',
+            ),
+            'options' => array(
+                'label' => 'Default Message',
+                'label_attributes' => array(
+                    'class' => 'label'
+                ),
+            ),
+        ));
         
         $this->add(array(
             'name' => 'min_verbal_perc',

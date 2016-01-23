@@ -104,6 +104,14 @@ class StudentTable {
         return $id;
     }
     
+    public function updateStudentProfile($student,$id){
+        $user_data = array(            
+            'isprofilecompleted' => $student['isprofilecompleted'],
+        );
+        $this->tableGateway->update($user_data, array('id' => $id));
+        return $id;
+    }
+    
     public function getEnableTabList($studentId,$studentstatusdet){        
         $enabletablist = array();
         $studentDet = array();
