@@ -359,6 +359,7 @@ class StudentController extends AbstractActionController {
         }
         $enableTab = $this->getStudentTable()->getEnableTabList($studentId, $studentStatus);
         $enableTabContent = $this->getStudentTable()->getEnableTabContentList($studentId, $studentStatus);
+
         // Tab conytent enable for verbal ability
         if ($enableTabContent[1] == 1) {
             $cond = array();
