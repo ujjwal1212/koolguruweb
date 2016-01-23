@@ -33,12 +33,18 @@ endif;
                 ->prependStylesheet($this->basePath() . '/css/bootstrap.css')
                 ->prependStylesheet($this->basePath() . '/css/style.css')
                 ->prependStylesheet($this->basePath() . '/css/video.css')
+                ->prependStylesheet($this->basePath() . '/css/file.css')
+                ->prependStylesheet($this->basePath() . '/css/media-player.css')
         ?>
-
+        <!--        <link href='file.css' rel='stylesheet' />
+                <link href='jquery.min.js' rel='stylesheet' />
+                <link href='file.js' rel='stylesheet' />
+                <script src='media-player.js'></script>
+                <link href='media-player.css' rel='stylesheet' />-->
         <!-- Scripts -->
         <?php
         echo $this->headScript()
-                ->prependFile($this->basePath() . '/js/video.js')
+//                ->prependFile($this->basePath() . '/js/video.js')
                 ->prependFile($this->basePath() . '/js/isplayer.js')
                 ->prependFile($this->basePath() . '/js/wow.min.js')
                 ->prependFile($this->basePath() . '/js/bootstrap.min.js')
@@ -46,6 +52,8 @@ endif;
                 ->prependFile($this->basePath() . '/js/fancybox/jquery.fancybox.pack.js', 'text/javascript', array())
                 ->prependFile($this->basePath() . '/js/koolguru/custom.js', 'text/javascript', array())
                 ->prependFile($this->basePath() . '/js/index.js', 'text/javascript', array())
+                ->prependFile($this->basePath() . '/js/media-player.js', 'text/javascript', array())
+                ->prependFile($this->basePath() . '/js/file.js', 'text/javascript', array())
                 ->prependFile($this->basePath() . '/js/jquery.openCarousel.js')
                 ->prependFile($this->basePath() . '/js/modernizr.custom.js')
                 ->prependFile($this->basePath() . '/js/ajax/libs/jquery.form/3.32/jquery.form.js')
@@ -105,8 +113,8 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span>Pathways<span  		
                                                     class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))                  ?>">View</a></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))                  ?>">Requests</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))                    ?>">View</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))                    ?>">Requests</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Renewals</a></li>-->
                                             </ul>
                                         </li>
@@ -114,7 +122,7 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span>Student
                                                 <span class="caret" ></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))                  ?>">Manage Trainees</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))                    ?>">Manage Trainees</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Update Enrollment Status</a></li>-->
                                             </ul>
                                         </li>
@@ -131,9 +139,9 @@ endif;
                                                 Quiz<span class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
                                                 <!--<li class="dropdown-header">Assessment</li>-->
-                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))                  ?>">Book Assessment</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))                    ?>">Book Assessment</a></li>-->
                                                 <!--<li class="divider"></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))                  ?>">External Verifier Visit</a></li>-->                                            
+                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))                    ?>">External Verifier Visit</a></li>-->                                            
                                             </ul>
                                         </li>
                                         <li class="dropdown">
@@ -151,7 +159,19 @@ endif;
                                     </ul>
                                 </div>			
                             </div>
-
+                        <?php }if (isset($roleCode) && $roleCode == 'st') { ?>
+                        <div class="navigation">	
+                                <div>
+                                    <ul class="nav navbar-nav">
+                                        <li>
+                                            <a href="<?php echo $this->url('home') ?>" class="dropdown-toggle" ><span class="home-icon"></span><?php echo $this->translate('Home', __NAMESPACE__) ?></a>
+                                        </li>
+                                        <li>
+                                            <a href="<?php echo $this->url('logout') ?>" class="dropdown-toggle">Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>			
+                            </div>
                         <?php } else { ?>
                             <ul class="nav navbar-nav">
                                 <li>
@@ -191,13 +211,13 @@ endif;
                                                                 <span class="user-icon"></span>
                                                                 <span class="grey-caret"></span></a>
                                                             <ul class="dropdown-menu user-menu" role="menu">
-                                                                <li><?php //echo $_SESSION['User']->fname . ' ' . $_SESSION['User']->lname;  ?><span class="user-email"><?php echo $_SESSION['User']->email; ?></span></li>
+                                                                <li><?php //echo $_SESSION['User']->fname . ' ' . $_SESSION['User']->lname;    ?><span class="user-email"><?php echo $_SESSION['User']->email; ?></span></li>
                                                                 <li>
                                                                     <a href="javascript:void(0)" class="change-password">Change Password</a>
                                                                 </li>
                                                                 <li class="user-menu-footer">
                                                                     <a href="javascript:void(0);" class="help"><span class="help-icon"></span>Help</a>
-                                                                    <a href="<?php //echo $this->url('logout')  ?>" class="logout-btn">Logout</a>
+                                                                    <a href="<?php //echo $this->url('logout')    ?>" class="logout-btn">Logout</a>
                                                                 </li>
                                                             </ul>
                                                         </li>
@@ -208,7 +228,7 @@ endif;
                                                 <div class="header-top-right">
                                                     <ul class="notifications">
                                                         <li id="header-user-dropdown" class=" dropdown">
-                                                            <a href="<?php //echo $this->url('studentlogin')  ?>" class="logout-btn">Login</a>
+                                                            <a href="<?php //echo $this->url('studentlogin')    ?>" class="logout-btn">Login</a>
                                                         </li>
                     
                                                     </ul> 
