@@ -38,6 +38,20 @@ return array(
                     ),
                 ),
             ),
+            'carrierpath' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/carrierpath[/:action][/:id][/page/:page][/msg/:msg]',
+                    'constraints' => array(
+                        'action' => '(?!\bpage\b)[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Admin\Controller\Admin',
+                        'action' => 'carrierpath',
+                    ),
+                ),
+            ),
         ),
     ),    
     'view_manager' => array(

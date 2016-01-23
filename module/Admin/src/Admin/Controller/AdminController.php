@@ -32,7 +32,7 @@ class AdminController extends AbstractActionController {
         }
         return $this->adapter;
     }
-    
+
     public function getCarrierpathTable() {
         if (!$this->CarrierpathTable) {
             $sm = $this->getServiceLocator();
@@ -59,26 +59,31 @@ class AdminController extends AbstractActionController {
     }
 
     public function indexAction() {
-        
-    }
-    
-    public function carrierPathAction() {
         return new ViewModel(array(
-            
         ));
     }
-    
-    public function addcarrierpathAction(){
+
+    public function carrierPathAction() {
+        $successMsg = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
+        $errorMsg = $this->flashMessenger()->getCurrentMessagesFromNamespace('error');
+
+        return new ViewModel(array(
+            'success' => $successMsg,
+            'error' => $errorMsg
+        ));
+    }
+
+    public function addcarrierpathAction() {
         $session = new Container('User');
         $form = new CarrierpathForm('carrier path');
-        
+
         $form->get('created_date')->setValue(time());
         $form->get('created_by')->setValue($session->offsetGet('userId'));
         $form->get('updated_date')->setValue(time());
         $form->get('updated_by')->setValue($session->offsetGet('userId'));
         $request = $this->getRequest();
-        
-        if ($request->isPost()) {            
+
+        if ($request->isPost()) {
             $data = $request->getPost();
             $carrierpath = new Carrierpath();
             $form->setInputFilter($carrierpath->getInputFilter());
@@ -90,12 +95,12 @@ class AdminController extends AbstractActionController {
                 $data->updated_date = time();
                 $data->updated_by = $session->offsetGet('userId');
 
-                $Id = $this->getCarrierpathTable()->saveCarrierpath($carrierpath);                
+                $Id = $this->getCarrierpathTable()->saveCarrierpath($carrierpath);
                 $this->flashMessenger()->setNamespace('success')->addMessage('Carrier Path created successfully');
-                return $this->redirect()->toRoute('addcarrierpath');
+                return $this->redirect()->toRoute('carrierpath');
             }
         }
-        
+
         return array('form' => $form);
     }
 

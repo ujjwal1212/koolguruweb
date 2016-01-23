@@ -34,14 +34,14 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 <div class="container">
     <div class="forms" id="add-trainee-form">
         <?php
-        $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+        $errorflashMessage = $this->flashMessenger()->getCurrentErrorMessages();
         $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
         if (empty($errorflashMessage) && !empty($successflashMessage)) {
             ?>
             <div id="global-success-msg-page" class="global-page-success">
                 <?php
                 foreach ($successflashMessage as $succMsg) {
-                    echo $errMsg;
+                    echo $succMsg;
                 }
                 ?>
 
@@ -86,7 +86,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <label class='label'>Maximum Quantitative Ability Percentage: <span class='required'>*</span></label>
                         <?php echo $this->formElement($form->get('max_quant_perc')); ?>
                     </li>
-                    
+
                 </ul>
             </section>
         </div>

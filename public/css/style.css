@@ -264,11 +264,20 @@ a#loginButton:hover {
 }
 /***** Header-bottom *****/
 .logo {
-    float: left;
-    padding:0px 10px;
+	float: left;
+	width: 10%;
 }
 .logo a{
     display:block;
+}
+#logo{
+    float:left;
+    display:block;
+    width:140%;
+    min-height: 110px;
+    margin-top:0px;
+    text-indent:-999em;
+    background:url(../img/logo123.png) no-repeat left bottom;
 }
 /************ main *****************/
 /*  GRID OF THREE   ============================================================================= */
