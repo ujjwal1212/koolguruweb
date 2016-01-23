@@ -92,9 +92,7 @@ endif;
         <div class="header">    
             <div class="header_top">
                 <div class="container">
-                    <div class="logo">
-                        <h1><a href="<?php echo $this->url('home') ?>"><img src="<?php echo $this->basePath() . '/img/logo.png' ?>" class="img-logo"><span>INNOVATE TO EDUCATE</span></a></h1>
-                    </div>
+                    <div class="logo" ><a href="<?php echo $this->url('home') ?>" id="logo" ></a></div>
                     <div class="headertop_nav">
                         <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa')) { ?>
                             <div class="navigation">	
@@ -107,8 +105,8 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span>Pathways<span  		
                                                     class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))             ?>">View</a></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))             ?>">Requests</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualification', array('action' => 'index'))                  ?>">View</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('qualificationrequest', array('action' => 'index'))                  ?>">Requests</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Renewals</a></li>-->
                                             </ul>
                                         </li>
@@ -116,7 +114,7 @@ endif;
                                             <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span>Student
                                                 <span class="caret" ></span></a>
                                             <ul class="dropdown-menu" role="menu">
-                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))             ?>">Manage Trainees</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('trainee', array('action' => 'index'))                  ?>">Manage Trainees</a></li>-->
                                                 <!--<li><a href="javascript:void(0);">Update Enrollment Status</a></li>-->
                                             </ul>
                                         </li>
@@ -133,9 +131,9 @@ endif;
                                                 Quiz<span class="caret"></span></a>
                                             <ul class="dropdown-menu" role="menu">
                                                 <!--<li class="dropdown-header">Assessment</li>-->
-                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))             ?>">Book Assessment</a></li>-->
+                                                <!--<li><a href="<?php // echo $this->url('assessment', array('action' => 'index'))                  ?>">Book Assessment</a></li>-->
                                                 <!--<li class="divider"></li>-->
-                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))             ?>">External Verifier Visit</a></li>-->                                            
+                                                <!--<li><a href="<?php // echo $this->url('externalverifierbooking', array('action' => 'index'))                  ?>">External Verifier Visit</a></li>-->                                            
                                             </ul>
                                         </li>
                                         <li class="dropdown">
@@ -147,6 +145,9 @@ endif;
                                                 <li><a href="<?php echo $this->url('admin', array('action' => 'carrierpath')) ?>">Carrier Path</a></li>
                                             </ul>
                                         </li>
+                                        <li>
+                                            <a href="<?php echo $this->url('logout') ?>" class="dropdown-toggle">Logout</a>
+                                        </li>
                                     </ul>
                                 </div>			
                             </div>
@@ -157,65 +158,63 @@ endif;
                                     <a href="<?php echo $this->url('home') ?>" class="dropdown-toggle" ><span class="home-icon"></span><?php echo $this->translate('Home', __NAMESPACE__) ?></a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'mission')); ?>" class="dropdown-toggle" data-toggle="dropdown"><span class="qualification-icon"></span><?php echo $this->translate('Mission', __NAMESPACE__) ?></a>
+                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'mission')); ?>" class="dropdown-toggle"><span class="qualification-icon"></span><?php echo $this->translate('Mission', __NAMESPACE__) ?></a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'vision')); ?>" class="dropdown-toggle" data-toggle="dropdown"><span class="trainee-icon"></span><?php echo $this->translate('Vision', __NAMESPACE__) ?>
+                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'vision')); ?>" class="dropdown-toggle"><span class="trainee-icon"></span><?php echo $this->translate('Vision', __NAMESPACE__) ?>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'aboutus')); ?>" class="dropdown-toggle" data-toggle="dropdown"><span class="cohort-icon"></span>
+                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'aboutus')); ?>" class="dropdown-toggle"><span class="cohort-icon"></span>
                                         <?php echo $this->translate('About-us', __NAMESPACE__) ?></a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'locateus')); ?>" class="dropdown-toggle" data-toggle="dropdown"><span class="booking-icon"></span>
+                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'contactus')); ?>" class="dropdown-toggle"><span class="booking-icon"></span>
                                         <?php echo $this->translate('Contact Us', __NAMESPACE__) ?></a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->url('studentlogin') ?>" class="dropdown-toggle">Login</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo $this->url('student') ?>" class="dropdown-toggle">Register</a>
                                 </li>
                             </ul>
                         <?php } ?>
                     </div>
-                    <div class="container">	 			
-
-                        <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa' || $roleCode == 'st')) { ?>
-                            <div class="header-top-right">
-                                <ul class="notifications">
-                                    <li id="header-user-dropdown" class=" dropdown">
-                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                                            <span class="user-icon"></span>
-                                            <span class="grey-caret"></span></a>
-                                        <ul class="dropdown-menu user-menu" role="menu">
-                                            <li><?php echo $_SESSION['User']->fname . ' ' . $_SESSION['User']->lname; ?><span class="user-email"><?php echo $_SESSION['User']->email; ?></span></li>
-                                            <li>
-                                                <a href="javascript:void(0)" class="change-password">Change Password</a>
-                                            </li>
-                                            <li class="user-menu-footer">
-                                                <!--<a href="javascript:void(0);" class="help"><span class="help-icon"></span>Help</a>-->
-                                                <a href="<?php echo $this->url('logout') ?>" class="logout-btn">Logout</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                </ul> 
-                            </div>
-                        <?php } else { ?>
-                            <div class="header-top-right">
-                                <ul class="notifications">
-                                    <li id="header-user-dropdown" class=" dropdown">
-                                        <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
-                                            <span class="user-icon"></span>
-                                            <span class="grey-caret"></span></a>
-                                        <ul class="dropdown-menu user-menu" role="menu">
-                                            <li class="user-menu-footer">
-                                                <!--<a href="javascript:void(0);" class="help"><span class="help-icon"></span>Help</a>-->
-                                                <a href="<?php echo $this->url('studentlogin') ?>" class="logout-btn">Login</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-
-                                </ul> 
-                            </div>
-                        <?php } ?>
-                    </div>
+                    <!--                    <div class="container">	 			
+                    
+                    <?php //if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa' || $roleCode == 'st')) { ?>
+                                                <div class="header-top-right">
+                                                    <ul class="notifications">
+                                                        <li id="header-user-dropdown" class=" dropdown">
+                                                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
+                                                                <span class="user-icon"></span>
+                                                                <span class="grey-caret"></span></a>
+                                                            <ul class="dropdown-menu user-menu" role="menu">
+                                                                <li><?php //echo $_SESSION['User']->fname . ' ' . $_SESSION['User']->lname;  ?><span class="user-email"><?php echo $_SESSION['User']->email; ?></span></li>
+                                                                <li>
+                                                                    <a href="javascript:void(0)" class="change-password">Change Password</a>
+                                                                </li>
+                                                                <li class="user-menu-footer">
+                                                                    <a href="javascript:void(0);" class="help"><span class="help-icon"></span>Help</a>
+                                                                    <a href="<?php //echo $this->url('logout')  ?>" class="logout-btn">Logout</a>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                    
+                                                    </ul> 
+                                                </div>
+                    <?php //} else { ?>
+                                                <div class="header-top-right">
+                                                    <ul class="notifications">
+                                                        <li id="header-user-dropdown" class=" dropdown">
+                                                            <a href="<?php //echo $this->url('studentlogin')  ?>" class="logout-btn">Login</a>
+                                                        </li>
+                    
+                                                    </ul> 
+                                                </div>
+                    <?php //} ?>
+                                        </div>-->
                 </div>
             </div>
             <!--            <div class="header_bottom">
@@ -289,9 +288,10 @@ endif;
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'contactus')); ?>">Contact</a></li>
                     </ul>
+                    <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=73064553"></script>
                 </div>
                 <div class="clearfix"></div>
-                <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=73064553"></script>
+
             </div>
         </div>
     </div>
