@@ -77,4 +77,6 @@ ALTER TABLE `chapters` ADD `content` TEXT NOT NULL AFTER `title`;
 
 ALTER TABLE `subjects` ADD `isdemo` TINYINT(10) NOT NULL AFTER `title`;
 
+UPDATE `test`.`subjects` SET `isdemo` = '1' WHERE `subjects`.`id` = 1;
+
 
