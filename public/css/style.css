@@ -273,8 +273,8 @@ a#loginButton:hover {
 #logo{
     float:left;
     display:block;
-    width:140%;
-    min-height: 110px;
+    width:100%;
+    min-height: 100px;
     margin-top:0px;
     text-indent:-999em;
     background:url(../img/logo123.png) no-repeat left bottom;
