@@ -2,6 +2,7 @@
 
 namespace Application\Model;
 
+use Application\Model\Chapter;
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\Adapter\Driver\ResultInterface;
@@ -100,13 +101,16 @@ class ChapterTable {
         return $questionId;
     }
     
-    public function getQuestionDetails($id) {
+    public function getDemoChapter() {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
-        $select->from(array('q' => 'questions'))
-                ->join(array('l'=>'level'),'q.level = l.id',array('level_name'=>'name'),'left');
-        $select->columns(array('id', 'name', 'description','type','status','min_marks','max_marks'));
-        $select->where(array('q.id'=>$id));
+        $select->from(array('s' => 'subjects'))
+                ->join(array('c'=>'chapters'),'s.id = c.subject_id',array('chapter_id'=>'id','demo_chapter_title'=>'title','isdemochapter'=>'isdemo','chapter_content'=>'content'),'left');
+        $select->columns(array('subject_id'=>'id', 'subject_title'=>'title'));
+        $select->where(array('c.status'=>1));
+        $select->where(array('c.isdemo'=>1));
+        $select->where(array('s.status'=>1));
+        $select->where(array('s.isdemo'=>1));
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
@@ -114,30 +118,6 @@ class ChapterTable {
         return $resultset;
     }
     
-    public function getStudentQuestions($cond) {
-        $sql = new Sql($this->tableGateway->getAdapter());
-        $select = $sql->select();
-        $select->from(array('q' => 'questions'))
-                ->join(array('l'=>'level'),'q.level = l.id',array('level_name'=>'name','level_id'=>'id'),'left');
-                
-        $select->columns(array('id', 'name', 'description','type','status','min_marks','max_marks'));
-        
-        if(isset($cond['id'])){
-            $select->where(array('q.id'=>$cond['id']));
-        }
-        
-        if(isset($cond['level'])){
-            $select->where(array('l.name'=>$cond['level']));
-        }
-        
-        if(isset($cond['status'])){
-            $select->where(array('q.status'=>$cond['status']));
-        }
-        
-        $statement = $sql->prepareStatementForSqlObject($select);
-        $resultset = $this->resultSetPrototype->initialize($statement->execute())
-                ->toArray();
-        return $resultset;
-    }
+    
 
 }
