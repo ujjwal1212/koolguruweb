@@ -1,0 +1,114 @@
+<div class="main"> 
+    <div class="reservation_top">
+        <div class="container">
+            <?php
+            $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+            $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+            if (empty($errorflashMessage) && !empty($successflashMessage)) {
+                ?>
+                <div id="global-success-msg-page" class="global-page-success">
+                    <?php
+                    foreach ($successflashMessage as $succMsg) {
+                        echo $succMsg;
+                    }
+                    ?>
+
+                </div>
+            <?php } else { ?>
+                <div id="global-error-msg-page"   class="global-page-error"><?php
+                    foreach ($errorflashMessage as $errMsg) {
+                        echo $errMsg;
+                    }
+                    ?></div>
+            <?php } ?>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="contact_left">
+                        <h3>Contact Info</h3>
+<!--                        <iframe class="map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="http://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=United+Kingdom&amp;aq=0&amp;oq=un&amp;sll=37.0625,-95.677068&amp;sspn=48.956293,107.138672&amp;ie=UTF8&amp;hq=&amp;hnear=United+Kingdom&amp;ll=55.378051,-3.435973&amp;spn=135.795411,68.554687&amp;t=m&amp;z=2&amp;output=embed"> </iframe><br /><small><a href="http://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=United+Kingdom&amp;aq=0&amp;oq=un&amp;sll=37.0625,-95.677068&amp;sspn=48.956293,107.138672&amp;ie=UTF8&amp;hq=&amp;hnear=United+Kingdom&amp;ll=55.378051,-3.435973&amp;spn=135.795411,68.554687&amp;t=m&amp;z=2" style="color:#666;font-size:12px;text-align:left"> </a></small>-->
+                        <iframe
+                            class="map" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
+                            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyALEX1UUmTZWFjIy-8p45Ee6tz6Y7CDJwo
+                            &q=28.537691, 77.129936" allowfullscreen>
+                        </iframe>
+                        <address class="address">
+                            <p>79, Sector E pocket 2
+                            <p>Vasant Kunj</p>
+                            <p>New Delhi 110070</p>                            
+                            <p>India</p>
+                            <p>Phone:+91 9171562646</p>                            
+                            <p>Email: <span><a href="mailto:info@koolguru.co.in">info@koolguru.co.in</a></span></p>
+                            <ul class="social-network social-circle">
+                            <!--<li><a href="#" class="icoRss" title="Rss"><i class="fa fa-rss"></i></a></li>-->
+                                <li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" class="icoTwitter" title="Twitter"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" class="icoLinkedin" title="Linkedin"><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </address>
+                    </div>
+                </div>
+                <div class="col-md-7 contact_right">
+                    <form action="<?php echo $this->basePath(); ?>/application/index/contactus" method="post" name="contactForm" class="detect_changes" id="contactForm" novalidate="novalidate">                
+                        <div class="tabs" id="content-1" style="display: block;">
+                            <div class="container">
+                                <div class="forms" id="contact-form">
+                                    <section id="basic_details">
+                                        <?php
+                                        //$flashMessenger = $this->flashMessenger();
+                                        //echo $flashMessenger->getMessages();
+                                        ?>
+                                        <?php
+                                        $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+                                        $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+                                        if (empty($errorflashMessage) && !empty($successflashMessage)) {
+                                            ?>
+                                            <div id="global-success-msg-page" class="global-page-success">
+                                                <?php
+                                                foreach ($successflashMessage as $succMsg) {
+                                                    echo $errMsg;
+                                                }
+                                                ?>
+
+                                            </div>
+                                            <?php } else { ?>
+                                            <div id="global-error-msg-page"   class="global-page-error"><?php
+                                                foreach ($errorflashMessage as $errMsg) {
+                                                    echo $errMsg;
+                                                }
+                                                ?></div>
+<?php } ?>
+                                        <h3 class="h3">Contact Form</h3>
+                                        <ul>
+                                            <li class="form-row">
+                                                <label class="label">Name:<span class="required">*</span></label>
+                                                <input name="name" type="text" id="name" class="input" value="">
+                                            </li>
+                                            <li class="form-row">
+                                                <label class="label">Email:</label>
+                                                <input name="email" type="text" id="email" class="input" value="">
+                                            </li>
+                                            <li class="form-row">
+                                                <label class="label">Mobile:<span class="required">*</span></label>
+                                                <input name="mobile" type="text" id="mobile" class="input" value="">
+                                            </li>
+                                            <li class="form-row">
+                                                <label class="label">Me:ssage<span class="required">*</span></label>
+                                                <textarea name="message" id="message" class="input"></textarea>
+                                            </li>    
+                                        </ul>
+                                        <div class="form-footer">
+                                            <input name="regsubmit" type="submit" id="regsubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">                                </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div></form>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
