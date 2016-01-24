@@ -15,6 +15,10 @@ use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\ResultSet;
 use Application\Model\Sendquery;
 use Application\Model\SendqueryTable;
+use Application\Model\Chapter;
+use Application\Model\ChapterTable;
+use Application\Model\Subject;
+use Application\Model\SubjectTable;
 
 class Module
 {
@@ -54,6 +58,30 @@ class Module
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Sendquery());
                     return new TableGateway('send_query', $dbAdapter, null, $resultSetPrototype);
+                },
+                        
+                'Application\Model\SubjectTable' => function($sm) {
+                    $tableGateway = $sm->get('SubjectTableGateway');
+                    $table = new SubjectTable($tableGateway);
+                    return $table;
+                },
+                'SubjectTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Subject());
+                    return new TableGateway('subjects', $dbAdapter, null, $resultSetPrototype);
+                },
+                        
+                'Application\Model\ChapterTable' => function($sm) {
+                    $tableGateway = $sm->get('ChapterTableGateway');
+                    $table = new ChapterTable($tableGateway);
+                    return $table;
+                },
+                'ChapterTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Chapter());
+                    return new TableGateway('chapters', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );
