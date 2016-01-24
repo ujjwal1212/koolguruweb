@@ -3,13 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/layout/layout.phtml</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/index.phtml</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Admin/view/admin/admin/carrierpath.phtml</file>
-            <file>file:/C:/wamp/www/koolguruweb/public/css/style.css</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Admin/view/admin/admin/addcarrierpath.phtml</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Admin/src/Admin/Controller/AdminController.php</file>
-            <file>file:/C:/wamp/www/koolguruweb/public/img/logo123.png</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Admin/view/admin/admin/addcarrierpath.phtml</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Admin/src/Admin/model/CarrierpathTable.php</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Admin/src/Admin/model/Carrierpath.php</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Admin/src/Admin/Form/CarrierpathForm.php</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Admin/src/Admin/Controller/AdminController.php</file>
         </group>
     </open-files>
 </project-private>
