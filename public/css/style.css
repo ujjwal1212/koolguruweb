@@ -80,10 +80,10 @@ body a{
 }
 .headertop_nav{
     float:left;
-    padding:70px 0;
+    padding:5% 0;
 }
 .headertop_nav ul{
-    padding:0;
+    padding-left: 10%;
     list-style:none;
 }
 .headertop_nav li{
@@ -264,8 +264,8 @@ a#loginButton:hover {
 }
 /***** Header-bottom *****/
 .logo {
-	float: left;
-	width: 10%;
+    float: left;
+    width: 10%;
 }
 .logo a{
     display:block;
@@ -273,11 +273,12 @@ a#loginButton:hover {
 #logo{
     float:left;
     display:block;
-    width:100%;
-    min-height: 100px;
+    width:120%;
+    min-height: 135px;
+    margin-right: 10%;
     margin-top:0px;
     text-indent:-999em;
-    background:url(../img/logo123.png) no-repeat left bottom;
+    background:url(../img/koolgurulogo-ConvertImage_140x110.png) no-repeat left bottom;
 }
 /************ main *****************/
 /*  GRID OF THREE   ============================================================================= */
