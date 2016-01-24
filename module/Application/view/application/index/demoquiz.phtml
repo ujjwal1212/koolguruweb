@@ -13,23 +13,38 @@
         <div class="container">
             <main>
 
-                <label for="tab1" id='tab-1' class="kooltab" onclick="app.demoquiz.openTag(1)">Chapter Video</label>                
+                <!--<label for="tab1" id='tab-1' class="kooltab" onclick="app.demoquiz.openTag(1)">Chapter Video</label>-->                
                 <label for="tab2" id='tab-2' class="kooltab" onclick="app.demoquiz.openTag(2)"><span>Chapter Presentation</span></label>                
                 <label for="tab3" id='tab-3' class="kooltab" onclick="app.demoquiz.openTag(3)">Exercise</label>                
                 <label for="tab4" id='tab-4' class="kooltab" onclick="app.demoquiz.openTag(4)">Quiz</label>
 
 
-                <div class="tabs" id='content-1'>
+<!--                <div class="tabs" id='content-1'>
                     <br>
                     <video id="example_video_1" class="video-js vjs-default-skin" preload="auto" controls preload="auto" width="400px" height="300px"
                            poster="http://video-js.zencoder.com/oceans-clip.png"
                            data-setup='{"example_option":true}'>
                         <source src="http://koolguru.co.in/video/1.mp4" type='video/mp4' />
                     </video>
-                </div>
+                </div>-->
 
                 <!-- Tab for verbal ability -->
                 <div class="tabs" id='content-2'>
+                    <div id='media-player'>
+                            <video id='media-video' controls>
+                                <source src="http://koolguru.co.in/video/Quadratic.mp4" type='video/mp4'>
+                            </video>
+                            <div id='controls'>
+                                <progress id='progress-bar' min='0' max='100' value='0'>0% played</progress>
+                                <button id='replay-button' class='replay' title='replay' onclick='resetPlayer();'>Replay</button>
+                                <button id='play-pause-button' class='play' title='play' onclick='togglePlayPause();'>Play</button>
+                                <button id='stop-button' class='stop' title='stop' onclick='stopPlayer();'>Stop</button>
+                                <button id='volume-inc-button' class='volume-plus' title='increase volume' onclick='changeVolume("+");'>Increase volume</button>
+                                <button id='volume-dec-button' class='volume-minus' title='decrease volume' onclick='changeVolume("-");'>Decrease volume</button>
+                                <button id='mute-button' class='mute' title='mute' onclick='toggleMute("true");'>Mute</button>
+                                <button id='Autopause-button' class='pause' title='pause' onclick='toggleAutopause("true");'>pause</button>	
+                            </div>
+                        </div>
                 </div>
                 <!-- Tab for verbal ability -->
                 <div class="tabs" id='content-3'>
@@ -48,10 +63,10 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        (function () {
-            var ldr = new ispring.presenter.loader.FlashPresentationLoader();
-            ldr.load("ppt/Quadratic Euqations.swf", "content-2", "FlashPresentation", 640, 480);
-        })();
+//        (function () {
+//            var ldr = new ispring.presenter.loader.FlashPresentationLoader();
+//            ldr.load("ppt/Quadratic Euqations.swf", "content-2", "FlashPresentation", 640, 480);
+//        })();
         var tab = new Array();
         var enabletabcontent = new Array();
         tab = [1, 0, 0, 0];
