@@ -12,13 +12,23 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
-use Application\Model\State;
-use Application\Model\StateTable;
+use Application\Model\Sendquery;
+use Application\Model\SendqueryTable;
+
+use Application\Model\Chapter;
+use Application\Model\ChapterTable;
+
+use Application\Model\Subject;
+use Application\Model\SubjectTable;
+
+
 
 class IndexController extends AbstractActionController
 {
     protected $adapter;
     protected $SendqueryTable;
+    protected $ChapterTable;
+    protected $SubjectTable;
     
     public function getAdapter() {
         if (!$this->adapter) {
@@ -34,6 +44,22 @@ class IndexController extends AbstractActionController
             $this->SendqueryTable = $sm->get('Application\Model\SendqueryTable');
         }
         return $this->SendqueryTable;
+    }
+    
+    public function getChapterTable() {
+        if (!$this->ChapterTable) {
+            $sm = $this->getServiceLocator();
+            $this->ChapterTable = $sm->get('Application\Model\ChapterTable');
+        }
+        return $this->ChapterTable;
+    }
+    
+    public function getSubjectTable() {
+        if (!$this->SubjectTable) {
+            $sm = $this->getServiceLocator();
+            $this->SubjectTable = $sm->get('Application\Model\SubjectTable');
+        }
+        return $this->SubjectTable;
     }
     public function indexAction(){
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
@@ -95,7 +121,10 @@ class IndexController extends AbstractActionController
                 ->get('headScript');
 
         $headScript->appendFile($js_path . '/demoquiz.js');
-        $demochapter_id = 1; 
-        return array();
+        $demochapter_id = 0; 
+        $demochapter = $this->getChapterTable()->getDemoChapter();        
+        return array(
+            'demochapter' => $demochapter,
+        );
     }
 }
