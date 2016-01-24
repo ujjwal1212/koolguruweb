@@ -91,10 +91,7 @@ $(document).ready(function () {
             }
             $('.kooltab').each(function () {
                 var tabid = $(this).attr('id');
-                tabid = tabid.replace("tab-", "");
-                
-                
-                
+                tabid = tabid.replace("tab-", "");                
                 $('#tab-' + tabid).removeClass('activetab');
                 $('#content-' + tabid).hide();
                 if (parseInt(tabid) == parseInt(tabno)) {
