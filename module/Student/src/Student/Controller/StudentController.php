@@ -349,10 +349,12 @@ class StudentController extends AbstractActionController {
             }
         }
 
+        $studentDet = array();
         if ($studentId != '') {
             $studentDet = $this->getStudentTable()->getSudent($studentId);
             $form->bind($studentDet);
         }
+       
         $form->get('student_id')->setValue($studentId);
         if (!empty($studentId)) {
             $studentStatus = $this->getStudentStatusTable()->getStudentStatus($studentId);
@@ -452,6 +454,7 @@ class StudentController extends AbstractActionController {
             'carrierquestions' => $carrierquestions,
             'carriersuggestedmsg' => $carriersuggestedmsg,
             'carrier_path' => $carrier_path,
+            'studentDet' => $studentDet,
         );
     }
 

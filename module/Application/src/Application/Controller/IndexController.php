@@ -95,6 +95,7 @@ class IndexController extends AbstractActionController
                 ->get('headScript');
 
         $headScript->appendFile($js_path . '/demoquiz.js');
+        $demochapter_id = 1; 
         return array();
     }
 }

@@ -13,6 +13,9 @@ demoquiz = {
             }
         },
         openTag: function (tabno) {
+            if($('#content-'+tabno).html().trim() == ''){                
+                return false;
+            }
             $('.kooltab').each(function () {
                 var tabid = $(this).attr('id');
                 tabid = tabid.replace("tab-", "");

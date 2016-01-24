@@ -25,6 +25,7 @@ class Student implements InputFilterAwareInterface {
     public $email;
     public $password;
     public $status;
+    public $isprofilecompleted;
     protected $inputFilter;
 
     public function exchangeArray($data) {
@@ -44,6 +45,7 @@ class Student implements InputFilterAwareInterface {
         $this->email = (isset($data['email'])) ? $data['email'] : null;
         $this->password = (isset($data['password'])) ? $data['password'] : null; 
         $this->status = (isset($data['status'])) ? $data['status'] : null; 
+        $this->isprofilecompleted = (isset($data['isprofilecompleted'])) ? $data['isprofilecompleted'] : null;
     }
 
     // Add content to these methods:
