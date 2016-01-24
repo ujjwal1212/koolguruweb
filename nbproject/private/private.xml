@@ -5,11 +5,10 @@
         <group>
             <file>file:/C:/wamp/www/koolguruweb/module/Application/view/layout/layout.phtml</file>
             <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/index.phtml</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Admin/view/admin/admin/carrierpath.phtml</file>
-            <file>file:/C:/wamp/www/koolguruweb/public/css/style.css</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Admin/view/admin/admin/addcarrierpath.phtml</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Admin/src/Admin/Controller/AdminController.php</file>
-            <file>file:/C:/wamp/www/koolguruweb/public/img/logo123.png</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Application/src/Application/Controller/IndexController.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/public/js/index.js</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Student/src/Student/Controller/StudentController.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/ZF2AuthAcl/Module.php</file>
         </group>
     </open-files>
 </project-private>
