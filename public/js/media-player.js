@@ -42,7 +42,7 @@ function initialiseMediaPlayer() {
         // Change the button to be a play button
         changeButtonType(playPauseBtn, 'play');
     }, false);
-    nextPause = mediaPlayer.currentTime + 30;
+    nextPause = mediaPlayer.currentTime + 45;
     // need to work on this one more...how to know it's muted?
     mediaPlayer.addEventListener('volumechange', function (e) {
         // Update the button to be mute/unmute
@@ -124,7 +124,7 @@ function updateProgressBar() {
     if (mediaPlayer.currentTime >= nextPause) //Where t = CurrentTime
     {
         mediaPlayer.pause();// Stop the Video
-        nextPause = mediaPlayer.currentTime + 30;
+        nextPause = mediaPlayer.currentTime + 45;
     }
 }
 function myTimer() {

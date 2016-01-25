@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Admin/view/admin/admin/addcarrierpath.phtml</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Admin/src/Admin/model/CarrierpathTable.php</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Application/src/Application/Controller/IndexController.php</file>
-            <file>file:/C:/wamp/www/koolguruweb/public/js/index.js</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Student/src/Student/Controller/StudentController.php</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/ZF2AuthAcl/Module.php</file>
-            <file>file:/C:/wamp/www/koolguruweb/public/img/logo123.png</file>
+            <file>file:/C:/wamp/www/koolguruweb/config/autoload/local.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/config/application.config.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Student/view/student/student/studentregistration.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/config/autoload/global.php</file>
         </group>
     </open-files>
 </project-private>
