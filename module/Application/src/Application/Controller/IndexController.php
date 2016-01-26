@@ -14,12 +14,12 @@ use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 use Application\Model\Sendquery;
 use Application\Model\SendqueryTable;
-
 use Application\Model\Chapter;
 use Application\Model\ChapterTable;
-
 use Application\Model\Subject;
 use Application\Model\SubjectTable;
+use Student\Model\CarrierQuestion;
+use Student\Model\CarrierQuestionTable;
 
 
 
@@ -28,6 +28,7 @@ class IndexController extends AbstractActionController
     protected $adapter;
     protected $SendqueryTable;
     protected $ChapterTable;
+    protected $QuestionTable;
     protected $SubjectTable;
     
     public function getAdapter() {
@@ -36,6 +37,15 @@ class IndexController extends AbstractActionController
             $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
         }
         return $this->adapter;
+    }
+    
+    public function getQuestionTable() {
+        if (!$this->QuestionTable) {
+            $sm = '';
+            $sm = $this->getServiceLocator();
+            $this->QuestionTable = $sm->get('Questionarie\Model\QuestionTable');
+        }
+        return $this->QuestionTable;
     }
 
     public function getSendqueryTable() {
@@ -127,4 +137,56 @@ class IndexController extends AbstractActionController
             'demochapter' => $demochapter,
         );
     }
+    
+    public function exerciseAction(){   
+        
+        $viewModel = new ViewModel(array(
+        ));
+        
+        
+        $request = $this->getRequest();
+        $data = $request->getPost();
+        $viewModel->setTerminal(true);
+        $this->layout('layout/empty');
+        $response = $this->getResponse();
+        
+        
+        
+        
+        $cond = array();
+        $cond['level'] = 2;
+        $cond['status'] = 1;
+        $questions = array();
+        $questions = $this->getQuestionTable()->getExcerciseQuestions($cond);
+        $excecises = array();
+        $que = array();
+        foreach($questions as $dat){
+            if(empty($que)){
+                $excecises[$dat['id']] = array('title'=>$dat['description'],'min_marks'=>$dat['min_marks'],'max_marks' => $dat['max_marks']); 
+                $que[] = $dat['id'];
+            }else{
+                if(!in_array($dat['id'],$que)){
+                    $excecises[$dat['id']] = array('title'=>$dat['description'],'min_marks'=>$dat['min_marks'],'max_marks' => $dat['max_marks']); 
+                    $que[] = $dat['id'];
+                }
+            }
+        }
+        
+        $ques = '';
+        foreach($questions as $dat){           
+           if($ques!=$dat['id']){
+               $ques = $dat['id'];
+           }
+           
+           if($ques == $dat['id']){               
+               $excecises[$dat['id']]['options'][$dat['option_id']] = array('description'=>$dat['option_description'],'iscorrect'=>$dat['is_correct']);
+           }
+        }
+        //return $this->getResponse()->setContent(Json::encode($excecises));
+        $response->setContent(json_encode($excecises));
+        //return json_encode($excecises);
+        //return false;
+    }
+    
+    
 }

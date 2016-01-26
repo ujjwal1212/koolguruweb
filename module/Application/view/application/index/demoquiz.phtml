@@ -60,7 +60,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {        
-        app.demoquiz.currenttab = 1;
+        app.demoquiz.currenttab = 3;
         app.demoquiz.hidealltab();
         app.demoquiz.makeEnableAllTab();
         app.demoquiz.opencurrenttab();
@@ -69,6 +69,20 @@
             var split = tabid.split('-');
             tabno = parseInt(split[1]);
             app.demoquiz.currenttab = tabno;
+            //console.log(tabno);
+            if(tabno == 3){
+                var url = '<?php echo $this->basePath() . '/exercise'; ?>';
+                $.ajax({url: url, success: function (result) {
+                        console.log(result);
+                }});
+            }
+            
+            
+            
+            
+            
+            
+            
             app.demoquiz.opencurrenttab();
         });
     });

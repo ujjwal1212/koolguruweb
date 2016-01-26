@@ -149,5 +149,33 @@ class QuestionTable {
                 ->toArray();
         return $resultset;
     }
+    
+    public function getExcerciseQuestions($cond) {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('q' => 'questions'))
+                ->join(array('l'=>'level'),'q.level = l.id',array(),'left')
+                ->join(array('qo'=>'questions_options'),'q.id = qo.questions_id',array('option_id'=>'id','option_description'=>'description','is_correct'=>'is_correct'),'left');
+        
+                
+        $select->columns(array('id', 'description','min_marks','max_marks'));
+        
+        if(isset($cond['id'])){
+            $select->where(array('q.id'=>$cond['id']));
+        }
+        
+        if(isset($cond['level'])){
+            $select->where(array('l.name'=>$cond['level']));
+        }
+        
+        if(isset($cond['status'])){
+            $select->where(array('q.status'=>$cond['status']));
+        }
+        
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        return $resultset;
+    }
 
 }
