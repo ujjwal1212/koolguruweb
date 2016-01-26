@@ -32,7 +32,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
             </div>
         <?php } ?>
             <?php //asd($studentDet);?>
-            <?php if(empty($studentDet) || $studentDet->isprofilecompleted == 0){?>
+            <?php //if(empty($studentDet) || $studentDet->isprofilecompleted == 0){?>
         <main>
             <label for="tab1" id='tab-1' class="kooltab" onclick="app.studentTab.openTag(1)">Personal Detail</label>                
             <label for="tab2" id='tab-2' class="kooltab" onclick="app.studentTab.openTag(2)"><span>Verbal Ability</span></label>                
@@ -304,11 +304,11 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 
             </div>
         </main>
-    <?php }else if($studentDet->isprofilecompleted == 1){ ?>
-            <main>
+    <?php //}else if($studentDet->isprofilecompleted == 1){ ?>
+<!--            <main>
                 You Have been already registred.
-            </main>
-    <?php } ?>
+            </main>-->
+    <?php //} ?>
 </div>
 </div>
    
