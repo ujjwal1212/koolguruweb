@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -21,16 +22,14 @@ use Application\Model\SubjectTable;
 use Student\Model\CarrierQuestion;
 use Student\Model\CarrierQuestionTable;
 
+class IndexController extends AbstractActionController {
 
-
-class IndexController extends AbstractActionController
-{
     protected $adapter;
     protected $SendqueryTable;
     protected $ChapterTable;
     protected $QuestionTable;
     protected $SubjectTable;
-    
+
     public function getAdapter() {
         if (!$this->adapter) {
             $sm = $this->getServiceLocator();
@@ -38,7 +37,7 @@ class IndexController extends AbstractActionController
         }
         return $this->adapter;
     }
-    
+
     public function getQuestionTable() {
         if (!$this->QuestionTable) {
             $sm = '';
@@ -55,7 +54,7 @@ class IndexController extends AbstractActionController
         }
         return $this->SendqueryTable;
     }
-    
+
     public function getChapterTable() {
         if (!$this->ChapterTable) {
             $sm = $this->getServiceLocator();
@@ -63,7 +62,7 @@ class IndexController extends AbstractActionController
         }
         return $this->ChapterTable;
     }
-    
+
     public function getSubjectTable() {
         if (!$this->SubjectTable) {
             $sm = $this->getServiceLocator();
@@ -71,7 +70,8 @@ class IndexController extends AbstractActionController
         }
         return $this->SubjectTable;
     }
-    public function indexAction(){
+
+    public function indexAction() {
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $js_path = $renderer->basePath('js/koolguru/application');
         $headScript = $this->getServiceLocator()->get('viewhelpermanager')
@@ -79,28 +79,28 @@ class IndexController extends AbstractActionController
 
         $headScript->appendFile($js_path . '/demovideos.js');
         $session = new Container('User');
-        if($session->offsetExists('email') && $session->offsetGet('roleCode') == 'st'){
+        if ($session->offsetExists('email') && $session->offsetGet('roleCode') == 'st') {
             $this->redirect()->toRoute('student');
         }
     }
-    
-    public function locateusAction(){
+
+    public function locateusAction() {
         
     }
-    
-    public function aboutusAction(){
+
+    public function aboutusAction() {
         
     }
-    
-    public function visionAction(){
+
+    public function visionAction() {
         
     }
-    
-    public function missionAction(){
+
+    public function missionAction() {
         
     }
-    
-    public function contactusAction(){
+
+    public function contactusAction() {
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $js_path = $renderer->basePath('js/koolguru/application');
         $headScript = $this->getServiceLocator()->get('viewhelpermanager')
@@ -122,37 +122,31 @@ class IndexController extends AbstractActionController
             'errorMsg' => $errorMsg,
             'successMsg' => $successMsg
         ));
-        
     }
-    public function demoquizAction(){
+
+    public function demoquizAction() {
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $js_path = $renderer->basePath('js/koolguru/application');
         $headScript = $this->getServiceLocator()->get('viewhelpermanager')
                 ->get('headScript');
 
         $headScript->appendFile($js_path . '/demoquiz.js');
-        $demochapter_id = 0; 
-        $demochapter = $this->getChapterTable()->getDemoChapter();        
+        $demochapter_id = 0;
+        $demochapter = $this->getChapterTable()->getDemoChapter();
         return array(
             'demochapter' => $demochapter,
         );
     }
-    
-    public function exerciseAction(){   
-        
+
+    public function exerciseAction() {
+
         $viewModel = new ViewModel(array(
         ));
-        
-        
-        $request = $this->getRequest();
-        $data = $request->getPost();
         $viewModel->setTerminal(true);
         $this->layout('layout/empty');
+        $request = $this->getRequest();
+        $data = $request->getPost();
         $response = $this->getResponse();
-        
-        
-        
-        
         $cond = array();
         $cond['level'] = 2;
         $cond['status'] = 1;
@@ -160,33 +154,30 @@ class IndexController extends AbstractActionController
         $questions = $this->getQuestionTable()->getExcerciseQuestions($cond);
         $excecises = array();
         $que = array();
-        foreach($questions as $dat){
-            if(empty($que)){
-                $excecises[$dat['id']] = array('title'=>$dat['description'],'min_marks'=>$dat['min_marks'],'max_marks' => $dat['max_marks']); 
+        foreach ($questions as $dat) {
+            if (empty($que)) {
+                $excecises[$dat['id']] = array('title' => $dat['description'], 'min_marks' => $dat['min_marks'], 'max_marks' => $dat['max_marks']);
                 $que[] = $dat['id'];
-            }else{
-                if(!in_array($dat['id'],$que)){
-                    $excecises[$dat['id']] = array('title'=>$dat['description'],'min_marks'=>$dat['min_marks'],'max_marks' => $dat['max_marks']); 
+            } else {
+                if (!in_array($dat['id'], $que)) {
+                    $excecises[$dat['id']] = array('title' => $dat['description'], 'min_marks' => $dat['min_marks'], 'max_marks' => $dat['max_marks']);
                     $que[] = $dat['id'];
                 }
             }
         }
-        
+
         $ques = '';
-        foreach($questions as $dat){           
-           if($ques!=$dat['id']){
-               $ques = $dat['id'];
-           }
-           
-           if($ques == $dat['id']){               
-               $excecises[$dat['id']]['options'][$dat['option_id']] = array('description'=>$dat['option_description'],'iscorrect'=>$dat['is_correct']);
-           }
+        foreach ($questions as $dat) {
+            if ($ques != $dat['id']) {
+                $ques = $dat['id'];
+            }
+
+            if ($ques == $dat['id']) {
+                $excecises[$dat['id']]['options'][$dat['option_id']] = array('description' => $dat['option_description'], 'iscorrect' => $dat['is_correct']);
+            }
         }
-        //return $this->getResponse()->setContent(Json::encode($excecises));
         $response->setContent(json_encode($excecises));
-        //return json_encode($excecises);
-        //return false;
+        return $response;
     }
-    
-    
+
 }
