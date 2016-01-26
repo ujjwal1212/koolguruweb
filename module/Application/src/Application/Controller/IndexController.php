@@ -131,6 +131,7 @@ class IndexController extends AbstractActionController {
                 ->get('headScript');
 
         $headScript->appendFile($js_path . '/demoquiz.js');
+        $headScript->appendFile($js_path . '/exercise.js');
         $demochapter_id = 0;
         $demochapter = $this->getChapterTable()->getDemoChapter();
         return array(

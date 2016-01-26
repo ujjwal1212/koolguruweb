@@ -51,7 +51,9 @@
                         </div>
                 </div>
                 <!-- Tab for verbal ability -->
-                <div class="tabs" id='content-3'></div>
+                <div class="tabs" id='content-3'>
+                    <div id="excercise"></div>
+                </div>
                 <div class="tabs" id='content-4'>
                 </div>
             </main>            
@@ -60,7 +62,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {        
-        app.demoquiz.currenttab = 3;
+        app.demoquiz.currenttab = 1;
         app.demoquiz.hidealltab();
         app.demoquiz.makeEnableAllTab();
         app.demoquiz.opencurrenttab();
@@ -72,8 +74,14 @@
             //console.log(tabno);
             if(tabno == 3){
                 var url = '<?php echo $this->basePath() . '/exercise'; ?>';
-                $.ajax({url: url, success: function (result) {
-                        console.log(result);
+                $.ajax({url: url, success: function (result) { 
+                        app.excercise.renderid = 'excercise';
+                        if(app.excercise.currentquestion == ''){
+                            app.excercise.currentquestion = 0;
+                        }
+                        app.excercise.setquestionlist(result);
+                        app.excercise.rendercurrentquestion();
+                        console.log(app.excercise);
                 }});
             }
             
