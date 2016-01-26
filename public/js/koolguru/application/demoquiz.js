@@ -2,35 +2,52 @@ $(document).ready(function () {
 var demoquiz = {};
 
 demoquiz = {
-        enabletab: '',
-        enabletabcontent: '',
-        applytabbing: function (tablist) {
-            for (var i = 0; i <= tablist.length; i++) {
-                var tabval = parseInt(tablist[i]);
-                if (tabval == 1) {
-                    this.openTag(i + 1);
-                }
-            }
-        },
-        openTag: function (tabno) {
-            if($('#content-'+tabno).html().trim() == ''){                
-                return false;
-            }
-            $('.kooltab').each(function () {
-                var tabid = $(this).attr('id');
-                tabid = tabid.replace("tab-", "");
-                $('#tab-' + tabid).removeClass('activetab');
-                $('#content-' + tabid).hide();
-                if (parseInt(tabid) == parseInt(tabno)) {
-                    $('#tab-' + tabid).addClass('activetab');
-                    $('#content-' + tabno).show();
-                }
-            });
-
-        },
+        currenttab : 0,
         hidetab: function (tabno) {
             $('#content-' + tabno).hide();
         },
+        
+        opencurrenttab : function(){            
+            this.openTag(this.currenttab);
+        },
+        
+        hidealltab : function (){
+             $('.kooltab').each(function(){
+                var tabid = $(this).attr('id');
+                var split = tabid.split('-');
+                $('#content-' + parseInt(split[1])).hide();;
+             });
+        },
+        
+        openTag : function(tabno){           
+            this.hidealltab();
+            $('#content-' + tabno).show();
+            this.makeActiveTab(tabno);
+        },
+        
+        makeActiveTab : function(tabid){
+            this.makeInActiveAllTab();
+            $('#tab-' + tabid).addClass('activetab');
+        },
+        
+        makeInActiveAllTab : function(){
+            $('.kooltab').each(function(){
+                $(this).removeClass('activetab');
+             });
+        },
+        
+        makeEnableAllTab : function(){
+            $('.kooltab').each(function(){
+                $(this).addClass('enabletab');
+             });
+        },
+        
+        makeDisableAllTab : function(){
+            $('.kooltab').each(function(){
+                $(this).removeClass('enabletab');
+             });
+        }
+        
     };
 
 app.demoquiz = demoquiz;
