@@ -3073,6 +3073,29 @@ li.description .detail {
     opacity: 0;
     text-align: center;
 }
+.incorrect{
+    background: #fcf8e3;
+    border: 0px solid #faebcc;
+    color: #8a7964;
+    text-align: center;
+    width: 10%;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 10;
+    margin-top: 1%;
+}
+
+.correct{
+    background: #dff0d8;
+    border: 0px solid #d6e9c6;
+    color: #728e66;
+    text-align: center;
+    width: 10%;
+    border-radius: 4px;
+    position: absolute;
+    z-index: 10;
+    margin-top: 1%;
+}
 .global-page-error,
 .global-page-success {
     text-transform: capitalize;
