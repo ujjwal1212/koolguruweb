@@ -12,13 +12,10 @@
     <div class="reservation_top">
         <div class="container">
             <main>
-
-                <label for="tab1" id='tab-1' class="kooltab" onclick="app.demoquiz.openTag(1)">About Chapter</label>                
-                <label for="tab2" id='tab-2' class="kooltab" onclick="app.demoquiz.openTag(2)"><span>Chapter Presentation</span></label>                
-                <label for="tab3" id='tab-3' class="kooltab" onclick="app.demoquiz.openTag(3)">Exercise</label>                
-                <label for="tab4" id='tab-4' class="kooltab" onclick="app.demoquiz.openTag(4)">Quiz</label>
-
-
+                <label for="tab1" id='tab-1' class="kooltab">About Chapter</label>                
+                <label for="tab2" id='tab-2' class="kooltab"><span>Chapter Presentation</span></label>                
+                <label for="tab3" id='tab-3' class="kooltab">Exercise</label>                
+                <label for="tab4" id='tab-4' class="kooltab">Quiz</label>
                 <div class="tabs" id='content-1'>
                     <br>
                     <div>
@@ -54,10 +51,7 @@
                         </div>
                 </div>
                 <!-- Tab for verbal ability -->
-                <div class="tabs" id='content-3'>
-                </div>
-
-
+                <div class="tabs" id='content-3'></div>
                 <div class="tabs" id='content-4'>
                 </div>
             </main>            
@@ -65,45 +59,17 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).ready(function () {
-//        (function () {
-//            var ldr = new ispring.presenter.loader.FlashPresentationLoader();
-//            ldr.load("ppt/Quadratic Euqations.swf", "content-2", "FlashPresentation", 640, 480);
-//        })();
-        var tab = new Array();
-        var enabletabcontent = new Array();
-        tab = [1, 1, 0, 0];
-        enabletabcontent = [1, 1, 0, 0];
-        app.demoquiz.enabletab = tab;
-        app.demoquiz.enabletabcontent = enabletabcontent;
-
-        $('.kooltab').each(function () {
-            var tabid = $(this).attr('id');
-            tabid = tabid.replace("tab-", "");
-            app.demoquiz.hidetab(parseInt(tabid));
+    $(document).ready(function () {        
+        app.demoquiz.currenttab = 1;
+        app.demoquiz.hidealltab();
+        app.demoquiz.makeEnableAllTab();
+        app.demoquiz.opencurrenttab();
+        $('.kooltab').click(function(){            
+            var tabid = $(this).attr('id');            
+            var split = tabid.split('-');
+            tabno = parseInt(split[1]);
+            app.demoquiz.currenttab = tabno;
+            app.demoquiz.opencurrenttab();
         });
-
-        console.log(app.demoquiz.enabletabcontent);
-        $.each(app.demoquiz.enabletabcontent, function (index, value) {
-            if (value == 1) {
-                $('#tab-' + (index + 1)).addClass('enabletab');
-                $('#tab-' + (index + 1)).click();
-            }
-        });
-
-        $.each(app.demoquiz.enabletab, function (index, value) {
-            if (value == 1) {
-                $('#tab-' + (index + 1)).addClass('activetab');
-            }
-        });
-
-
-
-//        app.studentTab.hidetab(1);
-//        app.studentTab.hidetab(2);
-//        app.studentTab.hidetab(3);
-//        app.studentTab.hidetab(4);
-//        app.studentTab.applytabbing(app.studentTab.enabletab);
-//        app.studentTab.enableTabContent();
     });
 </script>

@@ -25,6 +25,8 @@ use Questionarie\Model\Question;
 use Questionarie\Model\QuestionTable;
 use Questionarie\Model\QuestionOption;
 use Questionarie\Model\QuestionOptionTable;
+use Student\Model\Carrierpath;
+use Student\Model\CarrierpathTable;
 
 class Module {
 
@@ -168,6 +170,17 @@ class Module {
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new CarrierAnswers());
                     return new TableGateway('student_carrier_oriented_answers', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Student\Model\CarrierpathTable' => function($sm) {
+                    $tableGateway = $sm->get('CarrierpathTableGateway');
+                    $table = new CarrierpathTable($tableGateway);
+                    return $table;
+                },
+                'CarrierpathTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Carrierpath());
+                    return new TableGateway('carrier_path', $dbAdapter, null, $resultSetPrototype);
                 },
                 
             ),

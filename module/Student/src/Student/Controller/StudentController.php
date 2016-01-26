@@ -37,8 +37,8 @@ use Questionarie\Model\Question;
 use Questionarie\Model\QuestionTable;
 use Questionarie\Model\QuestionOption;
 use Questionarie\Model\QuestionOptionTable;
-use Admin\Model\Carrierpath;
-use Admin\Model\CarrierpathTable;
+use Student\Model\Carrierpath;
+use Student\Model\CarrierpathTable;
 
 class StudentController extends AbstractActionController {
 
@@ -79,7 +79,7 @@ class StudentController extends AbstractActionController {
         if (!$this->CarrierpathTable) {
             $sm = '';
             $sm = $this->getServiceLocator();
-            $this->CarrierpathTable = $sm->get('Admin\Model\CarrierpathTable');
+            $this->CarrierpathTable = $sm->get('Student\Model\CarrierpathTable');
         }
         return $this->CarrierpathTable;
     }
