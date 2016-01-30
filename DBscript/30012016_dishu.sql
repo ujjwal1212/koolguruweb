@@ -194,3 +194,6 @@ CREATE TABLE IF NOT EXISTS `package_course_map` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
+INSERT INTO `koolguru_test`.`resource` (`id`, `resource_name`) VALUES (NULL, 'Subject\\Controller\\Category');
+INSERT INTO `koolguru_test`.`permission` (`id`, `permission_name`, `resource_id`) VALUES (NULL, 'add', '7'), (NULL, 'edit', '7');
+
