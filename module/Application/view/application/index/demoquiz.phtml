@@ -1,0 +1,97 @@
+<style>
+    #content-2{
+        position: initial !important;
+    }
+    object{
+        visibility: visible;
+        position: inherit !important;
+         
+   }
+</style>
+<div class="main"> 
+    <div class="reservation_top">
+        <div class="container">
+            <main>
+                <label for="tab1" id='tab-1' class="kooltab">About Chapter</label>                
+                <label for="tab2" id='tab-2' class="kooltab"><span>Chapter Presentation</span></label>                
+                <label for="tab3" id='tab-3' class="kooltab">Exercise</label>                
+                <label for="tab4" id='tab-4' class="kooltab">Quiz</label>
+                <div class="tabs" id='content-1'>
+                    <br>
+                    <div>
+                        <?php echo $demochapter[0]['chapter_content']?>
+                    </div>
+                </div>
+
+                <!-- Tab for verbal ability -->
+                <div class="tabs" id='content-2'>
+                    <br>
+                    <div id='media-player'>
+                            <video id='media-video' controls>
+                                <source src="http://koolguru.co.in/video/Quadratic.mp4" type='video/mp4'>
+                                <?php 
+                                    $ppt = '';
+                                    if(!empty($demochapter)){
+                                        $ppt = $demochapter[0]['subject_id'].'-'.$demochapter[0]['chapter_id'];
+                                        $ppt .= '.mp4';
+                                    }
+                                ?>
+                                <source src="http://koolguru.co.in/ppt/<?php echo $ppt;?>" type='video/mp4'>
+                            </video>
+                            <div id='controls'>
+                                <progress id='progress-bar' min='0' max='100' value='0'>0% played</progress>
+                                <button id='replay-button' class='replay' title='replay' onclick='resetPlayer();'>Replay</button>
+                                <button id='play-pause-button' class='play' title='play' onclick='togglePlayPause();'>Play</button>
+                                <button id='stop-button' class='stop' title='stop' onclick='stopPlayer();'>Stop</button>
+                                <button id='volume-inc-button' class='volume-plus' title='increase volume' onclick='changeVolume("+");'>Increase volume</button>
+                                <button id='volume-dec-button' class='volume-minus' title='decrease volume' onclick='changeVolume("-");'>Decrease volume</button>
+                                <button id='mute-button' class='mute' title='mute' onclick='toggleMute("true");'>Mute</button>
+                                <button id='Autopause-button' class='pause' title='pause' onclick='toggleAutopause("true");'>pause</button>	
+                            </div>
+                        </div>
+                </div>
+                <!-- Tab for verbal ability -->
+                <div class="tabs" id='content-3'>
+                    <div id="excercise"></div>
+                </div>
+                <div class="tabs" id='content-4'>
+                </div>
+            </main>            
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {        
+        app.demoquiz.currenttab = 1;
+        app.demoquiz.hidealltab();
+        app.demoquiz.makeEnableAllTab();
+        app.demoquiz.opencurrenttab();
+        $('.kooltab').click(function(){            
+            var tabid = $(this).attr('id');            
+            var split = tabid.split('-');
+            tabno = parseInt(split[1]);
+            app.demoquiz.currenttab = tabno;
+            //console.log(tabno);
+            if(tabno == 3){
+                var url = '<?php echo $this->basePath() . '/exercise'; ?>';
+                $.ajax({url: url, success: function (result) { 
+                        app.excercise.renderid = 'excercise';
+                        if(app.excercise.currentquestion == ''){
+                            app.excercise.currentquestion = 0;
+                        }
+                        app.excercise.setquestionlist(result);
+                        app.excercise.rendercurrentquestion();
+                        console.log(app.excercise);
+                }});
+            }
+            
+            
+            
+            
+            
+            
+            
+            app.demoquiz.opencurrenttab();
+        });
+    });
+</script>
