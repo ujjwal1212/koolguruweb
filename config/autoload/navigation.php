@@ -147,6 +147,27 @@ return array(
                     ),
                 ),
             ),
+            array(
+                'label' => 'Manage Category',
+                'route' => 'category',
+                'pages' => array(
+                    array(
+                        'label' => ' Create Category',
+                        'route' => 'category',
+                        'action' => 'add',
+                    ),
+                    array(
+                        'label' => 'Edit Category',
+                        'route' => 'category',
+                        'action' => 'edit',
+                    ),
+                    array(
+                        'label' => 'View Category',
+                        'route' => 'category',
+                        'action' => 'view',
+                    ),
+                ),
+            ),
         ),
     ),
 );
