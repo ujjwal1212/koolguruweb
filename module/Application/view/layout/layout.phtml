@@ -3,6 +3,7 @@ echo $this->doctype();
 if (isset($_SESSION['User']['roleCode'])):
     $roleCode = $_SESSION['User']['roleCode'];
 endif;
+$_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
 ?>
 
 <html lang="en">

@@ -10,7 +10,7 @@ use Zend\Form\Form;
  */
 class QuestionForm extends Form {
 
-    public function __construct($name = NULL, $levelList) {
+    public function __construct($name = NULL, $levelList,$categoryList) {
         // we want to ignore the name passed
         parent::__construct($name);
 
@@ -116,6 +116,22 @@ class QuestionForm extends Form {
             ),
             'attributes' => array(
                 'id' => 'type',
+            ),
+        ));
+        
+        $this->add(array(
+            'type' => 'Select',
+            'name' => 'category_id',
+            'options' => array(
+                'label' => 'QUESTION CATEGORY',
+                'label_attributes' => array(
+                    'class' => 'label'
+                ),
+                'empty_option' => 'Select',
+                'value_options' => $categoryList
+            ),
+            'attributes' => array(
+                'id' => 'category_id',
             ),
         ));
 
