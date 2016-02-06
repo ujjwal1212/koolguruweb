@@ -65,6 +65,36 @@ class AdminController extends AbstractActionController {
     }
 
     public function carrierPathAction() {
+        if (isset($_REQUEST['page'])) {
+            $page = $_REQUEST['page'];
+        } else {
+            $page = 1;
+        }
+        $form = new SearchForm('form_search');
+        $request = $this->getRequest();
+        
+        if ($request->isGet()) {
+            $data = $request->getQuery();
+            $form->getInputFilter()->get('list_count')->setRequired(false);
+            $form->getInputFilter()->get('list_count')->setAllowEmpty(true);
+            $list_count = isset($data['list_count']) && trim($data['list_count']) != '' ? $data['list_count'] : 10;
+            $order_by = isset($data['order_by']) && trim($data['order_by']) != '' ? $data['order_by'] : 'id';
+            $order = isset($data['order']) && trim($data['order']) != '' ? $data['order'] : Select::ORDER_DESCENDING;
+            $searchText = isset($data['search_box_value']) ? trim($data['search_box_value']) : Null;
+            $form->get('list_count')->setValue($list_count);
+            $form->get('order_by')->setValue($order_by);
+            $form->get('order')->setValue($order);
+            $form->setData($data);
+            if ($form->isValid()) {
+                $paginator = $this->getLevelTable()->fetchAll(true, $order_by, $order, $searchText);
+            }
+        } else {
+            // grab the paginator from the CenterTable
+            $paginator = $this->getLevelTable()->fetchAll(true, $order_by, $order, $searchText);
+        }
+        
+        
+        
         $successMsg = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
         $errorMsg = $this->flashMessenger()->getCurrentMessagesFromNamespace('error');
 
