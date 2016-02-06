@@ -1,7 +1,5 @@
 $(document).ready(function () {
-    $('#level,#type').select2({
-        minimumResultsForSearch: -1
-    });
+    $('#level,#type,#category_id').select2();
 
     $('#previous').attr('disabled', true);
     $('#step2').hide();
@@ -47,6 +45,9 @@ $(document).ready(function () {
             type: {
                 required: true,
             },
+            category_id: {
+                required: true,
+            },
         },
         messages: {
             name: {
@@ -66,6 +67,9 @@ $(document).ready(function () {
             },
             type: {
                 required: "Please select type",
+            },
+            category_id: {
+                required: "Please select category",
             },
         }
     });
