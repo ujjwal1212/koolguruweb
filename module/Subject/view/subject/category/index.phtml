@@ -1,7 +1,6 @@
 <?php
 $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 $title = 'Manage Category';
-$this->headTitle($title);
 $default_order = 'ASC';
 $url_order = $this->order == 'ASC' ? 'DESC' : 'ASC';
 $query = '';
