@@ -1,7 +1,7 @@
 <?php
-$this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/subject/category.js');
+$this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/subject/subject.js');
 $form = $this->form;
-$form->setAttribute('action', $this->url('category', array('action' => 'edit', 'id' => $id, 'page' => $page)));
+$form->setAttribute('action', $this->url('subject', array('action' => 'edit', 'id' => $id, 'page' => $page)));
 $form->setAttribute('class', 'detect_changes');
 $form->prepare();
 echo $this->form()->openTag($form);
@@ -11,9 +11,9 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
     <div class="container">
         <div class="sub-header-title">
             <?php
-            $title = 'Edit Category';
+            $title = 'Create Subject';
             ?>
-            <a class="back-icon" href="<?php echo $this->url('category', array('action' => 'index')); ?>"></a>
+            <a class="back-icon" href="<?php echo $this->url('subject', array('action' => 'index')); ?>"></a>
             <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
                 <?php
                 /* Adding Breadcrumb */
@@ -40,18 +40,24 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
             <div id="global-success-msg-page" class="global-page-success">
                 <?php
                 foreach ($successflashMessage as $succMsg) {
-                    echo $succMsg;
+                    echo $errMsg;
                 }
                 ?>
 
             </div>
-        <?php } else { ?>
-            <div id="global-error-msg-page"   class="global-page-error"><?php
-                foreach ($errorflashMessage as $errMsg) {
-                    echo $errMsg;
-                }
-                ?></div>
-        <?php } ?>
+            <?php
+        } else {
+            if (!empty($errorflashMessage)) {
+                ?>
+                <div id="global-error-msg-page"   class="global-page-error"><?php
+                    foreach ($errorflashMessage as $errMsg) {
+                        echo $errMsg;
+                    }
+                    ?></div>
+                <?php
+            }
+        }
+        ?>
         <div class="upper-submit">
             <?php
             echo $this->formSubmit($form->get('submit'));
@@ -65,24 +71,33 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 
                 <ul>
                     <li class="form-row">                    
-                        <label class='label'>CATEGORY NAME: <span class='required'>*</span></label>
-                        <?php echo $this->formElement($form->get('title')); ?>
+                        <label class='label'>UPLOAD IMAGE: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('image_path')); ?>
                     </li>
                     <li class="form-row">                    
-                        <label class='label'>DESCRIPTION: <span class='required'>*</span></label>
-                        <?php echo $this->formElement($form->get('description')); ?>
+                        <label class='label'>SUBJECT CODE: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('code')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>SUBJECT NAME: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('title')); ?>
                     </li>
                     <li class="form-row">                    
                         <label class='label'>IS ACTIVE: </label>
                         <?php echo $this->formElement($form->get('status')); ?>
                     </li>
+
+                    <li class="form-row">                    
+                        <label class='label'>IS DEMO: </label>
+                        <?php echo $this->formElement($form->get('isdemo')); ?>
+                    </li>
                 </ul>
             </section>
         </div>
         <?php
-        echo $this->formHidden($form->get('created_date'));
+        echo $this->formHidden($form->get('created_at'));
         echo $this->formHidden($form->get('created_by'));
-        echo $this->formHidden($form->get('updated_date'));
+        echo $this->formHidden($form->get('updated_at'));
         echo $this->formHidden($form->get('updated_by'));
         ?>
         <div id="form-footer">
