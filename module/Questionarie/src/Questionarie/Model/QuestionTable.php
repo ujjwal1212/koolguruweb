@@ -76,6 +76,7 @@ class QuestionTable {
             'min_marks' => $Question->min_marks,
             'max_marks' => $Question->max_marks,
             'type' => $Question->type,
+            'category_id' => $Question->category_id,
             'status' => $Question->status
         );
 
@@ -114,6 +115,7 @@ class QuestionTable {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('q' => 'questions'))
+                ->join(array('c'=>'category'),'c.id = q.category_id',array('category_name'=>'title'),'left')
                 ->join(array('l'=>'level'),'q.level = l.id',array('level_name'=>'name'),'left');
         $select->columns(array('id', 'name', 'description','type','status','min_marks','max_marks'));
         $select->where(array('q.id'=>$id));
