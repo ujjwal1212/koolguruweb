@@ -1,7 +1,8 @@
 <?php
 $this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/question/question.js');
 $form = $this->form;
-$form->setAttribute('action', $this->url('admin', array('action' => 'addcarrierpath')));
+
+$form->setAttribute('action', $this->url('admin', array('action' => 'editcarrierpath','id'=>$id,'page'=>$page)));
 $form->setAttribute('class', 'detect_changes');
 $form->prepare();
 echo $this->form()->openTag($form);
@@ -55,7 +56,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         <?php } ?>
 <!--        <div class="upper-submit">
             <?php
-            echo $this->formSubmit($form->get('submit'));
+            //echo $this->formSubmit($form->get('submit'));
             ?>
         </div>-->
         <div id="step1">
@@ -100,7 +101,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         echo $this->formHidden($form->get('updated_date'));
         echo $this->formHidden($form->get('updated_by'));
         ?>
-        <div id="form-footer">
+        <div id="form-footer">            
             <?php
             echo $this->formSubmit($form->get('submit'));
             echo $this->form()->closeTag();

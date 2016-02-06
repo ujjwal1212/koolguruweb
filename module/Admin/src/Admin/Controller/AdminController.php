@@ -86,21 +86,45 @@ class AdminController extends AbstractActionController {
             $form->get('order')->setValue($order);
             $form->setData($data);
             if ($form->isValid()) {
-                $paginator = $this->getLevelTable()->fetchAll(true, $order_by, $order, $searchText);
+                $paginator = $this->getCarrierpathTable()->fetchAll(true, $order_by, $order, $searchText);
             }
         } else {
             // grab the paginator from the CenterTable
-            $paginator = $this->getLevelTable()->fetchAll(true, $order_by, $order, $searchText);
+            $paginator = $this->getCarrierpathTable()->fetchAll(true, $order_by, $order, $searchText);
         }
         
         
         
-        $successMsg = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
+        $row_count = $paginator->getTotalItemCount();
+        // set the current page to what has been passed in query string, or to 1 if none set
+        $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', $page));
+        // set the number of items per page to 10
+        $paginator->setItemCountPerPage($list_count);
+        $paginator->setPageRange(5);
+        if (isset($data['page'])) {
+            unset($data['page']);
+        }
+        if ($request->isXmlHttpRequest()) {
+            $this->layout('layout/ajax');
+        }
         $errorMsg = $this->flashMessenger()->getCurrentMessagesFromNamespace('error');
+        $successMsg = $this->flashMessenger()->getCurrentMessagesFromNamespace('success');
+        if (isset($errorMsg) && is_array($errorMsg) && !empty($errorMsg)) {
+            $errorMsg = $errorMsg[0];
+        }
 
         return new ViewModel(array(
-            'success' => $successMsg,
-            'error' => $errorMsg
+            'paginator' => $paginator,
+            'row_count' => $row_count,
+            'list_count' => $list_count,
+            'page' => $page,
+            'order_by' => $order_by,
+            'order' => $order,
+            'data' => $data,
+            'form' => $form,
+            'isAjax' => $request->isXmlHttpRequest(),
+            'errorMsg' => $errorMsg,
+            'successMsg' => $successMsg
         ));
     }
 
@@ -133,6 +157,70 @@ class AdminController extends AbstractActionController {
         }
 
         return array('form' => $form);
+    }
+    
+    public function editcarrierpathAction() {
+
+        $id = (int) $this->params()->fromRoute('id', 0);
+        
+        if (!$id) {
+            return $this->redirect()->toRoute('admin', array('action' => 'editcarrierpath'));
+        }
+        $page = (int) $this->params()->fromRoute('page', 0);
+
+        $session = new Container('User');
+
+
+        $form = new CarrierpathForm('carrier path');
+
+        $careerDetail = $this->getCarrierpathTable()->getCarrier($id);
+
+        $form->get('id')->setValue($id);
+        $form->bind($careerDetail);
+
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $carrierpath = new Carrierpath();
+            $data = $request->getPost();            
+            $carrierpath->exchangeArray($data);
+            $form->setInputFilter($carrierpath->getInputFilter());
+            $form->setData($data);
+            if ($form->isValid()) {
+                $data->updated_date = time();
+                $data->updated_by = $session->offsetGet('userId');
+
+                $validatorName = new \Zend\Validator\Db\NoRecordExists(
+                        array(
+                    'table' => 'carrier_path',
+                    'field' => 'name',
+                    'adapter' => $this->getAdapter(),
+                    'exclude' => array(
+                        'field' => 'id',
+                        'value' => $id,
+                    )
+                        )
+                );
+                if ($validatorName->isValid(trim($data->name))) {
+                    $no_duplicate_data = 1;
+                } else {
+                    $flashMessage = $this->flashMessenger()->getErrorMessages();
+                    if (empty($flashMessage)) {
+                        $this->flashMessenger()->setNamespace('error')->addMessage('Career Name already Exists.');
+                    }
+                    $no_duplicate_data = 0;
+                }
+                if ($no_duplicate_data == 1) {
+                    
+                    $Id = $this->getCarrierpathTable()->saveCarrierpath($carrierpath);
+//                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
+                    $this->flashMessenger()->setNamespace('success')->addMessage('Career updated successfully');
+
+
+                    return $this->redirect()->toRoute('carrierpath');
+                }
+            }
+        }
+        return array('form' => $form, 'careerDetail' => $careerDetail, 'id' => $id, 'page' => $page);
     }
 
     public function contactQueryAction() {
