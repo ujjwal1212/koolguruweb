@@ -16,6 +16,7 @@ class QuestionController extends AbstractActionController {
     protected $QuestionsOptionsTable;
     protected $QuestionTable;
     protected $levelTable;
+    protected $CategoryTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -47,6 +48,14 @@ class QuestionController extends AbstractActionController {
             $this->levelTable = $sm->get('Questionarie\Model\LevelTable');
         }
         return $this->levelTable;
+    }
+
+    public function getCategoryTable() {
+        if (!$this->CategoryTable) {
+            $sm = $this->getServiceLocator();
+            $this->CategoryTable = $sm->get('Subject\Model\CategoryTable');
+        }
+        return $this->CategoryTable;
     }
 
     /**
@@ -121,7 +130,8 @@ class QuestionController extends AbstractActionController {
     public function addAction() {
         $session = new Container('User');
         $levelList = $this->getLevelTable()->getLevelDropdown();
-        $form = new QuestionForm('question', $levelList);
+        $categoryList = $this->getCategoryTable()->getCategoryList();
+        $form = new QuestionForm('question', $levelList, $categoryList);
 
         $form->get('created_date')->setValue(time());
         $form->get('created_by')->setValue($session->offsetGet('userId'));
@@ -169,7 +179,8 @@ class QuestionController extends AbstractActionController {
 
 
         $levelList = $this->getLevelTable()->getLevelDropdown();
-        $form = new QuestionForm('question', $levelList);
+        $categoryList = $this->getCategoryTable()->getCategoryList();
+        $form = new QuestionForm('question', $levelList, $categoryList);
         $question = $this->getQuestionTable()->getQuestion($id);
         $questionOptions = $this->getQuestionsOptionsTable()->getOptions($id);
         $form->get('id')->setValue($id);
@@ -182,7 +193,7 @@ class QuestionController extends AbstractActionController {
             $question->exchangeArray($data);
             $form->setInputFilter($question->getInputFilter());
             $form->setData($data);
-            
+
             if ($form->isValid()) {
                 $data->updated_date = time();
                 $data->updated_by = $session->offsetGet('userId');

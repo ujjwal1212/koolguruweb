@@ -16,6 +16,7 @@ class Question implements InputFilterAwareInterface {
     public $max_marks;
     public $level;
     public $type;
+    public $category_id;
     public $status;
     public $created_date;
     public $created_by;
@@ -33,6 +34,7 @@ class Question implements InputFilterAwareInterface {
         $this->max_marks = (isset($data['max_marks'])) ? $data['max_marks'] : null;
         $this->level = (isset($data['level'])) ? $data['level'] : null;
         $this->type = (isset($data['type'])) ? $data['type'] : null;
+        $this->category_id = (isset($data['category_id'])) ? $data['category_id'] : null;
         $this->status = (isset($data['status'])) ? $data['status'] : null;
         $this->created_date = (isset($data['created_date'])) ? $data['created_date'] : null;
         $this->created_by = (isset($data['created_by'])) ? $data['created_by'] : null;

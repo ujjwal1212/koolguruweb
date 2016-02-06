@@ -8,6 +8,8 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Subject\Model\Category;
 use Subject\Model\CategoryTable;
+use Subject\Model\Subject;
+use Subject\Model\SubjectTable;
 
 class Module {
 
@@ -44,6 +46,17 @@ class Module {
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Category());
                     return new TableGateway('category', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Subject\Model\SubjectTable' => function($sm) {
+                    $tableGateway = $sm->get('SubjectTableGateway');
+                    $table = new SubjectTable($tableGateway);
+                    return $table;
+                },
+                'SubjectTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Subject());
+                    return new TableGateway('subjects', $dbAdapter, null, $resultSetPrototype);
                 },
             )
         );

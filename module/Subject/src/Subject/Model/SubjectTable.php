@@ -13,7 +13,7 @@ use Zend\Db\Sql\Where;
 Use Zend\Db\Sql\Expression;
 use Zend\Session\Container;
 
-class CategoryTable {
+class SubjectTable {
 
     protected $tableGateway;
 
@@ -23,25 +23,26 @@ class CategoryTable {
     }
 
     /**
-     * Function to Fetch listing for Manage Category Page
+     * Function to Fetch listing for Manage Subject Page
      * @param type $paginated
      * @param type $searchText
      * @return \Zend\Paginator\Paginator
      */
     public function fetchAll($paginated = false, $order_by = 'id', $order = 'ASC', $searchText = NULL) {
 
-        if ($order_by == 'id' || $order_by == 'title') {
-            $order_by = 'c.' . $order_by;
+        if ($order_by == 'id' || $order_by == 'title' || $order_by == 'code') {
+            $order_by = 's.' . $order_by;
         }
 
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
-        $select->from(array('c' => 'category'));
-        $select->columns(array('id', 'title', 'description'));
+        $select->from(array('s' => 'subjects'));
+        $select->columns(array('id', 'code', 'title'));
         $select->order($order_by . ' ' . $order);
         if (isset($searchText) && trim($searchText) != '') {
-            $select->where->like('c.title', "%" . $searchText . "%")
-            ->or->like('c.id', "%" . $searchText . "%");
+            $select->where->like('s.title', "%" . $searchText . "%")
+            ->or->like('s.code', "%" . $searchText . "%")
+            ->or->like('s.id', "%" . $searchText . "%");
         }
 //        $statement = $sql->prepareStatementForSqlObject($select);
         if ($paginated) {
@@ -65,38 +66,43 @@ class CategoryTable {
     }
 
     /**
-     * Function to Save Category Record to Database.
+     * Function to Save Subject Record to Database.
      * @throws \Exception
      */
-    public function saveCategory(Category $category) {
+    public function saveSubject(Subject $subject) {
         $data = array(
-            'title' => trim($category->title),
-            'description' => $category->description,
-            'status' => $category->status
+            'title' => trim($subject->title),
+            'code' => $subject->code,
+            'image_path' => $subject->image_path,
+            'status' => $subject->status,
+            'isdemo' => $subject->isdemo,
         );
-
-        $id = (int) $category->id;
+        if ($data['isdemo'] == '1') {
+            $updateData['isdemo'] = 0;
+            $this->tableGateway->update($updateData);
+        }
+        $id = (int) $subject->id;
         if ($id == 0) {
-            $data['created_date'] = time();
-            $data['created_by'] = $category->created_by;
-            $data['updated_date'] = time();
-            $data['updated_by'] = $category->created_by;
+            $data['created_at'] = time();
+            $data['created_by'] = $subject->created_by;
+            $data['updated_at'] = time();
+            $data['updated_by'] = $subject->created_by;
             if ($this->tableGateway->insert($data)) {
                 $categoryId = $this->tableGateway->getLastInsertValue();
             }
         } else {
-            if ($this->getCategory($id)) {
-                $data['updated_date'] = time();
-                $data['updated_by'] = $category->updated_by;
+            if ($this->getSubject($id)) {
+                $data['updated_at'] = time();
+                $data['updated_by'] = $subject->updated_by;
                 $categoryId = $this->tableGateway->update($data, array('id' => $id));
             } else {
-                throw new \Exception('Category id does not exist');
+                throw new \Exception('Subject id does not exist');
             }
         }
         return $categoryId;
     }
 
-    public function getCategory($id) {
+    public function getSubject($id) {
         $id = (int) $id;
         $rowset = $this->tableGateway->select(array('id' => $id));
         $row = $rowset->current();
@@ -106,33 +112,17 @@ class CategoryTable {
         return $row;
     }
 
-    public function getCategoryDetails($id) {
+    public function getSubjectDetails($id) {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
-        $select->from(array('c' => 'category'));
-        $select->columns(array('id', 'title', 'description', 'status'));
-        $select->where(array('c.id' => $id));
+        $select->from(array('s' => 'subjects'));
+        $select->columns(array('id', 'title', 'code', 'status', 'image_path'));
+        $select->where(array('s.id' => $id));
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();
         return $resultset;
-    }
-
-    public function getCategoryList() {
-        $sql = new Sql($this->tableGateway->getAdapter());
-        $select = $sql->select();
-        $select->from(array('c' => 'category'));
-        $select->columns(array('id', 'title'));
-        $select->where(array('c.status' => 1));
-        $statement = $sql->prepareStatementForSqlObject($select);
-        $resultset = $this->resultSetPrototype->initialize($statement->execute())
-                ->toArray();
-        $catDropDown = array();
-        foreach ($resultset as $result) {
-            $catDropDown[$result['id']] = $result['title'];
-        }
-        return $catDropDown;
     }
 
 }
