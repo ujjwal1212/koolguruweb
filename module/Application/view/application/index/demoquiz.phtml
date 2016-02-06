@@ -55,6 +55,7 @@
                     <div id="excercise"></div>
                 </div>
                 <div class="tabs" id='content-4'>
+                    <div id="quiz"></div>
                 </div>
             </main>            
         </div>
@@ -82,6 +83,19 @@
                         app.excercise.setquestionlist(result);
                         app.excercise.rendercurrentquestion();
                         console.log(app.excercise);
+                }});
+            }
+            
+            if(tabno == 4){
+                var url = '<?php echo $this->basePath() . '/quiz'; ?>';
+                $.ajax({url: url, success: function (result) { 
+                        app.quiz.renderid = 'quiz';
+                        if(app.quiz.currentquestion == ''){
+                            app.quiz.currentquestion = 0;
+                        }
+                        app.quiz.setquestionlist(result);
+                        app.quiz.rendercurrentquestion();
+                        console.log(app.quiz);
                 }});
             }
             

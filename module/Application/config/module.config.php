@@ -58,6 +58,21 @@ return array(
                     ),
                 ),
             ),
+            
+            'quiz' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/quiz[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'application\Controller\Index',
+                        'action' => 'quiz',
+                    ),
+                ),
+            ),
             'application' => array(
                 'type'    => 'Literal',
                 'options' => array(

@@ -11,8 +11,7 @@ $(document).ready(function () {
 
             var quesobj = this.questionlist[this.currentquestion];
 
-            var options = quesobj.options;
-            console.log(options);
+            var options = quesobj.options;            
             $('#' + this.renderid).html('');
             var renderhtml = '';
             renderhtml += "<br><div class='questionborder' style='margin-top:10px'>";
