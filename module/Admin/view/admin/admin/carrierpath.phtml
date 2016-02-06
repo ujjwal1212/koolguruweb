@@ -8,6 +8,7 @@ $query = '';
 if (isset($data['search_box'])) {
     $query .= '&search_box=' . $data['search_box'];
 }
+
 if (isset($_SESSION['User']['roleCode'])):
     $roleCode = $_SESSION['User']['roleCode'];
 endif;
@@ -82,7 +83,7 @@ if (!$this->isAjax) {
         <?php } ?>
         <?php
         $search_form = $this->form;
-        $search_form->setAttribute('action', $this->url('level', array('action' => 'index')));
+        $search_form->setAttribute('action', $this->url('admin', array('action' => 'carrierpath')));
         $search_form->prepare();
         echo $this->form()->openTag($search_form);
         ?>
@@ -168,9 +169,22 @@ if (!$this->isAjax) {
                         <th class="name">
                             <a href="javascript:void(0);" onclick="grid.sort('name', '<?php echo ($this->order_by == 'name') ? $url_order : $default_order; ?>');">NAME<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
-                        <th class="type">
-                            DESCRIPTION
-                        </th> 
+                        <th class="name">
+                            <a href="javascript:void(0);" onclick="grid.sort('msg', '<?php echo ($this->order_by == 'msg') ? $url_order : $default_order; ?>');">Message<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="name">
+                            <a href="javascript:void(0);" onclick="grid.sort('min_verbal_perc', '<?php echo ($this->order_by == 'min_verbal_perc') ? $url_order : $default_order; ?>');">Minimum Verbal Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="name">
+                            <a href="javascript:void(0);" onclick="grid.sort('max_verbal_perc', '<?php echo ($this->order_by == 'max_verbal_perc') ? $url_order : $default_order; ?>');">Maximum Verbal Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="name">
+                            <a href="javascript:void(0);" onclick="grid.sort('min_quant_perc', '<?php echo ($this->order_by == 'min_quant_perc') ? $url_order : $default_order; ?>');">Minimum Quantitative Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        <th class="name">
+                            <a href="javascript:void(0);" onclick="grid.sort('min_quant_perc', '<?php echo ($this->order_by == 'min_quant_perc') ? $url_order : $default_order; ?>');">Maximum Quantitative Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        
                         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                             <th class="actions">ACTIONS</th>
                         <?php } ?>
@@ -183,10 +197,14 @@ if (!$this->isAjax) {
                         <tr>
                             <td class="id"><?php echo $this->escapeHtml($level['id']); ?></td>
                             <td class="name"><a class="blue-anchor" href="<?php echo $this->url('level', array('action' => 'view', 'id' => $level['id'])); ?>"><?php echo $this->escapeHtml($level['name']); ?></a></td>
-                            <td class="type"><?php echo $this->escapeHtml($level['description']); ?></td>        
+                            <td class="type"><?php echo $this->escapeHtml($level['msg']); ?></td>
+                            <td class="type"><?php echo $this->escapeHtml($level['min_verbal_perc']); ?></td>
+                            <td class="type"><?php echo $this->escapeHtml($level['max_verbal_perc']); ?></td>
+                            <td class="type"><?php echo $this->escapeHtml($level['min_quant_perc']); ?></td>
+                            <td class="type"><?php echo $this->escapeHtml($level['max_quant_perc']); ?></td>
                             <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                                 <td class="actions">
-                                    <a href="<?php echo $this->url('level', array('action' => 'edit', 'id' => $level['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
+                                    <a href="<?php echo $this->url('admin', array('action' => 'editcarrierpath', 'id' => $level['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
                                 </td>
                             <?php } ?>
                         </tr>
@@ -238,7 +256,7 @@ if (!$this->isAjax) {
 
             <?php
         }
-        $this->inlineScript()->appendFile('js/koolguru/searchgrid.js');
+        $this->inlineScript()->appendFile('../js/koolguru/searchgrid.js');
         ?>
 
     </div>

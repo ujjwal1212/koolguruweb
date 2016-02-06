@@ -30,18 +30,19 @@ class CarrierpathTable {
      */
     public function fetchAll($paginated = false, $order_by = 'id', $order = 'ASC', $searchText = NULL) {
 
-        if ($order_by == 'id' || $order_by == 'name') {
-            $order_by = 'q.' . $order_by;
+        if ($order_by == 'id' || $order_by == 'name' || $order_by == 'msg' || $order_by == 'min_verbal_perc' || $order_by == 'max_verbal_perc' || $order_by == 'min_quant_perc' || $order_by == 'max_quant_perc') {
+            $order_by = 'cp.' . $order_by;
         }
 
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
-        $select->from(array('q' => 'questions'));
-        $select->columns(array('id', 'name', 'description'));
+        $select->from(array('cp' => 'carrier_path'));
+        $select->columns(array('id', 'name', 'msg','min_verbal_perc','max_verbal_perc','min_quant_perc','max_quant_perc'));
         $select->order($order_by . ' ' . $order);
         if (isset($searchText) && trim($searchText) != '') {
-            $select->where->like('q.name', "%" . $searchText . "%")
-            ->or->like('q.id', "%" . $searchText . "%");
+            $select->where->like('cp.name', "%" . $searchText . "%")
+            ->or->like('cp.msg', "%" . $searchText . "%")            
+            ->or->like('cp.id', "%" . $searchText . "%");
         }
 //        $statement = $sql->prepareStatementForSqlObject($select);
         if ($paginated) {
@@ -79,7 +80,7 @@ class CarrierpathTable {
             'max_quant_perc' => $carrier->max_quant_perc
         );
 
-        $id = (int) $carrier->id;        
+        $id = (int) $carrier->id; 
         if ($id == 0) {
             $data['created_date'] = time();
             $data['created_by'] = $carrier->created_by;
@@ -91,7 +92,7 @@ class CarrierpathTable {
         } else {
             if ($this->getCarrier($id)) {
                 $data['updated_date'] = time();
-                $data['updated_by'] = $carrier->updated_by;
+                $data['updated_by'] = $carrier->updated_by;                
                 $Id = $this->tableGateway->update($data, array('id' => $id));
             } else {
                 throw new \Exception('Carrier id does not exist');
