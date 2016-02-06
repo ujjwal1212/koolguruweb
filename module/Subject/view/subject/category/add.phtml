@@ -12,7 +12,6 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         <div class="sub-header-title">
             <?php
             $title = 'Create Category';
-            $this->headTitle($title);
             ?>
             <a class="back-icon" href="<?php echo $this->url('category', array('action' => 'index')); ?>"></a>
             <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
