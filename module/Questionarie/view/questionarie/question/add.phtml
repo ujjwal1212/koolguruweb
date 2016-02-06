@@ -91,6 +91,10 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <?php echo $this->formElement($form->get('type')); ?>
                     </li>
                     <li class="form-row">                    
+                        <label class='label'>CATEGORY: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('category_id')); ?>
+                    </li>
+                    <li class="form-row">                    
                         <label class='label'>IS ACTIVE: </label>
                         <?php echo $this->formElement($form->get('status')); ?>
                     </li>

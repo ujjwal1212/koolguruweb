@@ -1,6 +1,6 @@
 <?php
 $errorflashMessage = $this->flashMessenger()->getErrorMessages();
-$title = 'Manage Category';
+$title = 'Manage Subjects';
 $this->headTitle($title);
 $default_order = 'ASC';
 $url_order = $this->order == 'ASC' ? 'DESC' : 'ASC';
@@ -32,7 +32,7 @@ if (!$this->isAjax) {
             <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                 <div class="sub-header-actions">
                     <!--<a class="big-btn green-btn import-btn" id="import_center" href="#">IMPORT</a>-->
-                    <a class="big-btn green-btn" href="<?php echo $this->url('category', array('action' => 'add')); ?>">CREATE</a>
+                    <a class="big-btn green-btn" href="<?php echo $this->url('subject', array('action' => 'add')); ?>">CREATE</a>
                 </div>
             <?php } ?>
 
@@ -54,18 +54,22 @@ if (!$this->isAjax) {
                 ?>
 
             </div>
-        <?php } else {
-            if (!empty($errorflashMessage)) { ?>
+        <?php
+        } else {
+            if (!empty($errorflashMessage)) {
+                ?>
                 <div id="global-error-msg-page"   class="global-page-error"><?php
                     foreach ($errorflashMessage as $errMsg) {
                         echo $errMsg;
                     }
                     ?></div>
-            <?php }
-        } ?>
+            <?php
+            }
+        }
+        ?>
         <?php
         $search_form = $this->form;
-        $search_form->setAttribute('action', $this->url('category', array('action' => 'index')));
+        $search_form->setAttribute('action', $this->url('subject', array('action' => 'index')));
         $search_form->prepare();
         echo $this->form()->openTag($search_form);
         ?>
@@ -111,10 +115,10 @@ if (!$this->isAjax) {
                             <a href="javascript:void(0);">ID<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="name">
-                            <a href="javascript:void(0);">NAME<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);">CODE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="type">
-                            <a href="javascript:void(0);">DESCRIPTION<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);">TITLE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <?php if ($roleCode == 'sa') { ?>
                             <th class="actions">ACTIONS</th>
@@ -136,10 +140,10 @@ if (!$this->isAjax) {
                             <a href="javascript:void(0);" onclick="grid.sort('id', '<?php echo ($this->order_by == 'id') ? $url_order : $default_order; ?>');">ID<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="name">
-                            <a href="javascript:void(0);" onclick="grid.sort('title', '<?php echo ($this->order_by == 'title') ? $url_order : $default_order; ?>');">NAME<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);" onclick="grid.sort('code', '<?php echo ($this->order_by == 'code') ? $url_order : $default_order; ?>');">CODE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="type">
-                            DESCRIPTION
+                            <a href="javascript:void(0);" onclick="grid.sort('title', '<?php echo ($this->order_by == 'title') ? $url_order : $default_order; ?>');">TITLE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th> 
                         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                             <th class="actions">ACTIONS</th>
@@ -151,12 +155,12 @@ if (!$this->isAjax) {
                     foreach ($this->paginator as $question) :
                         ?>
                         <tr>
-                            <td class="id"><a class="blue-anchor" href="<?php echo $this->url('category', array('action' => 'view', 'id' => $question['id'])); ?>"><?php echo $this->escapeHtml($question['id']); ?></a></td>
-                            <td class="name"><?php echo $this->escapeHtml($question['title']); ?></td>
-                            <td class="type"><?php echo $this->escapeHtml($question['description']); ?></td>        
+                            <td class="id"><a class="blue-anchor" href="<?php echo $this->url('subject', array('action' => 'view', 'id' => $question['id'])); ?>"><?php echo $this->escapeHtml($question['id']); ?></a></td>
+                            <td class="name"><?php echo $this->escapeHtml($question['code']); ?></td>
+                            <td class="type"><?php echo $this->escapeHtml($question['title']); ?></td>        
         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                                 <td class="actions">
-                                    <a href="<?php echo $this->url('category', array('action' => 'edit', 'id' => $question['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
+                                    <a href="<?php echo $this->url('subject', array('action' => 'edit', 'id' => $question['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
                                 </td>
                         <?php } ?>
                         </tr>
@@ -195,10 +199,10 @@ if (!$this->isAjax) {
                     // the paginator object
                     $this->paginator, 'sliding',
                     // the partial to use to render the control
-                    array('partial/paginator.phtml', 'category'),
+                    array('partial/paginator.phtml', 'subject'),
                     // the route to link to when a user clicks a control link
                     array(
-                'route' => 'category',
+                'route' => 'subject',
                 'routeParams' => array('action' => 'index'),
                 'jsFunction' => 'grid.list',
                 'query' => $this->data

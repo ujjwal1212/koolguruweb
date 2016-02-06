@@ -34,25 +34,25 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 <div class="container">
     <div class="forms" id="add-trainee-form">
         <?php
-            $errorflashMessage = $this->flashMessenger()->getErrorMessages();
-            $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
-            if (empty($errorflashMessage) && !empty($successflashMessage)) {
+        $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+        $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+        if (empty($errorflashMessage) && !empty($successflashMessage)) {
+            ?>
+            <div id="global-success-msg-page" class="global-page-success">
+                <?php
+                foreach ($successflashMessage as $succMsg) {
+                    echo $succMsg;
+                }
                 ?>
-                <div id="global-success-msg-page" class="global-page-success">
-                    <?php
-                    foreach ($successflashMessage as $succMsg) {
-                        echo $succMsg;
-                    }
-                    ?>
 
-                </div>
-            <?php } else { ?>
-                <div id="global-error-msg-page"   class="global-page-error"><?php
-                    foreach ($errorflashMessage as $errMsg) {
-                        echo $errMsg;
-                    }
-                    ?></div>
-            <?php } ?>
+            </div>
+        <?php } else { ?>
+            <div id="global-error-msg-page"   class="global-page-error"><?php
+                foreach ($errorflashMessage as $errMsg) {
+                    echo $errMsg;
+                }
+                ?></div>
+        <?php } ?>
         <div class="upper-submit">
             <?php
             echo $this->formSubmit($form->get('submit'));
@@ -91,6 +91,10 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <?php echo $this->formElement($form->get('type')); ?>
                     </li>
                     <li class="form-row">                    
+                        <label class='label'>CATEGORY: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('category_id')); ?>
+                    </li>
+                    <li class="form-row">                    
                         <label class='label'>IS ACTIVE: </label>
                         <?php echo $this->formElement($form->get('status')); ?>
                     </li>
@@ -125,7 +129,8 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i = 0;
+                    <?php
+                    $i = 0;
                     foreach ($questionOptions as $option) {
                         ?>
                         <tr id="<?php echo $i; ?>">
@@ -133,7 +138,8 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                             <td class='lname'><input type='hidden' name='option_correct[]' value="<?php echo $option['is_correct']; ?>"/><?php echo $option['is_correct'] == 0 ? 'No' : 'Yes'; ?></td>
                             <td><a href='javascript:void(0)' class='btnDelete delete-icon' onclick="DeleteRow('<?php echo $i; ?>')" id='row_<?php echo $i; ?>' title='delete'></a></td>
                         </tr>
-                        <?php $i++;
+                        <?php
+                        $i++;
                     }
                     ?>
                 </tbody>
