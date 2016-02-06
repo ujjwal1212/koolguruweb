@@ -11,29 +11,27 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
     <div class="reservation_top">
         <div class="container">
             <?php
-            $errorflashMessage = $this->flashMessenger()->getCurrentErrorMessages();
-            $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
-            if (empty($errorflashMessage) && !empty($successflashMessage)) {
+                $errorflashMessage = $this->flashMessenger()->getCurrentErrorMessages();
+                $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+                if (empty($errorflashMessage) && !empty($successflashMessage)) {
+            ?>
+            <div id="global-success-msg-page" class="global-page-success">
+                <?php
+                foreach ($successflashMessage as $succMsg) {
+                    echo $succMsg;
+                }
                 ?>
-                <div id="global-success-msg-page" class="global-page-success">
-                    <?php
-                    foreach ($successflashMessage as $succMsg) {
-                        echo $succMsg;
-                    }
-                    ?>
-                </div>
-            <?php } else {
-                if (!empty($errorflashMessage)) { ?>
-
-                    <div id="global-error-msg-page"   class="global-page-error">
-                        <?php
-                        foreach ($errorflashMessage as $errMsg) {
-                            echo $errMsg;
-                        }
-                        ?>
-                    </div>
-                <?php }
-            } ?>
+            </div>
+            <?php 
+            } else {
+            if (!empty($errorflashMessage)) { ?>
+            <div id="global-error-msg-page"   class="global-page-error">
+                <?php foreach ($errorflashMessage as $errMsg) { 
+                    echo $errMsg;
+                }
+                ?>
+            </div>                 
+            <?php } } ?>
 <?php //asd($studentDet); ?>
 <?php //if(empty($studentDet) || $studentDet->isprofilecompleted == 0){ ?>
             <main>
@@ -136,226 +134,219 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                 </div>
                 <!-- Tab for verbal ability -->
                 <div class="tabs" id='content-2'>
-<?php if ($enableTabContent[1]) { ?>
-                        <form action="<?php echo $this->basePath(); ?>/studentregistration" method="post" name="user-verbal" class="detect_changes" id="user-verbal">
+                    <?php if ($enableTabContent[1]) { ?>
+                    <form action="<?php echo $this->basePath(); ?>/studentregistration" method="post" name="user-verbal" class="detect_changes" id="user-verbal">
+                        <input type='hidden' name='student_id' id='student_id' value='<?php echo $student_id; ?>'>
+                        <div class="container">
+                            <div class="forms" id="student-registration-verbal">
+                                <section id="basic_details">
+                                    <h2 class="h2">Verbal Ability</h2>                            
+                                    <?php
+                                    $i = 1;
+                                    $varbal_total = 0;
+                                    foreach ($verbalQuestions as $ky => $quest) {//asd($quest);
+                                        $varbal_total = $varbal_total + $quest['maxmark'];
+                                        ?>
+                                        <div class="questionborder" style='margin-top:10px'>
+                                            <span class="badge pull-left"><?php echo $i; ?></span>
+                                            <h4 class="questiontitle"><?php echo $quest['title']; ?></h4>
+                                            <div class="book_date btm">
+                                                <ul>
+                                                    <?php
+                                                    foreach ($quest['options'] as $key => $options) {
+                                                        if ($key == ($quest['correct'])) {
+                                                            $val = $quest['maxmark'];
+                                                        } else {
+                                                            $val = $quest['minmark'];
+                                                        }
+                                                        ?>
+                                                        <li class="form-row">                                     
+                                                            <label class="custom-label" onclick="">
+                                                                <input type="radio" name="<?php echo $ky; ?>" id="<?php echo $ky . '-' . $key; ?>" value="<?php echo $val . '~' . ($key) . '~' . $quest['maxmark']; ?>" style="position: absolute; left: 173px;">
+                                                                <span style="position: absolute; left: 200px;">
+                                                                    <?php echo $options; ?>
+                                                                </span>
+                                                            </label>
+                                                        </li>
+                                                <?php } ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <?php $i++; } ?>
+                                        <input type="hidden" name='marks_total_verbal' value='<?php echo $varbal_total; ?>'>
+                                        <div class="form-footer">
+                                            <?php if (!empty($studentStatus) && isset($studentStatus[0]['verbal_reg_status']) && $studentStatus[0]['verbal_reg_status'] == 1) { ?>
+                                            <?php } else { ?>
+                                            <input name="verbalsubmit" type="submit" id="verbalsubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">                            
+                                        </div>
+                                    <?php } ?>
+                                    </section>
+                                </div>
+                            </div>
+                        </form>
+                        <?php } ?>
+                </div>
+
+                    <!-- Tab for verbal ability -->
+                <div class="tabs" id='content-3'>
+                    <?php if ($enableTabContent[2]) { ?>
+                    <form action="<?php echo $this->basePath(); ?>/studentregistration" method="post" name="user-verbal" class="detect_changes" id="user-verbal">
+                        <input type='hidden' name='student_id' id='student_id' value='<?php echo $student_id; ?>'>
+                        <div class="container">
+                            <div class="forms" id="student-registration-verbal">
+                                <section id="basic_details">
+                                    <h2 class="h2">Quantitative Ability</h2>                            
+                                    <?php
+                                    $i = 1;
+                                    $quant_total = 0;
+                                    foreach ($quantQuestions as $ky => $quest) {//asd($quest); 
+                                        $quant_total = $quant_total + $quest['maxmark'];
+                                        ?>
+                                        <div class="questionborder" style='margin-top:10px'>
+                                            <span class="badge pull-left"><?php echo $i; ?></span>
+                                            <h4 class="questiontitle"><?php echo $quest['title']; ?></h4>
+                                            <div class="book_date btm">
+                                                <ul>
+                                                <?php
+                                                foreach ($quest['options'] as $key => $options) {
+
+                                                    if ($key == ($quest['correct'])) {
+                                                        $val = $quest['maxmark'];
+                                                    } else {
+                                                        $val = $quest['minmark'];
+                                                    }
+                                                    ?>
+                                                    <li class="form-row">                                     
+                                                        <label class="custom-label" onclick="">
+                                                            <input type="radio" name="<?php echo $ky; ?>" id="<?php echo $ky . '-' . $key; ?>" value="<?php echo $val . '~' . ($key) . '~' . $quest['maxmark']; ?>" style="position: absolute; left: 173px;">
+                                                            <span style="position: absolute; left: 200px;">
+                                                                <?php echo $options; ?>
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                <?php } ?>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <?php $i++; } ?>
+                                        <div class="form-footer">
+                                            <?php if (!empty($studentStatus) && isset($studentStatus[0]['quant_status']) && $studentStatus[0]['quant_status'] == 1) { ?>
+                                            <?php } else { ?><input type="hidden" name='marks_total_quant' value='<?php echo $quant_total; ?>'>
+                                            <input name="quantsubmit" type="submit" id="quantsubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">
+                                        </div>
+                                        <?php } ?>
+                                </section>
+                            </div>
+                        </div>
+                    </form>
+                    <?php } ?>
+                </div>
+                <div class="tabs" id='content-4'>
+                    <?php if ($enableTabContent[3]) { ?>
+                    <div class="tabs" id='content-3'>
+                        <form action="<?php echo $this->basePath(); ?>/studentregistration" method="post" name="carrier-oriented" class="detect_changes" id="carrier-oriented">
                             <input type='hidden' name='student_id' id='student_id' value='<?php echo $student_id; ?>'>
                             <div class="container">
-                                <div class="forms" id="student-registration-verbal">
+                                <div class="forms" id="user-carrier">
                                     <section id="basic_details">
-                                        <h2 class="h2">Verbal Ability</h2>                            
+                                        <h2 class="h2">Carrier Qriented Questions</h2>
                                         <?php
                                         $i = 1;
-                                        $varbal_total = 0;
-                                        foreach ($verbalQuestions as $ky => $quest) {//asd($quest);
-                                            $varbal_total = $varbal_total + $quest['maxmark'];
-                                            ?>
-                                            <div class="questionborder" style='margin-top:10px'>
-                                                <span class="badge pull-left"><?php echo $i; ?></span>
-                                                <h4 class="questiontitle"><?php echo $quest['title']; ?></h4>
-                                                <div class="book_date btm">
-                                                    <ul>
-                                                        <?php
-                                                        foreach ($quest['options'] as $key => $options) {
-                                                            if ($key == ($quest['correct'])) {
-                                                                $val = $quest['maxmark'];
-                                                            } else {
-                                                                $val = $quest['minmark'];
-                                                            }
-                                                            ?>
-                                                            <li class="form-row">                                     
-                                                                <label class="custom-label" onclick="">
-                                                                    <input type="radio" name="<?php echo $ky; ?>" id="<?php echo $ky . '-' . $key; ?>" value="<?php echo $val . '~' . ($key) . '~' . $quest['maxmark']; ?>" style="position: absolute; left: 173px;">
-                                                                    <span style="position: absolute; left: 200px;"><?php echo $options; ?><span></label>
-                                                                            </li>
-        <?php } ?>
-                                                                        </ul>
-                                                                        </div>
-                                                                        </div>
-                                                                            <?php $i++;
-                                                                        } ?>
-                                                                    <input type="hidden" name='marks_total_verbal' value='<?php echo $varbal_total; ?>'>
-                                                                    <div class="form-footer">
-                                                                    <?php if (!empty($studentStatus) && isset($studentStatus[0]['verbal_reg_status']) && $studentStatus[0]['verbal_reg_status'] == 1) { ?>
-                                                                    <?php } else { ?>
-                                                                            <input name="verbalsubmit" type="submit" id="verbalsubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">                            
-                                                                        </div>
-    <?php } ?>
-                                                                    </section>
-                                                                    </div>
-                                                                    </div>
-                                                                    </form>
-<?php } ?>
-                                                                </div>
+                                        foreach ($carrierquestions as $kcar => $questcar) {
+                                        ?> 
+                                        <div class="questionborder" style='margin-top:10px'>
+                                            <span class="badge pull-left"><?php echo $i; ?></span>
+                                            <h4 class="questiontitle"><?php echo $questcar['title']; ?></h4>
 
-                                                                <!-- Tab for verbal ability -->
-                                                                <div class="tabs" id='content-3'>
-<?php if ($enableTabContent[2]) { ?>
-                                                                        <form action="<?php echo $this->basePath(); ?>/studentregistration" method="post" name="user-verbal" class="detect_changes" id="user-verbal">
-                                                                            <input type='hidden' name='student_id' id='student_id' value='<?php echo $student_id; ?>'>
-                                                                            <div class="container">
-                                                                                <div class="forms" id="student-registration-verbal">
-                                                                                    <section id="basic_details">
-                                                                                        <h2 class="h2">Quantitative Ability</h2>                            
-                                                                                        <?php
-                                                                                        $i = 1;
-                                                                                        $quant_total = 0;
-                                                                                        foreach ($quantQuestions as $ky => $quest) {//asd($quest); 
-                                                                                            $quant_total = $quant_total + $quest['maxmark'];
-                                                                                            ?>
-                                                                                            <div class="questionborder" style='margin-top:10px'>
-                                                                                                <span class="badge pull-left"><?php echo $i; ?></span>
-                                                                                                <h4 class="questiontitle"><?php echo $quest['title']; ?></h4>
-                                                                                                <div class="book_date btm">
-                                                                                                    <ul>
-                                                                                                        <?php
-                                                                                                        foreach ($quest['options'] as $key => $options) {
+                                            <div class="book_date btm">
+                                                <ul>
+                                                    <?php foreach ($questcar['options'] as $key => $options) { ?>
+                                                    <li class="form-row"> 
+                                                        <?php if (count($options) > 0) { ?>
+                                                        <label class="custom-label" onclick="">
+                                                        <input type="radio" name="<?php echo $kcar; ?>" id="<?php echo $kcar . '-' . $key; ?>" value="<?php echo $kcar . '~' . ($key) ?>" style="position: absolute; left: 173px;">
+                                                        <span style="position: absolute; left: 200px;"><?php echo $options; ?><span></label>
+                                                        <?php } else { ?>
+                                                        <textarea name="<?php echo $kcar; ?>" class="form-control" rows="2"></textarea>
+                                                        <?php } ?> 
+                                                    </li>
+                                                    <?php } ?>
+                                                </ul>
+                                            </div>
+                                            <?php if ($questcar['note'] != '') { ?>
+                                                Note : <?php echo $questcar['note']; ?>
+                                            </br>
+                                            <?php } ?>
+                                        </div>
+                                            <?php $i++;} ?>
+                                        <div class="form-footer">
+                                            <?php if (!empty($studentStatus) && isset($studentStatus[0]['carrier_status']) && $studentStatus[0]['carrier_status'] == 1) { ?>
+                                            <?php } else { ?>
+                                            <input name="carriersubmit" type="submit" id="carriersubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">                            
+                                        </div>
+                                        <?php } ?>
+                                    </section>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <?php } ?>
+                </div>
+                <div class="tabs" id='content-5'>
+                <?php if ($enableTabContent[4]) { ?>
+                    <h4>“Thanks for Submitting the Registration Questionnaire and we are pleased to share our feedback and career advice”</h4>
+                    <h4><?php echo $carriersuggestedmsg; ?></h4>
+                    <?php if (!empty($carrier_path)) { ?>        
+                        <?php $i = 1;
+                        foreach ($carrier_path as $path) { ?>
+                            <?php if ($path['msg'] != '') { ?>
+                                <span><?php echo $i; ?></span> : <?php echo $path['msg']; ?>
+                            <?php } ?>
+                            </br>
+                        <?php $i++;
+                    }
+                }} ?>
+                </div>                                                                                                                                            
+            </main>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var tab = new Array();
+        var enabletabcontent = new Array();
+        tab = [<?php echo '"' . implode('","', $enableTab) . '"' ?>];
+        enabletabcontent = [<?php echo '"' . implode('","', $enableTabContent) . '"' ?>];
+        app.studentTab.enabletab = tab;
+        app.studentTab.enabletabcontent = enabletabcontent;
 
-                                                                                                            if ($key == ($quest['correct'])) {
-                                                                                                                $val = $quest['maxmark'];
-                                                                                                            } else {
-                                                                                                                $val = $quest['minmark'];
-                                                                                                            }
-                                                                                                            ?>
-                                                                                                            <li class="form-row">                                     
-                                                                                                                <label class="custom-label" onclick="">
-                                                                                                                    <input type="radio" name="<?php echo $ky; ?>" id="<?php echo $ky . '-' . $key; ?>" value="<?php echo $val . '~' . ($key) . '~' . $quest['maxmark']; ?>" style="position: absolute; left: 173px;">
-                                                                                                                    <span style="position: absolute; left: 200px;"><?php echo $options; ?><span></label>
-                                                                                                                            </li>
-        <?php } ?>
-                                                                                                                        </ul>
-                                                                                                                        </div>
-                                                                                                                        </div>
-                                                                                                                            <?php $i++;
-                                                                                                                        } ?>
-                                                                                                                    <div class="form-footer">
-                                                                                                                    <?php if (!empty($studentStatus) && isset($studentStatus[0]['quant_status']) && $studentStatus[0]['quant_status'] == 1) { ?>
-                                                                                                                    <?php } else { ?><input type="hidden" name='marks_total_quant' value='<?php echo $quant_total; ?>'>
-                                                                                                                            <input name="quantsubmit" type="submit" id="quantsubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">
-                                                                                                                        </div>
-    <?php } ?>
-                                                                                                                    </section>
-                                                                                                                    </div>
-                                                                                                                    </div>
-                                                                                                                    </form>
-<?php } ?>
-                                                                                                                </div>
+        $('.kooltab').each(function () {
+            var tabid = $(this).attr('id');
+            tabid = tabid.replace("tab-", "");
+            app.studentTab.hidetab(parseInt(tabid));
+        });
 
+        $.each(app.studentTab.enabletabcontent, function (index, value) {
+            if (value == 1) {
+                $('#tab-' + (index + 1)).addClass('enabletab');
+                $('#tab-' + (index + 1)).click();
+            }
+        });
 
-                                                                                                                <div class="tabs" id='content-4'>
-<?php if ($enableTabContent[3]) { ?>
-                                                                                                                        <div class="tabs" id='content-3'>
-                                                                                                                            <form action="<?php echo $this->basePath(); ?>/studentregistration" method="post" name="carrier-oriented" class="detect_changes" id="carrier-oriented">
-                                                                                                                                <input type='hidden' name='student_id' id='student_id' value='<?php echo $student_id; ?>'>
-                                                                                                                                <div class="container">
-                                                                                                                                    <div class="forms" id="user-carrier">
-                                                                                                                                        <section id="basic_details">
-                                                                                                                                            <h2 class="h2">Carrier Qriented Questions</h2>
-    <?php
-    $i = 1;
-    foreach ($carrierquestions as $kcar => $questcar) {
-        ?> 
-                                                                                                                                                <div class="questionborder" style='margin-top:10px'>
-                                                                                                                                                    <span class="badge pull-left"><?php echo $i; ?></span>
-                                                                                                                                                    <h4 class="questiontitle"><?php echo $questcar['title']; ?></h4>
+        $.each(app.studentTab.enabletab, function (index, value) {
+            if (value == 1) {
+                $('#tab-' + (index + 1)).addClass('activetab');
+            }
+        });
 
-                                                                                                                                                    <div class="book_date btm">
-                                                                                                                                                        <ul>
-        <?php foreach ($questcar['options'] as $key => $options) { ?>
-                                                                                                                                                                <li class="form-row"> 
-                                                                                                                                                                                <?php if (count($options) > 0) { ?>
-                                                                                                                                                                        <label class="custom-label" onclick="">
-                                                                                                                                                                            <input type="radio" name="<?php echo $kcar; ?>" id="<?php echo $kcar . '-' . $key; ?>" value="<?php echo $kcar . '~' . ($key) ?>" style="position: absolute; left: 173px;">
-                                                                                                                                                                            <span style="position: absolute; left: 200px;"><?php echo $options; ?><span></label>
-                                                                                                                                                                                <?php } else { ?>
-                                                                                                                                                                                    <textarea name="<?php echo $kcar; ?>" class="form-control" rows="2"></textarea>
-            <?php } ?> 
-                                                                                                                                                                                </li>
-                                                                                                                                                                            <?php } ?>
-                                                                                                                                                                            </ul>
-                                                                                                                                                                            </div>
-                                                                                                                                                                            <?php if ($questcar['note'] != '') { ?>
-                                                                                                                                                                                Note : <?php echo $questcar['note']; ?>
-                                                                                                                                                                                </br>
-                                                                                                                                                                                <?php } ?>
-                                                                                                                                                                            </div>
-                                                                                                                                                                                <?php $i++;
-                                                                                                                                                                            } ?>
-                                                                                                                                                                        <div class="form-footer">
-    <?php if (!empty($studentStatus) && isset($studentStatus[0]['carrier_status']) && $studentStatus[0]['carrier_status'] == 1) { ?>
-    <?php } else { ?>
-                                                                                                                                                                                <input name="carriersubmit" type="submit" id="carriersubmit" class="green-btn big-btn margin-Top10-Btm40" value="Submit">                            </div>
-    <?php } ?>
-                                                                                                                                                                        </section>
-                                                                                                                                                                        </div>
-                                                                                                                                                                        </div>
-                                                                                                                                                                        </form>
-                                                                                                                                                                        </div>
-                                                                                                                                                                        <?php } ?>
-                                                                                                                                                                    </div>
+        $('#mobile').blur(function () {
+            var mob = $(this).val();
+            var url = '<?php echo $this->basePath() . '/savemobile?mobile='; ?>' + mob;
+            if (mob.replace(/ /g, '').length == 10 && $.isNumeric(mob)) {
+                $.ajax({url: url, success: function (result) {
 
-                                                                                                                                                                    <div class="tabs" id='content-5'>
-                                                                                                                                                                        <?php if ($enableTabContent[4]) { ?>
-                                                                                                                                                                            <h4>“Thanks for Submitting the Registration Questionnaire and we are pleased to share our feedback and career advice”</h4>
-                                                                                                                                                                            <h4><?php echo $carriersuggestedmsg; ?></h4>
-                                                                                                                                                                            <?php if (!empty($carrier_path)) { ?>        
-                                                                                                                                                                                <?php $i = 1;
-                                                                                                                                                                                foreach ($carrier_path as $path) { ?>
-                                                                                                                                                                                    <?php if ($path['msg'] != '') { ?>
-                                                                                                                                                                                        <span><?php echo $i; ?></span> : <?php echo $path['msg']; ?>
-            <?php } ?>
-                                                                                                                                                                                    </br>
-                                                                                                                                                                                <?php $i++;
-                                                                                                                                                                            }
-                                                                                                                                                                        } ?>
-
-                                                                                                                                                                    <?php } ?>
-
-                                                                                                                                                                    </div>
-                                                                                                                                                                    </main>
-<?php //}else if($studentDet->isprofilecompleted == 1){  ?>
-                                                                                                                                                                    <!--            <main>
-                                                                                                                                                                                    You Have been already registred.
-                                                                                                                                                                                </main>-->
-<?php //}  ?>
-                                                                                                                                                                    </div>
-                                                                                                                                                                    </div>
-
-                                                                                                                                                                    <script type="text/javascript">
-                                                                                                                                                                        $(document).ready(function () {
-                                                                                                                                                                            var tab = new Array();
-                                                                                                                                                                            var enabletabcontent = new Array();
-                                                                                                                                                                            tab = [<?php echo '"' . implode('","', $enableTab) . '"' ?>];
-                                                                                                                                                                            enabletabcontent = [<?php echo '"' . implode('","', $enableTabContent) . '"' ?>];
-                                                                                                                                                                            app.studentTab.enabletab = tab;
-                                                                                                                                                                            app.studentTab.enabletabcontent = enabletabcontent;
-
-                                                                                                                                                                            $('.kooltab').each(function () {
-                                                                                                                                                                                var tabid = $(this).attr('id');
-                                                                                                                                                                                tabid = tabid.replace("tab-", "");
-                                                                                                                                                                                app.studentTab.hidetab(parseInt(tabid));
-                                                                                                                                                                            });
-
-                                                                                                                                                                            $.each(app.studentTab.enabletabcontent, function (index, value) {
-                                                                                                                                                                                if (value == 1) {
-                                                                                                                                                                                    $('#tab-' + (index + 1)).addClass('enabletab');
-                                                                                                                                                                                    $('#tab-' + (index + 1)).click();
-                                                                                                                                                                                }
-                                                                                                                                                                            });
-
-                                                                                                                                                                            $.each(app.studentTab.enabletab, function (index, value) {
-                                                                                                                                                                                if (value == 1) {
-                                                                                                                                                                                    $('#tab-' + (index + 1)).addClass('activetab');
-                                                                                                                                                                                }
-                                                                                                                                                                            });
-
-                                                                                                                                                                            $('#mobile').blur(function () {
-                                                                                                                                                                                var mob = $(this).val();
-                                                                                                                                                                                var url = '<?php echo $this->basePath() . '/savemobile?mobile='; ?>' + mob;
-                                                                                                                                                                                if (mob.replace(/ /g, '').length == 10 && $.isNumeric(mob)) {
-                                                                                                                                                                                    $.ajax({url: url, success: function (result) {
-
-                                                                                                                                                                                        }});
-                                                                                                                                                                                }
-                                                                                                                                                                            })
-                                                                                                                                                                        });
-                                                                                                                                                                    </script>
+                    }});
+            }
+        })
+    });
+</script>

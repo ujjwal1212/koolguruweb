@@ -132,6 +132,7 @@ class IndexController extends AbstractActionController {
 
         $headScript->appendFile($js_path . '/demoquiz.js');
         $headScript->appendFile($js_path . '/exercise.js');
+        $headScript->appendFile($js_path . '/quiz.js');
         $demochapter_id = 0;
         $demochapter = $this->getChapterTable()->getDemoChapter();
         return array(
@@ -140,6 +141,48 @@ class IndexController extends AbstractActionController {
     }
 
     public function exerciseAction() {
+
+        $viewModel = new ViewModel(array(
+        ));
+        $viewModel->setTerminal(true);
+        $this->layout('layout/empty');
+        $request = $this->getRequest();
+        $data = $request->getPost();
+        $response = $this->getResponse();
+        $cond = array();
+        $cond['level'] = 2;
+        $cond['status'] = 1;
+        $questions = array();
+        $questions = $this->getQuestionTable()->getExcerciseQuestions($cond);
+        $excecises = array();
+        $que = array();
+        foreach ($questions as $dat) {
+            if (empty($que)) {
+                $excecises[$dat['id']] = array('title' => $dat['description'], 'min_marks' => $dat['min_marks'], 'max_marks' => $dat['max_marks']);
+                $que[] = $dat['id'];
+            } else {
+                if (!in_array($dat['id'], $que)) {
+                    $excecises[$dat['id']] = array('title' => $dat['description'], 'min_marks' => $dat['min_marks'], 'max_marks' => $dat['max_marks']);
+                    $que[] = $dat['id'];
+                }
+            }
+        }
+
+        $ques = '';
+        foreach ($questions as $dat) {
+            if ($ques != $dat['id']) {
+                $ques = $dat['id'];
+            }
+
+            if ($ques == $dat['id']) {
+                $excecises[$dat['id']]['options'][$dat['option_id']] = array('description' => $dat['option_description'], 'iscorrect' => $dat['is_correct']);
+            }
+        }
+        $response->setContent(json_encode($excecises));
+        return $response;
+    }
+    
+    public function quizAction() {
 
         $viewModel = new ViewModel(array(
         ));
