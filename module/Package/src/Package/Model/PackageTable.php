@@ -1,6 +1,6 @@
 <?php
 
-namespace Subject\Model;
+namespace Package\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\ResultSet;
@@ -13,7 +13,7 @@ use Zend\Db\Sql\Where;
 Use Zend\Db\Sql\Expression;
 use Zend\Session\Container;
 
-class SubjectTable {
+class PackageTable {
 
     protected $tableGateway;
 
@@ -31,18 +31,18 @@ class SubjectTable {
     public function fetchAll($paginated = false, $order_by = 'id', $order = 'ASC', $searchText = NULL) {
 
         if ($order_by == 'id' || $order_by == 'title' || $order_by == 'code') {
-            $order_by = 's.' . $order_by;
+            $order_by = 'p.' . $order_by;
         }
 
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
-        $select->from(array('s' => 'subjects'));
+        $select->from(array('p' => 'package'));
         $select->columns(array('id', 'code', 'title'));
         $select->order($order_by . ' ' . $order);
         if (isset($searchText) && trim($searchText) != '') {
-            $select->where->like('s.title', "%" . $searchText . "%")
-            ->or->like('s.code', "%" . $searchText . "%")
-            ->or->like('s.id', "%" . $searchText . "%");
+            $select->where->like('p.title', "%" . $searchText . "%")
+            ->or->like('p.code', "%" . $searchText . "%")
+            ->or->like('p.id', "%" . $searchText . "%");
         }
 //        $statement = $sql->prepareStatementForSqlObject($select);
         if ($paginated) {
@@ -66,43 +66,44 @@ class SubjectTable {
     }
 
     /**
-     * Function to Save Subject Record to Database.
+     * Function to Save Package Record to Database.
      * @throws \Exception
      */
-    public function saveSubject(Subject $subject) {
+    public function savePackage(Package $package) {
         $data = array(
-            'title' => trim($subject->title),
-            'code' => $subject->code,
-            'image_path' => $subject->image_path,
-            'status' => $subject->status,
-            'isdemo' => $subject->isdemo,
+            'title' => trim($package->title),
+            'code' => $package->code,
+            'image_path' => $package->image_path,
+            'status' => $package->status,
+            'price' => $package->price,
+            'duration' => $package->duration,
+            'ff_classroom' => $package->ff_classroom,
+            'relevant_for' => $package->relevant_for,
+            'advantage' => $package->advantage,
+            'description' => $package->description,
         );
-        if ($data['isdemo'] == '1') {
-            $updateData['isdemo'] = 0;
-            $this->tableGateway->update($updateData);
-        }
-        $id = (int) $subject->id;
+        $id = (int) $package->id;
         if ($id == 0) {
             $data['created_at'] = time();
-            $data['created_by'] = $subject->created_by;
+            $data['created_by'] = $package->created_by;
             $data['updated_at'] = time();
-            $data['updated_by'] = $subject->created_by;
+            $data['updated_by'] = $package->created_by;
             if ($this->tableGateway->insert($data)) {
-                $subjectId = $this->tableGateway->getLastInsertValue();
+                $packageId = $this->tableGateway->getLastInsertValue();
             }
         } else {
-            if ($this->getSubject($id)) {
+            if ($this->getPackage($id)) {
                 $data['updated_at'] = time();
-                $data['updated_by'] = $subject->updated_by;
-                $subjectId = $this->tableGateway->update($data, array('id' => $id));
+                $data['updated_by'] = $package->updated_by;
+                $packageId = $this->tableGateway->update($data, array('id' => $id));
             } else {
-                throw new \Exception('Subject id does not exist');
+                throw new \Exception('Package id does not exist');
             }
         }
-        return $subjectId;
+        return $packageId;
     }
 
-    public function getSubject($id) {
+    public function getPackage($id) {
         $id = (int) $id;
         $rowset = $this->tableGateway->select(array('id' => $id));
         $row = $rowset->current();
@@ -112,12 +113,12 @@ class SubjectTable {
         return $row;
     }
 
-    public function getSubjectDetails($id) {
+    public function getPackageDetails($id) {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
-        $select->from(array('s' => 'subjects'));
-        $select->columns(array('id', 'title', 'code', 'status', 'image_path'));
-        $select->where(array('s.id' => $id));
+        $select->from(array('p' => 'package'));
+        $select->columns(array('id', 'title', 'code', 'status', 'image_path','description','price','duration','relevant_for','advantage','ff_classroom'));
+        $select->where(array('p.id' => $id));
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
