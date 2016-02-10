@@ -1,6 +1,6 @@
 <script>
     $(function () {
-        $('#cbp-fwslider').cbpFWSlider();
+        $('.slides').cbpFWSlider();
     });
 </script>
 <?php
@@ -16,157 +16,455 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
         ->prependStylesheet($this->basePath() . '/css/button.css');
 ?>
 </style>
-<div class="main"> 
-    <?php
-    $errorflashMessage = $this->flashMessenger()->getErrorMessages();
-    $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
-    if (empty($errorflashMessage) && !empty($successflashMessage)) {
-        ?>
-        <div id="global-success-msg-page" class="global-page-success">
-            <?php
-            foreach ($successflashMessage as $succMsg) {
-                echo $succMsg;
-            }
-            ?>
-
-        </div>
-    <?php } else { ?>
-        <div id="global-error-msg-page"   class="global-page-error"><?php
-            foreach ($errorflashMessage as $errMsg) {
-                echo $errMsg;
-            }
-            ?></div>
-    <?php } ?>
-    <div id="cbp-fwslider" class="cbp-fwslider wow fadeInLeft" data-wow-delay="0.4s" id="work">
-        <div class="slider-line"></div>
-        <ul>
-            <li><a href="#"><img src="<?php echo $this->basePath('img/slide0.jpg') ?>" class="img-responsive" alt="img01"/></a></li>
-            <li><a href="#"><img src="<?php echo $this->basePath('img/slide1.jpg'); ?>" class="img-responsive" alt="img02"/></a></li>
-            <li><a href="#"><img src="<?php echo $this->basePath('img/slide2.jpg') ?>" class="img-responsive" alt="img03"/></a></li>
-        </ul>
-        <script src="<?php echo $this->basePath('js/jquery.cbpFWSlider.min.js'); ?>" type="text/javascript"></script>
-    </div>
-    <div class="content-bottom wow fadeInLeft" data-wow-delay="0.4s" id="work">   
-        <div class="container">   
-            <div class="row">
-                <div class="col-md-8">
-<!--                    <iframe src="http://docs.google.com/gview?url=http://koolguru.co.in/ppt/Quadratic.pptx&embedded=true" style="width:600px;height:350px" frameborder="0"></iframe>-->
-                    <div class="welcome_desc">
-                        <h3>Our Team</h3>
-                        <div class="course_demo">
-                            <ul id="flexiselDemo3">	
-                                <li><img src="<?php echo $this->basePath('img/Abhijith V.JPG'); ?>" class="img-responsive" /><div class="desc">
-                                        <h3>ABHIJITH</h3>
-                                        <p>Abhijith is a graduate from IIM Bangalore (PGP 2013) and is currently working as Manager­market strategy 
-
-                                            in Mahindra & Mahindra.</p>
-                                    </div></li>
-                                <li><img src="<?php echo $this->basePath('img/Vatan Vindal.jpg'); ?>" class="img-responsive" /><div class="desc">
-                                        <h3>VATAN VINDAL</h3>
-                                        <p>Vatan Vindal is a Graduate from IIM Ahmedabad (PGP 2010) and is currently working with Autoload as Co-
-                                            founder and VP.</p>
-                                    </div></li>
-                                <li><img src="<?php echo $this->basePath('img/Padmini.jpg'); ?>" class="img-responsive" /><div class="desc">
-                                        <h3>PADMINI AGARWAL</h3>
-                                        <p>Padmini Agarwal is a B.tech in Mechanical Engg. from IIT Roorkee (2012) and is the founder of Koolguru.</p>
-                                    </div></li>
-                                <li><img src="<?php echo $this->basePath('img/Ankur.png'); ?>" class="img-responsive" /><div class="desc">
-                                        <h3>ANKUR AGARWAL</h3>
-                                        <p>Ankur Agrawal is a techie turned manager, MBA from IIFT Delhi(2015) and now works for Flipkart in
-
-                                            Lifestyle Strategy.</p>
-                                    </div></li>
-                                <li><img src="<?php echo $this->basePath('img/archit garg.jpg'); ?>" class="img-responsive" /><div class="desc">
-                                        <h3>ARCHIT GARG</h3>
-                                        <p>A classic case example of the new­age Jugaad entreprenuer, Archit Garg is a B.tech in Mechanical Engg.
-
-                                            from IIT Roorkee (2012).</p>
-                                    </div></li>
-                                <li><img src="<?php echo $this->basePath('img/devanshu.jpg'); ?>" class="img-responsive" /><div class="desc">
-                                        <h3>Devanshu Nagpal</h3>
-                                        <p>Co Founder &  Chief Advisor  KoolGuru , BE M.I.T  Manipal & MBA I.M.I Delhi , Currently Business Manager with an leading Fortune  MNC . More  than a  decade experience  in various domain with leading fortune brands. </p>
-                                    </div></li>
-                                <li><img src="<?php echo $this->basePath('img/sudershan.jpg'); ?>" class="img-responsive" /><div class="desc">
-                                        <h3>Mrs. Sudershan Nagpal</h3>
-                                        <p>Co Founder & Head administration and  Students counselling Kool Guru,PG with 35+Years Rich teaching experience & Students counselling.
-</p>
-                                    </div></li>
-                            </ul>
-                            <script type="text/javascript">
-    $(window).load(function () {
-        $("#flexiselDemo3").flexisel({
-            visibleItems: 4,
-            animationSpeed: 1000,
-            autoPlay: true,
-            autoPlaySpeed: 3000,
-            pauseOnHover: true,
-            enableResponsiveBreakpoints: true,
-            responsiveBreakpoints: {
-                portrait: {
-                    changePoint: 480,
-                    visibleItems: 1
-                },
-                landscape: {
-                    changePoint: 640,
-                    visibleItems: 2
-                },
-                tablet: {
-                    changePoint: 768,
-                    visibleItems: 2
-                }
-            }
-        });
-
-    });
-                            </script>
-                            <script type="text/javascript" src="<?php echo $this->basePath('js/jquery.flexisel.js'); ?>"></script>
-                        </div>
-                    </div>
+<div class="carousel">
+    <div class="container overflow-hidden pos-rel">
+        <div class="white-left-arrow"></div>
+        <div class="white-right-arrow"></div>
+        <div class="slides">
+            <div class="container">
+                <div class="text-slide">
+                    <h1>MOTIVATION REDEFINED</h1>
+                    <p>“ Innovate to Educate” With this Slogan in mind, we are here to revolutionize the education process & learning methodology . For us Education is pure passion not an Industry , an art of learning , teaching & Knowledge sharing .</p>
+                    <!--<button type="button" class="more-button"> More Details</button>-->
                 </div>
-                <div class="col-md-4 middle_right"> 
-                    <div class="container">
-                        <main>
-                            <label for="tab1" id='tab-1' class="kooltab enabletab activetab" onclick="app.demoVideotab.openTag(1)">Motivational Video</label>                
-                            <label for="tab2" id='tab-2' class="kooltab enabletab activetab" onclick="app.demoVideotab.openTag(2)"><span>Why KoolGuru</span></label>                
-                        </main>
-                    </div>
-                    <div class="tabs" id='content-1'>
-                        <br>
-                        <video id="video-1" class="video-js vjs-default-skin" preload="auto" controls preload="auto" width="400px" height="300px"
-                               poster=""
-                               data-setup='{"example_option":true}'>
-                            <source src="http://koolguru.co.in/video/v1.mp4" type='video/mp4' onclick="demo_vedi_click(this)"/>
-                        </video>
-                    </div>
-                    <div class="tabs" id='content-2'>
-                        <br>
-                        <video id="video-2" class="video-js vjs-default-skin" preload="auto" controls preload="auto" width="400px" height="300px"
-                               poster="http://video-js.zencoder.com/oceans-clip.png"
-                               data-setup='{"example_option":true}'>
-                            <source src="http://koolguru.co.in/video/v2.mp4" type='video/mp4' />
-                        </video>
-                    </div>
-                    <?php if ($roleCode == '') { ?>
-                        <span class="button-wrap" style="margin-top:10px">
-                            <a href="<?php echo $this->url('student') ?>" class="button button-pill button-raised button-primary">Register Now</a>
-                        </span>
-                        <span class="button-wrap" style="margin-top:10px">
-                            <a href="<?php echo $this->url('demoquiz') ?>" class="button button-pill button-raised button-primary">Demo Chapter</a>
-                        </span>
-                    <?php } ?>
+                <div class="video-slide">
+                    <video width="500" height="270" poster="css_theme/images/koolguru_poster.png" controls="true" autoplay>
+                        <source src="http://koolguru.co.in/video/v1.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </div>
+
+        <div class="slides">
+            <div class="container">
+                <div class="text-slide">
+                    <h1>EXCITING CHANGES</h1>
+                    <p>Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old
+                        Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
+                    <button type="button" class="more-button"> More Details</button>
+                </div>
+                <div class="video-slide">
+                    <img src="css_theme/images/carousel-image.png" alt="">
+                </div>
+            </div>
+        </div>
+
+
+        <div class="slides">
+            <img src="css_theme/images/img1.png" alt=""/>
+        </div>
+        <div class="slides">
+            <img src="css_theme/images/img1.png" alt=""/>
+        </div>
+
     </div>
 </div>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('.kooltab').each(function () {
-            var tabid = $(this).attr('id');
-            tabid = tabid.replace("tab-", "");
-            app.demoVideotab.hidetab(parseInt(tabid));
-        });
-        $('#tab-1').click();
-    });
+<div class="container">
+    <div class="wpb_wrapper ">
 
-</script>
+        <div class="heading separator_align_center heading-v10 space-20">
+            <div class="heading-inner">
+                <h2>our Programs</h2>
+                <small class="subheading"> check out</small>
+            </div>    
+        </div>
+        <div class="widget wpo-educator-grid small">
+
+            <div class="widget-content tribe-events-list">
+                <div>		
+                    <div class="fixed-width-250">
+                        <article class="course course-item"> 
+                            <div class="course-image">
+                                <a href=""><img width="870" height="593" src="css_theme/images/courses-9.jpg" class="attachment-course-image wp-post-image" alt="courses-9"></a>
+                                <div class="ib-edu-course-price">
+                                    <span class="label-free">Free</span>
+
+                                </div>
+                            </div>
+                            <div class="course-inner">
+                                <div class="course-header">
+                                    <h4><a href="">WordPress Suite</a></h4>
+                                    <div class="author"><span>Teacher  <a href="" title="Delpan Anna">Delpan Anna</a></span></div>
+                                </div>
+                                <div class="course-meta">
+                                    <div class="left">
+                                        <span class="duration"><i class="uicon icon-duration"></i> 
+                                            <span class="val">1 year </span>
+                                        </span>				
+
+                                        <span class="lesson"><i class="uicon icon-lesson"></i>7  Lessons</span>			
+                                    </div>
+                                    <div class="right"> 
+                                        <div class="course-rating">
+                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
+                                    </div> 	
+                                </div>
+                            </div>	
+                        </article> 
+                    </div>	
+
+                    <div class="fixed-width-250">
+                        <article class="course course-item"> 
+                            <div class="course-image">
+                                <a href=""><img width="870" height="593" src="css_theme/images/courses-8.jpg" class="attachment-course-image wp-post-image" alt="courses-9"></a>
+                                <div class="ib-edu-course-price">
+                                    <span class="label-free">Free</span>
+
+                                </div>
+                            </div>
+                            <div class="course-inner">
+                                <div class="course-header">
+                                    <h4><a href="">Java Development Suite</a></h4>
+                                    <div class="author"><span>Teacher  <a href="" title="Delpan Anna">Delpan Anna</a></span></div>
+                                </div>
+                                <div class="course-meta">
+                                    <div class="left">
+                                        <span class="duration"><i class="uicon icon-duration"></i> 
+                                            <span class="val">1 year </span>
+                                        </span>				
+
+                                        <span class="lesson"><i class="uicon icon-lesson"></i>7  Lessons</span>			
+                                    </div>
+                                    <div class="right"> 
+                                        <div class="course-rating">
+                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
+                                    </div> 	
+                                </div>
+                            </div>	
+                        </article> 
+                    </div>	
+                    <div class="fixed-width-250">
+                        <article class="course course-item"> 
+                            <div class="course-image">
+                                <a href=""><img width="870" height="593" src="css_theme/images/courses-7.jpg" class="attachment-course-image wp-post-image" alt="courses-9"></a>
+                                <div class="ib-edu-course-price">
+                                    <span class="label-free">Free</span>
+
+                                </div>
+                            </div>
+                            <div class="course-inner">
+                                <div class="course-header">
+                                    <h4><a href="">Visual Studio Training</a></h4>
+                                    <div class="author"><span>Teacher  <a href="" title="Delpan Anna">Delpan Anna</a></span></div>
+                                </div>
+                                <div class="course-meta">
+                                    <div class="left">
+                                        <span class="duration"><i class="uicon icon-duration"></i> 
+                                            <span class="val">1 year </span>
+                                        </span>				
+
+                                        <span class="lesson"><i class="uicon icon-lesson"></i>7  Lessons</span>			
+                                    </div>
+                                    <div class="right"> 
+                                        <div class="course-rating">
+                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
+                                    </div> 	
+                                </div>
+                            </div>	
+                        </article> 
+                    </div>	
+                    <div class="fixed-width-250">
+                        <article class="course course-item"> 
+                            <div class="course-image">
+                                <a href=""><img width="870" height="593" src="css_theme/images/courses-1.jpg" class="attachment-course-image wp-post-image" alt="courses-9"></a>
+                                <div class="ib-edu-course-price">
+                                    <span class="label-free">Free</span>
+
+                                </div>
+                            </div>
+                            <div class="course-inner">
+                                <div class="course-header">
+                                    <h4><a href="">Joomla Development</a></h4>
+                                    <div class="author"><span>Teacher  <a href="" title="Delpan Anna">Delpan Anna</a></span></div>
+                                </div>
+                                <div class="course-meta">
+                                    <div class="left">
+                                        <span class="duration"><i class="uicon icon-duration"></i> 
+                                            <span class="val">1 year </span>
+                                        </span>				
+
+                                        <span class="lesson"><i class="uicon icon-lesson"></i>7  Lessons</span>			
+                                    </div>
+                                    <div class="right"> 
+                                        <div class="course-rating">
+                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
+                                    </div> 	
+                                </div>
+                            </div>	
+                        </article> 
+                    </div>	
+
+
+
+
+                </div>
+            </div>	
+        </div></div>
+</div>
+
+
+<div class="bg-style-dark green-bg">
+
+    <div class="container watch-video pos-rel">
+
+        <div class="mkdf-section-inner-margin clearfix left-section">
+            <div class="mkdf-section-title-holder">
+                <h2 class="mkdf-section-title mkdf-section-title-large text-align-left"> Why Koolguru</h2>
+            </div>
+            <div class="mkdf-section-subtitle-holder">
+                <p class="mkdf-section-subtitle">We envision to revolutionize the education making it more greener, affordable and result-oriented.</p>
+            </div>
+
+
+        </div>
+        <div class="wpb_column vc_column_container right-section">
+            <a class="mkdf-video-banner-link">
+                <video width="520" height="320" poster="css_theme/images/video-banner.png" controls>
+                    <source src="http://koolguru.co.in/video/v2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-list pos-rel">
+                    <!--                    <div class="white-left-arrow"></div>
+                                        <div class="white-right-arrow"></div>-->
+
+                    <!--                    <ul>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                    
+                                        </ul>-->
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-style-dark">
+    <div class="container pos-rel">
+        <div class="white-left-arrow"></div>
+        <div class="white-right-arrow"></div>
+
+        <div class="heading separator_align_center heading-v10 space-20 light-style">
+            <div class="heading-inner">
+                <h2>People behind story</h2>
+                <small class="subheading"> our team</small>
+            </div>    
+        </div>
+        <div class=" widget wpo-testimonial v6 light-style space-top-40">
+
+            <!-- Skin 1 -->
+            <div class="testimonials-v6">
+                <div class="testimonials-body">
+
+                    <div class="left">
+                        <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Abhijith V.JPG'); ?>" class="attachment-widget" alt="testimonial - 3"></div>
+                    </div>
+                    <div class="right">
+                        <h5 class="testimonials-name">
+                            ABHIJITH            </h5>  
+                        <!--<div class="text-muted testimonials-position"><p>Developer</p>-->
+                        <!--</div>-->  
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="testimonials-description"><p>Abhijith is a graduate from IIM Bangalore (PGP 2013) and is currently working as Manager­market strategy 
+
+                            in Mahindra & Mahindra.</p>
+                    </div>                                          
+
+                </div>                      
+            </div>
+
+            <div class="testimonials-v6">
+                <div class="testimonials-body">
+
+                    <div class="left">
+                        <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Vatan Vindal.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                    </div>
+                    <div class="right">
+                        <h5 class="testimonials-name">
+                            VATAN VINDAL            </h5>  
+                        <div class="text-muted testimonials-position"><p>Co-Founder</p>
+                        </div>  
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="testimonials-description"><p>Vatan Vindal is a Graduate from IIM Ahmedabad (PGP 2010) and is currently working with Autoload as Co-
+                            founder and VP.</p>
+                    </div>                                          
+
+                </div>                      
+            </div>
+
+            <div class="testimonials-v6">
+                <div class="testimonials-body">
+
+                    <div class="left">
+                        <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Padmini.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                    </div>
+                    <div class="right">
+                        <h5 class="testimonials-name">
+                            PADMINI AGARWAL            </h5>  
+                        <div class="text-muted testimonials-position"><p>Founder</p>
+                        </div>  
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="testimonials-description"><p>Padmini Agarwal is a B.tech in Mechanical Engg. from IIT Roorkee (2012) and is the founder of Koolguru.</p>
+                    </div>                                          
+
+                </div>                      
+            </div>
+            <div class="testimonials-v6">
+                <div class="testimonials-body">
+
+                    <div class="left">
+                        <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Ankur.png'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                    </div>
+                    <div class="right">
+                        <h5 class="testimonials-name">
+                            ANKUR AGARWAL            </h5>  
+                        <div class="text-muted testimonials-position"><p></p>
+                        </div>  
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="testimonials-description"><p>Ankur Agrawal is a techie turned manager, MBA from IIFT Delhi(2015) and now works for Flipkart in
+
+                            Lifestyle Strategy.</p>
+                    </div>                                          
+
+                </div>                      
+            </div>
+            <div class="testimonials-v6">
+                <div class="testimonials-body">
+
+                    <div class="left">
+                        <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/archit garg.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                    </div>
+                    <div class="right">
+                        <h5 class="testimonials-name">
+                            ARCHIT GARG           </h5>  
+                        <div class="text-muted testimonials-position"><p></p>
+                        </div>  
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="testimonials-description"><p>A classic case example of the new­age Jugaad entreprenuer, Archit Garg is a B.tech in Mechanical Engg.
+
+                            from IIT Roorkee (2012).</p>
+                    </div>                                          
+
+                </div>                      
+            </div>
+            <div class="testimonials-v6">
+                <div class="testimonials-body">
+
+                    <div class="left">
+                        <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/devanshu.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                    </div>
+                    <div class="right">
+                        <h5 class="testimonials-name">
+                            Devanshu Nagpal            </h5>  
+                        <div class="text-muted testimonials-position"><p>Co-Founder</p>
+                        </div>  
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="testimonials-description"><p>Co Founder &  Chief Advisor  KoolGuru , BE M.I.T  Manipal & MBA I.M.I Delhi , Currently Business Manager with an leading Fortune  MNC . More  than a  decade experience  in various domain with leading fortune brands.</p>
+                    </div>                                          
+
+                </div>                      
+            </div>
+            <div class="testimonials-v6">
+                <div class="testimonials-body">
+
+                    <div class="left">
+                        <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/sudershan.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                    </div>
+                    <div class="right">
+                        <h5 class="testimonials-name">
+                            Mrs. Sudershan Nagpal            </h5>  
+                        <div class="text-muted testimonials-position"><p>Co-Founder</p>
+                        </div>  
+                    </div>
+
+                    <div class="clearfix"></div>
+
+                    <div class="testimonials-description"><p>Co Founder & Head administration and  Students counselling Kool Guru,PG with 35+Years Rich teaching experience & Students counselling.</p>
+                    </div>                                          
+
+                </div>                      
+            </div>
+
+
+        </div>		
+    </div>
+</div>
+<div class="panel-row-style-thim-bg-overlay siteorigin-panels-stretch thim-bg-overlay article__parallax panel-row-style" style="min-height: 615px;padding-left: 74.5px; padding-right: 74.5px; border-left-width: 0px; border-right-width: 0px; background-image: url(css_theme/images/bg-register-now.jpg);">
+    <div class="panel-grid-cell">
+        <div class="so-panel widget widget_text panel-first-child" id="panel-12-3-0-0">
+            <div class="textwidget">
+                <div class="thim-get-100s">
+                    <p class="get-100s">Get your choice of online <span class="thim-color">Courses </span></p>
+                    <h2><a href="<?php echo $this->url('student') ?>">Register Now</a></h2>
+                </div>
+            </div>
+        </div>
+        <!--        <div class="so-panel widget widget_countdown-box panel-last-child">
+                    <div class="thim-widget-countdown-box thim-widget-countdown-box-base">
+                        <div class="text-left color-white" >
+                            <div class="counter-group" id="myCounter">
+                                <div class="counter-block">
+                                    <div class="counter days">
+                                        <div class="number show n1 hundreds">0</div>
+                                    </div>
+                                    <div class="counter-caption">days</div>
+                                </div>
+                                <div class="counter-block">
+                                    <div class="counter hours">
+                                        <div class="number show n1 tens">0</div>
+                                    </div>
+                                    <div class="counter-caption">hours</div>
+                                </div>
+                                <div class="counter-block">
+                                    <div class="counter minutes">
+                                        <div class="number n1 tens show" style="top: 0px;">4</div>
+                                    </div>
+                                    <div class="counter-caption">minutes</div>
+                                </div>
+                                <div class="counter-block">
+                                    <div class="counter seconds">
+                                        <div class="number hidden-up n2 tens show" style="top: 0px;">5</div>
+                                    </div>
+                                    <div class="counter-caption">seconds</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+        <div class="panel-grid-cell">
+            <div class="so-panel widget widget_text panel-first-child panel-last-child" >
+                <div class="textwidget">
+                    <div class="thim-register-now-form">
+                        <h3 class="title"><span>Go For  demo quiz</span></h3>
+                        <div class="wpcf7" >
+                            <div class="screen-reader-response"></div><p><a href="<?php echo $this->url('demoquiz') ?>" class="wpcf7-form-control wpcf7-submit">Demo Chapter</a></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>	
+</div>
