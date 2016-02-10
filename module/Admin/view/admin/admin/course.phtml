@@ -1,6 +1,6 @@
 <?php
 $errorflashMessage = $this->flashMessenger()->getErrorMessages();
-$title = 'Manage Career Path';
+$title = 'Manage Courses';
 $this->headTitle($title);
 $default_order = 'ASC';
 $url_order = $this->order == 'ASC' ? 'DESC' : 'ASC';
@@ -52,7 +52,7 @@ if (!$this->isAjax) {
             <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                 <div class="sub-header-actions">
                     <!--<a class="big-btn green-btn import-btn" id="import_center" href="#">IMPORT</a>-->
-                    <a class="big-btn green-btn" href="<?php echo $this->url('admin', array('action' => 'addcarrierpath')); ?>">CREATE</a>
+                    <a class="big-btn green-btn" href="<?php echo $this->url('admin', array('action' => 'addcourse')); ?>">CREATE</a>
                 </div>
             <?php } ?>
 
@@ -83,7 +83,7 @@ if (!$this->isAjax) {
         <?php } ?>
         <?php
         $search_form = $this->form;
-        $search_form->setAttribute('action', $this->url('admin', array('action' => 'carrierpath')));
+        $search_form->setAttribute('action', $this->url('admin', array('action' => 'course')));
         $search_form->prepare();
         echo $this->form()->openTag($search_form);
         ?>
@@ -129,24 +129,14 @@ if (!$this->isAjax) {
                             <a href="javascript:void(0);">ID<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="name">
-                            <a href="javascript:void(0);">NAME<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);">Title<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="type">
-                            <a href="javascript:void(0);">Message<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);">Code<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="type">
-                            <a href="javascript:void(0);">Minimum Verbal Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);">Description<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
-                        <th class="type">
-                            <a href="javascript:void(0);">Maximum Verbal Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
-                        </th>
-                        <th class="type">
-                            <a href="javascript:void(0);">Minimum Quantitative Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
-                        </th>
-                        <th class="type">
-                            <a href="javascript:void(0);">Maximum Quantitative Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
-                        </th>
-                        
                         <?php if ($roleCode == 'sa') { ?>
                             <th class="actions">ACTIONS</th>
                         <?php } ?>
@@ -167,22 +157,13 @@ if (!$this->isAjax) {
                             <a href="javascript:void(0);" onclick="grid.sort('id', '<?php echo ($this->order_by == 'id') ? $url_order : $default_order; ?>');">ID<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="name">
-                            <a href="javascript:void(0);" onclick="grid.sort('name', '<?php echo ($this->order_by == 'name') ? $url_order : $default_order; ?>');">NAME<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);" onclick="grid.sort('title', '<?php echo ($this->order_by == 'title') ? $url_order : $default_order; ?>');">Title<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="name">
-                            <a href="javascript:void(0);" onclick="grid.sort('msg', '<?php echo ($this->order_by == 'msg') ? $url_order : $default_order; ?>');">Message<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);" onclick="grid.sort('code', '<?php echo ($this->order_by == 'code') ? $url_order : $default_order; ?>');">Code<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="name">
-                            <a href="javascript:void(0);" onclick="grid.sort('min_verbal_perc', '<?php echo ($this->order_by == 'min_verbal_perc') ? $url_order : $default_order; ?>');">Minimum Verbal Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
-                        </th>
-                        <th class="name">
-                            <a href="javascript:void(0);" onclick="grid.sort('max_verbal_perc', '<?php echo ($this->order_by == 'max_verbal_perc') ? $url_order : $default_order; ?>');">Maximum Verbal Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
-                        </th>
-                        <th class="name">
-                            <a href="javascript:void(0);" onclick="grid.sort('min_quant_perc', '<?php echo ($this->order_by == 'min_quant_perc') ? $url_order : $default_order; ?>');">Minimum Quantitative Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
-                        </th>
-                        <th class="name">
-                            <a href="javascript:void(0);" onclick="grid.sort('min_quant_perc', '<?php echo ($this->order_by == 'min_quant_perc') ? $url_order : $default_order; ?>');">Maximum Quantitative Ability(in % )<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);" onclick="grid.sort('description', '<?php echo ($this->order_by == 'description') ? $url_order : $default_order; ?>');">Description<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         
                         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
@@ -196,15 +177,12 @@ if (!$this->isAjax) {
                         ?>
                         <tr>
                             <td class="id"><?php echo $this->escapeHtml($level['id']); ?></td>
-                            <td class="name"><a class="blue-anchor" href="<?php echo $this->url('level', array('action' => 'view', 'id' => $level['id'])); ?>"><?php echo $this->escapeHtml($level['name']); ?></a></td>
-                            <td class="type"><?php echo $this->escapeHtml($level['msg']); ?></td>
-                            <td class="type"><?php echo $this->escapeHtml($level['min_verbal_perc']); ?></td>
-                            <td class="type"><?php echo $this->escapeHtml($level['max_verbal_perc']); ?></td>
-                            <td class="type"><?php echo $this->escapeHtml($level['min_quant_perc']); ?></td>
-                            <td class="type"><?php echo $this->escapeHtml($level['max_quant_perc']); ?></td>
+                            <td class="name"><a class="blue-anchor" href="<?php echo $this->url('admin', array('action' => 'course', 'id' => $level['id'])); ?>"><?php echo $this->escapeHtml($level['title']); ?></a></td>
+                            <td class="type"><?php echo $this->escapeHtml($level['code']); ?></td>
+                            <td class="type"><?php echo $this->escapeHtml($level['description']); ?></td>                            
                             <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                                 <td class="actions">
-                                    <a href="<?php echo $this->url('admin', array('action' => 'editcarrierpath', 'id' => $level['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
+                                    <a href="<?php echo $this->url('admin', array('action' => 'editcourse', 'id' => $level['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
                                 </td>
                             <?php } ?>
                         </tr>
@@ -256,7 +234,7 @@ if (!$this->isAjax) {
 
             <?php
         }
-        $this->inlineScript()->appendFile('../js/koolguru/searchgrid.js');
+        $this->inlineScript()->appendFile('js/koolguru/searchgrid.js');
         ?>
 
     </div>

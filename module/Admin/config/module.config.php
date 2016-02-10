@@ -52,6 +52,36 @@ return array(
                     ),
                 ),
             ),
+            
+            'course' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/course[/:action][/:id][/page/:page][/msg/:msg]',
+                    'constraints' => array(
+                        'action' => '(?!\bpage\b)[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Admin\Controller\Admin',
+                        'action' => 'course',
+                    ),
+                ),
+            ),
+            
+            'addcourse' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/addcourse[/:action][/:id][/page/:page][/msg/:msg]',
+                    'constraints' => array(
+                        'action' => '(?!\bpage\b)[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Admin\Controller\Admin',
+                        'action' => 'addcourse',
+                    ),
+                ),
+            ),
         ),
     ),    
     'view_manager' => array(
