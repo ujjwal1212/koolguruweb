@@ -25,19 +25,27 @@ class CourseForm extends Form {
         ));
         
         $this->add(array(
+            'name' => 'image_path',
+            'attributes' => array(
+                'type' => 'file',
+                'id' => 'image_path',
+                'class' => 'input',
+                'accept'=>'image/*'
+            ),
+            'options' => array(
+                'label' => 'UPLOAD IMAGE',
+                'label_attributes' => array(
+                    'class' => 'label'
+                ),
+            ),
+        ));
+        
+        $this->add(array(
             'name' => 'status',
             'attributes' => array(
                 'type' => 'hidden',
             ),
         ));
-        
-        $this->add(array(
-            'name' => 'image_path',
-            'attributes' => array(
-                'type' => 'hidden',
-            ),
-        ));
-        
         
         
         $this->add(array(
