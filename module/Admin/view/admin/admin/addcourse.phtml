@@ -67,6 +67,10 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 
                 <ul>
                     <li class="form-row">                    
+                        <label class='label'>UPLOAD IMAGE: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('image_path')); ?>
+                    </li>
+                    <li class="form-row">                    
                         <label class='label'>Course Title: <span class='required'>*</span></label>
                         <?php echo $this->formElement($form->get('title')); ?>
                     </li>
