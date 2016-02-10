@@ -319,15 +319,36 @@ class AdminController extends AbstractActionController {
             $form->setInputFilter($course->getInputFilter());
             $form->setData($data);
             if ($form->isValid()) {
-                $course->exchangeArray($form->getData());
-                $data->created_at = time();
-                $data->created_by = $session->offsetGet('userId');
-                $data->updated_at = time();
-                $data->updated_by = $session->offsetGet('userId');
-
-                $Id = $this->getCourseTable()->saveCourse($course);
-                $this->flashMessenger()->setNamespace('success')->addMessage('Course created successfully');
-                return $this->redirect()->toRoute('course');
+                $validatorName = new \Zend\Validator\Db\NoRecordExists(
+                        array(
+                            'table' => 'course',
+                            'field' => 'title',
+                            'adapter' => $this->getAdapter()
+                        )
+                );
+                
+                if ($validatorName->isValid(trim($course->title))) {
+                    $no_duplicate_data = 1;
+                } else {
+                    $flashMessage = $this->flashMessenger()->getErrorMessages();
+                    if (empty($flashMessage)) {
+                        $this->flashMessenger()->setNamespace('error')->addMessage('Course Name already Exists.');
+                    }
+                    $no_duplicate_data = 0;
+                }
+                
+                if ($no_duplicate_data == 1) {
+                    $course->exchangeArray($form->getData());
+                    $imagePath = $this->uploadImage($course->code);
+                    $course->image_path = $imagePath;                    
+                    $data->created_at = time();
+                    $data->created_by = $session->offsetGet('userId');
+                    $data->updated_at = time();
+                    $data->updated_by = $session->offsetGet('userId');
+                    $Id = $this->getCourseTable()->saveCourse($course);
+                    $this->flashMessenger()->setNamespace('success')->addMessage('Course created successfully');
+                    return $this->redirect()->toRoute('course');
+                }
             }
         }
 
@@ -396,6 +417,19 @@ class AdminController extends AbstractActionController {
             }
         }
         return array('form' => $form, 'courseDetail' => $courseDetail, 'id' => $id, 'page' => $page);
+    }
+    
+    public function uploadImage($code) {
+        if (isset($_FILES['image_path']['name'])) {
+            $fileNameArr = explode('.', $_FILES['image_path']['name']);
+            $fileName = $code . '.' . $fileNameArr[1];
+            $targetDir = realpath(__DIR__ . '../../../../../../') . '/data/images/';
+            $targetFile = $targetDir . $fileName;
+            move_uploaded_file($_FILES["image_path"]["tmp_name"], $targetFile);
+            return $targetFile;
+        } else {
+            return NULL;
+        }
     }
 
     public function contactQueryAction() {
