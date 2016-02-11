@@ -1,6 +1,6 @@
 <?php
 
-namespace Subject\Controller;
+namespace Chapter\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
@@ -11,7 +11,7 @@ use Subject\Form\SubjectForm;
 use Subject\Model\Subject;
 use Subject\Model\SubjectTable;
 
-class SubjectController extends AbstractActionController {
+class ChapterController extends AbstractActionController {
 
     protected $adapter;
     protected $subjectTable;

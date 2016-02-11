@@ -13,6 +13,7 @@ class Course implements InputFilterAwareInterface {
     public $title;
     public $code;
     public $description;
+    public $isdemo;
     public $status;
     public $image_path;
     public $created_at;
@@ -28,6 +29,7 @@ class Course implements InputFilterAwareInterface {
         $this->title = (isset($data['title'])) ? $data['title'] : null;
         $this->code = (isset($data['code'])) ? $data['code'] : null;        
         $this->description = (isset($data['description'])) ? $data['description'] : null;
+        $this->isdemo = (isset($data['isdemo'])) ? $data['isdemo'] : null;
         $this->status = (isset($data['status'])) ? $data['status'] : null;
         $this->image_path = (isset($data['image_path'])) ? $data['image_path'] : null;                
         $this->created_at = (isset($data['created_at'])) ? $data['created_at'] : null;

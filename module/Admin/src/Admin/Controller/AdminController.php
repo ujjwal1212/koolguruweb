@@ -339,7 +339,9 @@ class AdminController extends AbstractActionController {
                 
                 if ($no_duplicate_data == 1) {
                     $course->exchangeArray($form->getData());
-                    $imagePath = $this->uploadImage($course->code);
+                    if(isset($_FILES) && isset($_FILES['image_path']) && $_FILES['image_path']['name']!=''){
+                        $imagePath = $this->uploadImage($course->code);
+                    }                    
                     $course->image_path = $imagePath;                    
                     $data->created_at = time();
                     $data->created_by = $session->offsetGet('userId');
@@ -370,14 +372,17 @@ class AdminController extends AbstractActionController {
         $form = new CourseForm('carrier path');
 
         $courseDetail = $this->getCourseTable()->getCourse($id);
+        //asd($courseDetail);
 
         $form->get('id')->setValue($id);
         $form->bind($courseDetail);
+        $form->get('code')->setValue($courseDetail->code);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
             $course = new Course();
-            $data = $request->getPost();            
+            $data = $request->getPost();      
+            
             $course->exchangeArray($data);
             $form->setInputFilter($course->getInputFilter());
             $form->setData($data);
@@ -406,12 +411,12 @@ class AdminController extends AbstractActionController {
                     $no_duplicate_data = 0;
                 }
                 if ($no_duplicate_data == 1) {
-                    
+                    if(!empty($_FILES) && !empty($_FILES['image_path']) && $_FILES['image_path']['name']!=''){
+                       $imagePath = $this->uploadImage($course->code);
+                    }                    
                     $Id = $this->getCourseTable()->saveCourse($course);
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
                     $this->flashMessenger()->setNamespace('success')->addMessage('Course updated successfully');
-
-
                     return $this->redirect()->toRoute('course');
                 }
             }
@@ -425,6 +430,11 @@ class AdminController extends AbstractActionController {
             $fileName = $code . '.' . $fileNameArr[1];
             $targetDir = realpath(__DIR__ . '../../../../../../') . '/data/images/';
             $targetFile = $targetDir . $fileName;
+            if(file_exists($targetFile)){                
+                $split = explode('.',$_FILES['image_path']['name']);                
+                $newnamename = $targetDir . $split[0].'_1'.'.'.$split[1];
+                rename($targetFile,$newnamename);
+            }
             move_uploaded_file($_FILES["image_path"]["tmp_name"], $targetFile);
             return $targetFile;
         } else {

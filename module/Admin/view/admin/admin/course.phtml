@@ -137,6 +137,15 @@ if (!$this->isAjax) {
                         <th class="type">
                             <a href="javascript:void(0);">Description<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
+                        <th class="type">
+                            Status
+                        </th>
+                        <th class="type">
+                            Is demo
+                        </th>
+                        <th class="type">
+                            Course Image
+                        </th>
                         <?php if ($roleCode == 'sa') { ?>
                             <th class="actions">ACTIONS</th>
                         <?php } ?>
@@ -165,6 +174,15 @@ if (!$this->isAjax) {
                         <th class="name">
                             <a href="javascript:void(0);" onclick="grid.sort('description', '<?php echo ($this->order_by == 'description') ? $url_order : $default_order; ?>');">Description<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
+                        <th class="type">
+                            Status
+                        </th>
+                        <th class="type">
+                            Is demo
+                        </th>
+                        <th class="type">
+                            Course Image
+                        </th>
                         
                         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                             <th class="actions">ACTIONS</th>
@@ -179,7 +197,10 @@ if (!$this->isAjax) {
                             <td class="id"><?php echo $this->escapeHtml($level['id']); ?></td>
                             <td class="name"><a class="blue-anchor" href="<?php echo $this->url('admin', array('action' => 'course', 'id' => $level['id'])); ?>"><?php echo $this->escapeHtml($level['title']); ?></a></td>
                             <td class="type"><?php echo $this->escapeHtml($level['code']); ?></td>
-                            <td class="type"><?php echo $this->escapeHtml($level['description']); ?></td>                            
+                            <td class="type"><?php echo $this->escapeHtml($level['description']); ?></td> 
+                            <td class="type"><?php echo ($this->escapeHtml($level['status'])==1) ? 'Active' : 'Inactive'; ?></td>
+                            <td class="type"><?php echo ($this->escapeHtml($level['isdemo'])==1) ? 'Yes' : 'No'; ?></td>
+                            <td class="type"><img src="<?php echo $this->escapeHtml($level['image_path']); ?>"></img></td>
                             <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                                 <td class="actions">
                                     <a href="<?php echo $this->url('admin', array('action' => 'editcourse', 'id' => $level['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
