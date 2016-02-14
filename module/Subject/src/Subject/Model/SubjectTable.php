@@ -124,5 +124,38 @@ class SubjectTable {
                 ->toArray();
         return $resultset;
     }
+    
+    public function getSubjectList() {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('s' => 'subjects'));
+        $select->columns(array('id', 'title'));
+        
+
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        
+        return $resultset;
+    }
+    
+    public function getChapterSubjects($chapterid) {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('scm' => 'subject_chapter_map'));
+        $select->columns(array('chapter_id','subject_id'));
+        $select->join(array('s'=>'subjects'),'s.id = scm.subject_id',array('subjecttitle'=>'title'),'left');
+        $select->where(array('scm.chapter_id' => $chapterid));
+        
+
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        
+        return $resultset;
+    }
+    
+    
+   
 
 }
