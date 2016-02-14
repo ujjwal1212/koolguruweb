@@ -63,7 +63,8 @@ h4 a:hover,
 h5 a:hover,
 h6 a:hover,
 p a {
-    color: #43cb83
+    color: #43cb83;
+    text-decoration: none;
 }
 .mkdf-content,
 .mkdf-wrapper,
@@ -8644,10 +8645,11 @@ solid #ddd}
 .thim-bg-overlay{position:relative}.thim-bg-overlay:before{position:absolute;background:rgba(0,0,0,.6);left:0;right:0;bottom:0;top:0;z-index:0}
 .thim-bg-overlay>.panel-grid-cell{    position: absolute;
     top: 0;
+	left:74px;
     right: 0;}
 .thim-get-100s{padding-top:181px}
 .thim-get-100s .get-100s{color:#fff;font-size:24px;font-weight:700;line-height:30px;text-transform:uppercase;margin:0}
-.thim-get-100s h2{color:#fff;font-size:72px;line-height:75px;font-weight:700;text-transform:uppercase;margin:2px 0 10px}
+.thim-get-100s h2{color:#fff;font-size:62px;line-height:75px;font-weight:700;text-transform:uppercase;margin:2px 0 10px}
 .thim-best-industry{margin:-263px -2px 81px;position:relative}
 .thim-register-form-top{margin-top:-605px}
 .mo-openid-app-icons{text-align:center;position:relative;padding-bottom:60px;display:block!important}
@@ -8680,13 +8682,14 @@ solid #ddd}
     color: #ffb606;
 }
 .thim-register-now-form {
-    margin: 80px 0;
+    margin: 0;
     background: #fff;
-    position: relative;
     max-width: 400px;
     float: right;
     min-height: 453px;
-
+    top: -300px;
+    position: absolute;
+    right: 0;
 	}
 	.counter-group .counter-block {
     display: inline-block;
@@ -8846,3 +8849,12 @@ a:hover{ text-decoration: none;}
 .article__parallax{ overflow: hidden;}
 .width-30{ width:30%!important;}
 .footer-contact{    border-top: solid 1px #525252;padding: 13px 200px 4px 0;}
+a:hover, a:focus{ color:inherit; text-decoration: none;}
+.demo-chapter {
+    display: block;
+    text-decoration: none!important;
+    text-align: center;
+    max-width: 190px;
+    margin-left: 158px;
+    text-transform: uppercase;
+}

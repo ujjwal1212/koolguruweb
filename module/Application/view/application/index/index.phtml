@@ -417,6 +417,9 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
                 <div class="thim-get-100s">
                     <p class="get-100s">Get your choice of online <span class="thim-color">Courses </span></p>
                     <h2><a href="<?php echo $this->url('student') ?>">Register Now</a></h2>
+                    <a href="<?php echo $this->url('demoquiz') ?>" class="wpcf7-form-control wpcf7-submit demo-chapter">
+
+                        <input type="button" value="Free Demo Chapter" class="wpcf7-form-control wpcf7-submit"></a>
                 </div>
             </div>
         </div>
@@ -457,10 +460,14 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
             <div class="so-panel widget widget_text panel-first-child panel-last-child" >
                 <div class="textwidget">
                     <div class="thim-register-now-form">
-                        <h3 class="title"><span>Go For  demo quiz</span></h3>
+                        <h3 class="title"><span>Create your free account now and get immediate access to various online courses</span></h3>
                         <div class="wpcf7" >
-                            <div class="screen-reader-response"></div><p><a href="<?php echo $this->url('demoquiz') ?>" class="wpcf7-form-control wpcf7-submit">Demo Chapter</a></p>
-
+                       <form method="post" class="wpcf7-form">
+                     <p><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text" placeholder="Your Name *"></span> </p>
+                     <p><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text" placeholder="Email *"></span> </p>
+                     <p><span class="wpcf7-form-control-wrap phone"><input type="tel" name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text" placeholder="Phone *"></span></p>
+                     <p><input type="submit" value="Get It Now" class="wpcf7-form-control wpcf7-submit"></p>
+                    </form>
                         </div>
                     </div>
                 </div>
