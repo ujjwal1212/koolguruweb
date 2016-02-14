@@ -3367,3 +3367,10 @@ h1>a>img{
     width: 140px;
     height: 140px;
 }
+
+.mkdf-top-bar .widget_mkd_social_icon_widget a:hover{ text-decoration: none;}
+.mkdf-main-menu ul.dropdown-menu li a{    display: block;
+    width: 158px;
+    padding:12px;
+
+}
