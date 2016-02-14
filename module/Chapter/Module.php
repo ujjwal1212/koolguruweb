@@ -6,10 +6,11 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
-use Subject\Model\Category;
-use Subject\Model\CategoryTable;
-use Subject\Model\Subject;
-use Subject\Model\SubjectTable;
+use Chapter\Model\Chapter;
+use Chapter\Model\ChapterTable;
+use Chapter\Model\Subjectchapter;
+use Chapter\Model\SubjectchapterTable;
+
 
 class Module {
 
@@ -36,16 +37,27 @@ class Module {
     public function getServiceConfig() {
         return array(
             'factories' => array(
-                'Subject\Model\CategoryTable' => function($sm) {
-                    $tableGateway = $sm->get('CategoryTableGateway');
-                    $table = new CategoryTable($tableGateway);
+                'Chapter\Model\ChapterTable' => function($sm) {
+                    $tableGateway = $sm->get('ChapterTableGateway');
+                    $table = new ChapterTable($tableGateway);
                     return $table;
                 },
-                'CategoryTableGateway' => function ($sm) {
+                'ChapterTableGateway' => function ($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $resultSetPrototype = new ResultSet();
-                    $resultSetPrototype->setArrayObjectPrototype(new Category());
-                    return new TableGateway('category', $dbAdapter, null, $resultSetPrototype);
+                    $resultSetPrototype->setArrayObjectPrototype(new Chapter());
+                    return new TableGateway('chapters', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Chapter\Model\SubjectchapterTable' => function($sm) {
+                    $tableGateway = $sm->get('SubjectchapterTableGateway');
+                    $table = new SubjectchapterTable($tableGateway);
+                    return $table;
+                },
+                'SubjectchapterTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Subjectchapter());
+                    return new TableGateway('subject_chapter_map', $dbAdapter, null, $resultSetPrototype);
                 },
                 
             )
