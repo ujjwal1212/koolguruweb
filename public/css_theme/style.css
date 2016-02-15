@@ -8797,7 +8797,7 @@ div.wpcf7 .screen-reader-response {
     left: 0;
     top: 50%;
     margin-top: -32px;
-    opacity: .3;}
+    opacity: .3;cursor:pointer;}
 .right-arrow{ background:url(images/arrow-icon.png) no-repeat;    height: 64px;
     width: 64px;
     position: absolute;
@@ -8806,11 +8806,11 @@ div.wpcf7 .screen-reader-response {
     margin-top: -32px;
     opacity: .3;
  -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
-    transform: rotate(180deg);margin-right:-10px;}
-.white-right-arrow{ background:url(images/arrow-icon-white.png) no-repeat; height:64px; width:64px; position:absolute; right:0; background-size:40px; top:50%; margin-top:-40px;-ms-transform: rotate(180deg); /* IE 9 */
+    transform: rotate(180deg);margin-right:-10px;cursor:pointer}
+.white-right-arrow{ cursor:pointer;background:url(images/arrow-icon-white.png) no-repeat; height:64px; width:64px; position:absolute; right:0; background-size:40px; top:50%; margin-top:-40px;-ms-transform: rotate(180deg); /* IE 9 */
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);margin-right:-10px;}
-.white-left-arrow{ background:url(images/arrow-icon-white.png) no-repeat; height:64px; width:64px; position:absolute; left:0; background-size:40px;top:50%; margin-top:-15px; margin-left:-10px; }
+.white-left-arrow{ cursor:pointer;background:url(images/arrow-icon-white.png) no-repeat; height:64px; width:64px; position:absolute; left:0; background-size:40px;top:50%; margin-top:-15px; margin-left:-10px; }
 .pos-rel{ position:relative;}
 .video-slide img{ max-width:400px; max-height:400px;}
 .watch-video .white-left-arrow,.watch-video .white-right-arrow{ background-size:30px;background-position: top;}
@@ -8894,3 +8894,5 @@ a:hover, a:focus{ color:inherit; text-decoration: none;}
     white-space: normal;}
 .mkdf-testimonial-author .mkdf-testimonial-author-text {color:#666; font-size: 28px;text-align: center;    font-family: poppins;}
 .mkdf-testimonial-author .mkdf-testimonials-job {color:#aaa;font-size: 16px; text-align: center; display: block;    font-family: poppins;}
+.package-box-even{width:250px;height:170px;background:#A9D0F5;text-align: center;text-transform: uppercase;font-family: "Times New Roman", Times, serif;font-style: normal;font-size: 20px;font-weight: bold;color:#0B173B;padding: 40px 10px;}
+.package-box-odd{width:250px;height:170px;background:#F5D0A9;text-align: center;text-transform: uppercase;font-family: "Times New Roman", Times, serif;font-style: normal;font-size: 20px;font-weight: bold;color:#8A4B08;padding: 40px 10px;}
