@@ -228,7 +228,19 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                             </li></ul></li>
                     <li class="item-196 deeper parent"><span class="separator">
                             Legal</span>
-                        <ul class="nav-child unstyled small"><li><a href="#">Privacy Policy</a></li></ul></li></ul>
+                        <ul class="nav-child unstyled small">
+                            <li>
+                                <a href="#">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'faq')); ?>">Faq's</a>
+                            </li>
+                        </ul>
+                    </li>
+                
+                    
+                
+                </ul>
 
             </div>
             <div class="container footer-contact">
@@ -239,7 +251,7 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                     <ul>
                         <li><a href="<?php echo $this->url('home') ?>">Home</a></li>
                         <li><a href="#">Terms of use</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Privacy Policy</a></li>                        
                         <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'contactus')); ?>">Contact</a></li>
                     </ul>
                     <script type="text/javascript" async="async" defer="defer" data-cfasync="false" src="https://mylivechat.com/chatinline.aspx?hccid=73064553"></script>
