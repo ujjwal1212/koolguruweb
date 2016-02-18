@@ -1,21 +1,17 @@
 <?php
 
-namespace Student\Model;
+namespace Chapter\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-class Course implements InputFilterAwareInterface {
+class Subjectchapter implements InputFilterAwareInterface {
 
     public $id;
-    public $title;
-    public $code;
-    public $description;
-    public $isdemo;
-    public $status;
-    public $image_path;
+    public $chapter_id;
+    public $subject_id;        
     public $created_at;
     public $created_by;
     public $updated_at;
@@ -26,12 +22,8 @@ class Course implements InputFilterAwareInterface {
 
     public function exchangeArray($data) {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
-        $this->title = (isset($data['title'])) ? $data['title'] : null;
-        $this->code = (isset($data['code'])) ? $data['code'] : null;        
-        $this->description = (isset($data['description'])) ? $data['description'] : null;
-        $this->isdemo = (isset($data['isdemo'])) ? $data['isdemo'] : null;
-        $this->status = (isset($data['status'])) ? $data['status'] : null;
-        $this->image_path = (isset($data['image_path'])) ? $data['image_path'] : null;                
+        $this->chapter_id = (isset($data['chapter_id'])) ? $data['chapter_id'] : null;
+        $this->subject_id = (isset($data['subject_id'])) ? $data['subject_id'] : null;  
         $this->created_at = (isset($data['created_at'])) ? $data['created_at'] : null;
         $this->created_by = (isset($data['created_by'])) ? $data['created_by'] : null;
         $this->updated_at = (isset($data['updated_at'])) ? $data['updated_at'] : null;
@@ -62,29 +54,6 @@ class Course implements InputFilterAwareInterface {
 
             $inputFilter = new InputFilter();
             $factory = new InputFactory();
-
-            $inputFilter->add($factory->createInput(array(
-                        'name' => 'title',
-                        'required' => true,
-                        'filters' => array(
-                            array(
-                                'name' => 'StripTags'
-                            ),
-                            array(
-                                'name' => 'StringTrim'
-                            )
-                        ),
-                        'validators' => array(
-                            array(
-                                'name' => 'NotEmpty',
-                                'options' => array(
-                                    'messages' => array(
-                                        $isEmpty => 'Title can not be left blank.'
-                                    )
-                                )
-                            )
-                        )
-            )));
 
             $this->inputFilter = $inputFilter;
 }

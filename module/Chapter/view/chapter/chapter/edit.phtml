@@ -1,7 +1,7 @@
 <?php
-$this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/subject/subject.js');
+$this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/chapter/chapter.js');
 $form = $this->form;
-$form->setAttribute('action', $this->url('subject', array('action' => 'add')));
+$form->setAttribute('action', $this->url('chapter', array('action' => 'edit', 'id' => $id, 'page' => $page)));
 $form->setAttribute('class', 'detect_changes');
 $form->prepare();
 echo $this->form()->openTag($form);
@@ -11,9 +11,9 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
     <div class="container">
         <div class="sub-header-title">
             <?php
-            $title = 'Create Subject';
+            $title = 'Edit Chapter';
             ?>
-            <a class="back-icon" href="<?php echo $this->url('subject', array('action' => 'index')); ?>"></a>
+            <a class="back-icon" href="<?php echo $this->url('chapter', array('action' => 'index')); ?>"></a>
             <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
                 <?php
                 /* Adding Breadcrumb */
@@ -63,29 +63,39 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
             <section id="basic_details">
                 <?php
                 echo $this->formHidden($form->get('id'));
+                
                 ?>
 
                 <ul>
                     <li class="form-row">                    
-                        <label class='label'>UPLOAD IMAGE: <span class='required'>*</span></label>
-                        <?php echo $this->formElement($form->get('image_path')); ?>
-                    </li>
-                    <li class="form-row">                    
-                        <label class='label'>SUBJECT CODE: <span class='required'>*</span></label>
-                        <?php echo $this->formElement($form->get('code')); ?>
-                    </li>
-                    <li class="form-row">                    
-                        <label class='label'>SUBJECT NAME: <span class='required'>*</span></label>
+                        <label class='label'>Chapter Title: <span class='required'>*</span></label>
                         <?php echo $this->formElement($form->get('title')); ?>
                     </li>
                     <li class="form-row">                    
-                        <label class='label'>IS ACTIVE: </label>
+                        <label class='label'>Description: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('content')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>Is Demo: </label>
+                        <?php echo $this->formElement($form->get('isdemo')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>Status: </label>
                         <?php echo $this->formElement($form->get('status')); ?>
                     </li>
-
-                    <li class="form-row">                    
-                        <label class='label'>IS DEMO: </label>
-                        <?php echo $this->formElement($form->get('isdemo')); ?>
+                    <li class="form-row">
+                        <label class='label'>Select Subjects: </label>
+                        <ul>
+                            <li>
+                                <?php foreach($subjectList as $sub){?>
+                                <?php if(in_array($sub['id'],$subjects)){?>
+                                <input type="checkbox" name="subject[]" checked value="<?php echo $sub['id'];?>"><?php echo $sub['title'];?>
+                                <?php } else{?>
+                                    <input type="checkbox" name="subject[]" value="<?php echo $sub['id'];?>"><?php echo $sub['title'];?>
+                                
+                                <?php }} ?>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </section>

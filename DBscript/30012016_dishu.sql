@@ -36,6 +36,13 @@ CREATE TABLE IF NOT EXISTS `quiz_level` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
+ALTER TABLE  `quiz_level` ADD  `category_id` BIGINT( 10 ) NOT NULL AFTER  `level_id` ,
+ADD  `ques_nos` INT( 10 ) NOT NULL AFTER  `category_id` ,
+ADD  `created_at` INT( 10 ) NOT NULL AFTER  `ques_nos` ,
+ADD  `created_by` BIGINT( 10 ) NOT NULL AFTER  `created_at` ,
+ADD  `updated_at` INT( 10 ) NOT NULL AFTER  `created_by` ,
+ADD  `updated_by` BIGINT( 10 ) NOT NULL AFTER  `updated_at` ;
+
 --
 -- Dumping data for table `quiz_level`
 --

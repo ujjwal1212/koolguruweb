@@ -99,6 +99,10 @@ class IndexController extends AbstractActionController {
     public function missionAction() {
         
     }
+    
+    public function faqAction() {
+        
+    }
 
     public function contactusAction() {
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');

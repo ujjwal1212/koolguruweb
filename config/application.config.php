@@ -9,6 +9,7 @@ return array(
         'User',
         'Questionarie',
         'Subject',
+        'Chapter',
         'Package'
     ),
 
