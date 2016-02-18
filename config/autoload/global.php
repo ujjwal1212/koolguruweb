@@ -14,7 +14,7 @@
 return array(
     'db' => array(
         'driver' => 'Pdo',
-        'dsn' => 'mysql:dbname=koolguru_test;host=localhost',
+        'dsn' => 'mysql:dbname=koolguruweb;host=localhost',
         'username' => 'root',
         'password' => '',
         'driver_options' => array(
