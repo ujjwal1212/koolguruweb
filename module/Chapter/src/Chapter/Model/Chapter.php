@@ -1,21 +1,20 @@
 <?php
 
-namespace Student\Model;
+namespace Chapter\Model;
 
 use Zend\InputFilter\Factory as InputFactory;
 use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-class Course implements InputFilterAwareInterface {
+class Chapter implements InputFilterAwareInterface {
 
     public $id;
     public $title;
     public $code;
-    public $description;
+    public $content;
     public $isdemo;
-    public $status;
-    public $image_path;
+    public $status;    
     public $created_at;
     public $created_by;
     public $updated_at;
@@ -28,10 +27,9 @@ class Course implements InputFilterAwareInterface {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
         $this->title = (isset($data['title'])) ? $data['title'] : null;
         $this->code = (isset($data['code'])) ? $data['code'] : null;        
-        $this->description = (isset($data['description'])) ? $data['description'] : null;
+        $this->content = (isset($data['content'])) ? $data['content'] : null;
         $this->isdemo = (isset($data['isdemo'])) ? $data['isdemo'] : null;
-        $this->status = (isset($data['status'])) ? $data['status'] : null;
-        $this->image_path = (isset($data['image_path'])) ? $data['image_path'] : null;                
+        $this->status = (isset($data['status'])) ? $data['status'] : null;                
         $this->created_at = (isset($data['created_at'])) ? $data['created_at'] : null;
         $this->created_by = (isset($data['created_by'])) ? $data['created_by'] : null;
         $this->updated_at = (isset($data['updated_at'])) ? $data['updated_at'] : null;

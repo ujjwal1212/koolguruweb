@@ -1,20 +1,28 @@
 <?php
 
-namespace Subject\Controller;
+namespace Chapter\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 use Zend\Db\Sql\Select;
 use Subject\Form\SearchForm;
-use Subject\Form\SubjectForm;
+use Chapter\Form\ChapterForm;
 use Subject\Model\Subject;
 use Subject\Model\SubjectTable;
+use Chapter\Model\Chapter;
+use Chapter\Model\ChapterTable;
+use Chapter\Model\Subjectchapter;
+use Chapter\Model\SubjectchapterTable;
 
-class SubjectController extends AbstractActionController {
+
+
+class ChapterController extends AbstractActionController {
 
     protected $adapter;
     protected $subjectTable;
+    protected $chapterTable;
+    protected $subjectchapterTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -30,6 +38,22 @@ class SubjectController extends AbstractActionController {
             $this->subjectTable = $sm->get('Subject\Model\SubjectTable');
         }
         return $this->subjectTable;
+    }
+    
+    public function getChapterTable() {
+        if (!$this->chapterTable) {
+            $sm = $this->getServiceLocator();
+            $this->chapterTable = $sm->get('Chapter\Model\ChapterTable');
+        }
+        return $this->chapterTable;
+    }
+    
+    public function getSubjectchapterTable() {
+        if (!$this->subjectchapterTable) {
+            $sm = $this->getServiceLocator();
+            $this->subjectchapterTable = $sm->get('Chapter\Model\SubjectchapterTable');
+        }
+        return $this->subjectchapterTable;
     }
 
     /**
@@ -58,12 +82,19 @@ class SubjectController extends AbstractActionController {
             $form->get('order')->setValue($order);
             $form->setData($data);
             if ($form->isValid()) {
-                $paginator = $this->getSubjectTable()->fetchAll(true, $order_by, $order, $searchText);
+                $paginator = $this->getChapterTable()->fetchAll(true, $order_by, $order, $searchText);
             }
         } else {
             // grab the paginator from the CenterTable
-            $paginator = $this->getSubjectTable()->fetchAll(true, $order_by, $order, $searchText);
+            $paginator = $this->getChapterTable()->fetchAll(true, $order_by, $order, $searchText);
         }
+        //$paginator1 = $paginator;
+        $subjects = array();
+        foreach($paginator as $chapter){          
+          $temp = $this->getSubjectTable()->getChapterSubjects($chapter['id']); 
+          $subjects[$chapter['id']] = $temp;
+        }
+        
         $row_count = $paginator->getTotalItemCount();
         // set the current page to what has been passed in query string, or to 1 if none set
         $paginator->setCurrentPageNumber((int) $this->params()->fromQuery('page', $page));
@@ -93,7 +124,8 @@ class SubjectController extends AbstractActionController {
             'form' => $form,
             'isAjax' => $request->isXmlHttpRequest(),
             'errorMsg' => $errorMsg,
-            'successMsg' => $successMsg
+            'successMsg' => $successMsg,
+            'subjects' => $subjects
         ));
     }
 
@@ -103,9 +135,11 @@ class SubjectController extends AbstractActionController {
      */
     public function addAction() {
         $session = new Container('User');
-        $form = new SubjectForm('SubjectForm');
-        $form->get('code')->setValue('xxx-xxx-xxx');
-        $form->get('code')->setAttribute('readonly', TRUE);
+        
+        // Get the subject list
+        $subjectList = $this->getSubjectTable()->getSubjectList();
+        
+        $form = new ChapterForm('chapter',$subjectList);        
         $form->get('created_at')->setValue(time());
         $form->get('created_by')->setValue($session->offsetGet('userId'));
         $form->get('updated_at')->setValue(time());
@@ -113,56 +147,69 @@ class SubjectController extends AbstractActionController {
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $subject = new Subject();
+            $chapter = new Chapter();
+            //$subjectChapter = new Subjectchapter();
             $data = $request->getPost();
-            $form->setInputFilter($subject->getInputFilter());
+            //asd($data);
+            $form->setInputFilter($chapter->getInputFilter());
             $form->setData($data);
             if ($form->isValid()) {
                 $validatorName = new \Zend\Validator\Db\NoRecordExists(
                         array(
-                    'table' => 'subjects',
-                    'field' => 'title',
-                    'adapter' => $this->getAdapter()
+                            'table' => 'chapters',
+                            'field' => 'title',
+                            'adapter' => $this->getAdapter()
                         )
                 );
-                if ($validatorName->isValid(trim($subject->title))) {
+                if ($validatorName->isValid(trim($chapter->title))) {
                     $no_duplicate_data = 1;
                 } else {
                     $flashMessage = $this->flashMessenger()->getErrorMessages();
                     if (empty($flashMessage)) {
-                        $this->flashMessenger()->setNamespace('error')->addMessage('Subject Name already Exists.');
+                        $this->flashMessenger()->setNamespace('error')->addMessage('Chapter Name already Exists.');
                     }
                     $no_duplicate_data = 0;
                 }
 
                 if ($no_duplicate_data == 1) {
-                    $subjectList = $this->getSubjectTable()->fetchAll(false, 'id', 'ASC', '');
-                    $subject->exchangeArray($form->getData());
-                    $id = 0;
-                    $subjectCode = 'KGSUB-000-';
-                    foreach ($subjectList as $subjectId) {
-                        $id = $subjectId['id'];
-                    }
-                    $subjectCode .= '' . intval($id) + 1;  
-                    $imagePath = '';
-                    if(isset($_FILES) && isset($_FILES['image_path']) && $_FILES['image_path']['name']!=''){
-                        $imagePath = $this->uploadImage($subjectCode);
-                    }                    
-                    $subject->image_path = $imagePath;
-                    $subject->code = $subjectCode;
+                    $chaptercode = $this->getChapterTable()->getNewChapterCode();
+                    
+                    $chapter->exchangeArray($form->getData());
+                    $chapter->code = $chaptercode;
+                    
+                    $id = 0;                    
                     $data->created_at = time();
                     $data->created_by = $session->offsetGet('userId');
                     $data->updated_at = time();
                     $data->updated_by = $session->offsetGet('userId');
-                    $questionId = $this->getSubjectTable()->saveSubject($subject);
+                    
+                    $chapterId = $this->getChapterTable()->saveChapter($chapter);
+                    
+
+                    $subjectChapter = array();
+                    $subjectChapter['chapter_id'] = $chapterId;
+                    $subjectChapter['created_at'] = time();
+                    $subjectChapter['created_by'] = $session->offsetGet('userId');
+                    $subjectChapter['updated_at'] = time();
+                    $subjectChapter['updated_by'] = $session->offsetGet('userId');
+                    
+                    if(isset($data['subject']) && count($data['subject']) > 0){
+                        foreach($data['subject'] as $subjectid){
+                            $subjectChapter['subject_id'] = $subjectid;
+                            $this->getSubjectchapterTable()->saveMapping($subjectChapter);
+                        }
+                    }
+                    
+                    
+                    
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
-                    $this->flashMessenger()->setNamespace('success')->addMessage('Subject created successfully');
-                    return $this->redirect()->toRoute('subject');
+                    $this->flashMessenger()->setNamespace('success')->addMessage('Chapter created successfully');
+                    return $this->redirect()->toRoute('chapter');
                 }
             }
         }
 
-        return array('form' => $form);
+        return array('form' => $form,'subjectList' => $subjectList);
     }
 
     /**
@@ -171,31 +218,41 @@ class SubjectController extends AbstractActionController {
      */
     public function editAction() {
         $id = (int) $this->params()->fromRoute('id', 0);
+        // Get the subject list
+        $subjectList = $this->getSubjectTable()->getSubjectList();
+        $subjects = array();
+        
+        $subjects = array();
+        $temp = $this->getSubjectTable()->getChapterSubjects($id);        
+        
+        foreach($temp as $data){
+            $subjects[] = $data['subject_id'];
+        }
 
         if (!$id) {
-            return $this->redirect()->toRoute('subject', array('action' => 'add'));
+            return $this->redirect()->toRoute('chapter', array('action' => 'add'));
         }
         $page = (int) $this->params()->fromRoute('page', 0);
 
         $session = new Container('User');
-        $form = new SubjectForm('SubjectForm');
-        $form->get('code')->setAttribute('readonly', TRUE);
-        $subject = $this->getSubjectTable()->getSubject($id);
+        $form = new ChapterForm('chapter');
+        
+        $chapter = $this->getChapterTable()->getChapter($id);
         $form->get('id')->setValue($id);
-        $form->bind($subject);
+        $form->bind($chapter);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $subject = new Subject();
+            $chapter = new Chapter();
             $data = $request->getPost();
-            $subject->exchangeArray($data);
-            $form->setInputFilter($subject->getInputFilter());
+            $chapter->exchangeArray($data);
+            $form->setInputFilter($chapter->getInputFilter());
             $form->setData($data);
 
             if ($form->isValid()) {
                 $validatorName = new \Zend\Validator\Db\NoRecordExists(
                         array(
-                    'table' => 'subjects',
+                    'table' => 'chapters',
                     'field' => 'title',
                     'adapter' => $this->getAdapter(),
                     'exclude' => array(
@@ -204,39 +261,50 @@ class SubjectController extends AbstractActionController {
                     )
                         )
                 );
-                if ($validatorName->isValid(trim($subject->title))) {
+                if ($validatorName->isValid(trim($chapter->title))) {
                     $no_duplicate_data = 1;
                 } else {
                     $flashMessage = $this->flashMessenger()->getErrorMessages();
                     if (empty($flashMessage)) {
-                        $this->flashMessenger()->setNamespace('error')->addMessage('Subject Name already Exists.');
+                        $this->flashMessenger()->setNamespace('error')->addMessage('Chapter Name already Exists.');
                     }
                     $no_duplicate_data = 0;
                 }
                 if ($no_duplicate_data == 1) {
-                    $subjectList = $this->getSubjectTable()->fetchAll(false, 'id', 'ASC', '');
+                    $chapterList = $this->getChapterTable()->fetchAll(false, 'id', 'ASC', '');                    
                     
-                    if ($_FILES['image_path']['tmp_name']) {
-                        if ($subject->image_path) {
-                            unlink($subject->image_path);
-                        }
-                        $imagePath = $this->uploadImage($subject->code);
-                        $subject->image_path = $imagePath;
-                    }else{
-                        $subject->image_path = NULL;
-                    }
                     $data->updated_date = time();
                     $data->updated_by = $session->offsetGet('userId');
 
-                    $subjectId = $this->getSubjectTable()->saveSubject($subject);
+                    $chapterId = $this->getChapterTable()->saveChapter($chapter);
+                    
+                    
+                    foreach($subjects as $subject){                        
+                        $this->getSubjectchapterTable()->deleteMapping($subject,$id);
+                    }
+                    $subjectChapter = array();
+                    $subjectChapter['chapter_id'] = $id;
+                    $subjectChapter['created_at'] = time();
+                    $subjectChapter['created_by'] = $session->offsetGet('userId');
+                    $subjectChapter['updated_at'] = time();
+                    $subjectChapter['updated_by'] = $session->offsetGet('userId');
+                    
+                    if(isset($data['subject']) && count($data['subject']) > 0){
+                        foreach($data['subject'] as $subjectid){
+                            $subjectChapter['subject_id'] = $subjectid;
+                            $this->getSubjectchapterTable()->saveMapping($subjectChapter);
+                        }
+                    }
+                    
+                    
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
-                    $this->flashMessenger()->setNamespace('success')->addMessage('Subject updated successfully');
+                    $this->flashMessenger()->setNamespace('success')->addMessage('Chapter updated successfully');
 
-                    return $this->redirect()->toRoute('subject');
+                    return $this->redirect()->toRoute('chapter');
                 }
             }
         }
-        return array('form' => $form, 'id' => $id, 'page' => $page);
+        return array('form' => $form, 'id' => $id, 'page' => $page,'subjectList'=>$subjectList,'subjects'=>$subjects);
     }
 
     public function uploadImage($code) {

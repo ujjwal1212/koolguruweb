@@ -68,6 +68,10 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 
                 <ul>
                     <li class="form-row">                    
+                        <label class='label'>UPLOAD IMAGE: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('image_path')); ?>
+                    </li>
+                    <li class="form-row">                    
                         <label class='label'>Course Title: <span class='required'>*</span></label>
                         <?php echo $this->formElement($form->get('title')); ?>
                     </li>
@@ -75,10 +79,19 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <label class='label'>Description: <span class='required'>*</span></label>
                         <?php echo $this->formElement($form->get('description')); ?>
                     </li>
+                    <li class="form-row">                    
+                        <label class='label'>Is Demo: </label>
+                        <?php echo $this->formElement($form->get('isdemo')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>Status: </label>
+                        <?php echo $this->formElement($form->get('status')); ?>
+                    </li>
                 </ul>
             </section>
         </div>
         <?php
+        echo $this->formHidden($form->get('code'));
         echo $this->formHidden($form->get('created_at'));
         echo $this->formHidden($form->get('created_by'));
         echo $this->formHidden($form->get('updated_at'));

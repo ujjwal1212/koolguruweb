@@ -1,6 +1,6 @@
 <?php
 
-namespace Admin\Form;
+namespace Chapter\Form;
 
 use Zend\Form\Element;
 use Zend\Form\Form;
@@ -8,7 +8,7 @@ use Zend\Form\Form;
 /**
  * Form Class for User Form
  */
-class CourseForm extends Form {
+class ChapterForm extends Form {
 
     public function __construct($name = NULL) {
         // we want to ignore the name passed
@@ -22,23 +22,8 @@ class CourseForm extends Form {
             'attributes' => array(
                 'type' => 'hidden',
             ),
-        ));
+        ));        
         
-        $this->add(array(
-            'name' => 'image_path',
-            'attributes' => array(
-                'type' => 'file',
-                'id' => 'image_path',
-                'class' => 'input',
-                'accept'=>'image/*'
-            ),
-            'options' => array(
-                'label' => 'UPLOAD IMAGE',
-                'label_attributes' => array(
-                    'class' => 'label'
-                ),
-            ),
-        ));
                 
         $this->add(array(
             'type' => 'Zend\Form\Element\Checkbox',
@@ -77,17 +62,17 @@ class CourseForm extends Form {
                 'class' => 'input',
             ),
             'options' => array(
-                'label' => 'Course Title',
+                'label' => 'Chapter Title',
                 'label_attributes' => array(
                     'class' => 'label'
                 ),
             ),
         ));
         $this->add(array(
-            'name' => 'description',
+            'name' => 'content',
             'attributes' => array(
                 'type' => 'textarea',
-                'id' => 'description',
+                'id' => 'content',
                 'class' => 'input',
             ),
             'options' => array(

@@ -58,11 +58,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
             }
         }
         ?>
-        <div class="upper-submit">
-            <?php
-            echo $this->formSubmit($form->get('submit'));
-            ?>
-        </div>
+        
         <div id="step1">
             <section id="basic_details">
                 <?php
@@ -100,6 +96,11 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         echo $this->formHidden($form->get('updated_at'));
         echo $this->formHidden($form->get('updated_by'));
         ?>
+        <div>
+            <?php
+            echo $this->formSubmit($form->get('submit'));
+            ?>
+        </div>
         <div id="form-footer">
             <?php
             echo $this->form()->closeTag();

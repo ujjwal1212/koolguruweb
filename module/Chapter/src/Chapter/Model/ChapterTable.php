@@ -1,6 +1,6 @@
 <?php
 
-namespace Student\Model;
+namespace Chapter\Model;
 
 use Zend\Db\TableGateway\TableGateway;
 use Zend\Db\ResultSet\ResultSet;
@@ -13,7 +13,7 @@ use Zend\Db\Sql\Where;
 Use Zend\Db\Sql\Expression;
 use Zend\Session\Container;
 
-class CourseTable {
+class ChapterTable {
 
     protected $tableGateway;
 
@@ -22,11 +22,11 @@ class CourseTable {
         $this->resultSetPrototype = new ResultSet(ResultSet::TYPE_ARRAY);
     }
     
-    public function getNewCourseCode(){
+    public function getNewChapterCode(){
         $resultset = array();
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
-        $select->from(array('c' => 'course'));
+        $select->from(array('c' => 'chapters'));
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();
@@ -34,9 +34,9 @@ class CourseTable {
         $count = count($resultset);
         $key = '';
         if($count > 0){
-            $key = 'KGC'.($count+1);
+            $key = 'KGSUB'.($count+1);
         }else{
-            $key = 'KGC1';
+            $key = 'KGSUB1';
         }
         return $key;
     }
@@ -55,12 +55,12 @@ class CourseTable {
 
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
-        $select->from(array('c' => 'course'));
-        $select->columns(array('id', 'title', 'code','description','status','isdemo','image_path'));
+        $select->from(array('c' => 'chapters'));
+        $select->columns(array('id', 'title', 'code','content','status','isdemo'));        
         $select->order($order_by . ' ' . $order);
         if (isset($searchText) && trim($searchText) != '') {
             $select->where->like('c.title', "%" . $searchText . "%")
-            ->or->like('c.description', "%" . $searchText . "%")
+            ->or->like('c.content', "%" . $searchText . "%")
             ->or->like('c.code', "%" . $searchText . "%");
         }
 //        $statement = $sql->prepareStatementForSqlObject($select);
@@ -88,29 +88,28 @@ class CourseTable {
      * Function to Save Question Record to Database.
      * @throws \Exception
      */
-    public function saveCourse(Course $course) {  
+    public function saveChapter(Chapter $chapter) {  
         $data = array(
-            'title' => trim($course->title),
-            'description' => trim($course->description),
-            'status' => $course->status,
-            'isdemo' => $course->isdemo, 
-            'image_path' => $course->image_path
+            'title' => trim($chapter->title),
+            'content' => trim($chapter->content),
+            'status' => $chapter->status,
+            'isdemo' => $chapter->isdemo
         );
 
-        $id = (int) $course->id;        
+        $id = (int) $chapter->id;        
         if ($id == 0) {
-            $data['code'] = $course->code;
+            $data['code'] = $chapter->code;
             $data['created_at'] = time();
-            $data['created_by'] = $course->created_by;
+            $data['created_by'] = $chapter->created_by;
             $data['updated_at'] = time();
-            $data['updated_by'] = $course->created_by;            
+            $data['updated_by'] = $chapter->created_by;            
             if ($this->tableGateway->insert($data)) {
                 $Id = $this->tableGateway->getLastInsertValue();
             }
         } else {
-            if ($this->getCourse($id)) {
+            if ($this->getChapter($id)) {
                 $data['updated_at'] = time();
-                $data['updated_by'] = $course->updated_by;
+                $data['updated_by'] = $chapter->updated_by;
                 $Id = $this->tableGateway->update($data, array('id' => $id));
             } else {
                 throw new \Exception('Course id does not exist');
@@ -119,7 +118,7 @@ class CourseTable {
         return $Id;
     }
 
-    public function getCourse($id) {
+    public function getChapter($id) {
         $id = (int) $id;
         $rowset = $this->tableGateway->select(array('id' => $id));
         $row = $rowset->current();

@@ -73,6 +73,22 @@ return array(
                     ),
                 ),
             ),
+            
+            'faq' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/faq[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'application\Controller\Index',
+                        'action' => 'faq',
+                    ),
+                ),
+            ),
+            
             'application' => array(
                 'type'    => 'Literal',
                 'options' => array(
