@@ -16,11 +16,9 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
         ->prependStylesheet($this->basePath() . '/css/button.css');
 ?>
 </style>
-<div class="carousel">
-    <div class="container overflow-hidden pos-rel">
-        <div class="white-left-arrow"></div>
-        <div class="white-right-arrow"></div>
-        <div class="slides">
+        <div id="owl-demo" class="owl-carousel owl-theme carousel">
+ 
+  <div class="item"><div class="slides">
             <div class="container">
                 <div class="text-slide">
                     <h1>MOTIVATION REDEFINED</h1>
@@ -35,30 +33,12 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
                 </div>
             </div>
         </div>
+</div>
+  <div class="item"><img  src="<?php echo $this->basePath() . "/css_theme/images/Anywhere.jpg"; ?>" alt="GTA V"></div>
+  <div class="item"><img src="koolguruweb/public/css_theme/images/beenthere.jpg" alt="Mirror Edge"></div>
+ 
+</div>
 
-        <div class="slides">
-            <div class="container">
-                <div class="text-slide">
-                    <h1>EXCITING CHANGES</h1>
-                    <p>Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old
-                        Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old</p>
-                    <button type="button" class="more-button"> More Details</button>
-                </div>
-                <div class="video-slide">
-                    <img src="css_theme/images/carousel-image.png" alt="">
-                </div>
-            </div>
-        </div>
-
-
-        <div class="slides">
-            <img src="css_theme/images/img1.png" alt=""/>
-        </div>
-        <div class="slides">
-            <img src="css_theme/images/img1.png" alt=""/>
-        </div>
-
-    </div>
 </div>
 <div class="container">
     <div class="wpb_wrapper ">
@@ -204,10 +184,10 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
                 </div>
             </div>	
         </div></div>
-</div>
+</div> 
 
 
-<div class="light-grey-style">
+<div class="light-grey-style"> 
     <div class="container pos-rel">
         <div class="left-arrow" id="testi-left"></div>
         <div class="right-arrow" id="testi-right"></div>

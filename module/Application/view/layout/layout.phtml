@@ -64,6 +64,8 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                 ->prependFile($this->basePath() . '/js/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js')
                 ->prependFile($this->basePath() . '/js/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js')
                 ->prependFile($this->basePath() . '/js/jquery.min.js')
+            
+
 
         ;
         ?>
@@ -100,6 +102,8 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
         </script>
     </head>
     <body>        
+
+
         <!-- Header -->
         <div class="mkdf-top-bar">
             <div class="mkdf-grid">
@@ -261,7 +265,35 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
             </div>
         </section>
 
+
         <?php echo $this->inlineScript() ?>
+<script type="text/javascript" src="/koolguruweb/public/js/owl.carousel.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+ 
+  $("#owl-demo").owlCarousel({
+ 
+      navigation : true, // Show next and prev buttons
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      singleItem:true,
+ autoPlay: true
+    
+    });
+ 
+  $("#owl-demo1").owlCarousel({
+ 
+      navigation : true, // Show next and prev buttons
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      singleItem:true,
+ autoPlay: true
+    
+    });
+
+ 
+});
+</script>
     </body>
 </html>
 <script src="http://vjs.zencdn.net/5.4.4/video.js"></script>
