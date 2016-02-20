@@ -159,46 +159,76 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
         <header class="mkdf-page-header">
             <div class="mkdf-menu-area">
                 <div class="mkdf-grid">
-                    <div class="mkdf-vertical-align-containers">
-                        <div class="mkdf-position-right">
-                            <div class="mkdf-position-right-inner">
-                                <nav class="mkdf-main-menu mkdf-drop-down mkdf-default-nav">
-                                    <ul id="menu-main-menu" class="clearfix">
-                                        <li id="nav-menu-item-751" class="menu-item">
-                                            <a href="<?php echo $this->url('home') ?>" class=" current  no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">Home</span></span></span></a>
-                                        </li>
-                                        <li id="nav-menu-item-752" class="menu-item">
-                                            <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'mission')); ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">MISSION</span></span></span></a>
-                                        </li>
+                    <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa' || $roleCode == 'st')) { ?>
+                        <div class="mkdf-vertical-align-containers">
+                            <div class="mkdf-position-right">
+                                <div class="mkdf-position-right-inner">
+                                    <nav class="mkdf-main-menu mkdf-drop-down mkdf-default-nav">
+                                        <ul id="menu-main-menu" class="clearfix">
+                                            <li id="nav-menu-item-751" class="menu-item">
+                                                <a href="<?php echo $this->url('home') ?>" class=" current  no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">Home</span></span></span></a>
+                                            </li>
+                                            <?php if (isset($roleCode) && ($roleCode == 'sa' || $roleCode == 'aa')) { ?>
+                                                <li id="nav-menu-item-752" class="menu-item">
+                                                    <a href="" class=" no_link" data-toggle="dropdown" ><span class="item_outer"><span class="item_inner"><span class="item_text">Question Bank</span></span><span class="plusicon"></span></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="<?php echo $this->url('question', array('action' => 'index')) ?>">Manage Questions</a></li>
+                                                        <li><a href="<?php echo $this->url('level', array('action' => 'index')) ?>">Manage Levels</a></li>
+                                                    </ul>
+                                                </li>
+                                                <li id="nav-menu-item-752" class="menu-item">
+                                                    <a href="" class=" no_link" data-toggle="dropdown" ><span class="item_outer"><span class="item_inner"><span class="item_text">Administration</span></span><span class="plusicon"></span></span>
+                                                    </a>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                                        <li><a href="<?php echo $this->url('admin', array('action' => 'contactquery')) ?>">Contact Us Queries</a></li>
+                                                        <li><a href="<?php echo $this->url('admin', array('action' => 'studentregister')) ?>">Student Register</a></li>
+                                                    </ul>
+                                                </li>
+                                            <?php } else { ?>
 
-                                        <li id="nav-menu-item-752" class="menu-item">
-                                            <a href="" class=" no_link" data-toggle="dropdown" ><span class="item_outer"><span class="item_inner"><span class="item_text">Team</span></span><span class="plusicon"></span></span>
-                                            </a>
-                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                                <li><a href="#">Action</a></li>
-                                                <li><a href="#">Another action</a></li>
-                                              </ul>
-                                        </li>
-                                        <li id="nav-menu-item-754" class="menu-item">
-                                            <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'vision')); ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">VISION</span></span><span class="plus"></span></span></a>
-                                        </li>
-                                        <li id="nav-menu-item-755" class="menu-item">
-                                            <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'aboutus')); ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">ABOUT US</span></span><span class="plus"></span></span></a>
-                                        </li>
-                                        <li id="nav-menu-item-756" class="menu-item">
-                                            <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'contactus')); ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">CONTACT</span></span><span class="plus"></span></span></a>
-                                        </li>
-                                        <li id="nav-menu-item-757" class="menu-item">
-                                            <a href="<?php echo $this->url('studentlogin') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">LOGIN</span></span><span class="plus"></span></span></a>
-                                        </li>
-                                        <li id="nav-menu-item-758" class="menu-item">
-                                            <a href="<?php echo $this->url('student') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">REGISTER</span></span><span class="plus"></span></span></a>
-                                        </li>
-                                    </ul>
-                                </nav>
+                                            <?php } ?>
+                                            <li id="nav-menu-item-757" class="menu-item">
+                                                <a href="<?php echo $this->url('logout') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">LOGOUT</span></span><span class="plus"></span></span></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    <?php } else { ?>
+                        <div class="mkdf-vertical-align-containers">
+                            <div class="mkdf-position-right">
+                                <div class="mkdf-position-right-inner">
+                                    <nav class="mkdf-main-menu mkdf-drop-down mkdf-default-nav">
+                                        <ul id="menu-main-menu" class="clearfix">
+                                            <li id="nav-menu-item-751" class="menu-item">
+                                                <a href="<?php echo $this->url('home') ?>" class=" current  no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">Home</span></span></span></a>
+                                            </li>
+                                            <li id="nav-menu-item-752" class="menu-item">
+                                                <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'mission')); ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">MISSION</span></span></span></a>
+                                            </li>
+                                            <li id="nav-menu-item-754" class="menu-item">
+                                                <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'vision')); ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">VISION</span></span><span class="plus"></span></span></a>
+                                            </li>
+                                            <li id="nav-menu-item-755" class="menu-item">
+                                                <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'aboutus')); ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">ABOUT US</span></span><span class="plus"></span></span></a>
+                                            </li>
+                                            <li id="nav-menu-item-756" class="menu-item">
+                                                <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'contactus')); ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">CONTACT</span></span><span class="plus"></span></span></a>
+                                            </li>
+                                            <li id="nav-menu-item-757" class="menu-item">
+                                                <a href="<?php echo $this->url('studentlogin') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">LOGIN</span></span><span class="plus"></span></span></a>
+                                            </li>
+                                            <li id="nav-menu-item-758" class="menu-item">
+                                                <a href="<?php echo $this->url('student') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">REGISTER</span></span><span class="plus"></span></span></a>
+                                            </li>
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </header>
