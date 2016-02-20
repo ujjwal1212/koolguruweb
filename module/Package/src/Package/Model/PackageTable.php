@@ -78,6 +78,7 @@ class PackageTable {
             'price' => $package->price,
             'duration' => $package->duration,
             'ff_classroom' => $package->ff_classroom,
+            'whatuserget'=>$package->whatuserget,
             'relevant_for' => $package->relevant_for,
             'advantage' => $package->advantage,
             'description' => $package->description,
@@ -117,7 +118,7 @@ class PackageTable {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('p' => 'package'));
-        $select->columns(array('id', 'title', 'code', 'status', 'image_path','description','price','duration','relevant_for','advantage','ff_classroom'));
+        $select->columns(array('id', 'title', 'code', 'status', 'image_path','description','price','duration','relevant_for','advantage','ff_classroom','whatuserget'));
         $select->where(array('p.id' => $id));
 
         $statement = $sql->prepareStatementForSqlObject($select);
