@@ -1,0 +1,107 @@
+<?php
+$this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/question/question.js');
+$form = $this->form;
+
+$form->setAttribute('action', $this->url('admin', array('action' => 'editcourse','id'=>$id,'page'=>$page)));
+$form->setAttribute('class', 'detect_changes');
+$form->prepare();
+echo $this->form()->openTag($form);
+$errorflashMessage = $this->flashMessenger()->getErrorMessages();
+?>
+<section class="sub-header">
+    <div class="container">
+        <div class="sub-header-title">
+            <?php
+            $title = 'Create Course';
+            $this->headTitle($title);
+            ?>
+            <a class="back-icon" href="<?php echo $this->url('admin', array('action' => 'course')); ?>"></a>
+            <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
+                <?php
+                /* Adding Breadcrumb */
+                echo $this->navigation('navigation')
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                ?>
+                <?php //echo $this->content; ?>
+
+            </h1>
+        </div>
+        <div class="sub-header-actions"></div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="forms" id="add-trainee-form">
+        <?php
+        $errorflashMessage = $this->flashMessenger()->getCurrentErrorMessages();
+        $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+        if (empty($errorflashMessage) && !empty($successflashMessage)) {
+            ?>
+            <div id="global-success-msg-page" class="global-page-success">
+                <?php
+                foreach ($successflashMessage as $succMsg) {
+                    echo $succMsg;
+                }
+                ?>
+
+            </div>
+        <?php } else { ?>
+            <div id="global-error-msg-page"   class="global-page-error"><?php
+                foreach ($errorflashMessage as $errMsg) {
+                    echo $errMsg;
+                }
+                ?></div>
+        <?php } ?>
+<!--        <div class="upper-submit">
+            <?php
+            //echo $this->formSubmit($form->get('submit'));
+            ?>
+        </div>-->
+        <div id="step1">
+            <section id="basic_details">
+                <?php
+                echo "<h2 class='h2'>Basic Details</h2>";
+                echo $this->formHidden($form->get('id'));
+                ?>
+
+                <ul>
+                    <li class="form-row">                    
+                        <label class='label'>UPLOAD IMAGE: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('image_path')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>Course Title: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('title')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>Description: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('description')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>Is Demo: </label>
+                        <?php echo $this->formElement($form->get('isdemo')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>Status: </label>
+                        <?php echo $this->formElement($form->get('status')); ?>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <?php
+        echo $this->formHidden($form->get('code'));
+        echo $this->formHidden($form->get('created_at'));
+        echo $this->formHidden($form->get('created_by'));
+        echo $this->formHidden($form->get('updated_at'));
+        echo $this->formHidden($form->get('updated_by'));
+        ?>
+        <div id="form-footer">            
+            <?php
+            echo $this->formSubmit($form->get('submit'));
+            echo $this->form()->closeTag();
+            ?>
+        </div>
+    </div>
+</div>
