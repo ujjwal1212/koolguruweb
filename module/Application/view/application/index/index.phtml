@@ -17,7 +17,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
 ?>
 </style>
  <div class="video-slide">
-                    <video width="500" height="270" poster="css_theme/images/koolguru_poster.png" controls="true" autoplay>
+                    <video width="500" height="270" poster="css_theme/images/koolguru_poster.png" controls="true">
                         <source src="http://koolguru.co.in/video/v1.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -187,12 +187,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
             </div>	
         </div></div>
 </div> 
-
-
-
-
-
-<div class="light-grey-style"> 
+<div class="light-grey-style">
     <div class="container pos-rel">
         <div class="left-arrow" id="testi-left"></div>
         <div class="right-arrow" id="testi-right"></div>
@@ -205,31 +200,31 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
         <div class=" widget wpo-testimonial v6 light-style space-top-40">
             <?php if(!empty($testimonials)){$i=1;?>
             <?php foreach($testimonials as $testimonial){?>
-                <div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns" id="testi-<?php echo $i;?>" style="display:none">
-		   <div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns" >
-			  <div class="item">           
-			<div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns">
-            <div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns" >
-                <div class="mkdf-testimonial-text-inner ">
-                    <div class="mkdf-testimonial-image-holder">
-                        <img width="60" height="60" src="img/<?php echo $testimonial['image'];?>" alt="">
-                    </div>
-                    <p class="mkdf-testimonial-text ">
-                        <?php echo $testimonial['short_description'];?> <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'testimonial','id' => $testimonial['id'])); ?>"> Read More....</a>
-			<div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns" >
-                    </p>
-                    <div class="mkdf-testimonial-author">
-                        <h6 class="mkdf-testimonial-author-text "><?php echo $testimonial['name'];?></h6> 
-                        <span class="mkdf-testimonials-job "><?php echo $testimonial['degree'];?></span>
-                    </div>
+            <div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns" id="testi-<?php echo $i;?>">                
+                    <div class="item">                        
+                        <div class="mkdf-testimonial-text-inner ">
+                            <div class="mkdf-testimonial-image-holder">
+                                <img width="60" height="60" src="img/<?php echo $testimonial['image'];?>" alt="">
+                            </div>
+                            <p class="mkdf-testimonial-text ">
+                                <?php echo $testimonial['short_description'];?> <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'testimonial','id' => $testimonial['id'])); ?>"> Read More....</a>
+                            </p>
+                            <div class="mkdf-testimonial-author">
+                                <h6 class="mkdf-testimonial-author-text "><?php echo $testimonial['name'];?></h6> 
+                                <span class="mkdf-testimonials-job "><?php echo $testimonial['degree'];?></span>
+                            </div>
+                        </div>
                 </div>
             </div>
             <?php $i++;}} ?>
         </div>
-		</div>
-		</div>      
     </div>
 </div>
+
+
+
+
+
 
 
 <div class="bg-style-dark green-bg">
@@ -520,7 +515,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
 </div>
 
 <script type="text/javascript">
-    /*$(document).ready(function () {
+    $(document).ready(function () {
         app.hometesticarousal = 1;
         app.hometesticarousalnext = 2;
         app.hometesticarousalprev = 0;
@@ -529,6 +524,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
         app.hometestiperpage = 3;
         app.hometestipages = parseInt(app.hometestimoniallength/app.hometestiperpage)+app.hometestimoniallength%app.hometestiperpage;
         app.hometesticurpage = 0;
+        console.log(app);
         
         
         showtestimonial();
@@ -564,21 +560,26 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
         });
     });
     
-    function showtestimonial(){        
-        $('.mkdf-testimonial-content').each(function(){            
-            $(this).hide();
-        });
-        $('#testi-'+app.hometesticarousal).show();
+    function showtestimonial(){       
+        var i = 1;
+        $('.mkdf-testimonial-content').each(function(){
+            console.log('i : '+i+' carousal val :'+app.hometesticarousal);
+            if(i == app.hometesticarousal){
+                $(this).show();
+            }else{
+                $(this).hide();
+            }
+            
+            i++;
+        });        
     }
     
-    function showhometeam(){     
-        console.log(app);
+    function showhometeam(){ 
         $('.testimonials-v6').hide();
-        
         var start = app.hometesticurpage + 1;
         var last = app.hometesticurpage + app.hometestiperpage
         for(var i = start; i <= last ; i++){
             $('#team-'+i).show();
         }
-    }*/
+    }
 </script>
