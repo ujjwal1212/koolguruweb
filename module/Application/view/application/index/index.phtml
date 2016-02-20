@@ -215,7 +215,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
                                     <div class="mkdf-testimonial-image-holder">
                                         <img width="60" height="60" src="img/<?php echo $testimonial['image']; ?>" alt="">
                                     </div>                <p class="mkdf-testimonial-text ">
-        <?php echo $testimonial['short_description']; ?> <a href="<?php echo $this->url('application/default', array('controller' => 'index','action' => 'testimonial', 'id' => $testimonial['id'])); ?>"> Read More....</a>
+        <?php echo $testimonial['short_description']; ?> <a href="<?php echo $this->url('application/default', array('controller' => 'index','action' => 'testimonial')).'?id='.$testimonial['id']?>"> Read More....</a>
                                     </p>
                                     <div class="mkdf-testimonial-author">
                                         <h6 class="mkdf-testimonial-author-text "><?php echo $testimonial['name']; ?></h6> 

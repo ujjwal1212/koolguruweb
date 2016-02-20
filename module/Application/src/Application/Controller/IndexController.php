@@ -120,9 +120,9 @@ class IndexController extends AbstractActionController {
     }
     
     public function testimonialAction() {
-        $id = (int) $this->params()->fromRoute('id', 0);
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
         $testimonials = array();
-        $testimonials = $this->getTestimonialTable()->getTestimonial();
+        $testimonials = $this->getTestimonialTable()->getTestimonial($id);
         return array(
             'testimonials' => $testimonials,
         );
