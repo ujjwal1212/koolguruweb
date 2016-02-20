@@ -1,34 +1,30 @@
 <div class="staff">
     <div class="reservation_top">
         <div class="container">          	 
-<!--            <h3 class="hist">Testimonial</h3>-->
-<!--            <div class="row" style="border: 1px">
-                <div class="col-sm-6">
-                    <img src="<?php echo $this->basePath() . '/img/AboutUs.jpg' ?>" class="img-responsive" alt=""/>
-                </div>
-                <div class="col-sm-6 history_grid">
-                    <h3><a href="#">Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl</a></h3>
-                    <p>“ Innovate to Educate” With this Slogan  in mind, we are here to revolutionize the education  process & learning methodology  . For us Education is  pure  passion not an Industry  , an art of   learning , teaching & Knowledge sharing  . We  are here to help  building  aptitude  & develop attitude which leads to reach the Altitude  We are team of highly experienced  domain professional  , our goal is to bring about a revolution in the field of education by making it interactive by  using state of art technology to benefit the larger sections of the society. Results would be our driving force.</p>
-                                    <a href="#" title="Online Reservation" class="btn btn-primary btn2 btn-normal btn-inline " target="_self">Read More</a>
-                </div>
-            </div>-->
-<?php if(!empty($testimonials)){?>
-<?php foreach($testimonials as $testi){?>
-<div style="height: 300px;">
-            <div style="padding-left:5px;padding-top:5px; ;width:20%;float:left;">
-                <img src="<?php echo $this->basePath() . '/img/'.$testi['image'];?>" alt=""/>
-                <div style="margin-top:5px;margin-left:5px ;color: #aaa;font-size: 14px;text-align: left;font-family: poppins;">
-                    <?php echo $testi['name'];?>
-                </div>
-                <div style="margin-top:5px;margin-left:5px;color: #aaa;font-size: 14px;text-align: left;font-family: poppins;">
-                    <?php echo $testi['degree'];?>
-                </div>
-            </div>
-            
-            <div style="margin-left: 250px;padding-top: 5px;padding-right: 5px;font-size: 14px;text-align: left;font-family: poppins;">
-                <?php echo $testi['description'];?>
+            <h3 class="hist"></h3>
+            <div class="row">
+                <?php if(!empty($testimonials)){?>
+                    <?php foreach($testimonials as $testi){?>
+                    <div style="height: 300px;">
+                                <div style="padding-left:5px;padding-top:5px; ;width:20%;float:left;">
+                                    <img src="<?php echo $this->basePath() . '/img/'.$testi['image'];?>" alt=""/>
+                                    <div style="margin-top:5px;margin-left:5px ;color: #aaa;font-size: 14px;text-align: left;font-family: poppins;">
+                                        <?php echo $testi['name'];?>
+                                    </div>
+                                    <div style="margin-top:5px;margin-left:5px;color: #aaa;font-size: 14px;text-align: left;font-family: poppins;">
+                                        <?php echo $testi['degree'];?>
+                                    </div>
+                                </div>
+
+                                <div style="margin-left: 250px;padding-top: 5px;padding-right: 5px;font-size: 14px;text-align: left;font-family: poppins;">
+                                    <?php echo $testi['description'];?>
+                                </div>
+                            </div>
+                            
+
+                    <?php }} ?>
+                
             </div>
         </div>
-<br>
-
-<?php }} ?>
+    </div>
+</div>
