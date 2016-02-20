@@ -62,10 +62,49 @@ endif;
                         <span class="nid-icon" title="Face to Face Class-room"></span><span class="detail"> FACE TO FACE CLASSROOM : <?php echo $package[0]['ff_classroom'] ?></span>
                     </li>
                     <li class="nid detail-row">
-                        <span class="nid-icon" title="relevant_for"></span><span class="detail"> RELEVANT FOR : <?php echo $package[0]['relevant_for'] ?></span>
+                        <span class="nid-icon" title="relevant for"></span><span class="detail"> RELEVANT FOR : <?php
+                            if (!empty($package[0]['relevant_for'])) {
+                                $userGetsArr = explode(',', $package[0]['relevant_for']);
+                                echo '<br/>';
+                                echo '<ul>';
+                                foreach ($userGetsArr as $gets) {
+                                    echo '<li>';
+                                    echo $gets;
+                                    echo '</li>';
+                                }
+                                echo '</ul>';
+                            }
+                            ?></span>
                     </li>
                     <li class="nid detail-row">
-                        <span class="nid-icon" title="advantage"></span><span class="detail"> ADVANTAGE : <?php echo $package[0]['advantage'] ?></span>
+                        <span class="nid-icon" title="advantage"></span><span class="detail"> ADVANTAGE : <?php
+                            if (!empty($package[0]['advantage'])) {
+                                $userGetsArr = explode(',', $package[0]['advantage']);
+                                echo '<br/>';
+                                echo '<ul>';
+                                foreach ($userGetsArr as $gets) {
+                                    echo '<li>';
+                                    echo $gets;
+                                    echo '</li>';
+                                }
+                                echo '</ul>';
+                            }
+                            ?></span>
+                    </li>
+                    <li class="nid detail-row">
+                        <span class="nid-icon" title="what user gets"></span><span class="detail"> WHAT USER GETS : <?php
+                            if (!empty($package[0]['whatuserget'])) {
+                                $userGetsArr = explode(',', $package[0]['whatuserget']);
+                                echo '<br/>';
+                                echo '<ul>';
+                                foreach ($userGetsArr as $gets) {
+                                    echo '<li>';
+                                    echo $gets;
+                                    echo '</li>';
+                                }
+                                echo '</ul>';
+                            }
+                            ?></span>
                     </li>
                     <li class="nid detail-row">
                         <?php
@@ -91,6 +130,15 @@ endif;
                 </thead>
                 <tbody>
                     <?php
+                    $i = 0;
+                    foreach ($courseMapData as $map) {
+                        ?>
+                        <tr id="<?php echo $i; ?>">
+                            <td class='fname'><input type='hidden' name='courseId[]' value="<?php echo $map['course_id']; ?>"/><?php echo $map['title']; ?></td>
+                        </tr>
+                        <?php
+                        $i++;
+                    }
                     ?>
                 </tbody>
             </table>
