@@ -64,6 +64,8 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                 ->prependFile($this->basePath() . '/js/ajax/libs/jquery-validate/1.11.1/jquery.validate.min.js')
                 ->prependFile($this->basePath() . '/js/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js')
                 ->prependFile($this->basePath() . '/js/jquery.min.js')
+            
+
 
         ;
         ?>
@@ -100,6 +102,8 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
         </script>
     </head>
     <body>        
+
+ 
         <!-- Header -->
         <div class="mkdf-top-bar">
             <div class="mkdf-grid">
@@ -198,6 +202,21 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                 </div>
             </div>
         </header>
+<nav class="clearfix pagenav">
+        <a href="#" id="pull"></a>
+        <ul class="clearfix">
+            <li><a href="<?php echo $this->url('home') ?>">HOME</a></li>
+            <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'mission')); ?>">MISSION</a></li>
+            <li><a href="#">TEAM</a></li>
+            <li><a href="#">VISION</a></li>
+            <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'aboutus')); ?>">ABOUT US</a></li>
+            <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'contactus')); ?>">CONTACT US</a></li> 
+            <li><a href="<?php echo $this->url('studentlogin') ?>">Login</a></li>  
+            <li><a href="<?php echo $this->url('student') ?>"> Register</a></li> 
+        </ul>
+        
+    </nav>
+
         <?php echo $this->content; ?>
         <section id="footer_page_links">
             <div class="container">
@@ -261,7 +280,54 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
             </div>
         </section>
 
+
         <?php echo $this->inlineScript() ?>
+<script type="text/javascript" src="/koolguruweb/public/js/owl.carousel.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+ 
+  $("#owl-demo").owlCarousel({
+ 
+      navigation : true, // Show next and prev buttons
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      singleItem:true,
+ autoPlay: true,
+ autoHeight : true
+    
+    });
+ 
+  $("#owl-demo1").owlCarousel({
+ 
+      navigation : true, // Show next and prev buttons
+      slideSpeed : 300,
+      paginationSpeed : 400,
+      singleItem:true,
+ autoPlay: true
+    
+    });
+
+    $(function() {
+            var pull        = $('#pull');
+                menu        = $('nav ul');
+                menuHeight  = menu.height();
+
+            $(pull).on('click', function(e) {
+                e.preventDefault();
+                $('nav ul').slideToggle();
+            });
+
+            $(window).resize(function(){
+                var w = $(window).width();
+                if(w > 320 && menu.is(':hidden')) {
+                    menu.removeAttr('style');
+                }
+            });
+        });
+
+ 
+});
+</script>
     </body>
 </html>
 <script src="http://vjs.zencdn.net/5.4.4/video.js"></script>
