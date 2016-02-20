@@ -19,6 +19,8 @@ use Application\Model\Chapter;
 use Application\Model\ChapterTable;
 use Application\Model\Subject;
 use Application\Model\SubjectTable;
+use Application\Model\Testimonial;
+use Application\Model\TestimonialTable;
 
 class Module
 {
@@ -82,6 +84,17 @@ class Module
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Chapter());
                     return new TableGateway('chapters', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Application\Model\TestimonialTable' => function($sm) {
+                    $tableGateway = $sm->get('TestimonialTableGateway');
+                    $table = new TestimonialTable($tableGateway);
+                    return $table;
+                },
+                'TestimonialTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Testimonial());
+                    return new TableGateway('testimonial', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );
