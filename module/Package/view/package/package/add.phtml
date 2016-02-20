@@ -99,6 +99,10 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <?php echo $this->formElement($form->get('ff_classroom')); ?>
                     </li>
                     <li class="form-row">                    
+                        <label class='label'>WHAT USER GETS: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('whatuserget')); ?>
+                    </li>
+                    <li class="form-row">                    
                         <label class='label'>RELEVANT FOR: <span class='required'>*</span></label>
                         <?php echo $this->formElement($form->get('relevant_for')); ?>
                     </li>

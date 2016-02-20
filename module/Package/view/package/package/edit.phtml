@@ -99,6 +99,10 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <?php echo $this->formElement($form->get('ff_classroom')); ?>
                     </li>
                     <li class="form-row">                    
+                        <label class='label'>WHAT USER GETS: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('whatuserget')); ?>
+                    </li>
+                    <li class="form-row">                    
                         <label class='label'>RELEVANT FOR: <span class='required'>*</span></label>
                         <?php echo $this->formElement($form->get('relevant_for')); ?>
                     </li>
@@ -135,7 +139,18 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <th class="actions"><?php echo $this->escapeHtml('ACTION'); ?></th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    <?php $i = 0;
+                    foreach ($courseMapData as $map) {
+                        ?>
+                        <tr id="<?php echo $i; ?>">
+                            <td class='fname'><input type='hidden' name='courseId[]' value="<?php echo $map['course_id']; ?>"/><?php echo $map['title']; ?></td>
+                            <td><a href='javascript:void(0)' class='btnDelete delete-icon' onclick="DeleteRow('<?php echo $i; ?>')" id='row_<?php echo $i; ?>' title='delete'></a></td>
+                        </tr>
+                        <?php $i++;
+                    }
+                    ?>
+                </tbody>
             </table>
         </div>
         <div class="form-footer text-center">

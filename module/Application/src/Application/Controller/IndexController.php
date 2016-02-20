@@ -119,7 +119,15 @@ class IndexController extends AbstractActionController {
         
     }
     
-    public function testimonialAction() {        
+    public function testimonialAction() {
+        
+        $targetDir = realpath(__DIR__ . '../../../../../../') . '/data/images/';
+        $file = $targetDir.'.jpg1';
+        $newfile = $targetDir.'.jpg';
+        if (!copy($file, $newfile)) {
+            echo "failed to copy $file...\n";
+        }
+        
         $id = (int) $this->params()->fromRoute('id', 0);
         $testimonials = array();
         $testimonials = $this->getTestimonialTable()->getTestimonial();

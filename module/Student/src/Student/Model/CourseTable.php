@@ -21,8 +21,8 @@ class CourseTable {
         $this->tableGateway = $tableGateway;
         $this->resultSetPrototype = new ResultSet(ResultSet::TYPE_ARRAY);
     }
-    
-    public function getNewCourseCode(){
+
+    public function getNewCourseCode() {
         $resultset = array();
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
@@ -30,12 +30,12 @@ class CourseTable {
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();
-        
+
         $count = count($resultset);
         $key = '';
-        if($count > 0){
-            $key = 'KGC'.($count+1);
-        }else{
+        if ($count > 0) {
+            $key = 'KGC' . ($count + 1);
+        } else {
             $key = 'KGC1';
         }
         return $key;
@@ -56,7 +56,7 @@ class CourseTable {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('c' => 'course'));
-        $select->columns(array('id', 'title', 'code','description','status','isdemo','image_path'));
+        $select->columns(array('id', 'title', 'code', 'description', 'status', 'isdemo', 'image_path'));
         $select->order($order_by . ' ' . $order);
         if (isset($searchText) && trim($searchText) != '') {
             $select->where->like('c.title', "%" . $searchText . "%")
@@ -88,22 +88,22 @@ class CourseTable {
      * Function to Save Question Record to Database.
      * @throws \Exception
      */
-    public function saveCourse(Course $course) {  
+    public function saveCourse(Course $course) {
         $data = array(
             'title' => trim($course->title),
             'description' => trim($course->description),
             'status' => $course->status,
-            'isdemo' => $course->isdemo, 
+            'isdemo' => $course->isdemo,
             'image_path' => $course->image_path
         );
 
-        $id = (int) $course->id;        
+        $id = (int) $course->id;
         if ($id == 0) {
             $data['code'] = $course->code;
             $data['created_at'] = time();
             $data['created_by'] = $course->created_by;
             $data['updated_at'] = time();
-            $data['updated_by'] = $course->created_by;            
+            $data['updated_by'] = $course->created_by;
             if ($this->tableGateway->insert($data)) {
                 $Id = $this->tableGateway->getLastInsertValue();
             }
@@ -128,59 +128,74 @@ class CourseTable {
         }
         return $row;
     }
-    
+
+    public function getCourseDropdown() {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select()
+                ->from(array('c' => 'course'))
+                ->columns(array('id', 'title'))
+                ->where(array('status' => '1'));
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        $finalList = array();
+        foreach ($resultset as $result) {
+            $finalList[$result['id']] = $result['title'];
+        }
+        return $finalList;
+    }
+
     public function getQuestionDetails($id) {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('q' => 'questions'))
-                ->join(array('l'=>'level'),'q.level = l.id',array('level_name'=>'name'),'left');
-        $select->columns(array('id', 'name', 'description','type','status','min_marks','max_marks'));
-        $select->where(array('q.id'=>$id));
+                ->join(array('l' => 'level'), 'q.level = l.id', array('level_name' => 'name'), 'left');
+        $select->columns(array('id', 'name', 'description', 'type', 'status', 'min_marks', 'max_marks'));
+        $select->where(array('q.id' => $id));
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();
         return $resultset;
     }
-    
+
     public function getStudentQuestions($cond) {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('q' => 'questions'))
-                ->join(array('l'=>'level'),'q.level = l.id',array('level_name'=>'name','level_id'=>'id'),'left');
-                
-        $select->columns(array('id', 'name', 'description','type','status','min_marks','max_marks'));
-        
-        if(isset($cond['id'])){
-            $select->where(array('q.id'=>$cond['id']));
+                ->join(array('l' => 'level'), 'q.level = l.id', array('level_name' => 'name', 'level_id' => 'id'), 'left');
+
+        $select->columns(array('id', 'name', 'description', 'type', 'status', 'min_marks', 'max_marks'));
+
+        if (isset($cond['id'])) {
+            $select->where(array('q.id' => $cond['id']));
         }
-        
-        if(isset($cond['level'])){
-            $select->where(array('l.id'=>$cond['level']));
+
+        if (isset($cond['level'])) {
+            $select->where(array('l.id' => $cond['level']));
         }
-        
-        if(isset($cond['status'])){
-            $select->where(array('q.status'=>$cond['status']));
+
+        if (isset($cond['status'])) {
+            $select->where(array('q.status' => $cond['status']));
         }
-        
+
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();
         return $resultset;
     }
-    
-    
-    public function getCarrierPath($verbal,$quant) {        
+
+    public function getCarrierPath($verbal, $quant) {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('cp' => 'carrier_path'));
-        $select->columns(array('id', 'name','msg'));
-        $select->where('cp.min_verbal_perc <= '.$verbal);
-        $select->where('cp.max_verbal_perc >= '.$verbal);
-        
-        $select->where('cp.min_quant_perc <= '.$quant);
-        $select->where('cp.max_quant_perc >= '.$quant);
-        
+        $select->columns(array('id', 'name', 'msg'));
+        $select->where('cp.min_verbal_perc <= ' . $verbal);
+        $select->where('cp.max_verbal_perc >= ' . $verbal);
+
+        $select->where('cp.min_quant_perc <= ' . $quant);
+        $select->where('cp.max_quant_perc >= ' . $quant);
+
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();

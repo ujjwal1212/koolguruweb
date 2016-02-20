@@ -15,6 +15,8 @@ class PackageController extends AbstractActionController {
 
     protected $adapter;
     protected $packageTable;
+    protected $CourseTable;
+    protected $CoursePackageTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -30,6 +32,22 @@ class PackageController extends AbstractActionController {
             $this->packageTable = $sm->get('Package\Model\PackageTable');
         }
         return $this->packageTable;
+    }
+
+    public function getCourseTable() {
+        if (!$this->CourseTable) {
+            $sm = $this->getServiceLocator();
+            $this->CourseTable = $sm->get('Student\Model\CourseTable');
+        }
+        return $this->CourseTable;
+    }
+
+    public function getCoursePackageTable() {
+        if (!$this->CoursePackageTable) {
+            $sm = $this->getServiceLocator();
+            $this->CoursePackageTable = $sm->get('Package\Model\coursePackageTable');
+        }
+        return $this->CoursePackageTable;
     }
 
     /**
@@ -103,7 +121,8 @@ class PackageController extends AbstractActionController {
      */
     public function addAction() {
         $session = new Container('User');
-        $form = new PackageForm('PackageForm');
+        $courseList = $this->getCourseTable()->getCourseDropdown();
+        $form = new PackageForm('PackageForm', $courseList);
         $form->get('code')->setValue('xxx-xxx-xxx');
         $form->get('code')->setAttribute('readonly', TRUE);
         $form->get('created_at')->setValue(time());
@@ -151,6 +170,9 @@ class PackageController extends AbstractActionController {
                     $data->updated_at = time();
                     $data->updated_by = $session->offsetGet('userId');
                     $packageId = $this->getPackageTable()->savePackage($package);
+                    if (isset($data->courseId)) {
+                        $this->getCoursePackageTable()->savePackageCourse($data, $packageId);
+                    }
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
                     $this->flashMessenger()->setNamespace('success')->addMessage('Package created successfully');
                     return $this->redirect()->toRoute('package');
@@ -174,11 +196,13 @@ class PackageController extends AbstractActionController {
         $page = (int) $this->params()->fromRoute('page', 0);
 
         $session = new Container('User');
-        $form = new PackageForm('PackageForm');
+        $courseList = $this->getCourseTable()->getCourseDropdown();
+        $form = new PackageForm('PackageForm', $courseList);
         $form->get('code')->setAttribute('readonly', TRUE);
         $package = $this->getPackageTable()->getPackage($id);
         $form->get('id')->setValue($id);
         $form->bind($package);
+        $courseMapData = $this->getCoursePackageTable()->getCourseMapData($id);
 
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -223,7 +247,10 @@ class PackageController extends AbstractActionController {
                     $data->updated_date = time();
                     $data->updated_by = $session->offsetGet('userId');
 
-                    $subjectId = $this->getPackageTable()->savePackage($package);
+                    $packageId = $this->getPackageTable()->savePackage($package);
+                    if (isset($data->courseId)) {
+                        $this->getCoursePackageTable()->savePackageCourse($data, $id);
+                    }
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
                     $this->flashMessenger()->setNamespace('success')->addMessage('Package updated successfully');
 
@@ -231,11 +258,11 @@ class PackageController extends AbstractActionController {
                 }
             }
         }
-        return array('form' => $form, 'id' => $id, 'page' => $page);
+        return array('form' => $form, 'id' => $id, 'page' => $page, 'courseMapData' => $courseMapData);
     }
 
     public function uploadImage($code) {
-        if (isset($_FILES['image_path']['name'])&& $_FILES['image_path']['name'] != '') {
+        if (isset($_FILES['image_path']['name']) && $_FILES['image_path']['name'] != '') {
             $fileNameArr = explode('.', $_FILES['image_path']['name']);
             $fileName = $code . '.' . $fileNameArr[1];
             $targetDir = realpath(__DIR__ . '../../../../../../') . '/data/images/';
@@ -270,8 +297,10 @@ class PackageController extends AbstractActionController {
         $session = new Container('User');
 
         $package = $this->getPackageTable()->getPackageDetails($id);
+        $courseMapData = $this->getCoursePackageTable()->getCourseMapData($id);
         return array(
             'package' => $package,
+            'courseMapData' => $courseMapData
         );
     }
 

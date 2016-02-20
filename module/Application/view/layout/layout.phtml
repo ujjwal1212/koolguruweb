@@ -103,7 +103,7 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
     </head>
     <body>        
 
-
+ 
         <!-- Header -->
         <div class="mkdf-top-bar">
             <div class="mkdf-grid">
@@ -202,6 +202,21 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                 </div>
             </div>
         </header>
+<nav class="clearfix pagenav">
+        <a href="#" id="pull"></a>
+        <ul class="clearfix">
+            <li><a href="<?php echo $this->url('home') ?>">HOME</a></li>
+            <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'mission')); ?>">MISSION</a></li>
+            <li><a href="#">TEAM</a></li>
+            <li><a href="#">VISION</a></li>
+            <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'aboutus')); ?>">ABOUT US</a></li>
+            <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'contactus')); ?>">CONTACT US</a></li> 
+            <li><a href="<?php echo $this->url('studentlogin') ?>">Login</a></li>  
+            <li><a href="<?php echo $this->url('student') ?>"> Register</a></li> 
+        </ul>
+        
+    </nav>
+
         <?php echo $this->content; ?>
         <section id="footer_page_links">
             <div class="container">
@@ -277,7 +292,8 @@ $(document).ready(function() {
       slideSpeed : 300,
       paginationSpeed : 400,
       singleItem:true,
- autoPlay: true
+ autoPlay: true,
+ autoHeight : true
     
     });
  
@@ -287,9 +303,37 @@ $(document).ready(function() {
       slideSpeed : 300,
       paginationSpeed : 400,
       singleItem:true,
- autoPlay: true
+ autoPlay: true,
+ autoHeight : true
     
     });
+
+$("#owl-demo2").owlCarousel({
+ 
+      autoPlay: 3000, //Set AutoPlay to 3 seconds
+ 
+      items : 3,
+      itemsDesktop : [1199,3],
+      itemsDesktopSmall : [979,3]
+ 
+  });
+    $(function() {
+            var pull        = $('#pull');
+                menu        = $('nav ul');
+                menuHeight  = menu.height();
+
+            $(pull).on('click', function(e) {
+                e.preventDefault();
+                $('nav ul').slideToggle();
+            });
+
+            $(window).resize(function(){
+                var w = $(window).width();
+                if(w > 320 && menu.is(':hidden')) {
+                    menu.removeAttr('style');
+                }
+            });
+        });
 
  
 });
