@@ -8,6 +8,8 @@ use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
 use Package\Model\Package;
 use Package\Model\PackageTable;
+use Package\Model\coursePackage;
+use Package\Model\coursePackageTable;
 
 class Module {
 
@@ -44,6 +46,17 @@ class Module {
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Package());
                     return new TableGateway('package', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Package\Model\coursePackageTable' => function($sm) {
+                    $tableGateway = $sm->get('coursePackageTableGateway');
+                    $table = new coursePackageTable($tableGateway);
+                    return $table;
+                },
+                'coursePackageTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new coursePackage());
+                    return new TableGateway('package_course_map', $dbAdapter, null, $resultSetPrototype);
                 },
             )
         );

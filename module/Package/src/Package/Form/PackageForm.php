@@ -10,7 +10,7 @@ use Zend\Form\Form;
  */
 class PackageForm extends Form {
 
-    public function __construct($name = NULL) {
+    public function __construct($name = NULL, $courseList) {
         // we want to ignore the name passed
         parent::__construct($name);
 
@@ -102,7 +102,7 @@ class PackageForm extends Form {
                 ),
             ),
         ));
-        
+
         $this->add(array(
             'type' => 'text',
             'name' => 'duration',
@@ -151,7 +151,24 @@ class PackageForm extends Form {
                 ),
             ),
         ));
-        
+        $this->add(array(
+            'type' => 'Zend\Form\Element\Textarea',
+            'name' => 'whatuserget',
+            'attributes' => array(
+                'class' => 'input',
+                'id' => 'whatuserget',
+            ),
+            'options' => array(
+                'label' => 'WHAT USER GETS',
+                'label_attributes' => array(
+                    'class' => 'label'
+                ),
+                'label_attributes' => array(
+                    'class' => 'label'
+                ),
+            ),
+        ));
+
         $this->add(array(
             'type' => 'text',
             'name' => 'ff_classroom',
@@ -176,7 +193,7 @@ class PackageForm extends Form {
                     'class' => 'label'
                 ),
                 'empty_option' => 'Select',
-                'value_options' => array()
+                'value_options' => $courseList,
             ),
             'attributes' => array(
                 'id' => 'course_id',
