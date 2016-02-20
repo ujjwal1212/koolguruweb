@@ -1,0 +1,78 @@
+<?php
+if (isset($_SESSION['User']['roleCode'])):
+    $roleCode = $_SESSION['User']['roleCode'];
+endif;
+?>
+<section class="sub-header">
+    <div class="container">
+        <div class="sub-header-title">
+            <?php
+            $title = 'View Subject';
+            ?>
+            <a class="back-icon" href="<?php echo $this->url('subject', array('action' => 'index')); ?>"></a>
+
+            <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
+
+                <?php
+                /* Adding Breadcrumb */
+                echo $this->navigation('navigation')
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                ?>
+            </h1>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="forms">
+        <section class="profile-details center-details">
+            <div class="short_profile_left">
+                <ul>
+                    <li class="name detail-row">
+                        <?php echo $subject[0]['title']; ?>
+                        <span class="separator-img"></span>
+                        <?php if ($subject[0]['status'] == '0') { ?>
+                            <span class="green-circle-status"></span>
+                            <span class="status">        
+                                <?php echo 'ACTIVE'; ?>
+                            </span>
+                        <?php } else { ?>
+                            <span class="red-circle-status"></span>
+                            <span class="status">        
+                                <?php echo 'IN-ACTIVE'; ?>
+                            </span>
+                        <?php } ?>
+                    </li>
+                    <li>
+                        <?php echo $subject[0]['code']; ?>
+                    </li>
+                    <li>
+                        <?php
+                        if ($subject[0]['image_path']) {
+                            $subjectPathArr = explode('/', $subject[0]['image_path']);
+                            foreach ($subjectPathArr as $imageName) {
+                                $imageFile = $imageName;
+                            }
+                            ?>
+                            <img alt="Subject Image" src="<?php echo $_SESSION['basedomain']['path'].'/data/images/' . $imageFile; ?>" style="height:auto; width: 25%;border-radius: 50%;"/>
+                        <?php } ?>
+                    </li>
+                </ul>  
+            </div> 
+        </section>
+
+    </div>
+    <div id="form-footer">
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
