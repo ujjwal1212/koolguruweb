@@ -7,20 +7,11 @@ use Zend\InputFilter\InputFilter;
 use Zend\InputFilter\InputFilterAwareInterface;
 use Zend\InputFilter\InputFilterInterface;
 
-class Package implements InputFilterAwareInterface {
+class coursePackage implements InputFilterAwareInterface {
 
     public $id;
-    public $title;
-    public $code;
-    public $description;
-    public $image_path;
-    public $price;
-    public $duration;
-    public $relevant_for;
-    public $advantage;
-    public $ff_classroom;
-    public $whatuserget;
-    public $status;
+    public $package_id;
+    public $course_id;
     public $created_at;
     public $created_by;
     public $updated_at;
@@ -31,23 +22,15 @@ class Package implements InputFilterAwareInterface {
 
     public function exchangeArray($data) {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
-        $this->title = (isset($data['title'])) ? $data['title'] : null;
-        $this->code = (isset($data['code'])) ? $data['code'] : null;
-        $this->description = (isset($data['description'])) ? $data['description'] : null;
-        $this->image_path = (isset($data['image_path'])) ? $data['image_path'] : null;
-        $this->price = (isset($data['price'])) ? $data['price'] : null;
-        $this->duration = (isset($data['duration'])) ? $data['duration'] : null;
-        $this->relevant_for = (isset($data['relevant_for'])) ? $data['relevant_for'] : null;
-        $this->advantage = (isset($data['advantage'])) ? $data['advantage'] : null;
-        $this->ff_classroom = (isset($data['ff_classroom'])) ? $data['ff_classroom'] : null;
-        $this->whatuserget = (isset($data['whatuserget'])) ? $data['whatuserget'] : null;
-        $this->status = (isset($data['status'])) ? $data['status'] : null;
+        $this->package_id = (isset($data['package_id'])) ? $data['package_id'] : null;
+        $this->course_id = (isset($data['course_id'])) ? $data['course_id'] : null;
         $this->created_at = (isset($data['created_at'])) ? $data['created_at'] : null;
         $this->created_by = (isset($data['created_by'])) ? $data['created_by'] : null;
         $this->updated_at = (isset($data['updated_at'])) ? $data['updated_at'] : null;
         $this->updated_by = (isset($data['updated_by'])) ? $data['updated_by'] : null;
     }
 
+    // Add the following method:
     public function getArrayCopy() {
         return get_object_vars($this);
     }
@@ -55,6 +38,14 @@ class Package implements InputFilterAwareInterface {
     public function setInputFilter(InputFilterInterface $inputFilter) {
         throw new \Exception("Not used");
     }
+
+//    public function setDbAdapter($dbAdapter) {
+//        $this->_dbAdapter = $dbAdapter;
+//    }
+//
+//    public function getDbAdapter() {
+//        return $this->_dbAdapter;
+//    }
 
     public function getInputFilter() {
         if (!$this->inputFilter) {
