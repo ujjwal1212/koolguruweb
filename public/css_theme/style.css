@@ -9149,3 +9149,7 @@ display: none;    }
        .carousel img{ vertical-align: middle;}
 }
 #testi-left,#testi-right{ display:none;}
+.testimonial-box{height: 400px;}
+.testimonial-left-content{padding-left:5px;padding-top:5px; ;width:20%;float:left;}
+.testimonial-right-content{margin-left: 250px;padding-top: 5px;padding-right: 5px;font-size: 14px;text-align: left;font-family: poppins;}
+.testimonial-degree{margin-top:5px;margin-left:5px;color: #aaa;font-size: 14px;text-align: left;font-family: poppins;}
