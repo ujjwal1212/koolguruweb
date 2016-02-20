@@ -29,6 +29,7 @@ class IndexController extends AbstractActionController {
     protected $ChapterTable;
     protected $QuestionTable;
     protected $SubjectTable;
+    protected $TestimonialTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -70,8 +71,19 @@ class IndexController extends AbstractActionController {
         }
         return $this->SubjectTable;
     }
+    
+    public function getTestimonialTable() {
+        if (!$this->TestimonialTable) {
+            $sm = $this->getServiceLocator();
+            $this->TestimonialTable = $sm->get('Application\Model\TestimonialTable');
+        }
+        return $this->TestimonialTable;
+    }
 
     public function indexAction() {
+        $testimonials = array();
+        $testimonials = $this->getTestimonialTable()->getTestimonial();
+        //asd($testimonials);
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $js_path = $renderer->basePath('js/koolguru/application');
         $headScript = $this->getServiceLocator()->get('viewhelpermanager')
@@ -82,6 +94,9 @@ class IndexController extends AbstractActionController {
         if ($session->offsetExists('email') && $session->offsetGet('roleCode') == 'st') {
             $this->redirect()->toRoute('student');
         }
+        return array(
+            'testimonials' => $testimonials,
+        );
     }
 
     public function locateusAction() {
@@ -102,6 +117,23 @@ class IndexController extends AbstractActionController {
     
     public function faqAction() {
         
+    }
+    
+    public function testimonialAction() {
+        
+        $targetDir = realpath(__DIR__ . '../../../../../../') . '/data/images/';
+        $file = $targetDir.'.jpg1';
+        $newfile = $targetDir.'.jpg';
+        if (!copy($file, $newfile)) {
+            echo "failed to copy $file...\n";
+        }
+        
+        $id = (int) $this->params()->fromRoute('id', 0);
+        $testimonials = array();
+        $testimonials = $this->getTestimonialTable()->getTestimonial();
+        return array(
+            'testimonials' => $testimonials,
+        );
     }
 
     public function contactusAction() {

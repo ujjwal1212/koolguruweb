@@ -89,6 +89,21 @@ return array(
                 ),
             ),
             
+            'testimonial' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/testimonial[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'application\Controller\Index',
+                        'action' => 'testimonial',
+                    ),
+                ),
+            ),
+            
             'application' => array(
                 'type'    => 'Literal',
                 'options' => array(

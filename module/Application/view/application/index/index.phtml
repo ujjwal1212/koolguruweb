@@ -203,72 +203,28 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
             </div>    
         </div>
         <div class=" widget wpo-testimonial v6 light-style space-top-40">
-        <div id="owl-demo1" class="owl-carousel owl-theme ">
-
-  <div class="item">           
+            <?php if(!empty($testimonials)){$i=1;?>
+            <?php foreach($testimonials as $testimonial){?>
+                <div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns" id="testi-<?php echo $i;?>" style="display:none">
 		   <div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns" >
-                <div class="mkdf-testimonial-text-inner ">
-                    <div class="mkdf-testimonial-image-holder">
-                        <img width="60" height="60" src="img/natrajan.jpg" alt="">
-                    </div>                <p class="mkdf-testimonial-text ">
-                        With more than 3 years of work experience in the Information Technology industry, I was determined to pursue an MBA, more specifically from an Indian Institute of Management. Two failed attempts did not deter me from this dream. However I realized that aptitude tests such as the CAT have evolved from being regular pattern based to becoming more concept based. These tests no longer have all those tough problems which test the need for a candidate to have solved a similar problem in the past. All problems are based on fundamental concepts and test the ability of the candidate to understand the grass-roots of the same.
-
-It was then, I met Ankur Sir and Vatan Sir. I found their teaching "unconventional" and "fantastic". I found a distinct difference in their way of teaching when compared to the established coaching enterprises. Not only were the fundamentals made very clear, but also all concepts were linked and interpreted in a new way. For instance, I was able to solve questions from algebra, by visualizing them as a geometric figure. All these ways, helped me to gain a significant edge over my peer in competitive exams (CAT, XAT, IIFT, NMAT, SNAP)
-
-Thanks to them, I cracked the CAT and joined IIM B in 2014. Never had I been so happy. I attribute my success to them and strongly urge all aspirants of CAT/Any competitive test to try out the training programs designed by them and their team
-
-                </p>
-                    <div class="mkdf-testimonial-author">
-                        <h6 class="mkdf-testimonial-author-text ">Natarajan Ramachandran</h6> 
-                        <span class="mkdf-testimonials-job ">IIM Bangalore – 2016</span>
-                    </div>
-                </div>
-            </div>
-            </div>
 			  <div class="item">           
 			<div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns">
-                <div class="mkdf-testimonial-text-inner ">
-                    <div class="mkdf-testimonial-image-holder">
-                        <img width="60" height="60" src="img/renu.jpg" alt="">
-                    </div>                <p class="mkdf-testimonial-text ">Ankur Sir and his team have been a set of brilliant mentors to help me prepare for my MBA. They have helped me with preparation materials, guided me along every step. They are a team of dedicated, enthusiastic individuals who always go an extra mile to help students achieve their dreams. I would recommend them if you are looking for a team that's passionate about your dream.
-                </p>
-                    <div class="mkdf-testimonial-author">
-                        <h6 class="mkdf-testimonial-author-text ">Renu Chowdary</h6> 
-                        <span class="mkdf-testimonials-job ">IIM Trichy - 2016</span>
-                    </div>
-                </div>
-            </div></div>
-			  <div class="item">           
             <div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns" >
                 <div class="mkdf-testimonial-text-inner ">
                     <div class="mkdf-testimonial-image-holder">
-                        <img width="60" height="60" src="img/ritika.jpg" alt="">
-                    </div>                <p class="mkdf-testimonial-text ">
-                        Preparing for CAT and other B- school entrance exams was less of studies and more of fun for me. During my final year of B.Tech, attending coaching classes and solving Maths questions was a stress-buster for me. The credit for making Quantitative Ability, Logical Reasoning and Data Interpretation so engrossing goes to Ankur Sir and his team. Not just this, I got tremendous confidence by solving the mock test papers. Getting geared up for GD and PI, all were enabled by the rich guidance and support that I got here. Selecting which B-School to apply, how to prepare for its written and GD-PI, and many more implicit knowledge and insights were given to me. Put in the hard work and the mentors will ensure that your hard work is paid off. All the Best
-                </p>
-                    <div class="mkdf-testimonial-author">
-                        <h6 class="mkdf-testimonial-author-text ">Ritika Agarwal</h6> 
-                        <span class="mkdf-testimonials-job ">XIMB - 2015</span>
+                        <img width="60" height="60" src="img/<?php echo $testimonial['image'];?>" alt="">
                     </div>
-                </div>
-            </div>
-            </div>
-			  <div class="item">           
+                    <p class="mkdf-testimonial-text ">
+                        <?php echo $testimonial['short_description'];?> <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'testimonial','id' => $testimonial['id'])); ?>"> Read More....</a>
 			<div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns" >
-                <div class="mkdf-testimonial-text-inner ">
-                    <div class="mkdf-testimonial-image-holder">
-                        <img width="60" height="60" src="img/srinivas.jpg" alt="">
-                    </div>                <p class="mkdf-testimonial-text ">
-                        Exactly a year ago, here I was frantically preparing for my GD’s and PI’s to get through a dream B-School that would open doors for a world of opportunities. But reaching this stage would not have been possible without the guidance and attention given to me by Vatan Sir, Ankur Sir and team. Classes and materials provided by them molded me to face any googly thrown at me during CAT/SNAP and the ensuing GD’s/PI’s.
-I would like to offer my gratitude to Vatan Sir and Ankur Sir who were instrumental in my growth and were available whenever I needed them. They made me feel confident of cracking the exams through series of Mock tests, Interviews, GD’s and made sure that I was ready to win the battle. Behind every successful B-School student is a Mentor, a Guru.  
-
-                </p>
+                    </p>
                     <div class="mkdf-testimonial-author">
-                        <h6 class="mkdf-testimonial-author-text ">SrinivasRadhakrishnan</h6> 
-                        <span class="mkdf-testimonials-job ">SCMHRD – 2016</span>
+                        <h6 class="mkdf-testimonial-author-text "><?php echo $testimonial['name'];?></h6> 
+                        <span class="mkdf-testimonials-job "><?php echo $testimonial['degree'];?></span>
                     </div>
                 </div>
             </div>
+            <?php $i++;}} ?>
         </div>
 		</div>
 		</div>      
