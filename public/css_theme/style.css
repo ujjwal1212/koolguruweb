@@ -9148,4 +9148,4 @@ display: none;    }
     .text-slide h1,.text-slide p{text-align: center;}
        .carousel img{ vertical-align: middle;}
 }
-#testi-left,#testi-right{ display:none;}
+#testi-left,#testi-right{ display:block;}
