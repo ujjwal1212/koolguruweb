@@ -168,6 +168,27 @@ return array(
                     ),
                 ),
             ),
+            array(
+                'label' => 'Manage Packages',
+                'route' => 'package',
+                'pages' => array(
+                    array(
+                        'label' => ' Create Package',
+                        'route' => 'package',
+                        'action' => 'add',
+                    ),
+                    array(
+                        'label' => 'Edit Package',
+                        'route' => 'package',
+                        'action' => 'edit',
+                    ),
+                    array(
+                        'label' => 'View Package',
+                        'route' => 'package',
+                        'action' => 'view',
+                    ),
+                ),
+            ),
         ),
     ),
 );

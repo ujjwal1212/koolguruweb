@@ -45,6 +45,9 @@ $(document).ready(function () {
             advantage: {
                 required: true,
             },
+            whatuserget: {
+                required: true,
+            },
         },
         messages: {
             title: {
@@ -71,6 +74,9 @@ $(document).ready(function () {
             advantage: {
                 required: 'Please fill the advantage of package',
             },
+            whatuserget: {
+                required: 'Fill comma seperated description',
+            },
         }
     });
 
@@ -89,14 +95,14 @@ $(document).ready(function () {
      */
 
     $('#add_option').click(function () {
-        var tableRowId = window.parent.$('#option_table > tbody > tr').length + 1;
+        var tableRowId = window.parent.$('#course_table > tbody > tr').length + 1;
         var courseId = $('#course_id').val();
-        var courseName = $('#course_id').val();
+        var courseName = $('#course_id option:selected').text();
         if (courseName != '') {
             var rowBody = "<tr id=" + tableRowId + ">\n\
                            <td class='fname'><input type='hidden' name='courseId[]' value='" + courseId + "'/>" + courseName + "</td>\n\
                            <td><a href='javascript:void(0)' class='btnDelete delete-icon' id='row_" + tableRowId + "' title='delete'></a></td></tr>";
-            $("#option_table > tbody:last").append(rowBody);
+            $("#course_table > tbody:last").append(rowBody);
             bindDelete('row_' + tableRowId);
             tableRowId++;
         } else {
@@ -112,5 +118,4 @@ $(document).ready(function () {
             $('#image_path').val('');
         }
     });
-    s
 });
