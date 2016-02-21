@@ -103,7 +103,7 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
     </head>
     <body>        
 
- 
+ <div class="container-outer">
         <!-- Header -->
         <div class="mkdf-top-bar">
             <div class="mkdf-grid">
@@ -207,7 +207,14 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
         <ul class="clearfix">
             <li><a href="<?php echo $this->url('home') ?>">HOME</a></li>
             <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'mission')); ?>">MISSION</a></li>
-            <li><a href="#">TEAM</a></li>
+            <li id="nav-menu-item-752" class="menu-item">
+                <a href="" class=" no_link"  ><span class="item_outer"><span class="item_inner"><span class="item_text">Team</span></span><span class="plusicon"></span></span>
+                </a>
+                 <ul class="dropdown-menu" >
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                  </ul>
+            </li>
             <li><a href="#">VISION</a></li>
             <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'aboutus')); ?>">ABOUT US</a></li>
             <li><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'contactus')); ?>">CONTACT US</a></li> 
@@ -282,6 +289,7 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
 
 
         <?php echo $this->inlineScript() ?>
+</div>
 <script type="text/javascript" src="/koolguruweb/public/js/owl.carousel.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
