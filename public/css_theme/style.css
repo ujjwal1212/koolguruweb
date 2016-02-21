@@ -1635,7 +1635,7 @@ body:not(.mkdf-menu-item-first-level-bg-color) .mkdf-main-menu>ul>li:hover>a {
     height: 1px;
     bottom: 4px
 }
-.mkdf-main-menu>ul>li>a span.plusicon {
+.mkdf-main-menu>ul>li>a span.plusicon,.plusicon {
     width: 0;
     height: 0;
     border-style: solid;
@@ -8876,6 +8876,11 @@ div.wpcf7 .screen-reader-response {
 a:hover{ text-decoration: none;}
 .mylivechat_collapsed,.mylivechat_expanded,.mylivechat_prechat_submit_button, .mylivechat_offline_submit_button, .mylivechat_prechat_survey_button{background: #16C569!important;
     border: solid 1px #43cb83!important;}
+    .mylivechat_prechat_submit_button, .mylivechat_offline_submit_button, .mylivechat_prechat_survey_button{    width: 100px;
+    left: inherit!important;    text-indent: 0;
+    height: 32px;
+    float: right;
+    right: 12px;}}
     .testimonials-v6 *{ font-weight: normal;}
 .article__parallax{ overflow: hidden;}
 .width-30{ width:30%!important;}
@@ -9002,12 +9007,11 @@ display: none;    }
     width: auto;    margin: auto;
     float: none;
     text-align: center; margin-top: 30px;}
-#footer_page_links ul.nav li.parent{ float: none;}
+#footer_page_links ul.nav li.parent{ float: none;    width: 100%!important;}
 .mkdf-section-title-holder .mkdf-section-title.mkdf-section-title-large { text-align: center!important;}
 .mkdf-video-banner-link video{ width:98%; margin-top: 30px;}
 .heading-inner h2{ font-size:38px; }
 }
-
 
 /* Clearfix */
 .clearfix:before,
@@ -9049,7 +9053,6 @@ display: none;    }
     text-align: center;
     text-decoration: none;
     line-height: 40px;
-    text-shadow: 1px 1px 0px #283744;
 }
 .pagenav li a {
     box-sizing:border-box;
@@ -9147,6 +9150,10 @@ display: none;    }
     .text-slide{ width:100%; text-align: center; padding-right:0;}
     .text-slide h1,.text-slide p{text-align: center;}
        .carousel img{ vertical-align: middle;}
+.container.footer-contact{ width:100%; padding-bottom:40px; padding-right:0;}
+.login_base{ width:80%!important;}
+.kooltab{ display: block!important;}
+#student-registration-form,#contact-form{ padding:0!important;}
 }
 #testi-left,#testi-right{ display:none;}
 .testimonial-box{height: 400px;}
