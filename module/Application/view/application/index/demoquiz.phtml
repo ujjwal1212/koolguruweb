@@ -67,7 +67,8 @@
         app.demoquiz.hidealltab();
         app.demoquiz.makeEnableAllTab();
         app.demoquiz.opencurrenttab();
-        $('.kooltab').click(function(){            
+        $('.kooltab').click(function(){    
+            togglePlayPause();
             var tabid = $(this).attr('id');            
             var split = tabid.split('-');
             tabno = parseInt(split[1]);
