@@ -21,6 +21,8 @@ use Application\Model\Subject;
 use Application\Model\SubjectTable;
 use Application\Model\Testimonial;
 use Application\Model\TestimonialTable;
+use Application\Model\Team;
+use Application\Model\TeamTable;
 
 class Module
 {
@@ -95,6 +97,17 @@ class Module
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Testimonial());
                     return new TableGateway('testimonial', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Application\Model\TeamTable' => function($sm) {
+                    $tableGateway = $sm->get('TeamTableGateway');
+                    $table = new TeamTable($tableGateway);
+                    return $table;
+                },
+                'TeamTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Team());
+                    return new TableGateway('team', $dbAdapter, null, $resultSetPrototype);
                 },
             ),
         );

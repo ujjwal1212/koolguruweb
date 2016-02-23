@@ -7,7 +7,9 @@
                     <?php foreach($testimonials as $testi){?>
                     <div class="testimonial-box">
                                 <div class="testimonial-left-content">
-                                    <img src="<?php echo $this->basePath() . '/img/'.$testi['image'];?>" alt=""/>
+                                    <div>
+                                    <img style="height: 179px;width: 100%;" src="<?php echo $this->basePath() . '/img/'.$testi['image'];?>" alt=""/>
+                                    </div>
                                     <div class="testimonial-degree">
                                         <?php echo $testi['name'];?>
                                     </div>
