@@ -73,6 +73,14 @@ function togglePlayPause() {
     }
 }
 
+function PausePlayer() {
+    
+        // Change the button to be a play button
+        changeButtonType(playPauseBtn, 'play');
+        // Pause the media
+        mediaPlayer.pause();
+    
+}
 // Stop the current media from playing, and return it to the start position
 function stopPlayer() {
     mediaPlayer.pause();
