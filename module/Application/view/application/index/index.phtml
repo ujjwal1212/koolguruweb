@@ -1,0 +1,587 @@
+<script>
+//    $(function () {
+//        $('.slides').cbpFWSlider();
+//    });
+</script>
+<?php
+echo $this->doctype();
+$roleCode = '';
+if (isset($_SESSION['User']['roleCode'])):
+    $roleCode = $_SESSION['User']['roleCode'];
+endif;
+?>
+<style>
+<?php
+echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.microsoft.icon', 'href' => $this->basePath() . '/img/favicon.ico'))
+        ->prependStylesheet($this->basePath() . '/css/button.css');
+?>
+</style>
+<div class="video-slide">
+    <video width="500" height="270" poster="css_theme/images/koolguru_poster.png" controls="true">
+        <source src="http://koolguru.co.in/video/v1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+
+<div id="owl-demo" class="owl-carousel owl-theme carousel">
+
+    <div class="item"><div class="slides">
+            <div class="container">
+                <div class="text-slide">
+                    <h1>MOTIVATION REDEFINED</h1>
+                    <p>“ Innovate to Educate” With this Slogan in mind, we are here to revolutionize the education process & learning methodology . For us Education is pure passion not an Industry , an art of learning , teaching & Knowledge sharing .</p>
+                    <!--<button type="button" class="more-button"> More Details</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="item"><img  src="<?php echo $this->basePath() . "/css_theme/images/Anywhere.jpg"; ?>" alt="GTA V"></div>
+    <div class="item"><img src="<?php echo $this->basePath() . "/css_theme/images/beenthere.jpg"; ?>" alt="Mirror Edge"></div>
+    <div class="item"><img src="<?php echo $this->basePath() . "/css_theme/images/gogreen.jpg"; ?>" alt="Mirror Edge"></div>
+
+</div>
+
+</div>
+<div class="container">
+    <div class="wpb_wrapper ">
+
+        <div class="heading separator_align_center heading-v10 space-20">
+            <div class="heading-inner">
+                <h2>our Programs</h2>
+                <small class="subheading"> check out</small>
+            </div>    
+        </div>
+        <div class="widget wpo-educator-grid small">
+
+            <div class="widget-content tribe-events-list">
+                <div>		
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <article class="course course-item"> 
+                            <div class="course-image">
+
+                                <div class="package-box-even">The long term planner</div>
+<!--                                    <img width="870" height="593" src="css_theme/images/courses-9.jpg" class="attachment-course-image wp-post-image" alt="courses-9">-->
+
+                                <div class="ib-edu-course-price">
+                                    <span class="label-free">INR 12.5K</span>
+
+                                </div>
+                            </div>
+                            <div class="course-inner">
+                                <div class="course-header">
+                                    <h4><a href="">The long term planner</a></h4>
+                                    <div class="author"><span>Teacher  <a href="" title="Vatan Vindal">Vatan Vindal</a></span></div>
+                                </div>
+                                <div class="course-meta">
+                                    <div class="left">
+                                        <span class="duration"><i class="uicon icon-duration"></i> 
+                                            <span class="val">22 Month </span>
+                                        </span>			
+
+                                        <span class="lesson"><i class="uicon icon-lesson"></i>7  Courses</span>			
+                                    </div>
+                                    <div class="right"> 
+                                        <div class="course-rating">
+                                            <img src="css_theme/images/rating_on.gif" alt="154 votes, average: 2 out of 5" title="154 votes, average: 2 out of 5" class="post-ratings-image">
+                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
+                                    </div> 	
+                                </div>
+                            </div>	
+                        </article> 
+                    </div>	
+
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <article class="course course-item"> 
+                            <div class="course-image">
+                                <div class="package-box-odd">The go-getter</div>
+                                <div class="ib-edu-course-price">
+                                    <span class="label-free">INR 10K</span>
+                                </div>
+                            </div>
+                            <div class="course-inner">
+                                <div class="course-header">
+                                    <h4><a href="">The go-getter</a></h4>
+                                    <div class="author"><span>Teacher  <a href="" title="Vatan Vindal">Vatan Vindal</a></span></div>
+                                </div>
+                                <div class="course-meta">
+                                    <div class="left">
+                                        <span class="duration"><i class="uicon icon-duration"></i> 
+                                            <span class="val">10 Month </span>
+                                        </span>				
+
+                                        <span class="lesson"><i class="uicon icon-lesson"></i>5  Courses</span>			
+                                    </div>
+                                    <div class="right"> 
+                                        <div class="course-rating">
+                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
+                                    </div> 	
+                                </div>
+                            </div>	
+                        </article> 
+                    </div>	
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <article class="course course-item"> 
+                            <div class="course-image">
+                                <div class="package-box-even">The go-getter (intensive)</div>
+                                <div class="ib-edu-course-price">
+                                    <span class="label-free">INR 12.5K</span>
+
+                                </div>
+                            </div>
+                            <div class="course-inner">
+                                <div class="course-header">
+                                    <h4><a href="">The go-getter (intensive)</a></h4>
+                                    <div class="author"><span>Teacher  <a href="" title="Vatan Vindal">Vatan Vindal</a></span></div>
+                                </div>
+                                <div class="course-meta">
+                                    <div class="left">
+                                        <span class="duration"><i class="uicon icon-duration"></i> 
+                                            <span class="val">10 Month </span>
+                                        </span>				
+
+                                        <span class="lesson"><i class="uicon icon-lesson"></i>10 Courses</span>			
+                                    </div>
+                                    <div class="right"> 
+                                        <div class="course-rating">
+                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
+                                    </div> 	
+                                </div>
+                            </div>	
+                        </article> 
+                    </div>	
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <article class="course course-item"> 
+                            <div class="course-image">
+                                <div class="package-box-odd">Fine-tuning</div>
+                                <div class="ib-edu-course-price">
+                                    <span class="label-free">INR 5K</span>
+
+                                </div>
+                            </div>
+                            <div class="course-inner">
+                                <div class="course-header">
+                                    <h4><a href="">Fine-tuning</a></h4>
+                                    <div class="author"><span>Teacher  <a href="" title="Vatan Vindal">Vatan Vindal</a></span></div>
+                                </div>
+                                <div class="course-meta">
+                                    <div class="left">
+                                        <span class="duration"><i class="uicon icon-duration"></i> 
+                                            <span class="val">5 Month</span>
+                                        </span>				
+
+                                        <span class="lesson"><i class="uicon icon-lesson"></i>6  Courses</span>			
+                                    </div>
+                                    <div class="right"> 
+                                        <div class="course-rating">
+                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
+                                    </div> 	
+                                </div>
+                            </div>	
+                        </article> 
+                    </div>	
+
+
+
+
+                </div>
+            </div>	
+        </div></div>
+</div> 
+
+
+
+
+
+<div class="light-grey-style"> 
+    <div class="container pos-rel">
+        <div class="left-arrow" id="testi-left"></div>
+        <div class="right-arrow" id="testi-right"></div>
+        <div class="heading separator_align_center heading-v10 space-20 light-style">
+            <div class="heading-inner">
+                <h2>Testimonials</h2>
+                <small class="subheading"> Our happy students</small>
+            </div>    
+        </div>
+        <div class=" widget wpo-testimonial v6 light-style space-top-40">
+            <div id="owl-demo1" class="owl-carousel owl-theme ">
+                <?php
+                if (!empty($testimonials)) {
+                    $i = 1;
+                    ?>
+    <?php foreach ($testimonials as $testimonial) { ?>
+                        <div class="item">           
+                            <div class="mkdf-testimonial-content testimonials-grid mkdf-three-columns" >
+                                <div class="mkdf-testimonial-text-inner ">
+                                    <div class="mkdf-testimonial-image-holder">
+                                        <img width="60" height="60" src="img/<?php echo $testimonial['image']; ?>" alt="">
+                                    </div>                <p class="mkdf-testimonial-text ">
+        <?php echo $testimonial['short_description']; ?> <a href="<?php echo $this->url('application/default', array('controller' => 'index','action' => 'testimonial')).'?id='.$testimonial['id']?>"> Read More....</a>
+                                    </p>
+                                    <div class="mkdf-testimonial-author">
+                                        <h6 class="mkdf-testimonial-author-text "><?php echo $testimonial['name']; ?></h6> 
+                                        <span class="mkdf-testimonials-job "><?php echo $testimonial['degree']; ?></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <?php
+                        $i++;
+                    }
+                }
+                ?>
+            </div>
+        </div>      
+    </div>
+</div>
+
+
+<div class="bg-style-dark green-bg">
+
+    <div class="container watch-video pos-rel">
+
+        <div class="mkdf-section-inner-margin clearfix left-section">
+            <div class="mkdf-section-title-holder">
+                <h2 class="mkdf-section-title mkdf-section-title-large text-align-left"> Why Koolguru</h2>
+            </div>
+            <div class="mkdf-section-subtitle-holder">
+                <p class="mkdf-section-subtitle">We envision to revolutionize the education making it more greener, affordable and result-oriented.</p>
+            </div>
+
+
+        </div>
+        <div class="wpb_column vc_column_container right-section">
+            <a class="mkdf-video-banner-link">
+                <video width="520" height="320" poster="css_theme/images/video-banner.png" controls>
+                    <source src="http://koolguru.co.in/video/v2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <div class="video-list pos-rel">
+                    <!--                    <div class="white-left-arrow"></div>
+                                        <div class="white-right-arrow"></div>-->
+
+                    <!--                    <ul>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                                            <li><img src="css_theme/images/thumb-icon.png"></li>
+                    
+                                        </ul>-->
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="bg-style-dark">
+    <div class="container pos-rel">
+
+        <div class="heading separator_align_center heading-v10 space-20 light-style">
+            <div class="heading-inner">
+                <h2>People behind story</h2>
+                <small class="subheading"> our team</small>
+            </div>    
+        </div>
+        <div class=" widget wpo-testimonial v6 light-style space-top-40">
+
+            <!-- Skin 1 -->
+            <div id="owl-demo2">
+
+                <div class="item">
+                    <div class="testimonials-v6" id="team-1" >
+                        <div class="testimonials-body">
+
+                            <div class="left">
+                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Abhijith V.JPG'); ?>" class="attachment-widget" alt="testimonial - 3"></div>
+                            </div>
+                            <div class="right">
+                                <h5 class="testimonials-name">
+                                    ABHIJITH            </h5>  
+                                <!--<div class="text-muted testimonials-position"><p>Developer</p>-->
+                                <!--</div>-->  
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="testimonials-description"><p>Abhijith is a graduate from IIM Bangalore (PGP 2013) and is currently working as Manager­market strategy 
+
+                                    in Mahindra & Mahindra.</p>
+                            </div>                                          
+
+                        </div>                      
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="testimonials-v6" id="team-2" >
+                        <div class="testimonials-body">
+
+                            <div class="left">
+                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Vatan Vindal.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                            </div>
+                            <div class="right">
+                                <h5 class="testimonials-name">
+                                    VATAN VINDAL            </h5>  
+                                <div class="text-muted testimonials-position"><p>Co-Founder</p>
+                                </div>  
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="testimonials-description"><p>Vatan Vindal is a Graduate from IIM Ahmedabad (PGP 2010) and is currently working with Autoload as Co-
+                                    founder and VP.</p>
+                            </div>                                          
+
+                        </div>                      
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="testimonials-v6" id="team-3" >
+                        <div class="testimonials-body">
+
+                            <div class="left">
+                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Padmini.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                            </div>
+                            <div class="right">
+                                <h5 class="testimonials-name">
+                                    PADMINI AGARWAL            </h5>  
+                                <div class="text-muted testimonials-position"><p>Founder</p>
+                                </div>  
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="testimonials-description"><p>Padmini Agarwal is a B.tech in Mechanical Engg. from IIT Roorkee (2012) and is the founder of Koolguru.</p>
+                            </div>                                          
+
+                        </div>                      
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="testimonials-v6" id="team-4" >
+                        <div class="testimonials-body">
+
+                            <div class="left">
+                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Ankur.png'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                            </div>
+                            <div class="right">
+                                <h5 class="testimonials-name">
+                                    ANKUR AGARWAL            </h5>  
+                                <div class="text-muted testimonials-position"><p></p>
+                                </div>  
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="testimonials-description"><p>Ankur Agrawal is a techie turned manager, MBA from IIFT Delhi(2015) and now works for Flipkart in
+
+                                    Lifestyle Strategy.</p>
+                            </div>                                          
+
+                        </div>                      
+                    </div>
+                </div>           
+                <div class="item">		
+                    <div class="testimonials-v6" id="team-5" >
+                        <div class="testimonials-body">
+
+                            <div class="left">
+                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/archit garg.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                            </div>
+                            <div class="right">
+                                <h5 class="testimonials-name">
+                                    ARCHIT GARG           </h5>  
+                                <div class="text-muted testimonials-position"><p></p>
+                                </div>  
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="testimonials-description"><p>A classic case example of the new­age Jugaad entreprenuer, Archit Garg is a B.tech in Mechanical Engg.
+
+                                    from IIT Roorkee (2012).</p>
+                            </div>                                          
+
+                        </div>                      
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="testimonials-v6" id="team-6" >
+                        <div class="testimonials-body">
+
+                            <div class="left">
+                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/devanshu.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                            </div>
+                            <div class="right">
+                                <h5 class="testimonials-name">
+                                    Devanshu Nagpal            </h5>  
+                                <div class="text-muted testimonials-position"><p>Co-Founder</p>
+                                </div>  
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="testimonials-description"><p>Co Founder &  Chief Advisor  KoolGuru , BE M.I.T  Manipal & MBA I.M.I Delhi , Currently Business Manager with an leading Fortune  MNC . More  than a  decade experience  in various domain with leading fortune brands.</p>
+                            </div>                                          
+
+                        </div>                      
+                    </div>
+                </div>
+
+                <div class="item">        
+                    <div class="testimonials-v6" id="team-7" >
+                        <div class="testimonials-body">
+
+                            <div class="left">
+                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/sudershan.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
+                            </div>
+                            <div class="right">
+                                <h5 class="testimonials-name">
+                                    Mrs. Sudershan Nagpal            </h5>  
+                                <div class="text-muted testimonials-position"><p>Co-Founder</p>
+                                </div>  
+                            </div>
+
+                            <div class="clearfix"></div>
+
+                            <div class="testimonials-description"><p>Co Founder & Head administration and  Students counselling Kool Guru,PG with 35+Years Rich teaching experience & Students counselling.</p>
+                            </div>                                          
+
+                        </div>                      
+                    </div>
+                </div>
+            </div>
+
+        </div>		
+    </div>
+</div>
+<div class="panel-row-style-thim-bg-overlay siteorigin-panels-stretch thim-bg-overlay article__parallax panel-row-style" style="min-height: 615px;padding-left: 74.5px; padding-right: 74.5px; border-left-width: 0px; border-right-width: 0px; background-image: url(css_theme/images/bg-register-now.jpg);">
+    <div class="panel-grid-cell">
+        <div class="so-panel widget widget_text panel-first-child" id="panel-12-3-0-0">
+            <div class="textwidget">
+                <div class="thim-get-100s">
+                    <p class="get-100s">Get your choice of online <span class="thim-color">Courses </span></p>
+                    <h2><a href="<?php echo $this->url('student') ?>">Register Now</a></h2>
+                    <a href="<?php echo $this->url('demoquiz') ?>" class="wpcf7-form-control wpcf7-submit demo-chapter">
+
+                        <input type="button" value="Free Demo Chapter" class="wpcf7-form-control wpcf7-submit"></a>
+                </div>
+            </div>
+        </div>
+        <!--        <div class="so-panel widget widget_countdown-box panel-last-child">
+                    <div class="thim-widget-countdown-box thim-widget-countdown-box-base">
+                        <div class="text-left color-white" >
+                            <div class="counter-group" id="myCounter">
+                                <div class="counter-block">
+                                    <div class="counter days">
+                                        <div class="number show n1 hundreds">0</div>
+                                    </div>
+                                    <div class="counter-caption">days</div>
+                                </div>
+                                <div class="counter-block">
+                                    <div class="counter hours">
+                                        <div class="number show n1 tens">0</div>
+                                    </div>
+                                    <div class="counter-caption">hours</div>
+                                </div>
+                                <div class="counter-block">
+                                    <div class="counter minutes">
+                                        <div class="number n1 tens show" style="top: 0px;">4</div>
+                                    </div>
+                                    <div class="counter-caption">minutes</div>
+                                </div>
+                                <div class="counter-block">
+                                    <div class="counter seconds">
+                                        <div class="number hidden-up n2 tens show" style="top: 0px;">5</div>
+                                    </div>
+                                    <div class="counter-caption">seconds</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+        <!--        <div class="panel-grid-cell">
+                    <div class="so-panel widget widget_text panel-first-child panel-last-child" >
+                        <div class="textwidget">
+                            <div class="thim-register-now-form">
+                                <h3 class="title"><span>Create your free account now and get immediate access to various online courses</span></h3>
+                                <div class="wpcf7" >
+                               <form method="post" class="wpcf7-form">
+                             <p><span class="wpcf7-form-control-wrap your-name"><input type="text" name="your-name" value="" size="40" class="wpcf7-form-control wpcf7-text" placeholder="Your Name *"></span> </p>
+                             <p><span class="wpcf7-form-control-wrap your-email"><input type="email" name="your-email" value="" size="40" class="wpcf7-form-control wpcf7-text" placeholder="Email *"></span> </p>
+                             <p><span class="wpcf7-form-control-wrap phone"><input type="tel" name="phone" value="" size="40" class="wpcf7-form-control wpcf7-text" placeholder="Phone *"></span></p>
+                             <p><input type="submit" value="Get It Now" class="wpcf7-form-control wpcf7-submit"></p>
+                            </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+    </div>	
+</div>
+
+<script type="text/javascript">
+    /*$(document).ready(function () {
+     app.hometesticarousal = 1;
+     app.hometesticarousalnext = 2;
+     app.hometesticarousalprev = 0;
+     app.hometesticarusallength = $('.mkdf-testimonial-content').length; 
+     app.hometestimoniallength = $('.testimonials-v6').length;
+     app.hometestiperpage = 3;
+     app.hometestipages = parseInt(app.hometestimoniallength/app.hometestiperpage)+app.hometestimoniallength%app.hometestiperpage;
+     app.hometesticurpage = 0;
+     
+     
+     showtestimonial();
+     showhometeam();
+     $('.right-arrow').click(function(){
+     if(app.hometesticarousal < app.hometesticarusallength){
+     app.hometesticarousalnext = app.hometesticarousal + 1;
+     app.hometesticarousal = app.hometesticarousal + 1;
+     }
+     showtestimonial();
+     });
+     
+     $('.left-arrow').click(function(){  
+     if(app.hometesticarousal > 1){
+     app.hometesticarousalprev = app.hometesticarousal - 1;
+     app.hometesticarousal = app.hometesticarousal - 1;
+     }
+     showtestimonial();
+     });
+     
+     $('.white-right-arrow').click(function(){  
+     if(app.hometesticurpage < app.hometestipages){                
+     app.hometesticurpage = app.hometesticurpage + 1;
+     }
+     showhometeam();
+     });
+     
+     $('.white-left-arrow').click(function(){  
+     if(app.hometesticurpage >= 1){                
+     app.hometesticurpage = app.hometesticurpage - 1;
+     }
+     showhometeam();
+     });
+     });
+     
+     function showtestimonial(){        
+     $('.mkdf-testimonial-content').each(function(){            
+     $(this).hide();
+     });
+     $('#testi-'+app.hometesticarousal).show();
+     }
+     
+     function showhometeam(){     
+     console.log(app);
+     $('.testimonials-v6').hide();
+     
+     var start = app.hometesticurpage + 1;
+     var last = app.hometesticurpage + app.hometestiperpage
+     for(var i = start; i <= last ; i++){
+     $('#team-'+i).show();
+     }
+     }*/
+</script>
