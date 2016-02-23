@@ -1,0 +1,28 @@
+<div class="staff">
+    <div class="reservation_top">
+        <div class="container">          	 
+            <h3 class="hist"></h3>
+            <div class="row">
+                <?php if(!empty($teams)){?>
+                    <?php foreach($teams as $team){?>
+                    <div class="testimonial-box">
+                        <div class="testimonial-left-content">
+                            <div >
+                                <img style="height: 180px;width: 100%;" src="<?php echo $this->basePath() . '/img/'.$team['image'];?>" alt=""/>
+                            </div>
+                            <div class="testimonial-degree">
+                                <?php echo $team['name'];?>
+                            </div>
+                            <div class="testimonial-degree">
+                                <?php echo $team['designation'];?>
+                            </div>
+                        </div>
+                        <div class="testimonial-right-content">
+                            <?php echo $team['description'];?>
+                        </div>
+                    </div>
+                    <?php }} ?>
+            </div>
+        </div>
+    </div>
+</div>

@@ -30,6 +30,7 @@ class IndexController extends AbstractActionController {
     protected $QuestionTable;
     protected $SubjectTable;
     protected $TestimonialTable;
+    protected $TeamTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -79,11 +80,20 @@ class IndexController extends AbstractActionController {
         }
         return $this->TestimonialTable;
     }
+    
+    public function getTeamTable() {
+        if (!$this->TeamTable) {
+            $sm = $this->getServiceLocator();
+            $this->TeamTable = $sm->get('Application\Model\TeamTable');
+        }
+        return $this->TeamTable;
+    }
 
     public function indexAction() {
         $testimonials = array();
         $testimonials = $this->getTestimonialTable()->getTestimonial();
-        //asd($testimonials);
+        $teams = $this->getTeamTable()->getTeam();
+        
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $js_path = $renderer->basePath('js/koolguru/application');
         $headScript = $this->getServiceLocator()->get('viewhelpermanager')
@@ -96,6 +106,7 @@ class IndexController extends AbstractActionController {
         }
         return array(
             'testimonials' => $testimonials,
+            'teams' => $teams,
         );
     }
 
@@ -125,6 +136,15 @@ class IndexController extends AbstractActionController {
         $testimonials = $this->getTestimonialTable()->getTestimonial($id);
         return array(
             'testimonials' => $testimonials,
+        );
+    }
+    
+    public function teamAction() {
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
+        $teams = array();
+        $teams = $this->getTeamTable()->getTeam($id);
+        return array(
+            'teams' => $teams,
         );
     }
 
