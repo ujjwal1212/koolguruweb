@@ -51,12 +51,13 @@
                         </div>
                 </div>
                 <!-- Tab for verbal ability -->
-                <div class="tabs" id='content-3'>
+                <div class="tabs" id='content-3'>                    
                     <div id="excercise"></div>
                 </div>
-                <div class="tabs" id='content-4'>
+                <div class="tabs" id='content-4'>                    
                     <div id="quiz"></div>
                 </div>
+                
             </main>            
         </div>
     </div>
@@ -75,6 +76,7 @@
             app.demoquiz.currenttab = tabno;
             //console.log(tabno);
             if(tabno == 3){
+                $('.loader').show();
                 var url = '<?php echo $this->basePath() . '/exercise'; ?>';
                 $.ajax({url: url, success: function (result) { 
                         app.excercise.renderid = 'excercise';
@@ -83,11 +85,12 @@
                         }
                         app.excercise.setquestionlist(result);
                         app.excercise.rendercurrentquestion();
-                        console.log(app.excercise);
+                        $('.loader').hide();
                 }});
             }
             
             if(tabno == 4){
+                $('.loader').show();
                 var url = '<?php echo $this->basePath() . '/quiz'; ?>';
                 $.ajax({url: url, success: function (result) { 
                         app.quiz.renderid = 'quiz';
@@ -96,16 +99,9 @@
                         }
                         app.quiz.setquestionlist(result);
                         app.quiz.rendercurrentquestion();
-                        console.log(app.quiz);
+                        $('.loader').hide();
                 }});
             }
-            
-            
-            
-            
-            
-            
-            
             app.demoquiz.opencurrenttab();
         });
     });

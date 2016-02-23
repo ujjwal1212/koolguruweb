@@ -7,7 +7,7 @@ demoquiz = {
             $('#content-' + tabno).hide();
         },
         
-        opencurrenttab : function(){            
+        opencurrenttab : function(){             
             this.openTag(this.currenttab);
         },
         
