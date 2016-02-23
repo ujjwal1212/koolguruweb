@@ -8880,7 +8880,7 @@ a:hover{ text-decoration: none;}
     left: inherit!important;    text-indent: 0;
     height: 32px;
     float: right;
-    right: 12px;}}
+    right: 12px;}
     .testimonials-v6 *{ font-weight: normal;}
 .article__parallax{ overflow: hidden;}
 .width-30{ width:30%!important;}
@@ -9156,7 +9156,18 @@ display: none;    }
 #student-registration-form,#contact-form{ padding:0!important;}
 }
 #testi-left,#testi-right{ display:none;}
-.testimonial-box{height: 400px;}
+.testimonial-box{height: 300px;}
 .testimonial-left-content{padding-left:5px;padding-top:5px; ;width:20%;float:left;}
 .testimonial-right-content{margin-left: 250px;padding-top: 5px;padding-right: 5px;font-size: 14px;text-align: left;font-family: poppins;}
 .testimonial-degree{margin-top:5px;margin-left:5px;color: #aaa;font-size: 14px;text-align: left;font-family: poppins;}
+.loader {
+    background: rgba(0,0,0,.5) url('images/loader.gif') no-repeat;
+    width:100%;
+    height:100%;
+    position:absolute;    
+    top:0%;
+    left:0%;
+    z-index:999;
+    background-position:center;
+}
+.teamclass{height: 179px;width: 100%;}

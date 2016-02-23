@@ -275,7 +275,6 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
 
 <div class="bg-style-dark">
     <div class="container pos-rel">
-
         <div class="heading separator_align_center heading-v10 space-20 light-style">
             <div class="heading-inner">
                 <h2>People behind story</h2>
@@ -283,176 +282,32 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
             </div>    
         </div>
         <div class=" widget wpo-testimonial v6 light-style space-top-40">
-
             <!-- Skin 1 -->
             <div id="owl-demo2">
-
+                <?php foreach($teams as $team){?>
                 <div class="item">
                     <div class="testimonials-v6" id="team-1" >
                         <div class="testimonials-body">
 
                             <div class="left">
-                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Abhijith V.JPG'); ?>" class="attachment-widget" alt="testimonial - 3"></div>
+                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/'.$team['image']); ?>" class="attachment-widget" alt="testimonial - 3"></div>
                             </div>
                             <div class="right">
-                                <h5 class="testimonials-name">
-                                    ABHIJITH            </h5>  
-                                <!--<div class="text-muted testimonials-position"><p>Developer</p>-->
-                                <!--</div>-->  
+                                <h5 class="testimonials-name"><?php echo $team['name'];?></h5>  
+                                <div class="text-muted testimonials-position"><p><?php echo $team['designation'];?></p></div>
                             </div>
-
                             <div class="clearfix"></div>
-
-                            <div class="testimonials-description"><p>Abhijith is a graduate from IIM Bangalore (PGP 2013) and is currently working as Manager­market strategy 
-
-                                    in Mahindra & Mahindra.</p>
+                            <div class="testimonials-description">
+                                <p>
+                                    <?php echo $team['short_description'];?>
+                                </p>
                             </div>                                          
-
+                             <a href="<?php echo $this->url('application/default', array('controller' => 'index','action' => 'team')).'?id='.$team['id']?>">Read More....</a>
                         </div>                      
                     </div>
                 </div>
-                <div class="item">
-                    <div class="testimonials-v6" id="team-2" >
-                        <div class="testimonials-body">
-
-                            <div class="left">
-                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Vatan Vindal.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
-                            </div>
-                            <div class="right">
-                                <h5 class="testimonials-name">
-                                    VATAN VINDAL            </h5>  
-                                <div class="text-muted testimonials-position"><p>Co-Founder</p>
-                                </div>  
-                            </div>
-
-                            <div class="clearfix"></div>
-
-                            <div class="testimonials-description"><p>Vatan Vindal is a Graduate from IIM Ahmedabad (PGP 2010) and is currently working with Autoload as Co-
-                                    founder and VP.</p>
-                            </div>                                          
-
-                        </div>                      
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="testimonials-v6" id="team-3" >
-                        <div class="testimonials-body">
-
-                            <div class="left">
-                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Padmini.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
-                            </div>
-                            <div class="right">
-                                <h5 class="testimonials-name">
-                                    PADMINI AGARWAL            </h5>  
-                                <div class="text-muted testimonials-position"><p>Founder</p>
-                                </div>  
-                            </div>
-
-                            <div class="clearfix"></div>
-
-                            <div class="testimonials-description"><p>Padmini Agarwal is a B.tech in Mechanical Engg. from IIT Roorkee (2012) and is the founder of Koolguru.</p>
-                            </div>                                          
-
-                        </div>                      
-                    </div>
-                </div>
-
-                <div class="item">
-                    <div class="testimonials-v6" id="team-4" >
-                        <div class="testimonials-body">
-
-                            <div class="left">
-                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/Ankur.png'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
-                            </div>
-                            <div class="right">
-                                <h5 class="testimonials-name">
-                                    ANKUR AGARWAL            </h5>  
-                                <div class="text-muted testimonials-position"><p></p>
-                                </div>  
-                            </div>
-
-                            <div class="clearfix"></div>
-
-                            <div class="testimonials-description"><p>Ankur Agrawal is a techie turned manager, MBA from IIFT Delhi(2015) and now works for Flipkart in
-
-                                    Lifestyle Strategy.</p>
-                            </div>                                          
-
-                        </div>                      
-                    </div>
-                </div>           
-                <div class="item">		
-                    <div class="testimonials-v6" id="team-5" >
-                        <div class="testimonials-body">
-
-                            <div class="left">
-                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/archit garg.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
-                            </div>
-                            <div class="right">
-                                <h5 class="testimonials-name">
-                                    ARCHIT GARG           </h5>  
-                                <div class="text-muted testimonials-position"><p></p>
-                                </div>  
-                            </div>
-
-                            <div class="clearfix"></div>
-
-                            <div class="testimonials-description"><p>A classic case example of the new­age Jugaad entreprenuer, Archit Garg is a B.tech in Mechanical Engg.
-
-                                    from IIT Roorkee (2012).</p>
-                            </div>                                          
-
-                        </div>                      
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="testimonials-v6" id="team-6" >
-                        <div class="testimonials-body">
-
-                            <div class="left">
-                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/devanshu.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
-                            </div>
-                            <div class="right">
-                                <h5 class="testimonials-name">
-                                    Devanshu Nagpal            </h5>  
-                                <div class="text-muted testimonials-position"><p>Co-Founder</p>
-                                </div>  
-                            </div>
-
-                            <div class="clearfix"></div>
-
-                            <div class="testimonials-description"><p>Co Founder &  Chief Advisor  KoolGuru , BE M.I.T  Manipal & MBA I.M.I Delhi , Currently Business Manager with an leading Fortune  MNC . More  than a  decade experience  in various domain with leading fortune brands.</p>
-                            </div>                                          
-
-                        </div>                      
-                    </div>
-                </div>
-
-                <div class="item">        
-                    <div class="testimonials-v6" id="team-7" >
-                        <div class="testimonials-body">
-
-                            <div class="left">
-                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/sudershan.jpg'); ?>" class="attachment-widget wp-post-image" alt="testimonial - 3"></div>
-                            </div>
-                            <div class="right">
-                                <h5 class="testimonials-name">
-                                    Mrs. Sudershan Nagpal            </h5>  
-                                <div class="text-muted testimonials-position"><p>Co-Founder</p>
-                                </div>  
-                            </div>
-
-                            <div class="clearfix"></div>
-
-                            <div class="testimonials-description"><p>Co Founder & Head administration and  Students counselling Kool Guru,PG with 35+Years Rich teaching experience & Students counselling.</p>
-                            </div>                                          
-
-                        </div>                      
-                    </div>
-                </div>
+                <?php } ?>
             </div>
-
         </div>		
     </div>
 </div>
