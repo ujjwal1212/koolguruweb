@@ -8828,8 +8828,8 @@ div.wpcf7 .screen-reader-response {
 .video-list li{ display:inline-block;}
 .video-list li img{ min-width:99px;min-height:85px; margin-right:10px;}
  #footer_page_links {
-    background-color: #303030;    font-size: 12px;
-}
+    background-color: #303030;    font-size: 12px;  }
+.staff.staff-content{padding-bottom: 100px;}
 #footer_page_links ul.nav {
     margin: 0;
     padding: 20px 10px;
@@ -9171,3 +9171,21 @@ display: none;    }
     background-position:center;
 }
 .teamclass{height: 179px;width: 100%;}
+.container-outer{overflow: hidden;}
+.staff-content .testimonial-left-content img{ width:100%!important;    max-width: 175px; border-radius:50%; height:auto!important;min-width: 175px; margin-left:20px;}      
+.staff-content .testimonial-degree{ min-width: 180px; text-align: left; font-size: 30px;}
+.staff-content{}
+.staff-content .testimonial-right-content{ padding-left: 70px;}
+ .clearfix.pagenav   .dropdown-menu{display: block;
+    background: #505050!important;
+    color: #fff;}
+
+
+@media only screen and (max-width : 600px) {
+
+.staff-content .testimonial-left-content,.staff-content .testimonial-right-content{ width: 100%; text-align: center; float: none;padding-left: 0!important;margin: 0;padding: 0 56px!important;}
+.staff-content .testimonial-degree{ text-align: center;}
+}
+
+.clearfix.pagenav   .dropdown-menu a{ color: #fff!important; text-shadow:none;cursor: pointer;line-height: 27px;font-size: 14px;}
+.pagenav .menu-item.open .dropdown-menu{ display: block!important;    position: relative;}
