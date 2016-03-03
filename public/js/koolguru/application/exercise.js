@@ -29,7 +29,7 @@ $(document).ready(function () {
                 renderhtml += "<label class='custom-label'>";
                 renderhtml += "<input type='radio' name='option' id='" + key + "' value='" + key + '-' + obj.iscorrect + "' style='position: absolute; left: 173px;'>";
                 renderhtml += "<span style='position: absolute; left: 200px;'>" + obj.description + "<span></label><br/>";
-                renderhtml += "<span id='" + key + "-message' style='margin-left: 7%' class='optionmsg " + optionClass + "'></span></li>";
+                renderhtml += "<span id='" + key + "-message' style='margin-left: 24%;margin-top:-1%' class='optionmsg " + optionClass + "'></span></li>";
             }
             renderhtml += "</ul>";
             renderhtml += "</div>";

@@ -104,6 +104,10 @@ class IndexController extends AbstractActionController {
         if ($session->offsetExists('email') && $session->offsetGet('roleCode') == 'st') {
             $this->redirect()->toRoute('student');
         }
+        
+        if ($session->offsetExists('email') && $session->offsetGet('roleCode') == 'sa') {
+            $this->redirect()->toRoute('admin');
+        }
         return array(
             'testimonials' => $testimonials,
             'teams' => $teams,

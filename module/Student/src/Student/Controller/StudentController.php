@@ -215,6 +215,10 @@ class StudentController extends AbstractActionController {
     }
 
     public function studentRegistrationAction() {
+        $session = new Container('User');
+        if ($session->offsetExists('email') && $session->offsetGet('roleCode') == 'sa') {
+            $this->redirect()->toRoute('admin');
+        }
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $js_path = $renderer->basePath('js/koolguru/student');
         $headScript = $this->getServiceLocator()->get('viewhelpermanager')

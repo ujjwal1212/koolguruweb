@@ -193,6 +193,12 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                                             <li><a href="<?php echo $this->url('admin', array('action' => 'contactquery')) ?>">Contact Us Queries</a></li>
                                                             <li><a href="<?php echo $this->url('admin', array('action' => 'studentregister')) ?>">Student Register</a></li>
+                                                            <li><a href="<?php echo $this->url('admin', array('action' => 'course')) ?>">Manage Course</a></li>
+                                                            <li><a href="<?php echo $this->url('subject', array('action' => 'index')) ?>">Manage Subject</a></li>
+                                                            <li><a href="<?php echo $this->url('chapter', array('action' => 'index')) ?>">Manage Chapter</a></li>                                                            
+                                                            <li><a href="<?php echo $this->url('package', array('action' => 'index')) ?>">Manage Package</a></li>
+                                                            <li><a href="<?php echo $this->url('admin', array('action' => 'carrierpath')) ?>">Manage Career Path</a></li>
+                                                            
                                                         </ul>
                                                     </li>
                                                 <?php } else { ?>
