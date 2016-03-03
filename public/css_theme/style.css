@@ -8958,7 +8958,7 @@ a:hover, a:focus{ color:inherit; text-decoration: none;}
 .video-slide{    position: absolute;
     height: 100px;
     top: 188px;
-    z-index: 9999;
+    z-index: 9;
     right: -74px;}
 
     
@@ -9157,6 +9157,9 @@ display: none;    }
 }
 #testi-left,#testi-right{ display:none;}
 .testimonial-box{height: 300px;}
+.staff.staff-content .testimonial-box{    padding-bottom: 60px;
+    clear: both;
+    padding-top: 50px;}
 .testimonial-left-content{padding-left:5px;padding-top:5px; ;width:20%;float:left;}
 .testimonial-right-content{margin-left: 250px;padding-top: 5px;padding-right: 5px;font-size: 14px;text-align: left;font-family: poppins;}
 .testimonial-degree{margin-top:5px;margin-left:5px;color: #aaa;font-size: 14px;text-align: left;font-family: poppins;}
@@ -9182,10 +9185,14 @@ display: none;    }
 
 
 @media only screen and (max-width : 600px) {
-
+.text-slide p{ padding-bottom:50px;}
+.carousel img{ min-height:330px;}
 .staff-content .testimonial-left-content,.staff-content .testimonial-right-content{ width: 100%; text-align: center; float: right;padding-left: 0!important;margin: 0;padding: 0 56px!important;}
 .staff-content .testimonial-degree{ text-align: center;}
 }
 
+@media only screen and (min-width : 1280px) {
+.min-height-350{ min-height:430px;background: #86cccc;}
+}
 .clearfix.pagenav   .dropdown-menu a{ color: #fff!important; text-shadow:none;cursor: pointer;line-height: 27px;font-size: 14px;}
 .pagenav .menu-item.open .dropdown-menu{ display: block!important;    position: relative;}
