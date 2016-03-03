@@ -71,7 +71,8 @@ class Module {
             'Application\Controller\Index-aboutus',
             'Application\Controller\Index-vision',
             'Application\Controller\Index-mission',
-            'Application\Controller\Index-contactus'
+            'Application\Controller\Index-contactus',
+            'Application\Controller\Index-team'
         );
 
         //$requestUri = $request->getRequestUri();
