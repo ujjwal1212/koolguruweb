@@ -1,0 +1,53 @@
+<?php
+$title = 'SSS Support';
+$this->headTitle($title);
+?>
+<section class="sub-header">
+    <div class="container">
+        <div class="sub-header-title">
+            <span class="manage-qualification-icon"></span>
+            <h1 class="h1"><?php echo $this->escapeHtml($title); ?>   
+                <?php
+                /* Adding Breadcrumb */
+                echo $this->navigation('navigation')
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                ?>
+            </h1>
+        </div>
+        <div class="sub-header-actions">
+            <a class="big-btn green-btn" id='abms_support_faq' href="<?php echo $this->url('support', array('action' => 'download')); ?>">DOWNLOAD GUIDELINES</a>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <h1 class="entry-title">How to Create Useful FAQ Pages</h1>
+
+    <p>If you think a FAQ page is where readers find handy information about their needs or a place where customers go to look for answers to frequently asked questions, think again.
+    </p>
+    <p>
+        In an informal survey  I conducted,  occasional to frequent Internet users generally agreed that FAQ pages were of little use in actually answering their questions. The feedback included comments such as:
+    </p>
+    <p>
+        The information is old.
+        It’s so basic that it answers nothing.
+        The information isn’t organized so I can find anything.
+        The links keep taking me around in circles.
+        It’s just recycled information from the site.
+        I don’t know whose questions they’re answering, but it’s never my question.
+        I stopped looking at FAQ pages because they’re useless.
+        FAQ pages have become the elephant graveyards of non-information, the equivalent of the “Miscellaneous” file folder, the place where information-we-didn’t-know-where-to-put was dumped. The impression a useless FAQ page leaves with readers is brand-damaging. Your FAQ page should not be where writers compensate for the shortcomings of your app interface or code.
+    </p>
+    <h3> What other tips do you have for effective FAQ pages?
+    </h3>
+
+    14 Checklists, Scorecards, and Worksheets to Set Up Content Marketing Success
+    Build Your Content Calendar: 3 Easy Steps
+    A Content Marketer’s Checklist: Editorial Calendar Essentials
+    7 NEW Things to Do After You’ve Written a New Blog Post
+
+
+</div>
+

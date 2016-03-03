@@ -1,0 +1,27 @@
+CREATE TABLE IF NOT EXISTS `team` (
+  `id` int(100) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `designation` varchar(100) NOT NULL,
+  `short_description` text NOT NULL,
+  `description` text NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `status` tinyint(10) NOT NULL,
+  `created_at` int(100) NOT NULL,
+  `created_by` int(100) NOT NULL,
+  `updated_at` int(100) NOT NULL,
+  `updated_by` int(100) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+
+--
+-- Dumping data for table `team`
+--
+
+INSERT INTO `team` (`id`, `name`, `designation`, `short_description`, `description`, `image`, `status`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES
+(1, 'ABHIJITH', '', 'Abhijith is a graduate from IIM Bangalore (PGP 2013) and is currently working as Manager­market strategy in Mahindra & Mahindra.', 'Abhijith is a graduate from IIM Bangalore (PGP 2013) and is currently working as Manager-market strategy in Mahindra & Mahindra. He scored 99.36%ile in CAT and got calls from all major IIMs and converted all of them. In his free time he likes to travel, scuba dive, play keyboards or follow sports.', 'Abhijith V.JPG', 1, 1, 2, 1, 2),
+(2, 'VATAN VINDAL', 'Co-Founder', 'Vatan Vindal is a Graduate from IIM Ahmedabad (PGP 2010) and is currently working with Autoload as Co-founder and VP.', 'Vatan Vindal is a Graduate from IIM Ahmedabad (PGP 2010) and is currently working with Autoload as Co-founder and VP. He scored 99.94%ile and received calls from all major IIMs. With over 8 years of rich teaching experience, he has been conducting sessions for Personality Development and GDPIs with premier CAT coaching institutes. In his free time he likes adventure sports and enjoys cooking.', 'Vatan Vindal.jpg', 1, 1, 2, 1, 2),
+(3, 'PADMINI AGARWAL', 'Founder', 'Padmini Agarwal is a B.tech in Mechanical Engg. from IIT Roorkee (2012) and is the founder of Koolguru.', 'Padmini Agarwal is a B.tech in Mechanical Engg. from IIT Roorkee (2012) and is the founder of Koolguru. She had worked with Shell India before starting this organization. An avid reader, she likes to solve puzzles and cooking.', 'Padmini.jpg', 1, 1, 2, 1, 2),
+(4, 'ANKUR AGARWAL', '', 'Ankur Agrawal is a techie turned manager, MBA from IIFT Delhi(2015) and now works for Flipkart in Lifestyle Strategy.', 'Ankur Agrawal is a techie turned manager, MBA from IIFT Delhi(2015) and now works for Flipkart in Lifestyle Strategy. He scored 99% in CAT and similar in other B-schools exams and converted most of them. Teaching Quants and Reasoning is his passion and now has over 5 yrs of teaching experience. Follows cricket religiously, enjoys playing most sports and watches a lot of sitcoms!', 'Ankur.png', 1, 1, 2, 1, 2),
+(5, 'ARCHIT GARG', '', 'A classic case example of the new­age Jugaad entreprenuer, Archit Garg is a B.tech in Mechanical Engg.', 'A classic case example of the new-age Jugaad entreprenuer, Archit Garg is a B.tech in Mechanical Engg. from IIT Roorkee (2012). After spending a couple of years at Reliance Industries, he started a digital marketing company and put his hands in light speed expanding e-commerce industry. Currently, he is leading e-commerce division of Sattviko. He believes in growth hacking and spends his free time in finding new ways to achieve that besides playing cricket and listening music.', 'archit garg.jpg', 1, 1, 2, 1, 2),
+(6, 'Devanshu Nagpal', 'Co-Founder', 'Co Founder &  Chief Advisor  KoolGuru , BE M.I.T  Manipal & MBA I.M.I Delhi , Currently Business Manager with an leading Fortune  MNC . More  than a  decade experience  in various domain with leading fortune brands.', 'Co Founder& Chief Adviser Mr DevanshuNagpal has  helped creating  a new avenue in the Education learning .   He visions to  revolutionize the education process & learning methodology by introducing technology enabled virtual ways to impart worthy knowledge.He also the advocates of paperless journey & to  go green .Devanshu leads all Advisory , Consultation ,  Project development, Marketing & Business development ,efforts in the company, along with crafting the long-term strategy.\r\nDevanshu  has rich experience in Marketing , Business development , Vendor Development , Manufacturing  engineering & Training. He has worked with leading in various domains & functions with leading  brands such as Yamaha, Michelin, Mahindra & Mahindra,  TATA, Volvo , Volkswagen  group. \r\nDevanshu academically studied from Premier Institutes within in India& trained overseas as well, holds MBA from I.M.I International Management Institute New Delhi & B.E from M.I.T Manipal Institute of Technology, Where he concentrated Marketing Strategy, finance and sustainability.', 'devanshu.jpg', 1, 1, 2, 1, 2),
+(7, 'Mrs. Sudershan Nagpal', 'Co-Founder', 'Co Founder & Head administration and  Students counselling Kool Guru,PG with 35+Years Rich teaching experience & Students counselling.', 'Co-Founder &  Head  Administration n  Student Advisory  , Mrs SudershanNagpals works closely with Students & Parents to provide appropriate  carrier guidance  Also help Students physiology . \r\nShe is has vast  teaching &counselling experience  , Her advice is  helping in building better Student,  parents & teacher relationship so as to nurture  & enhance  students learning  capabilities. \r\nMrs SudershanNagpal is an Post Graduate & served KendriyaVidyalya for about 35 years \r\n', 'sudershan.jpg', 1, 1, 2, 1, 2);
