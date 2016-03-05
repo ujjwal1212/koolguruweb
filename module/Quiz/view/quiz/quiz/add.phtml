@@ -1,7 +1,7 @@
 <?php
-$this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/subject/subject.js');
+$this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/quiz/quiz.js');
 $form = $this->form;
-$form->setAttribute('action', $this->url('subject', array('action' => 'add')));
+$form->setAttribute('action', $this->url('quiz', array('action' => 'add')));
 $form->setAttribute('class', 'detect_changes');
 $form->prepare();
 echo $this->form()->openTag($form);
@@ -11,9 +11,9 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
     <div class="container">
         <div class="sub-header-title">
             <?php
-            $title = 'Create Subject';
+            $title = 'Create Quiz';
             ?>
-            <a class="back-icon" href="<?php echo $this->url('subject', array('action' => 'index')); ?>"></a>
+            <a class="back-icon" href="<?php echo $this->url('quiz', array('action' => 'index')); ?>"></a>
             <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
                 <?php
                 /* Adding Breadcrumb */
@@ -58,7 +58,11 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
             }
         }
         ?>
-        
+<!--        <div class="upper-submit">
+            <?php
+            //echo $this->formSubmit($form->get('submit'));
+            ?>
+        </div>-->
         <div id="step1">
             <section id="basic_details">
                 <?php
@@ -67,44 +71,77 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 
                 <ul>
                     <li class="form-row">                    
-                        <label class='label'>UPLOAD IMAGE: <span class='required'>*</span></label>
-                        <?php echo $this->formElement($form->get('image_path')); ?>
+                        <label class='label'>Title: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('title')); ?>
                     </li>
                     <li class="form-row">                    
-                        <label class='label'>SUBJECT CODE: <span class='required'>*</span></label>
+                        <label class='label'>Subject: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('subject_id')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>Chapter: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('chapter_id')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>Code: <span class='required'>*</span></label>
                         <?php echo $this->formElement($form->get('code')); ?>
                     </li>
                     <li class="form-row">                    
-                        <label class='label'>SUBJECT NAME: <span class='required'>*</span></label>
-                        <?php echo $this->formElement($form->get('title')); ?>
+                        <label class='label'>DESCRIPTION: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('description')); ?>
                     </li>
+                    <li class="form-row">                    
+                        <label class='label'>Passing Percentage: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('pass_percentage')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>Start Time: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('start_time')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>End Time: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('end_time')); ?>
+                    </li>                    
                     <li class="form-row">                    
                         <label class='label'>IS ACTIVE: </label>
                         <?php echo $this->formElement($form->get('status')); ?>
                     </li>
-
-<!--                    <li class="form-row">                    
-                        <label class='label'>IS DEMO: </label>
-                        <?php //echo $this->formElement($form->get('isdemo')); ?>
-                    </li>-->
                 </ul>
             </section>
         </div>
+        
+        
         <?php
         echo $this->formHidden($form->get('created_at'));
         echo $this->formHidden($form->get('created_by'));
         echo $this->formHidden($form->get('updated_at'));
         echo $this->formHidden($form->get('updated_by'));
         ?>
-        <div>
-            <?php
-            echo $this->formSubmit($form->get('submit'));
-            ?>
-        </div>
         <div id="form-footer">
             <?php
+            echo $this->formSubmit($form->get('submit'));
             echo $this->form()->closeTag();
             ?>
         </div>
+        </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+    
+    $('#subject_id').change(function(){
+        var subject = $(this).val();        
+        var url = '<?php echo $this->basePath() . '/quiz/getchapter?subject='; ?>' + subject;
+        
+        $.ajax({url: url, success: function (result) {
+                var html = '<option value="">Select</option>';
+                
+                $.each(JSON.parse(result), function(idx, obj) {
+                    
+                    html += "<option value='"+obj.chapter_id+"'>"+obj.chaptertitle+"</option>";
+                });
+                $('#chapter_id').html(html);
+        }});
+    });
+    });
+    </script>

@@ -80,16 +80,16 @@ class SubjectForm extends Form {
                 ),
             )
         ));
-        $this->add(array(
-            'type' => 'Zend\Form\Element\Checkbox',
-            'name' => 'isdemo',
-            'options' => array(
-                'label' => 'IS DEMO',
-                'label_attributes' => array(
-                    'class' => 'label'
-                ),
-            )
-        ));
+//        $this->add(array(
+//            'type' => 'Zend\Form\Element\Checkbox',
+//            'name' => 'isdemo',
+//            'options' => array(
+//                'label' => 'IS DEMO',
+//                'label_attributes' => array(
+//                    'class' => 'label'
+//                ),
+//            )
+//        ));
 
         $this->add(array(
             'name' => 'created_at',

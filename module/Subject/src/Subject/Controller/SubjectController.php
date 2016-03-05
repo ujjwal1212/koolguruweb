@@ -117,7 +117,9 @@ class SubjectController extends AbstractActionController {
             $data = $request->getPost();
             $form->setInputFilter($subject->getInputFilter());
             $form->setData($data);
+            
             if ($form->isValid()) {
+                //asd($subject);
                 $validatorName = new \Zend\Validator\Db\NoRecordExists(
                         array(
                     'table' => 'subjects',

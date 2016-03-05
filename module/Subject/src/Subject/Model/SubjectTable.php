@@ -75,12 +75,12 @@ class SubjectTable {
             'code' => $subject->code,
             'image_path' => $subject->image_path,
             'status' => $subject->status,
-            'isdemo' => $subject->isdemo,
+            //'isdemo' => $subject->isdemo,
         );
-        if ($data['isdemo'] == '1') {
-            $updateData['isdemo'] = 0;
-            $this->tableGateway->update($updateData);
-        }
+//        if ($data['isdemo'] == '1') {
+//            $updateData['isdemo'] = 0;
+//            $this->tableGateway->update($updateData);
+//        }
         $id = (int) $subject->id;
         if ($id == 0) {
             $data['created_at'] = time();
@@ -154,6 +154,24 @@ class SubjectTable {
         
         return $resultset;
     }
+    
+    public function getSubjectsChapter($subjectid) {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('scm' => 'subject_chapter_map'));
+        $select->columns(array('chapter_id'));
+        $select->join(array('c'=>'chapters'),'c.id = scm.chapter_id',array('chaptertitle'=>'title'),'left');
+        $select->where(array('scm.subject_id' => $subjectid));
+        
+
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        
+        return $resultset;
+    }
+    
+   
     
     
    

@@ -12,7 +12,7 @@ class Subject implements InputFilterAwareInterface {
     public $id;
     public $title;
     public $code;
-    public $isdemo;
+    //public $isdemo;
     public $image_path;
     public $status;
     public $created_at;
@@ -27,7 +27,7 @@ class Subject implements InputFilterAwareInterface {
         $this->id = (isset($data['id'])) ? $data['id'] : null;
         $this->title = (isset($data['title'])) ? $data['title'] : null;
         $this->code = (isset($data['code'])) ? $data['code'] : null;
-        $this->isdemo = (isset($data['isdemo'])) ? $data['isdemo'] : null;
+        //$this->isdemo = (isset($data['isdemo'])) ? $data['isdemo'] : null;
         $this->image_path = (isset($data['image_path'])) ? $data['image_path'] : null;
         $this->status = (isset($data['status'])) ? $data['status'] : null;
         $this->created_at = (isset($data['created_at'])) ? $data['created_at'] : null;
