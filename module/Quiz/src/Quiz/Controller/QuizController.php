@@ -1,19 +1,23 @@
 <?php
 
-namespace Package\Controller;
+namespace Quiz\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Zend\Session\Container;
 use Zend\Db\Sql\Select;
-use Package\Form\SearchForm;
-use Package\Form\PackageForm;
+use Quiz\Form\SearchForm;
+use Quiz\Form\QuizForm;
+use Subject\Model\Subject;
+use Subject\Model\SubjectTable;
+
 use Package\Model\Package;
 use Package\Model\PackageTable;
 
-class PackageController extends AbstractActionController {
+class QuizController extends AbstractActionController {
 
     protected $adapter;
+    protected $subjectTable;
     protected $packageTable;
     protected $CourseTable;
     protected $CoursePackageTable;
@@ -24,6 +28,14 @@ class PackageController extends AbstractActionController {
             $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
         }
         return $this->adapter;
+    }
+    
+    public function getsubjectTable() {
+        if (!$this->subjectTable) {
+            $sm = $this->getServiceLocator();
+            $this->subjectTable = $sm->get('Subject\Model\SubjectTable');
+        }
+        return $this->subjectTable;
     }
 
     public function getPackageTable() {
@@ -114,6 +126,21 @@ class PackageController extends AbstractActionController {
             'successMsg' => $successMsg
         ));
     }
+    
+    
+    public function getchapterAction() {
+        $student = array();
+        $subject = $_GET['subject'];
+        $chapters = $this->getsubjectTable()->getSubjectsChapter($subject);
+        
+        $request = $this->getRequest();
+        if ($request->isXmlHttpRequest()) {
+            $this->layout('layout/ajax');
+        }
+        
+        echo json_encode($chapters);
+        return false;
+    }
 
     /**
      * Action for adding new Package
@@ -121,9 +148,16 @@ class PackageController extends AbstractActionController {
      */
     public function addAction() {
         $session = new Container('User');
-        $courseList = $this->getCourseTable()->getCourseDropdown();
-        asd($courseList);
-        $form = new PackageForm('PackageForm', $courseList);
+        //$courseList = $this->getCourseTable()->getCourseDropdown();
+        
+        // Get subject list
+        $subList = $this->getsubjectTable()->getSubjectList();
+        $subjects = array();
+        foreach($subList as $sub){
+            $subjects[$sub['id']] = $sub['title'];
+        }
+        
+        $form = new QuizForm('QuizForm',$subjects);
         $form->get('code')->setValue('xxx-xxx-xxx');
         $form->get('code')->setAttribute('readonly', TRUE);
         $form->get('created_at')->setValue(time());

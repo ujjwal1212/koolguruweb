@@ -339,6 +339,7 @@ class AdminController extends AbstractActionController {
                 
                 if ($no_duplicate_data == 1) {
                     $course->exchangeArray($form->getData());
+                    $imagePath = '';
                     if(isset($_FILES) && isset($_FILES['image_path']) && $_FILES['image_path']['name']!=''){
                         $imagePath = $this->uploadImage($course->code);
                     }                    

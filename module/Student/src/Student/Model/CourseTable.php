@@ -56,7 +56,7 @@ class CourseTable {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('c' => 'course'));
-        $select->columns(array('id', 'title', 'code', 'description', 'status', 'isdemo', 'image_path'));
+        $select->columns(array('id', 'title', 'code', 'description', 'status', 'image_path'));
         $select->order($order_by . ' ' . $order);
         if (isset($searchText) && trim($searchText) != '') {
             $select->where->like('c.title', "%" . $searchText . "%")
@@ -88,12 +88,11 @@ class CourseTable {
      * Function to Save Question Record to Database.
      * @throws \Exception
      */
-    public function saveCourse(Course $course) {
+    public function saveCourse(Course $course) {        
         $data = array(
             'title' => trim($course->title),
             'description' => trim($course->description),
-            'status' => $course->status,
-            'isdemo' => $course->isdemo,
+            'status' => $course->status,            
             'image_path' => $course->image_path
         );
 
@@ -103,7 +102,7 @@ class CourseTable {
             $data['created_at'] = time();
             $data['created_by'] = $course->created_by;
             $data['updated_at'] = time();
-            $data['updated_by'] = $course->created_by;
+            $data['updated_by'] = $course->created_by;            
             if ($this->tableGateway->insert($data)) {
                 $Id = $this->tableGateway->getLastInsertValue();
             }
