@@ -126,5 +126,18 @@ class PackageTable {
                 ->toArray();
         return $resultset;
     }
+    
+    public function getPackages() {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('p' => 'package'));
+        $select->columns(array('id', 'title', 'code', 'status', 'image_path','description','price','duration','relevant_for','advantage','ff_classroom','whatuserget'));
+        $select->where(array('p.status' => '1'));
+
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        return $resultset;
+    }
 
 }

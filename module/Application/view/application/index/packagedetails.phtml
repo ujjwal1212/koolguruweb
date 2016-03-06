@@ -7,11 +7,9 @@ endif;
     <div class="container">
         <div class="sub-header-title">
             <?php
-            $title = 'View Package';
+            $title = 'Package Details';
             $this->headTitle($title);
             ?>
-            <a class="back-icon" href="<?php echo $this->url('package', array('action' => 'index')); ?>"></a>
-
             <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
 
                 <?php
@@ -34,17 +32,7 @@ endif;
                     <li class="name detail-row">
                         <?php echo $package[0]['title']; ?>
                         <span class="separator-img"></span>
-                        <?php if ($package[0]['status'] == '1') { ?>
-                            <span class="green-circle-status"></span>
-                            <span class="status">        
-                                <?php echo 'ACTIVE'; ?>
-                            </span>
-                        <?php } else { ?>
-                            <span class="red-circle-status"></span>
-                            <span class="status">        
-                                <?php echo 'IN-ACTIVE'; ?>
-                            </span>
-                        <?php } ?>
+                            <span class="buy-course"><a href="javascript:void(0)">BUY NOW</a></span>
                     </li>
                     <li class="nid detail-row">
                         <span class="nid-icon" title="Code"></span><span class="detail"> CODE : <?php echo $package[0]['code']; ?></span>
@@ -119,29 +107,6 @@ endif;
                     </li>
                 </ul>  
             </div> 
-        </section>
-        <div class="view-data-divider"></div>
-
-        <section class="view-detail">
-            <table border="1" class="table center-listing" id="option_table">
-                <thead>
-                    <tr>
-                        <th class="fname"><input type='hidden' id='action' value='add'><?php echo $this->escapeHtml('COURSE NAME'); ?></th></tr>
-                </thead>
-                <tbody>
-                    <?php
-                    $i = 0;
-                    foreach ($courseMapData as $map) {
-                        ?>
-                        <tr id="<?php echo $i; ?>">
-                            <td class='fname'><input type='hidden' name='courseId[]' value="<?php echo $map['course_id']; ?>"/><?php echo $map['title']; ?></td>
-                        </tr>
-                        <?php
-                        $i++;
-                    }
-                    ?>
-                </tbody>
-            </table>
         </section>
     </div>
     <div id="form-footer">
