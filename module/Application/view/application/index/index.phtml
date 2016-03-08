@@ -23,24 +23,24 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
     </video>
 </div>
 <div class="min-height-350">
-<div id="owl-demo" class="owl-carousel owl-theme carousel">
+    <div id="owl-demo" class="owl-carousel owl-theme carousel">
 
-    <div class="item"><div class="slides">
-            <div class="container">
-                <div class="text-slide">
-                    <h1>MOTIVATION REDEFINED</h1>
-                    <p>“ Innovate to Educate” With this Slogan in mind, we are here to revolutionize the education process & learning methodology . For us Education is pure passion not an Industry , an art of learning , teaching & Knowledge sharing .</p>
-                    <!--<button type="button" class="more-button"> More Details</button>-->
+        <div class="item"><div class="slides">
+                <div class="container">
+                    <div class="text-slide">
+                        <h1>MOTIVATION REDEFINED</h1>
+                        <p>“ Innovate to Educate” With this Slogan in mind, we are here to revolutionize the education process & learning methodology . For us Education is pure passion not an Industry , an art of learning , teaching & Knowledge sharing .</p>
+                        <!--<button type="button" class="more-button"> More Details</button>-->
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="item"><img  src="<?php echo $this->basePath() . "/css_theme/images/Anywhere.jpg"; ?>" alt="GTA V"></div>
-    <div class="item"><img src="<?php echo $this->basePath() . "/css_theme/images/beenthere.jpg"; ?>" alt="Mirror Edge"></div>
-    <div class="item"><img src="<?php echo $this->basePath() . "/css_theme/images/gogreen.jpg"; ?>" alt="Mirror Edge"></div>
+        <div class="item"><img  src="<?php echo $this->basePath() . "/css_theme/images/Anywhere.jpg"; ?>" alt="GTA V"></div>
+        <div class="item"><img src="<?php echo $this->basePath() . "/css_theme/images/beenthere.jpg"; ?>" alt="Mirror Edge"></div>
+        <div class="item"><img src="<?php echo $this->basePath() . "/css_theme/images/gogreen.jpg"; ?>" alt="Mirror Edge"></div>
     <div class="item"><img src="<?php echo $this->basePath() . "/css_theme/images/One-to-One-Mentoring.jpg"; ?>" alt="Mirror Edge"></div>
 
-</div>
+    </div>
 </div>
 </div>
 <div class="container">
@@ -55,135 +55,70 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
         <div class="widget wpo-educator-grid small">
 
             <div class="widget-content tribe-events-list">
-                <div>		
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <article class="course course-item"> 
-                            <div class="course-image">
+                <div>	
+                    <?php $i = 0;
+                    foreach ($packages as $package) {
+                        ?>
+    <?php if (($i % 2) == 0) { ?>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <article class="course course-item"> 
+                                    <div class="course-image">
 
-                                <div class="package-box-even">The long term planner</div>
-<!--                                    <img width="870" height="593" src="css_theme/images/courses-9.jpg" class="attachment-course-image wp-post-image" alt="courses-9">-->
+                                        <div class="package-box-even"><?php echo $package['title'] ?></div>
+        <!--                                    <img width="870" height="593" src="css_theme/images/courses-9.jpg" class="attachment-course-image wp-post-image" alt="courses-9">-->
 
-                                <div class="ib-edu-course-price">
-                                    <span class="label-free">INR 12.5K</span>
+                                        <div class="ib-edu-course-price">
+                                            <span class="label-free"><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'packagedetails')) . '?id=' . $package['id'] ?>">BUY NOW</a></span>
 
-                                </div>
-                            </div>
-                            <div class="course-inner">
-                                <div class="course-header">
-                                    <h4><a href="">The long term planner</a></h4>
-                                    <div class="author"><span>Teacher  <a href="" title="Vatan Vindal">Vatan Vindal</a></span></div>
-                                </div>
-                                <div class="course-meta">
-                                    <div class="left">
-                                        <span class="duration"><i class="uicon icon-duration"></i> 
-                                            <span class="val">22 Month </span>
-                                        </span>			
-
-                                        <span class="lesson"><i class="uicon icon-lesson"></i>7  Courses</span>			
+                                        </div>
                                     </div>
-                                    <div class="right"> 
-                                        <div class="course-rating">
-                                            <img src="css_theme/images/rating_on.gif" alt="154 votes, average: 2 out of 5" title="154 votes, average: 2 out of 5" class="post-ratings-image">
-                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
-                                    </div> 	
-                                </div>
-                            </div>	
-                        </article> 
-                    </div>	
-
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <article class="course course-item"> 
-                            <div class="course-image">
-                                <div class="package-box-odd">The go-getter</div>
-                                <div class="ib-edu-course-price">
-                                    <span class="label-free">INR 10K</span>
-                                </div>
+                                    <div class="course-inner">
+                                        <div class="course-header">
+                                            <h4><a href=""><?php echo $package['title'] ?></a></h4>
+                                            <div class="author"><span>Price:  <?php echo $package['price'] ?></span></div>
+                                        </div>
+                                        <div class="course-meta">
+                                            <div class="left">
+                                                <span class="duration"><i class="uicon icon-duration"></i> 
+                                                    <span class="val"><?php echo $package['duration'] ?></span>
+                                                </span>				
+                                            </div>
+                                        </div>
+                                    </div>	
+                                </article> 
                             </div>
-                            <div class="course-inner">
-                                <div class="course-header">
-                                    <h4><a href="">The go-getter</a></h4>
-                                    <div class="author"><span>Teacher  <a href="" title="Vatan Vindal">Vatan Vindal</a></span></div>
-                                </div>
-                                <div class="course-meta">
-                                    <div class="left">
-                                        <span class="duration"><i class="uicon icon-duration"></i> 
-                                            <span class="val">10 Month </span>
-                                        </span>				
+    <?php } else { ?>
+                            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                                <article class="course course-item"> 
+                                    <div class="course-image">
+                                        <div class="package-box-odd"><?php echo $package['title'] ?></div>
+                <!--                                    <img width="870" height="593" src="css_theme/images/courses-9.jpg" class="attachment-course-image wp-post-image" alt="courses-9">-->
 
-                                        <span class="lesson"><i class="uicon icon-lesson"></i>5  Courses</span>			
+                                        <div class="ib-edu-course-price">
+                                            <span class="label-free"><a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'packagedetails')) . '?id=' . $package['id'] ?>">BUY NOW</a></span>
+
+                                        </div>
                                     </div>
-                                    <div class="right"> 
-                                        <div class="course-rating">
-                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
-                                    </div> 	
-                                </div>
-                            </div>	
-                        </article> 
-                    </div>	
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <article class="course course-item"> 
-                            <div class="course-image">
-                                <div class="package-box-even">The go-getter (intensive)</div>
-                                <div class="ib-edu-course-price">
-                                    <span class="label-free">INR 12.5K</span>
-
-                                </div>
+                                    <div class="course-inner">
+                                        <div class="course-header">
+                                            <h4><a href=""><?php echo $package['title'] ?></a></h4>
+                                            <div class="author"><span>Price:  <?php echo $package['price'] ?></span></div>
+                                        </div>
+                                        <div class="course-meta">
+                                            <div class="left">
+                                                <span class="duration"><i class="uicon icon-duration"></i> 
+                                                    <span class="val"><?php echo $package['duration'] ?></span>
+                                                </span>				
+                                            </div>
+                                        </div>
+                                    </div>	
+                                </article> 
                             </div>
-                            <div class="course-inner">
-                                <div class="course-header">
-                                    <h4><a href="">The go-getter (intensive)</a></h4>
-                                    <div class="author"><span>Teacher  <a href="" title="Vatan Vindal">Vatan Vindal</a></span></div>
-                                </div>
-                                <div class="course-meta">
-                                    <div class="left">
-                                        <span class="duration"><i class="uicon icon-duration"></i> 
-                                            <span class="val">10 Month </span>
-                                        </span>				
-
-                                        <span class="lesson"><i class="uicon icon-lesson"></i>10 Courses</span>			
-                                    </div>
-                                    <div class="right"> 
-                                        <div class="course-rating">
-                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
-                                    </div> 	
-                                </div>
-                            </div>	
-                        </article> 
-                    </div>	
-                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                        <article class="course course-item"> 
-                            <div class="course-image">
-                                <div class="package-box-odd">Fine-tuning</div>
-                                <div class="ib-edu-course-price">
-                                    <span class="label-free">INR 5K</span>
-
-                                </div>
-                            </div>
-                            <div class="course-inner">
-                                <div class="course-header">
-                                    <h4><a href="">Fine-tuning</a></h4>
-                                    <div class="author"><span>Teacher  <a href="" title="Vatan Vindal">Vatan Vindal</a></span></div>
-                                </div>
-                                <div class="course-meta">
-                                    <div class="left">
-                                        <span class="duration"><i class="uicon icon-duration"></i> 
-                                            <span class="val">5 Month</span>
-                                        </span>				
-
-                                        <span class="lesson"><i class="uicon icon-lesson"></i>6  Courses</span>			
-                                    </div>
-                                    <div class="right"> 
-                                        <div class="course-rating">
-                                            <img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image">			 		<img src="css_theme/images/rating_on.gif" alt="54 votes, average: 4.17 out of 5" title="54 votes, average: 4.17 out of 5" class="post-ratings-image"> <span class="number-vote">54 votes</span>			 	</div>	
-                                    </div> 	
-                                </div>
-                            </div>	
-                        </article> 
-                    </div>	
-
-
-
-
+                            <?php
+                        }
+                        $i++;
+                    }
+                    ?>
                 </div>
             </div>	
         </div></div>
@@ -216,7 +151,7 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
                                     <div class="mkdf-testimonial-image-holder">
                                         <img width="60" height="60" src="img/<?php echo $testimonial['image']; ?>" alt="">
                                     </div>                <p class="mkdf-testimonial-text ">
-        <?php echo $testimonial['short_description']; ?> <a href="<?php echo $this->url('application/default', array('controller' => 'index','action' => 'testimonial')).'?id='.$testimonial['id']?>"> Read More....</a>
+        <?php echo $testimonial['short_description']; ?> <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'testimonial')) . '?id=' . $testimonial['id'] ?>"> Read More....</a>
                                     </p>
                                     <div class="mkdf-testimonial-author">
                                         <h6 class="mkdf-testimonial-author-text "><?php echo $testimonial['name']; ?></h6> 
@@ -285,29 +220,29 @@ echo $this->headLink(array('rel' => 'shortcut icon', 'type' => 'image/vnd.micros
         <div class=" widget wpo-testimonial v6 light-style space-top-40">
             <!-- Skin 1 -->
             <div id="owl-demo2">
-                <?php foreach($teams as $team){?>
-                <div class="item">
-                    <div class="testimonials-v6" id="team-1" >
-                        <div class="testimonials-body">
+<?php foreach ($teams as $team) { ?>
+                    <div class="item">
+                        <div class="testimonials-v6" id="team-1" >
+                            <div class="testimonials-body">
 
-                            <div class="left">
-                                <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/'.$team['image']); ?>" class="attachment-widget" alt="testimonial - 3"></div>
-                            </div>
-                            <div class="right">
-                                <h5 class="testimonials-name"><?php echo $team['name'];?></h5>  
-                                <div class="text-muted testimonials-position"><p><?php echo $team['designation'];?></p></div>
-                            </div>
-                            <div class="clearfix"></div>
-                            <div class="testimonials-description">
-                                <p>
-                                    <?php echo $team['short_description'];?>
-                                </p>
-                            </div>                                          
-                             <a href="<?php echo $this->url('application/default', array('controller' => 'index','action' => 'team')).'?id='.$team['id']?>">Read More....</a>
-                        </div>                      
+                                <div class="left">
+                                    <div class="avata"><img width="80" height="80" src="<?php echo $this->basePath('img/' . $team['image']); ?>" class="attachment-widget" alt="testimonial - 3"></div>
+                                </div>
+                                <div class="right">
+                                    <h5 class="testimonials-name"><?php echo $team['name']; ?></h5>  
+                                    <div class="text-muted testimonials-position"><p><?php echo $team['designation']; ?></p></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="testimonials-description">
+                                    <p>
+    <?php echo $team['short_description']; ?>
+                                    </p>
+                                </div>                                          
+                                <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'team')) . '?id=' . $team['id'] ?>">Read More....</a>
+                            </div>                      
+                        </div>
                     </div>
-                </div>
-                <?php } ?>
+<?php } ?>
             </div>
         </div>		
     </div>

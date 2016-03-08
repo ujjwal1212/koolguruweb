@@ -29,15 +29,15 @@ $(document).ready(function () {
             },
             price: {
                 required: true,
-                number: true,
+//                number: true,
             },
             duration: {
                 required: true,
-                number: true,
+//                number: true,
             },
             ff_classroom: {
                 required: true,
-                number: true,
+//                number: true,
             },
             relevant_for: {
                 required: true,
@@ -58,15 +58,15 @@ $(document).ready(function () {
             },
             price: {
                 required: 'Please fill the price of package',
-                number: 'Price should be a valid number',
+//                number: 'Price should be a valid number',
             },
             duration: {
                 required: 'Please fill the duration of package',
-                number: 'Duration should be a valid number',
+//                number: 'Duration should be a valid number',
             },
             ff_classroom: {
                 required: 'Please fill the number of face to face classes provided in the package',
-                number: 'Number of classrooms provided should be a valid number',
+//                number: 'Number of classrooms provided should be a valid number',
             },
             relevant_for: {
                 required: 'Please fill the relevancy of package',
