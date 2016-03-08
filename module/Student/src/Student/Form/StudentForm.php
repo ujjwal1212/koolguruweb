@@ -95,7 +95,7 @@ class StudentForm extends Form {
             'name' => 'sex',
             'options' => array(
                 'label' => 'Sex',
-                'empty_option' => 'Sex',
+                'empty_option' => 'Select one',
                 'value_options' => array('Male', 'Female')
             ),
             'attributes' => array(
@@ -120,7 +120,7 @@ class StudentForm extends Form {
             'name' => 'highest_degree',
             'options' => array(
                 'label' => 'Highest Degree',
-                'empty_option' => 'Highest Degree',
+                'empty_option' => 'Select one',
                 'value_options' => $degreelist
             ),
             'attributes' => array(
@@ -134,7 +134,7 @@ class StudentForm extends Form {
             'name' => 'native_state',
             'options' => array(
                 'label' => 'Native State',
-                'empty_option' => 'Native State',
+                'empty_option' => 'Select one',
                 'value_options' => $stateList
             ),
             'attributes' => array(
@@ -153,7 +153,7 @@ class StudentForm extends Form {
             'type' => 'Select',
             'name' => 'completion_year',
             'options' => array(
-                'label' => 'Completion year',
+                'label' => 'Select one',
                 'empty_option' => 'Completion year',
                 'value_options' => $completionyear
             ),

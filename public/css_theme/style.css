@@ -9156,7 +9156,7 @@ display: none;    }
 #student-registration-form,#contact-form{ padding:0!important;}
 }
 #testi-left,#testi-right{ display:none;}
-.testimonial-box{height: 300px;}
+.testimonial-box{height: auto;}
 .staff.staff-content .testimonial-box{    padding-bottom: 60px;
     clear: both;
     padding-top: 50px;}
