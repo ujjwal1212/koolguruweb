@@ -4,6 +4,7 @@ if (isset($_SESSION['User']['roleCode'])):
     $roleCode = $_SESSION['User']['roleCode'];
 endif;
 $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
+//asd($_SESSION);
 ?>
 
 <html lang="en">
@@ -150,6 +151,17 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                                         </div>
                                     </div>
                                 </div>
+                                <?php if(isset($_SESSION['User'])){?>
+                                    <div  class="widget widget_text mkdf-top-bar-widget">
+                                        <div class="mkdf-top-bar-widget-inner">
+                                            <div class="textwidget">
+                                                <div class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">                                                
+                                                    <p class="mkdf-icon-list-text" style="font-weight: 600;padding-left: 10px"> Welcome <?php echo $_SESSION['User']['fname'];?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
