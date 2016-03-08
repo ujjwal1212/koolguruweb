@@ -31,6 +31,7 @@ class IndexController extends AbstractActionController {
     protected $SubjectTable;
     protected $TestimonialTable;
     protected $TeamTable;
+    protected $packageTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -47,6 +48,14 @@ class IndexController extends AbstractActionController {
             $this->QuestionTable = $sm->get('Questionarie\Model\QuestionTable');
         }
         return $this->QuestionTable;
+    }
+
+    public function getPackageTable() {
+        if (!$this->packageTable) {
+            $sm = $this->getServiceLocator();
+            $this->packageTable = $sm->get('Package\Model\PackageTable');
+        }
+        return $this->packageTable;
     }
 
     public function getSendqueryTable() {
@@ -72,7 +81,7 @@ class IndexController extends AbstractActionController {
         }
         return $this->SubjectTable;
     }
-    
+
     public function getTestimonialTable() {
         if (!$this->TestimonialTable) {
             $sm = $this->getServiceLocator();
@@ -80,7 +89,7 @@ class IndexController extends AbstractActionController {
         }
         return $this->TestimonialTable;
     }
-    
+
     public function getTeamTable() {
         if (!$this->TeamTable) {
             $sm = $this->getServiceLocator();
@@ -92,8 +101,9 @@ class IndexController extends AbstractActionController {
     public function indexAction() {
         $testimonials = array();
         $testimonials = $this->getTestimonialTable()->getTestimonial();
+        $packages = $this->getPackageTable()->getPackages();
         $teams = $this->getTeamTable()->getTeam();
-        
+
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $js_path = $renderer->basePath('js/koolguru/application');
         $headScript = $this->getServiceLocator()->get('viewhelpermanager')
@@ -104,13 +114,30 @@ class IndexController extends AbstractActionController {
         if ($session->offsetExists('email') && $session->offsetGet('roleCode') == 'st') {
             $this->redirect()->toRoute('student');
         }
-        
+
         if ($session->offsetExists('email') && $session->offsetGet('roleCode') == 'sa') {
             $this->redirect()->toRoute('admin');
         }
         return array(
             'testimonials' => $testimonials,
             'teams' => $teams,
+            'packages' => $packages
+        );
+    }
+
+    /**
+     * function for Package view
+     * @return type
+     */
+    public function packagedetailsAction() {
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
+
+        if (!$id) {
+            return $this->redirect()->toRoute('home');
+        }
+        $package = $this->getPackageTable()->getPackageDetails($id);
+        return array(
+            'package' => $package,
         );
     }
 
@@ -129,11 +156,11 @@ class IndexController extends AbstractActionController {
     public function missionAction() {
         
     }
-    
+
     public function faqAction() {
         
     }
-    
+
     public function testimonialAction() {
         $id = isset($_GET['id']) ? $_GET['id'] : 0;
         $testimonials = array();
@@ -142,7 +169,7 @@ class IndexController extends AbstractActionController {
             'testimonials' => $testimonials,
         );
     }
-    
+
     public function teamAction() {
         $id = isset($_GET['id']) ? $_GET['id'] : 0;
         $teams = array();
@@ -233,7 +260,7 @@ class IndexController extends AbstractActionController {
         $response->setContent(json_encode($excecises));
         return $response;
     }
-    
+
     public function quizAction() {
 
         $viewModel = new ViewModel(array(

@@ -122,7 +122,6 @@ class PackageController extends AbstractActionController {
     public function addAction() {
         $session = new Container('User');
         $courseList = $this->getCourseTable()->getCourseDropdown();
-        asd($courseList);
         $form = new PackageForm('PackageForm', $courseList);
         $form->get('code')->setValue('xxx-xxx-xxx');
         $form->get('code')->setAttribute('readonly', TRUE);
