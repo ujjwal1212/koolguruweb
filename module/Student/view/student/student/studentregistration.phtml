@@ -15,7 +15,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                 $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
                 if (empty($errorflashMessage) && !empty($successflashMessage)) {
             ?>
-            <div id="global-success-msg-page" class="global-page-success">
+            <div id="email-sent-success" class="email-sent-success">
                 <?php
                 foreach ($successflashMessage as $succMsg) {
                     echo $succMsg;
@@ -25,7 +25,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
             <?php 
             } else {
             if (!empty($errorflashMessage)) { ?>
-            <div id="global-error-msg-page"   class="global-page-error">
+            <div id="email-sent-error"   class="email-sent-error">
                 <?php foreach ($errorflashMessage as $errMsg) { 
                     echo $errMsg;
                 }

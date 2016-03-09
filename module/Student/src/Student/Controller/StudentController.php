@@ -336,7 +336,7 @@ class StudentController extends AbstractActionController {
                                 $status['registration_status'] = 1;
                                 $this->getStudentStatusTable()->createStudentStatus($status, $student_id);
                                 $this->getStudentMobileTable()->updateMobileStatus($data['mobile'], $student_id);
-                                $this->flashMessenger()->setNamespace('success')->addMessage('An email has been sent to your email address, please verify your email address.');
+                                $this->flashMessenger()->setNamespace('success')->addMessage('An email has been sent to your email address, please verify your email address to complete your details');
                             } else {
                                 $studentId = $this->getStudentTable()->updateStudent($data, $studentId);
                                 $this->flashMessenger()->setNamespace('success')->addMessage('Details updated successfully.');
@@ -347,7 +347,7 @@ class StudentController extends AbstractActionController {
             } else {
                 $flashMessage = $this->flashMessenger()->getErrorMessages();
                 if (empty($flashMessage)) {
-                    $this->flashMessenger()->setNamespace('error')->addMessage('Student Email Id Already Exist'
+                    $this->flashMessenger()->setNamespace('error')->addMessage('Student Email Id Already Exist, please check your email if you have already registered'
                     );
                 }
             }
