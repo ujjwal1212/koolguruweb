@@ -8795,7 +8795,7 @@ div.wpcf7 .screen-reader-response {
 .carousel .slides{ display:inline-block;width: 100%;text-align: center; vertical-align:top; padding-top:60px;}
 .overflow-hidden{ overflow:hidden;}
 .text-slide, .video-slide{ width:48%; display:inline-block;vertical-align:top;}
-.text-slide p,.text-slide h1{ white-space:normal; text-align:left;color:#bae6e7;}
+.text-slide p,.text-slide h1{ white-space:normal; text-align:left;color:#fff;}
 .text-slide p{font-family:poppinsM; padding-right:40px;font-size:18px;}
 .text-slide h1{ font-family:poppinsB; padding-right:	40px; }
 .video-slide video{ margin-top:20px;    background: #000;    max-width: 500px;border:none;}
