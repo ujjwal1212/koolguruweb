@@ -4,6 +4,7 @@ if (isset($_SESSION['User']['roleCode'])):
     $roleCode = $_SESSION['User']['roleCode'];
 endif;
 $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
+//asd($_SESSION);
 ?>
 
 <html lang="en">
@@ -114,7 +115,7 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                                     <div class="mkdf-top-bar-widget-inner"> <a class="mkdf-social-icon-widget-holder mkdf-social_twitter" href="https://twitter.com/" target="_blank"> <span class="mkdf-social-icon-widget social_twitter"></span> </a></div>
                                 </div>
                                 <div class="widget widget_mkd_social_icon_widget mkdf-top-bar-widget">
-                                    <div class="mkdf-top-bar-widget-inner"> <a class="mkdf-social-icon-widget-holder mkdf-social_facebook" href="https://www.facebook.com/" target="_blank"> <span class="mkdf-social-icon-widget social_facebook"></span> </a></div>
+                                    <div class="mkdf-top-bar-widget-inner"> <a class="mkdf-social-icon-widget-holder mkdf-social_facebook" href="https://www.facebook.com/KoolGuru-1005768526127972/info/?tab=page_info&view" target="_blank"> <span class="mkdf-social-icon-widget social_facebook"></span> </a></div>
                                 </div>
                                 <div class="widget widget_mkd_social_icon_widget mkdf-top-bar-widget">
                                     <div class="mkdf-top-bar-widget-inner"> <a class="mkdf-social-icon-widget-holder mkdf-social_googleplus" href="https://plus.google.com/" target="_blank"> <span class="mkdf-social-icon-widget social_googleplus"></span> </a></div>
@@ -150,6 +151,17 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                                         </div>
                                     </div>
                                 </div>
+                                <?php if(isset($_SESSION['User'])){?>
+                                    <div  class="widget widget_text mkdf-top-bar-widget">
+                                        <div class="mkdf-top-bar-widget-inner">
+                                            <div class="textwidget">
+                                                <div class="mkdf-icon-list-item mkdf-icon-list-item-default-font-family">                                                
+                                                    <p class="mkdf-icon-list-text" style="font-weight: 600;padding-left: 10px"> Welcome <?php echo $_SESSION['User']['fname'];?></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </div>
                         </div>
                     </div>
@@ -341,7 +353,7 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                             <!--<ul class="nav-child unstyled small"><li><a href="/about-us">About Us</a></li><li class="item-175"><a href="/contact-us">Contact Us</a></li><li><a href="/about-us/careers">Careers</a></li><li class="item-313"><a href="" target="_blank">Staff Login</a></li></ul></li><li class="item-178 divider deeper parent">-->
                             <span class="separator">
                                 Our Newsletter</span>
-                            <ul class="nav-child unstyled small"><li><a href="javascript:void(0)">We are starting our 1st marketing campaign from 15th Feb.... Watch out for our Canope at your college....</a></li></ul></li><li class="item-186 deeper parent">
+                            <ul class="nav-child unstyled small"><li><a href="javascript:void(0)">Batch starts from 18th April. Enrollment to begin from 25th March 2016</a></li></ul></li><li class="item-186 deeper parent">
                             <span class="separator">
                                 Information</span>
                             <ul class="nav-child unstyled small">
