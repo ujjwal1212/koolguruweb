@@ -106,6 +106,16 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <label class='label'>IS ACTIVE: </label>
                         <?php echo $this->formElement($form->get('status')); ?>
                     </li>
+                    <li class="form-row">                    
+                        <label class='label'>Question Level     Question Count      Category</label>
+                        <select name="chapter_id" id="chapter_id">
+                            <option value="">Select</option>
+                        </select>
+                        <input type="text" id="count">
+                        <select name="chapter_id" id="chapter_id">
+                            <option value="">Select</option>
+                        </select>
+                    </li>
                 </ul>
             </section>
         </div>

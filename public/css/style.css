@@ -1035,7 +1035,7 @@ a.btn.btn-primary.btn1.btn-normal.btn-inline {
     background: url(../img/cal-icon.png) no-repeat 100% 50% #FFF;
 }
 select {
-    width: 100%;
+    width: auto;
     color: #858585;
     font-size: 0.8725em;
     padding: 7px;
