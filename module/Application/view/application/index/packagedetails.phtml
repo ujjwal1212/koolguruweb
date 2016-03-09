@@ -25,89 +25,89 @@ endif;
 </section>
 
 <div class="container">
-    <div class="forms">
-        <div class="container">
-                <div class="package_detail_left">
-                    <ul>
-                        <li class="name detail-row package-header">
-                            <?php echo $package[0]['title']; ?>
-                            <span class="separator-img"></span>
-                            <span class="buy-course"><a href="javascript:void(0)">BUY NOW</a></span>
-                        </li>
-                        <li class="nid detail-row">
-                            <span class="nid-icon" title="relevant for"></span><span class="detail"> RELEVANT FOR : <?php
-                                if (!empty($package[0]['relevant_for'])) {
-                                    $userGetsArr = explode(',', $package[0]['relevant_for']);
-                                    echo '<br/>';
-                                    echo '<ul>';
-                                    foreach ($userGetsArr as $gets) {
-                                        echo '<li>';
-                                        echo $gets;
-                                        echo '</li>';
-                                    }
-                                    echo '</ul>';
-                                }
-                                ?></span>
-                        </li>
-                        <li class="nid detail-row">
-                            <?php
-                            if ($package[0]['image_path']) {
-                                $packagePathArr = explode('/', $package[0]['image_path']);
-                                foreach ($packagePathArr as $imageName) {
-                                    $imageFile = $imageName;
-                                }
-                                ?>
-                                <img alt="Subject Image" src="<?php echo $_SESSION['basedomain']['path'] . '/data/images/' . $imageFile; ?>" style="height:auto; width: 25%;border-radius: 50%;"/>
-                            <?php } ?>
-                        </li>
-                    </ul>  
-                </div> 
-                <div class="package_detail_right">
-                    <ul>
+<div class="forms">
+    <div class="package_detail_left">
+        <ul>
+            <li class="package-title">
+                <?php echo $package[0]['title']; ?>
+<!--                <span class="separator-img"></span>
+                <span><a href="javascript:void(0)">BUY NOW</a></span>-->
+            </li>
+            <li title="relevant for" class="package-relevant"><?php
+                if (!empty($package[0]['relevant_for'])) {
+                    $userGetsArr = explode(',', $package[0]['relevant_for']);
+                    echo '<br/>';
+                    echo '<ul>';
+                    ?>
+                <li><span class="package-headers"> RELEVANT FOR</span></li>
+                <span class="package-text">
+                    <?php
+                    foreach ($userGetsArr as $gets) {
+                        echo '<li>';
+                        echo $gets;
+                        echo '</li>';
+                    }
+                    echo '</ul>';
+                }
+                ?></span>
+            <ul>
 
-                        <li class="nid detail-row">
-                            <span class="nid-icon" title="Duration"></span><span class="detail"> DURATION : <?php echo $package[0]['duration'] ?></span>
-                        </li>
-                        <li class="nid detail-row">
-                            <span class="nid-icon" title="Price"></span><span class="detail"> PRICE : <?php echo $package[0]['price'] ?></span>
-                        </li>
-                        <li class="nid detail-row">
-                            <span class="nid-icon" title="Face to Face Class-room"></span><span class="detail"> FACE TO FACE CLASSROOM : <?php echo $package[0]['ff_classroom'] ?></span>
-                        </li>
-                        <li class="nid detail-row">
-                            <span class="nid-icon" title="advantage"></span><span class="detail"> ADVANTAGE : <?php
-                                if (!empty($package[0]['advantage'])) {
-                                    $userGetsArr = explode(',', $package[0]['advantage']);
-                                    echo '<br/>';
-                                    echo '<ul>';
-                                    foreach ($userGetsArr as $gets) {
-                                        echo '<li>';
-                                        echo $gets;
-                                        echo '</li>';
-                                    }
-                                    echo '</ul>';
-                                }
-                                ?></span>
-                        </li>
-                        <li class="nid detail-row">
-                            <span class="nid-icon" title="what user gets"></span><span class="detail"> WHAT USER GETS : <?php
-                                if (!empty($package[0]['whatuserget'])) {
-                                    $userGetsArr = explode(',', $package[0]['whatuserget']);
-                                    echo '<br/>';
-                                    echo '<ul>';
-                                    foreach ($userGetsArr as $gets) {
-                                        echo '<li>';
-                                        echo $gets;
-                                        echo '</li>';
-                                    }
-                                    echo '</ul>';
-                                }
-                                ?></span>
-                        </li>
-                    </ul> 
-                </div>
-        </div>
-    </div>
+                <li>
+                    <span title="Duration"></span><span class="package-headers"> DURATION<br/></span><span class="package-text"> <?php echo $package[0]['duration'] ?></span>
+                </li>
+                <li>
+                    <span title="Price"></span><span class="package-headers"> PRICE<br/></span><span class="package-text"><?php echo $package[0]['price'] ?></span>
+                </li>
+                <li>
+                    <span title="Face to Face Class-room"></span><span class="package-headers"> FACE TO FACE CLASSROOM<br/></span><span class="package-text"><?php echo $package[0]['ff_classroom'] ?></span>
+                </li>
+                <li>
+                    <span title="advantage"></span><span class="package-headers"> ADVANTAGE <br/></span><span class="package-text"><?php
+                        if (!empty($package[0]['advantage'])) {
+                            $userGetsArr = explode(',', $package[0]['advantage']);
+                            echo '<ul>';
+                            foreach ($userGetsArr as $gets) {
+                                echo '<li>';
+                                echo $gets;
+                                echo '</li>';
+                            }
+                            echo '</ul>';
+                        }
+                        ?></span>
+                </li>
+                <li>
+                    <span title="what user gets"></span><span class="package-headers"> WHAT USER GETS<br/></span><span class="package-text"><?php
+                        if (!empty($package[0]['whatuserget'])) {
+                            $userGetsArr = explode(',', $package[0]['whatuserget']);
+                            echo '<ul>';
+                            foreach ($userGetsArr as $gets) {
+                                echo '<li>';
+                                echo $gets;
+                                echo '</li>';
+                            }
+                            echo '</ul>';
+                        }
+                        ?></span>
+                </li>
+            </ul> 
+            <a href="javascript:void(0)" class="wpcf7-form-control wpcf7-submit demo-chapter">
+
+                <input type="button" value="BUY NOW" class="wpcf7-form-control wpcf7-submit"></a>
+            </li>
+            <li>
+                <?php
+                if ($package[0]['image_path']) {
+                    $packagePathArr = explode('/', $package[0]['image_path']);
+                    foreach ($packagePathArr as $imageName) {
+                        $imageFile = $imageName;
+                    }
+                    ?>
+                    <img alt="Subject Image" src="<?php echo $_SESSION['basedomain']['path'] . '/data/images/' . $imageFile; ?>" style="height:auto; width: 25%;border-radius: 50%;"/>
+                <?php } ?>
+            </li>
+        </ul>  
+    </div> 
+</div>
     <div id="form-footer">
     </div>
 </div>
