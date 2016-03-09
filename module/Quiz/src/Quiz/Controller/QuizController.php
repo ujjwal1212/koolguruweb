@@ -10,6 +10,8 @@ use Quiz\Form\SearchForm;
 use Quiz\Form\QuizForm;
 use Subject\Model\Subject;
 use Subject\Model\SubjectTable;
+use Questionarie\Model\Level;
+use Questionarie\Model\LevelTable;
 
 use Package\Model\Package;
 use Package\Model\PackageTable;
