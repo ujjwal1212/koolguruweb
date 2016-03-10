@@ -336,7 +336,7 @@ class StudentController extends AbstractActionController {
                                 $status['registration_status'] = 1;
                                 $this->getStudentStatusTable()->createStudentStatus($status, $student_id);
                                 $this->getStudentMobileTable()->updateMobileStatus($data['mobile'], $student_id);
-                                $this->flashMessenger()->setNamespace('success')->addMessage('An email has been sent to your email address, please verify your email address to complete your details');
+                                $this->flashMessenger()->setNamespace('success')->addMessage('An email has been sent to your email address, please verify your email address and login to complete your details');
                             } else {
                                 $studentId = $this->getStudentTable()->updateStudent($data, $studentId);
                                 $this->flashMessenger()->setNamespace('success')->addMessage('Details updated successfully.');
