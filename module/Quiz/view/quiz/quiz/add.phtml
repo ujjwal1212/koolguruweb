@@ -107,14 +107,25 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <?php echo $this->formElement($form->get('status')); ?>
                     </li>
                     <li class="form-row">                    
-                        <label class='label'>Question Level     Question Count      Category</label>
-                        <select name="chapter_id" id="chapter_id">
+                        <div class="pull-left width-100">
+						<div>Question Level</div> 
+						<select name="chapter_id" id="chapter_id">
                             <option value="">Select</option>
                         </select>
-                        <input type="text" id="count">
-                        <select name="chapter_id" id="chapter_id">
+						</div>
+                        <div class="pull-left width-100">
+						<div>Question Count</div>
+						<input type="text" id="count">
+                        </div>
+						<div class="pull-left width-100">
+						<div>Category</div>
+						<select name="chapter_id" id="chapter_id">
                             <option value="">Select</option>
                         </select>
+						</div>
+						<div class="pull-left"> <div class="add-icon"></div></div>
+						<div class="pull-left"><div class="delete-icon"></div></div>
+
                     </li>
                 </ul>
             </section>
