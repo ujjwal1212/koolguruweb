@@ -92,7 +92,7 @@
 
             if (tabno == 4) {
                 $('.loader').show();
-                var url = '<?php echo $this->basePath() . '/quiz'; ?>';
+                var url = '<?php echo $this->basePath() . '/demo-quiz'; ?>';
                 $.ajax({url: url, success: function (result) {
                         app.quiz.renderid = 'quiz';
                         if (app.quiz.currentquestion == '') {

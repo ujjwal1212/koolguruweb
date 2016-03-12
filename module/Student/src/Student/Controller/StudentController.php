@@ -369,7 +369,7 @@ class StudentController extends AbstractActionController {
         // Tab conytent enable for verbal ability
         if ($enableTabContent[1] == 1) {
             $cond = array();
-            $cond['level'] = 1;
+            $cond['level'] = 7;
             $cond['status'] = 1;
             $questions = array();
             $questions = $this->getQuestionTable()->getStudentQuestions($cond);
@@ -402,7 +402,7 @@ class StudentController extends AbstractActionController {
         // Tab conytent enable for Quantitative ability
         if ($enableTabContent[2] == 1) {
             $cond = array();
-            $cond['level'] = 2;
+            $cond['level'] = 8;
             $cond['status'] = 1;
             $questions = array();
             $questions = $this->getQuestionTable()->getStudentQuestions($cond);
