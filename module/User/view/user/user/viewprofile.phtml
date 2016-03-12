@@ -1,0 +1,168 @@
+<?php
+if (isset($_SESSION['User']['roleCode'])):
+    $roleCode = $_SESSION['User']['roleCode'];
+endif;
+?>
+<section class="sub-header">
+    <div class="container">
+        <div class="sub-header-title">
+            <span class="manage-admin-icon"></span>
+            <?php
+            $title = 'My Profile';
+            $this->headTitle($title);
+            $user = $this->user;
+            //$errorflashMessage = $this->flashMessenger()->getErrorMessages();
+            if (isset($user->status)) {
+                switch ($user->status) {
+                    case 0:
+                        $status = 'Inactive';
+                        break;
+                    case 1:
+                        $status = 'Active';
+                        break;
+                    default :
+                        $status = 'New';
+                }
+            }
+            ?>
+            <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
+                <div class="sub-header-breadcrumb">
+                    <a href="<?php echo $this->url('home') ?>"><span class="home"></span></a>    
+                    <span class="breadcrumb-arrow"> > </span>
+                    <span>View Profile</span>
+                </div>
+                <?php
+                /* Adding Breadcrumb */
+//                echo $this->navigation('navigation')
+//                        ->breadcrumbs()
+//                        ->setMinDepth(0)
+//                        ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                ?>
+            </h1>
+        </div>
+        <div class="sub-header-actions">
+            <a class="big-btn green-btn" href="<?php echo $this->url('user', array('action' => 'editprofile')); ?>">
+                Edit
+            </a>
+        </div>
+    </div>
+</section>
+
+<div class="container">
+    <div id="global-success-msg" class="success global-success"><?php echo $this->flashMessage(); ?></div>
+    <div id="global-error-msg"   class="error global-error"></div>
+    <div class="forms">
+        <section class="profile-details center-details">
+            <div class="short_profile_left">
+                <ul>
+                    <li class="name detail-row">
+                        <?php echo $user->fname . ' ' . $user->lname; ?>
+                        <span class="separator-img"></span>
+                        <span class="status">        
+                            <?php
+                            if (isset($user->status)) {
+                                if ($status == 'New' || $status == 'Active') {
+                                    ?>
+                                    <span class="green-circle-status"></span>
+                                    <span class="status"><?php echo $status ?></span>
+                                <?php } else if ($status == 'Inactive') { ?>
+                                    <span class="red-circle-status"></span>
+                                    <span class="status"><?php echo $status ?></span>
+                                <?php } ?>
+                            <?php } else { ?>
+                                <span class="green-circle-status"></span>
+                                <span class="status"><?php echo 'New' ?></span>
+                            <?php } ?>
+                        </span>
+                    </li>
+                    <li class="nid detail-row">
+                        <span class="nid-icon" title="NATIONAL ID"></span><span class="detail"> <?php echo $user->national_id ?></span>
+                    </li>
+
+
+                    <?php if (isset($user->phone_number) && $user->phone_number != '') { ?>
+                        <li class="phone detail-row"><span class="phone-icon" title="phone"></span>
+                            <span class="detail"> <?php echo $user->phone_number; ?></span>
+                        </li>
+                    <?php } ?>
+                    <?php if (isset($user->email) && $user->email != '') { ?>
+                        <li class="mail detail-row"><span class="mail-icon" title="Email ID"></span>
+                            <span class="detail"> <?php echo $user->email ?></span>
+                        </li>
+                    <?php } ?>
+                </ul>  
+
+                <!--<div class="cid">
+                    ID: <?php /* ?><?php echo $user->id ?><?php */ ?>
+                            </div>
+                <div class="name">
+                <?php /* ?> <?php echo $user->name; ?><?php */ ?>
+                </li>
+                <?php /* ?> <?php if (isset($user->phone)) { ?><?php */ ?>
+                    <li class="phone detail-row">
+                <?php /* ?> <?php echo $user->phone; ?><?php */ ?>
+                    </li>
+                <?php /* ?><?php } ?><?php */ ?>
+                <li class="mail detail-row">
+                <?php /* ?><?php echo $user->email ?><?php */ ?>
+                </div>-->
+            </div>   
+
+        </section>
+        <div class="view-data-divider"></div>
+
+        <section class="view-detail">
+            <table class="pull-left detail_profile_left">
+                <tr>
+                    <td class="field">NATIONAL ID:</td>
+                    <td class="detail"> <?php echo $user->national_id; ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">FIRST NAME: </td>
+                    <td class="detail"><?php echo $user->fname; ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">LAST NAME:</td>
+                    <td class="detail"><?php echo $user->lname; ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">EMAIL ID:</td>
+                    <td class="detail"><?php echo $user->email; ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">GENDER:</td>
+                    <td class="detail"><?php
+                        if ($user->gender == 'M') {
+                            echo'MALE';
+                        } else {
+                            echo'FEMALE';
+                        }
+                        ?></td> 
+                </tr>
+
+            </table>
+            <table class="pull-right detail_profile_right">
+                <tr>
+                    <td class="field">COUNTRY: </td>
+                    <td class="detail"><?php echo $user->country ?></td> 
+                </tr>
+                <tr>
+                    <td class="field">AGE:</td>
+                    <td class="detail"><?php echo $user->age; ?></td> 
+                </tr>
+            </table>
+
+        </section>
+        <div class="view-data-divider"></div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+

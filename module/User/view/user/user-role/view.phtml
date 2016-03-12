@@ -1,0 +1,138 @@
+<section class="sub-header">
+    <div class="container">
+
+        <div class="sub-header-title">
+            <?php
+            $title = 'View System Role';
+            $roleDetails = $this->roleDetails;
+            //$this->headScript()->appendFile($this->basePath() . '/js/radio-checkbox.js');
+//            echo "<pre>";
+//            print_r($roleDetails);
+//            die;
+            ?>
+            <a class="back-icon" href="<?php echo $this->url('userrole', array('action' => 'index')); ?>"></a>
+            <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
+                <!-- <div class="sub-header-breadcrumb">
+                    <a href="<?php echo $this->url('home') ?>"><span class="home"></span></a>    
+                    <span class="breadcrumb-arrow"> > </span>
+                    <a href="#">MANAGE User</a>
+                    <span class="breadcrumb-arrow"> > </span>
+                    <span>Add User</span>
+                  </div>-->
+                <?php
+                /* Adding Breadcrumb */
+                echo $this->navigation('navigation')
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                ?>
+            </h1>
+        </div>
+        <div class="sub-header-actions"></div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="forms" id="add-user-form">
+        <div id="global-success-msg" class="success global-success"></div>
+        <div id="global-error-msg"   class="error global-error"><?php echo $this->flashMessage(); ?></div>
+        <section id="basic_details">
+            <?php echo "<h2 class='h2'></h2>"; ?>
+            <ul>
+                <li class="form-row">
+                    <?php
+                    echo"<label class='label'>Role Name:</label>";
+                    echo $roleDetails->role_name;
+                    ?>
+                </li>
+                <li class="form-row">
+                    <?php
+//                    echo"<label class='label'>Role Code:</label>";
+//                    echo $roleDetails->role_code;
+                    ?>
+                </li>
+            </ul>
+            <div id="edit_permission">
+                <ul>
+                    <li class="form-row" id='edit_permission_label'>
+                        <?php
+                        echo"<label class='label'>ACCESS PERMISSIONS:</label>";
+                        ?>
+                    </li>
+
+                </ul>
+
+                <?php if (!empty($this->resourceName)) { ?>
+                    <table id='editPermissionTable' class='table prerequsite-table permission-table'>
+                        <thead>
+                            <tr>
+                                <th>MODULE</th>
+                                <th>READ ONLY</th>
+                                <th>FULL ACCESS</th>
+                                <th>DISABLE</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            foreach ($this->resourceName as $res) :
+                                $resourceArr = explode('*', $res);
+//                                echo "<pre>";
+//                                print_r($resourceArr);
+//                                die;
+                                ?>
+                                <tr>                                         
+                                    <td><input type='hidden' name='<?php echo $resourceArr[1]; ?>' value='<?php echo $resourceArr[1]; ?>'><?php
+                                        if ($this->roleCode != 'sa' && $resourceArr[0] == 'User') {
+                                            echo "Profile";
+                                        } else {
+                                            echo $resourceArr[0];
+                                                }
+                                        ?></td>
+                                    <?php if (in_array($resourceArr[1], $this->readAccess)) { ?>
+                                        <td class="rbtnCount"><input class="css-radio" type="radio" disabled="disabled" name="permissionRadio_<?php echo $resourceArr[1]; ?>" id="readOnly_<?php echo $resourceArr[1]; ?>" value="readOnly_<?php echo $resourceArr[1]; ?>" checked="checked"><label class="css-radio-label"></label></td>
+                                    <?php } else { ?>
+                                        <td class="rbtnCount"><input class="css-radio" type="radio" disabled="disabled" name="permissionRadio_<?php echo $resourceArr[1]; ?>" id="readOnly_<?php echo $resourceArr[1]; ?>" value="readOnly_<?php echo $resourceArr[1]; ?>"><label class="css-radio-label"></label></td>
+                                    <?php } ?>
+                                    <?php if (in_array($resourceArr[1], $this->fullAccess)) { ?>
+                                        <td class="rbtnCount"><input class="css-radio" type="radio" disabled="disabled" name="permissionRadio_<?php echo $resourceArr[1]; ?>" id="fullAccess_<?php echo $resourceArr[1]; ?>" value="fullAccess_<?php echo $resourceArr[1]; ?>" checked="checked"><label class="css-radio-label"></label></td>
+                                    <?php } else if (in_array($resourceArr[1], $this->onlyReadResource)) { ?>
+                                        <td class="rbtnCount"><input class="css-radio" type="radio" disabled="disabled" name="permissionRadio_<?php echo $resourceArr[1]; ?>" id="fullAccess_<?php echo $resourceArr[1]; ?>" value="fullAccess_<?php echo $resourceArr[1]; ?>"><label class="css-radio-label"></label></td>
+                                    <?php } else { ?>
+                                        <td class="rbtnCount"><input class="css-radio" type="radio" disabled="disabled" name="permissionRadio_<?php echo $resourceArr[1]; ?>" id="fullAccess_<?php echo $resourceArr[1]; ?>" value="fullAccess_<?php echo $resourceArr[1]; ?>"><label class="css-radio-label"></label></td>
+                                    <?php } ?>
+                                    <?php if (in_array($resourceArr[1], $this->noAccess)) { ?>
+                                        <td class="rbtnCount"><input class="css-radio" type="radio" disabled="disabled" name="permissionRadio_<?php echo $resourceArr[1]; ?>" id="disable_<?php echo $resourceArr[1]; ?>" value="disable_<?php echo $resourceArr[1]; ?>" checked="checked"><label class="css-radio-label"></label></td>
+                                    <?php } else { ?>
+                                        <td class="rbtnCount"><input class="css-radio" type="radio" disabled="disabled" name="permissionRadio_<?php echo $resourceArr[1]; ?>" id="disable_<?php echo $resourceArr[1]; ?>" value="disable_<?php echo $resourceArr[1]; ?>"><label class="css-radio-label"></label></td>
+                                    <?php } ?>
+                                </tr>
+                                <?php
+                            endforeach;
+                            ?>
+                        </tbody>
+                    </table>
+                    <?php
+                } else {
+                    ?>
+                    <table class="table prerequsite-table">
+                        <thead>
+                            <tr>
+                                <th>MODULE</th>
+                                <th>READ ONLY</th>
+                                <th>FULL ACCESS</th>
+                                <th>DISABLE</th>
+                            </tr>
+                        </thead>
+                        <tbody><tr><td colspan="4"><div class="no-records"><span class="info-icon"></span>No Permission Found !</div></td></tr>
+                        </tbody>
+                    </table>
+                <?php }
+                ?>
+            </div>
+        </section>
+
+
+        <section id="contact_details">
+        </section>
+    </div>
+</div>
