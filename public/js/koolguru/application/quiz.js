@@ -131,9 +131,9 @@ $(document).ready(function () {
                 $('#error').hide();                
                 var split = selectanswer.split('-');                
                 if(split[1] == 0){
-                    this.correctquestions.push(curquestion);
-                }else if(split[1] == 1){
                     this.incorrectquestions.push(curquestion);
+                }else if(split[1] == 1){
+                    this.correctquestions.push(curquestion);
                 }
                 this.answers.push(curquestion+'-'+split[0]);
                 return true;

@@ -101,16 +101,16 @@ class ChapterTable {
         return $questionId;
     }
     
-    public function getDemoChapter() {
+    public function getDemoChapter() {        
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
-        $select->from(array('s' => 'subjects'))
-                ->join(array('c'=>'chapters'),'s.id = c.subject_id',array('chapter_id'=>'id','demo_chapter_title'=>'title','isdemochapter'=>'isdemo','chapter_content'=>'content'),'left');
-        $select->columns(array('subject_id'=>'id', 'subject_title'=>'title'));
-        $select->where(array('c.status'=>1));
+        $select->from(array('c' => 'chapters'))
+                ->join(array('sc'=>'subject_chapter_map'),'sc.chapter_id=c.id')
+                ->join(array('s'=>'subjects'),'s.id = sc.subject_id',array('chapter_id'=>'id','subject_title'=>'title'),'left');
+        $select->columns(array('chapter_id'=>'id', 'demo_chapter_title'=>'title','chapter_content'=>'content'));
         $select->where(array('c.isdemo'=>1));
+        $select->where(array('c.status'=>1));
         $select->where(array('s.status'=>1));
-        $select->where(array('s.isdemo'=>1));
 
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
@@ -118,6 +118,20 @@ class ChapterTable {
         return $resultset;
     }
     
+    public function getDemoQuiz(){
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('c' => 'chapters'))
+                ->join(array('sc'=>'subject_chapter_map'),'sc.chapter_id=c.id',array('subject_id'=>'subject_id'))
+                ->join(array('q'=>'quiz'),'q.chapter_id=c.id AND q.subject_id=sc.subject_id', array('quiz_id'=>'id','pass_percentage'=>'pass_percentage'))
+                ->join(array('ql'=>'quiz_level'),'ql.quiz_id=q.id',array('level_id'=>'level_id','category_id'=>'category_id','ques_nos'=>'ques_nos'));
+        $select->columns(array('chapter_id'=>'id'));
+        $select->where(array('c.isdemo'=>1));
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        return $resultset;
+    }
     
 
 }

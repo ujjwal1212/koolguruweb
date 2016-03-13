@@ -214,6 +214,7 @@ class IndexController extends AbstractActionController {
         $headScript->appendFile($js_path . '/quiz.js');
         $demochapter_id = 0;
         $demochapter = $this->getChapterTable()->getDemoChapter();
+        //asd($demochapter);
         return array(
             'demochapter' => $demochapter,
         );
@@ -228,36 +229,11 @@ class IndexController extends AbstractActionController {
         $request = $this->getRequest();
         $data = $request->getPost();
         $response = $this->getResponse();
-        $cond = array();
-        $cond['level'] = 2;
-        $cond['status'] = 1;
-        $questions = array();
-        $questions = $this->getQuestionTable()->getExcerciseQuestions($cond);
-        $excecises = array();
-        $que = array();
-        foreach ($questions as $dat) {
-            if (empty($que)) {
-                $excecises[$dat['id']] = array('title' => $dat['description'], 'min_marks' => $dat['min_marks'], 'max_marks' => $dat['max_marks']);
-                $que[] = $dat['id'];
-            } else {
-                if (!in_array($dat['id'], $que)) {
-                    $excecises[$dat['id']] = array('title' => $dat['description'], 'min_marks' => $dat['min_marks'], 'max_marks' => $dat['max_marks']);
-                    $que[] = $dat['id'];
-                }
-            }
-        }
-
-        $ques = '';
-        foreach ($questions as $dat) {
-            if ($ques != $dat['id']) {
-                $ques = $dat['id'];
-            }
-
-            if ($ques == $dat['id']) {
-                $excecises[$dat['id']]['options'][$dat['option_id']] = array('description' => $dat['option_description'], 'iscorrect' => $dat['is_correct']);
-            }
-        }
-        $response->setContent(json_encode($excecises));
+        
+        $demoQuiz = array();
+        $demoQuiz = $this->getChapterTable()->getDemoQuiz();        
+        $questions = $this->getQuestionTable()->getDemoExcerciseQuestions($demoQuiz[0]['quiz_id'],3,$demoQuiz[0]['category_id'],3);
+        $response->setContent(json_encode($questions));
         return $response;
     }
 
@@ -270,36 +246,22 @@ class IndexController extends AbstractActionController {
         $request = $this->getRequest();
         $data = $request->getPost();
         $response = $this->getResponse();
-        $cond = array();
-        $cond['level'] = 2;
-        $cond['status'] = 1;
+        
+        $demoQuiz = array();
+        $demoQuiz = $this->getChapterTable()->getDemoQuiz();
         $questions = array();
-        $questions = $this->getQuestionTable()->getExcerciseQuestions($cond);
-        $excecises = array();
-        $que = array();
-        foreach ($questions as $dat) {
-            if (empty($que)) {
-                $excecises[$dat['id']] = array('title' => $dat['description'], 'min_marks' => $dat['min_marks'], 'max_marks' => $dat['max_marks']);
-                $que[] = $dat['id'];
-            } else {
-                if (!in_array($dat['id'], $que)) {
-                    $excecises[$dat['id']] = array('title' => $dat['description'], 'min_marks' => $dat['min_marks'], 'max_marks' => $dat['max_marks']);
-                    $que[] = $dat['id'];
-                }
+        foreach($demoQuiz as $data){
+            $ques = $this->getQuestionTable()->getDemoExcerciseQuestions($data['quiz_id'],$data['level_id'],$data['category_id'],$data['ques_nos']);
+            $questions = array_merge($questions,$ques);
+        }
+        
+        $demochapterquizque = array();
+        if(!empty($questions)){
+            foreach($questions as $key=>$v){
+                $demochapterquizque[$v['que_id']] = $v;
             }
         }
-
-        $ques = '';
-        foreach ($questions as $dat) {
-            if ($ques != $dat['id']) {
-                $ques = $dat['id'];
-            }
-
-            if ($ques == $dat['id']) {
-                $excecises[$dat['id']]['options'][$dat['option_id']] = array('description' => $dat['option_description'], 'iscorrect' => $dat['is_correct']);
-            }
-        }
-        $response->setContent(json_encode($excecises));
+        $response->setContent(json_encode($demochapterquizque));
         return $response;
     }
 

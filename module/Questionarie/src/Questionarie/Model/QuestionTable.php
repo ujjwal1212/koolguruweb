@@ -179,5 +179,76 @@ class QuestionTable {
                 ->toArray();
         return $resultset;
     }
+    
+    public function getDemoExcerciseQuestions($quiz_id,$level,$category,$que_count){
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('q' => 'questions'))
+                ->join(array('l'=>'level'),'q.level = l.id',array(),'left')
+                ->join(array('qo'=>'questions_options'),'q.id = qo.questions_id',array('option_id'=>'id','option_description'=>'description','is_correct'=>'is_correct'),'left');
+        
+                
+        $select->columns(array('id', 'description','name','min_marks','max_marks'));
+        $select->where(array('l.id'=>$level));
+        $select->where(array('q.category_id'=>$category));
+                
+        if(isset($cond['status'])){
+            $select->where(array('q.status'=>$cond['status']));
+        }
+        
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        
+        
+        $questions = $this->arrangequestions($resultset);
+        
+        $questionwithcounts = $this->setQuesionWithCount($questions,$que_count);
+        
+        return $questionwithcounts;
+    }
+    
+    public function setQuesionWithCount($questions,$count){
+        $ques_keys = array();
+        foreach($questions as $k=>$v){
+            $ques_keys[] = $k;
+        }        
+        $ne_que = array();
+        $k = shuffle($ques_keys);
+        
+        for($i=0; $i < $count; $i++){
+            $ques_keys[$i];
+            $ne_que[$ques_keys[$i]] = $questions[$ques_keys[$i]];
+        }
+        return $ne_que;        
+    }
+    
+    public function arrangequestions($questions){
+        
+        $excecises = array();
+        $que = array();
+        foreach ($questions as $dat) {
+            if (empty($que)) {
+                $excecises[$dat['id']] = array('que_id'=>$dat['id'],'solution'=>$dat['description'], 'title' => $dat['name'], 'min_marks' => $dat['min_marks'], 'max_marks' => $dat['max_marks']);
+                $que[] = $dat['id'];
+            } else {
+                if (!in_array($dat['id'], $que)) {
+                    $excecises[$dat['id']] = array('que_id'=>$dat['id'],'solution'=>$dat['description'],'title' => $dat['name'], 'min_marks' => $dat['min_marks'], 'max_marks' => $dat['max_marks']);
+                    $que[] = $dat['id'];
+                }
+            }
+        }
+        $ques = '';
+        foreach ($questions as $dat) {
+            if ($ques != $dat['id']) {
+                $ques = $dat['id'];
+            }
+
+            if ($ques == $dat['id']) {
+                $excecises[$dat['id']]['options'][$dat['option_id']] = array('description' => $dat['option_description'], 'iscorrect' => $dat['is_correct']);
+            }
+        }
+        return $excecises;
+    }
 
 }
