@@ -1942,7 +1942,21 @@ ul.comment-list .desc {
 }
 
 /*---------------CSS for Common Buttons---------------*/
-
+.pop-btn {
+    padding: 8px 18px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    font-family: 'open_sanssemibold';
+    font-size: 12px;
+    text-transform: uppercase;
+    display: inline-block;
+    cursor: pointer;
+    margin-bottom: 0px;
+}
+.pop-btn:hover,
+.pop-btn:active,
+.pop-btn:focus,
 .big-btn {
     padding: 8px 18px;
     -webkit-border-radius: 2px;

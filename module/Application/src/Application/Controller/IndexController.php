@@ -233,6 +233,7 @@ class IndexController extends AbstractActionController {
         $demoQuiz = array();
         $demoQuiz = $this->getChapterTable()->getDemoQuiz();        
         $questions = $this->getQuestionTable()->getDemoExcerciseQuestions($demoQuiz[0]['quiz_id'],3,$demoQuiz[0]['category_id'],3);
+        
         $response->setContent(json_encode($questions));
         return $response;
     }
