@@ -150,8 +150,8 @@ if (!$this->isAjax) {
                         ?>
                         <tr>
                             <td class="id"><a class="blue-anchor" href="<?php echo $this->url('question', array('action' => 'view', 'id' => $question['id'])); ?>"><?php echo $this->escapeHtml($question['id']); ?></a></td>
-                            <td class="name"><?php echo $this->escapeHtml($question['name']); ?></td>
-                            <td class="type"><?php echo $this->escapeHtml($question['description']); ?></td>        
+                            <td class="name"><?php echo $question['name']; ?></td>
+                            <td class="type"><?php echo $question['description']; ?></td>        
                             <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                                 <td class="actions">
                                     <a href="<?php echo $this->url('question', array('action' => 'edit', 'id' => $question['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
