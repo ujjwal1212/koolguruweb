@@ -27,10 +27,10 @@ class QuestionForm extends Form {
 
         $this->add(array(
             'name' => 'name',
+            'type' => 'Zend\Form\Element\Textarea',
             'attributes' => array(
-                'type' => 'text',
+                'class' => 'input ckeditor',
                 'id' => 'name',
-                'class' => 'input',
             ),
             'options' => array(
                 'label' => 'QUESTION NAME',
@@ -45,7 +45,7 @@ class QuestionForm extends Form {
             'type' => 'Zend\Form\Element\Textarea',
             'name' => 'description',
             'attributes' => array(
-                'class' => 'input',
+                'class' => 'input ckeditor',
                 'id' => 'description',
             ),
             'options' => array(

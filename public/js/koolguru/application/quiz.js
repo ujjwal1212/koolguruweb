@@ -16,7 +16,7 @@ $(document).ready(function () {
             $('#' + this.renderid).html('');
             var renderhtml = '';
             renderhtml += "<br><div class='questionborder' style='margin-top:10px'>";
-            renderhtml += "<h4 class='questiontitle'>" + quesobj.title + "</h4>";
+            renderhtml += "<h4 class='questiontitle'>" +this.renderquestioncount + '.' + quesobj.title + "</h4>";
             renderhtml += "<div class='book_date btm'>";
             renderhtml += "<ul>";            
             for (key in options) {
@@ -131,9 +131,9 @@ $(document).ready(function () {
                 $('#error').hide();                
                 var split = selectanswer.split('-');                
                 if(split[1] == 0){
-                    this.correctquestions.push(curquestion);
-                }else if(split[1] == 1){
                     this.incorrectquestions.push(curquestion);
+                }else if(split[1] == 1){
+                    this.correctquestions.push(curquestion);
                 }
                 this.answers.push(curquestion+'-'+split[0]);
                 return true;

@@ -110,7 +110,8 @@ class LevelTable {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select()
                 ->from(array('l'=>'level'))
-                ->columns(array('id','name'));
+                ->columns(array('id','name'))
+                ->order('name');
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();

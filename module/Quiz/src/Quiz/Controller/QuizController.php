@@ -22,6 +22,7 @@ class QuizController extends AbstractActionController {
     protected $subjectTable;
     protected $packageTable;
     protected $CourseTable;
+    protected $levelTable;
     protected $CoursePackageTable;
 
     public function getAdapter() {
@@ -30,6 +31,14 @@ class QuizController extends AbstractActionController {
             $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
         }
         return $this->adapter;
+    }
+    
+    public function getlevelTable() {
+        if (!$this->levelTable) {
+            $sm = $this->getServiceLocator();
+            $this->levelTable = $sm->get('Questionarie\Model\LevelTable');
+        }
+        return $this->levelTable;
     }
     
     public function getsubjectTable() {
@@ -159,6 +168,9 @@ class QuizController extends AbstractActionController {
             $subjects[$sub['id']] = $sub['title'];
         }
         
+        $levelList = array();
+        $levelList = $this->getlevelTable()->getLevelDropdown(); 
+        
         $form = new QuizForm('QuizForm',$subjects);
         $form->get('code')->setValue('xxx-xxx-xxx');
         $form->get('code')->setAttribute('readonly', TRUE);
@@ -217,7 +229,7 @@ class QuizController extends AbstractActionController {
             }
         }
 
-        return array('form' => $form);
+        return array('form' => $form,'levelList'=>$levelList);
     }
 
     /**

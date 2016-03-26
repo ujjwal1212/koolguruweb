@@ -142,6 +142,7 @@ class QuestionController extends AbstractActionController {
         if ($request->isPost()) {
             $question = new Question();
             $data = $request->getPost();
+            
             $form->setInputFilter($question->getInputFilter());
             $form->setData($data);
             if ($form->isValid()) {
@@ -190,6 +191,7 @@ class QuestionController extends AbstractActionController {
         if ($request->isPost()) {
             $question = new Question();
             $data = $request->getPost();
+            
             $question->exchangeArray($data);
             $form->setInputFilter($question->getInputFilter());
             $form->setData($data);

@@ -1,5 +1,6 @@
 <?php
 $this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/question/question.js');
+$this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/ckeditor/ckeditor.js');
 $form = $this->form;
 $form->setAttribute('action', $this->url('question', array('action' => 'add')));
 $form->setAttribute('class', 'detect_changes');
@@ -150,3 +151,21 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         </div>
     </div>
 </div>
+<script>
+    CKEDITOR.on( 'instanceReady', function( evt ) {
+			var editor = evt.editor;
+			//editor.setData( 'This editor has it\'s tabIndex set to <strong>' + editor.tabIndex + '</strong>' );
+
+			// Apply focus class name.
+			editor.on( 'focus', function() {
+				editor.container.addClass( 'cke_focused' );
+			});
+			editor.on( 'blur', function() {
+				editor.container.removeClass( 'cke_focused' );
+			});
+
+			// Put startup focus on the first editor in tab order.
+			if ( editor.tabIndex == 1 )
+				editor.focus();
+		});
+    </script>
