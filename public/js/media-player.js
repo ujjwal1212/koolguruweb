@@ -74,12 +74,12 @@ function togglePlayPause() {
 }
 
 function PausePlayer() {
-    
-        // Change the button to be a play button
-        changeButtonType(playPauseBtn, 'play');
-        // Pause the media
-        mediaPlayer.pause();
-    
+
+    // Change the button to be a play button
+    changeButtonType(playPauseBtn, 'play');
+    // Pause the media
+    mediaPlayer.pause();
+
 }
 // Stop the current media from playing, and return it to the start position
 function stopPlayer() {
@@ -134,6 +134,17 @@ function updateProgressBar() {
         mediaPlayer.pause();// Stop the Video
         nextPause = mediaPlayer.currentTime + 45;
     }
+}
+
+function previous() {
+    var goBack = mediaPlayer.currentTime % 45;
+    mediaPlayer.currentTime = mediaPlayer.currentTime - (goBack + 45);
+    nextPause = mediaPlayer.currentTime + 45;
+}
+function next() {
+    var goAhead = mediaPlayer.currentTime % 45;
+    mediaPlayer.currentTime = mediaPlayer.currentTime + (45 - goAhead);
+    nextPause = mediaPlayer.currentTime + 45;
 }
 function myTimer() {
 
