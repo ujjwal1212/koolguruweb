@@ -3390,33 +3390,15 @@ h1>a>img{
 
 }
 
-.kooltab {
-    border: 1px solid #e8e8e8;
-    display: inline-block;
-    padding: 15px 30px 10px 25px;
-    background-color: #f8f8f8;
-    color: #666!important;
-    font-family: poppins;
+
+
+
+.blog-submit{
+    float: left;
 }
-.kooltab.enabletab.activetab {
-    background: #16C569;
-    color: #fff!important;
-    font-weight: bold;
+.blog-more{
+    width: 45%;
+    height: 70px;
 }
-.reservation_top main {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    top: 1px;
-}
-.hidden-x{ overflow-x:hidden; }
-.address{ font-family: poppins;}
-@media (min-width: 768px){.container{width:780px}}
-@media (min-width: 992px){.container{width:1000px}}
-#form-footer{ clear:both; padding-top:20px;	}
-.width-100{ min-width:100px;}
-.width-100 div{ margin-bottom:7px;  font-family: 'open_sansbold'; font-size:11px;}
-.width-100 select,.width-100 input{ min-width:120px; height:40px; border:solid 1px #cacaca; margin-right:20px;}
-.add-icon{ height:32px; width:40px; display:inline-block;    background: url(../img/add.png) no-repeat; background-size:30px;  margin-top:25px; cursor:pointer; margin-right:2px;}
-.delete-icon{ height:32px; width:40px; display:inline-block;    background: url(../img/close.png) no-repeat; background-size:30px;margin-top:25px;cursor:pointer;}
+
+
