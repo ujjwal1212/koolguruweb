@@ -73,10 +73,10 @@ class Module {
             'Application\Controller\Index-mission',
             'Application\Controller\Index-contactus',
             'Application\Controller\Index-team',
-            'Blog\Controller\Blog-index',
-            'Blog\Controller\Blog-checklogin',
-            'Blog\Controller\Blog-add',
-            'Blog\Controller\Blog-getblog'
+            'Blog\Controller\Index-index',
+            'Blog\Controller\Index-checklogin',
+            'Blog\Controller\Index-add',
+            'Blog\Controller\Index-getblog'
         );
 
         //$requestUri = $request->getRequestUri();

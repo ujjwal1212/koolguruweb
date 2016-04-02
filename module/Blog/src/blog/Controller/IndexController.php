@@ -11,7 +11,7 @@ use Blog\Model\BlogTable;
 use Blog\Form\BlogForm;
 
 
-class BlogController extends AbstractActionController {
+class IndexController extends AbstractActionController {
 
     protected $adapter;
     protected $BlogTable;

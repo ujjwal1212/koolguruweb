@@ -3,7 +3,7 @@
 return array(
     'controllers' => array(
         'invokables' => array(
-            'Blog\Controller\Blog' => 'Blog\Controller\BlogController',),
+            'Blog\Controller\Index' => 'Blog\Controller\IndexController',),
     ),
     // The following section is new and should be added to your file
     'router' => array(
@@ -17,7 +17,7 @@ return array(
                         'id' => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Blog\Controller\Blog',
+                        'controller' => 'Blog\Controller\Index',
                         'action' => 'index',
                     ),
                 ),
@@ -32,7 +32,7 @@ return array(
                         'id' => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Blog\Controller\Blog',
+                        'controller' => 'Blog\Controller\Index',
                         'action' => 'checklogin',
                     ),
                 ),
@@ -47,7 +47,7 @@ return array(
                         'id' => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Blog\Controller\Blog',
+                        'controller' => 'Blog\Controller\Index',
                         'action' => 'getblog',
                     ),
                 ),
@@ -62,7 +62,7 @@ return array(
                         'id' => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Blog\Controller\Blog',
+                        'controller' => 'Blog\Controller\Index',
                         'action' => 'add',
                     ),
                 ),
