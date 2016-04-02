@@ -118,8 +118,10 @@ class BlogController extends AbstractActionController {
         $msg = '';
         $session = new Container('User');
         $form = new BlogForm('blog');
+        $isstudent = 1;
+        $isstudent = $session->offsetGet('is_student');
         
-        $form->get('is_student')->setValue(1);
+        $form->get('is_student')->setValue($isstudent);
         $form->get('created_at')->setValue(time());
         $form->get('created_by')->setValue($session->offsetGet('userId'));
         $form->get('updated_at')->setValue(time());
