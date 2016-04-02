@@ -90,6 +90,7 @@ class IndexController extends AbstractActionController {
                         $session->offsetSet('roleCode', $userDetails[0]['role_code']);
                         $session->offsetSet('fname', $userDetails[0]['fname']);
                         $session->offsetSet('lname', $userDetails[0]['lname']);
+                        $session->offsetSet('is_student', 0);
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Login Successful for user ' . $data['email']);
                         // Redirect to page after successful login     
                         return $this->redirect()->toRoute('application', array());
@@ -180,6 +181,7 @@ class IndexController extends AbstractActionController {
                         $session->offsetSet('fname', $userDetails[0]['fname']);
                         $session->offsetSet('lname', $userDetails[0]['lname']);
                         $session->offsetSet('isprofilecompleted', $userDetails[0]['isprofilecompleted']);
+                        $session->offsetSet('is_student', 1);
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Login Successful for user ' . $data['email']);
                         // Redirect to page after successful login     
                         return $this->redirect()->toRoute('student', array());
