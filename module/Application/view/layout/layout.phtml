@@ -39,7 +39,8 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                 ->prependStylesheet($this->basePath() . '/css/media-player.css')
                 ->prependStylesheet($this->basePath() . '/css_theme/style.css')
                 ->prependStylesheet($this->basePath() . '/css_theme/font-awesome/css/font-awesome.min.css')
-                ->prependStylesheet($this->basePath() . '/css_theme/elegant-icons/style.min.css');
+                ->prependStylesheet($this->basePath() . '/css_theme/elegant-icons/style.min.css')
+                ->prependStylesheet($this->basePath() . '/css/blog.css');
         ?>
         <!--        <link href='file.css' rel='stylesheet' />
                 <link href='jquery.min.js' rel='stylesheet' />
@@ -217,7 +218,7 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
 
                                                 <?php } ?>
                                                 <li id="nav-menu-item-759" class="menu-item">
-                                                    <a href="javascript:void(0)" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">Blog</span></span><span class="plus"></span></span></a>
+                                                    <a href="<?php echo $this->url('blog') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">BLOG</span></span><span class="plus"></span></span></a>
                                                 </li>
                                                 <li id="nav-menu-item-757" class="menu-item">
                                                     <a href="<?php echo $this->url('logout') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">LOGOUT</span></span><span class="plus"></span></span></a>
@@ -256,7 +257,7 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                                                     <a href="<?php echo $this->url('student') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">REGISTER</span></span><span class="plus"></span></span></a>
                                                 </li>
                                                 <li id="nav-menu-item-759" class="menu-item">
-                                                    <a href="javascript:void(0)" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">Blog</span></span><span class="plus"></span></span></a>
+                                                    <a href="<?php echo $this->url('blog') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">BLOG</span></span><span class="plus"></span></span></a>
                                                 </li>
                                             </ul>
                                         </nav>
@@ -305,7 +306,7 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
 
                         <?php } ?>
                         <li id="nav-menu-item-759" class="menu-item">
-                            <a href="javascript:void(0)" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">Blog</span></span><span class="plus"></span></span></a>
+                            <a href="<?php echo $this->url('blog') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">BLOG</span></span><span class="plus"></span></span></a>
                         </li>
                         <li id="nav-menu-item-757" class="menu-item">
                             <a href="<?php echo $this->url('logout') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">LOGOUT</span></span><span class="plus"></span></span></a>
@@ -339,7 +340,7 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                             <a href="<?php echo $this->url('student') ?>" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">REGISTER</span></span><span class="plus"></span></span></a>
                         </li>
                         <li id="nav-menu-item-759" class="menu-item">
-                            <a href="javascript:void(0)" class=" no_link" ><span class="item_outer"><span class="item_inner"><span class="item_text">Blog</span></span><span class="plus"></span></span></a>
+                            <a href="<?php echo $this->url('blog', array('action' => 'index')) ?>">Blog</a>
                         </li>
                     </ul>
                 </nav>

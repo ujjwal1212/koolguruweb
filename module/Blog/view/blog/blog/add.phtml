@@ -1,0 +1,53 @@
+<?php
+$this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/course/course.js');
+$form = $this->form;
+$form->setAttribute('action', $this->url('add'));
+$form->setAttribute('class', 'detect_changes');
+$form->prepare();
+echo $this->form()->openTag($form);
+$errorflashMessage = $this->flashMessenger()->getErrorMessages();
+?>
+<div class="container">
+    <div class="forms" id="add-trainee-form">
+           
+            
+       
+        <div id="step1">
+            <section id="basic_details">
+                <?php
+                echo "<h2 class='h2'>Add Post</h2>";
+                echo $this->formHidden($form->get('id'));
+                ?>
+                <span style="color:GREEN"><?php echo $msg;?></span>
+                <ul>
+                    <li class="form-row">                    
+                        <label class='label'>Post Title: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('title')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>Post Content: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('post')); ?>
+                    </li>
+                    
+                </ul>
+            </section>
+        </div>
+        <?php
+        echo $this->formHidden($form->get('created_at'));
+        echo $this->formHidden($form->get('created_by'));
+        echo $this->formHidden($form->get('updated_at'));
+        echo $this->formHidden($form->get('updated_by'));
+        echo $this->formHidden($form->get('status'));
+        echo $this->formHidden($form->get('is_student'));
+        echo $this->formHidden($form->get('post_id'));
+        echo $this->formHidden($form->get('like_count'));
+        echo $this->formHidden($form->get('reply_count'));
+        ?>
+        <div id="form-footer">
+            <?php
+            echo $this->formSubmit($form->get('submit'));
+            echo $this->form()->closeTag();
+            ?>
+        </div>
+    </div>
+</div>

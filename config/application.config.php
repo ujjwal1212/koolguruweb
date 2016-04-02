@@ -11,7 +11,8 @@ return array(
         'Subject',
         'Chapter',
         'Package',
-        'Quiz'
+        'Quiz',
+        'Blog'
     ),
 
     // These are various options for the listeners attached to the ModuleManager
