@@ -3,3 +3,5 @@ INSERT INTO `koolguru_test`.`resource` (`id`, `resource_name`) VALUES (NULL, 'Bl
 INSERT INTO `koolguru_test`.`permission` (`id`, `permission_name`, `resource_id`) VALUES (NULL, 'index', '8');
 
 INSERT INTO `koolguru_test`.`role_permission` (`id`, `role_id`, `permission_id`) VALUES (NULL, '1', '20');
+
+UPDATE `koolguru_test`.`resource` SET `resource_name` = 'Blog\Controller\Index' WHERE `resource`.`id` = 8;
