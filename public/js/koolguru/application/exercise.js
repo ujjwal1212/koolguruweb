@@ -16,10 +16,10 @@ $(document).ready(function () {
             $('#poptitle').text('');
             $('#poptitle').text(title);
         },
-        setpopupmsg : function(msg){
-            $('#pop-msg').text('');
-            $('#pop-msg').text(msg);
-        },
+//        setpopupmsg : function(msg){
+//            $('#pop-msg').text('');
+//            $('#pop-msg').text(msg);
+//        },
         
         setpopupmsg : function(msg){
             $('#pop-msg').text('');
