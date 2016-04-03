@@ -53,6 +53,22 @@ return array(
                 ),
             ),
             
+            
+            'updatelike' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/updatelike[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Blog\Controller\Index',
+                        'action' => 'updatelike',
+                    ),
+                ),
+            ),
+            
             'add' => array(
                 'type' => 'segment',
                 'options' => array(

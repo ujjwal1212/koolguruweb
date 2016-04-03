@@ -9,12 +9,15 @@ use Zend\Db\Sql\Select;
 use Blog\Model\Blog;
 use Blog\Model\BlogTable;
 use Blog\Form\BlogForm;
+use Blog\Model\Bloglike;
+use Blog\Model\BloglikeTable;
 
 
 class IndexController extends AbstractActionController {
 
     protected $adapter;
     protected $BlogTable;
+    protected $BloglikeTable;
     
 
     public function getAdapter() {
@@ -32,6 +35,15 @@ class IndexController extends AbstractActionController {
             $this->BlogTable = $sm->get('Blog\Model\BlogTable');
         }
         return $this->BlogTable;
+    }
+    
+    public function getBloglikeTable() {
+        if (!$this->BloglikeTable) {
+            $sm = '';
+            $sm = $this->getServiceLocator();
+            $this->BloglikeTable = $sm->get('Blog\Model\BloglikeTable');
+        }
+        return $this->BloglikeTable;
     }
     
     public function indexAction() { 
@@ -102,15 +114,61 @@ class IndexController extends AbstractActionController {
         $page = $_GET['blogpage'];
         $limit = 5;
         $startpoint = ($page-1)*$limit;        
-        $blogs = $this->getBlogTable()->getBlogs($cond,$startpoint,$limit);        
+        $blogs = $this->getBlogTable()->getBlogs($cond,$startpoint,$limit);
+        
         foreach($blogs as $key=>$dat){
             $userdet = $this->getBlogTable()->getUserDetail($dat);
             $username = $userdet[0]['fname'].' '.$userdet[0]['lname'];            
             $blogs[$key]['datetime'] = date('h:i A j F Y',$dat['updated_at']);
             $blogs[$key]['username'] = $username;
+            
+            $data = array();
+            $data['user_id'] = $dat['updated_by'];
+            $data['blog_id'] = $dat['id'];
+            $data['is_student'] = $dat['is_student'];
+            $blgstatus = array();
+            $blgstatus = $this->getBloglikeTable()->getBlogStatus($data); 
+            //asd($blgstatus);
+            $alt = 0; 
+            if(empty($blgstatus)){
+                $alt = 0; 
+            }else if($blgstatus[0]['status'] == 1){
+                $alt = 1; 
+            }else if($blgstatus[0]['status'] == 0){
+                $alt = 0; 
+            }
+            $blogs[$key]['alt'] = $alt;
         }  
         //asd($blogs);
         $response->setContent(json_encode($blogs));
+        return $response;
+    }
+    
+    public function updatelikeAction(){
+        $session = new Container('User');
+        
+        $viewModel = new ViewModel(array(
+        ));
+        $viewModel->setTerminal(true);
+        $this->layout('layout/empty');
+        $request = $this->getRequest();        
+        $response = $this->getResponse();
+        $blog_id = $_GET['id'];
+        $like_status = $_GET['lkstatus'];
+        
+        $this->getBlogTable()->getUpdateLikeCount($blog_id,$like_status);
+        
+        
+        $data['blog_id'] = $_GET['id'];
+        $data['status'] = $_GET['lkstatus'];
+        $data['user_id'] = $session->offsetGet('userId');
+        $data['is_student'] = $session->offsetGet('is_student');
+        $data['created_at'] = time();
+        $data['updated_at'] = time();
+        $this->getBloglikeTable()->updateStatus($data);
+        
+        
+        $response->setContent(true);
         return $response;
     }
     

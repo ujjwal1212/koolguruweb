@@ -217,11 +217,11 @@ function renderBlogs(jsondata,append){
         blosstrg += '</div>';
         blosstrg += '<footer class="card-footer" data-role="footer"><ul class="actions">';
         blosstrg += '<li class="action">';
-        blosstrg += '<span class="icon-lock icon-tiny spacing-right-small"></span>10';
+        blosstrg += '<span class="icon-lock icon-tiny spacing-right-small"></span><span id="blog-like-'+item.id+'">'+item.like_count+'     </span><span onclick="bloglike('+item.id+',this)" alt="'+item.alt+'"> Like</span>';
         blosstrg += '</li>';
         blosstrg += '</ul></footer></div></div></div></div>';
     });
-    console.log(blosstrg);
+    
     if(append==1){
         $('#blogarea').append(blosstrg);
     }else{        
@@ -248,9 +248,24 @@ function renderBlogs(jsondata,append){
             blosstrg += '</li>';
             blosstrg += '</ul></footer></div></div></div></div>';
         }
-        
-        
         $('#blogarea').html(blosstrg);
     }
 }
+
+    function bloglike(blogid,obj){        
+        var likecount = $('#blog-like-'+blogid).text();
+        var url = '<?php echo $this->basePath() . '/updatelike'; ?>';
+        var status = 0;
+        if($(obj).attr('alt')==0){
+            $('#blog-like-'+blogid).text(parseInt(likecount)+1);
+            $(obj).attr('alt',1);
+            status = 1;
+        }else{
+            $('#blog-like-'+blogid).text(parseInt(likecount)-1);
+            $(obj).attr('alt',0);
+        }   
+        $.ajax({url: url, data: 'id='+blogid+'&lkstatus='+status, success: function (result) { 
+            
+        }});
+    }
 </script>

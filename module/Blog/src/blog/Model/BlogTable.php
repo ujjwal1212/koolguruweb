@@ -119,8 +119,8 @@ class BlogTable {
         //$select->where(array('st.id'=>$data['updated_by']));
 
         $statement = $sql->prepareStatementForSqlObject($select);
-        $user = $this->resultSetPrototype->initialize($statement->execute())
-                ->toArray();
+//        $user = $this->resultSetPrototype->initialize($statement->execute())
+//                ->toArray();
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();
@@ -138,10 +138,30 @@ class BlogTable {
                 }
             }
         }
-         
         return $years;
     }
-
     
-
+    public function getUpdateLikeCount($blog_id,$like_status){
+        $resultset = array();
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('bp' => 'blog_post'));                
+        $select->columns(array('like_count'));
+        $select->where(array('bp.id'=>$blog_id));
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        
+        if(!empty($resultset)){
+            $like_count = $resultset[0]['like_count'];
+            if($like_status == 1){
+                $like_count = $like_count + 1;
+            }else{
+                $like_count = $like_count - 1;
+            }
+            $data = array();
+            $data['like_count'] = $like_count;
+            $this->tableGateway->update($data, array('id' => $blog_id));
+        }
+    }
 }
