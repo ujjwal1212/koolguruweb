@@ -3400,5 +3400,8 @@ h1>a>img{
     width: 45%;
     height: 70px;
 }
+.width-50{
+    width:50%!important;
+}
 
 
