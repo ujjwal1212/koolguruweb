@@ -8874,7 +8874,7 @@ div.wpcf7 .screen-reader-response {
 }
 .mkdf-main-menu ul.dropdown-menu li:hover a{color:#7b7b7b;}
 .dropdown-menu:before{ display: none;}
-.text-slide{ padding-top:30px;}
+.text-slide{ padding-top:5px;}
 .mkdf-video-banner-link video{ max-width: 450px;border: none; height: 270px;}
 .mkdf-video-banner-link ,.mkdf-video-banner-link:hover{ text-decoration: none; cursor: default;color: inherit;}
 a:hover{ text-decoration: none;}

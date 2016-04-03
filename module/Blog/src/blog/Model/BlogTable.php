@@ -111,6 +111,7 @@ class BlogTable {
     }
     
     public function getBlogyears(){
+        $resultset = array();
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('bp' => 'blog_post'));                
@@ -125,16 +126,19 @@ class BlogTable {
                 ->toArray();
         
         $years = array();
-        $year_first = date('Y',$resultset[0]['updated_at']);
-        $year_top = date('Y',$resultset[count($resultset)-1]['updated_at']);
-        //$year_top = 2020;
-        if($year_first == $year_top){
-            $years[] = $year_first;
-        }else{            
-            for($i=$year_top; $i>=$year_first; $i--){                
-               $years[] = $i; 
+        if(!empty($resultset)){
+            $year_first = date('Y',$resultset[0]['updated_at']);
+            $year_top = date('Y',$resultset[count($resultset)-1]['updated_at']);
+            //$year_top = 2020;
+            if($year_first == $year_top){
+                $years[] = $year_first;
+            }else{            
+                for($i=$year_top; $i>=$year_first; $i--){                
+                   $years[] = $i; 
+                }
             }
-        } 
+        }
+         
         return $years;
     }
 
