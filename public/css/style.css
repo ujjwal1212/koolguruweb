@@ -2969,19 +2969,23 @@ input:-webkit-autofill { -webkit-box-shadow: 0 0 0px 1000px white inset; }
     float: right;
 }
 .kooltab{
-    background: #e5e5ff;
-    border-bottom: 4px solid #0000e6;
-    margin: 0 10px 0 0;
+    border: 1px solid #e8e8e8;
     display: inline-block;
-    height: 50px;
-    padding: 10px;    
-    color: white !important;
+    padding: 15px 30px 10px 25px;
+    background-color: #f8f8f8;
+    color: #666!important;
+    font-family: poppins;
 }
 .enabletab{
     cursor:pointer;
 }
 .activetab{    
     color: black !important;
+}
+.kooltab.enabletab.activetab {
+    background: #16C569;
+    color: #fff!important;
+    font-weight: bold;
 }
 
 /**View Page CSS**/
@@ -3385,8 +3389,8 @@ h1>a>img{
 
 .mkdf-top-bar .widget_mkd_social_icon_widget a:hover{ text-decoration: none;}
 .mkdf-main-menu ul.dropdown-menu li a{    display: block;
-    width: 158px;
-    padding:12px;
+                                          width: 158px;
+                                          padding:12px;
 
 }
 
