@@ -1,0 +1,271 @@
+
+<div class="staff">
+    <div class="reservation_top">
+        <div class="container">     
+            <div class="row">
+                <div id="container-main">
+                    <input type="hidden" name='blogpage' id="blogpage" value="1">
+                    <div class="section-contained">
+                        <div class="layout">
+                            <div class="layout__main">
+                                <div class="layout__nav hidden-sidebar">
+
+                                    <ul class="nav--aside">
+                                        <?php foreach ($year_filter as $year => $val) {
+                                            $activecls = ''; ?>
+    <?php if ($year == $curyear) {
+        $activecls = 'active';
+    } ?>
+                                            <li data-action="switch-tab" data-tab="recent" class="nav__item <?php echo $activecls; ?>">
+                                                <a title="<?php echo $year; ?>" class="truncate-line nav-lnk -color-muted">
+                                                    <div class="nav-lnk__blk">
+                                                        <span class="button__text bloglihder" id="<?php echo $year; ?>"><?php echo $year; ?></span>
+                                                    </div>
+                                                    <div class="nav-lnk__pointer">
+                                                        <span class="icon icon-right-bracket"></span>
+                                                    </div>
+                                                </a>
+                                                <ul class="ullimonth" id="ulmonth_<?php echo $year; ?>">
+                                                    <?php foreach ($val as $key => $month) { ?>
+                                                        <?php
+                                                        $liacticls = '';
+                                                        if ($year == $curyear && $key == ($curmonth - 1)) {
+                                                            $liacticls = 'navliactive';
+                                                        } else {
+                                                            $liacticls = '';
+                                                        }
+                                                        ?>
+                                                        <li class="navli <?php echo $liacticls; ?>" start="<?php echo $month['start_time']; ?>" end="<?php echo $month['end_time']; ?>"><?php echo $months[$key]; ?></li>
+    <?php } ?>                                               
+                                                </ul>
+                                            </li>
+                                            <!--                                        <li data-action="switch-tab" data-tab="commenters" class="nav__item">
+                                                                                        <a title="Top Commenters" class="truncate-line nav-lnk -color-muted" href="/home/forum/webmonkeylives/commenters/">
+                                                                                            <div class="nav-lnk__blk">
+                                                                                                <span class="button__text">Top Commenters</span>
+                                                                                            </div>
+                                                                                            <div class="nav-lnk__pointer">
+                                                                                                <span class="icon icon-right-bracket"></span>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </li>-->
+<?php } ?>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layout__content">
+                <div class="sidebar-scrollable forum-scrollable scrollable-measure-selector" data-role="content-area">
+                    <div>
+                        <div data-role="header-area"></div>
+                        <div data-role="content-area" id="blogarea">
+
+                        </div>
+                        <div data-role="footer-area">
+                            <div class="more-wrapper">                                
+                                <input name="submit" type="button" id="morebutton" class="green-btn big-btn blog-more" value="More Post" style="float:left">&nbsp
+                                <input name="submit" type="button" id="newpost" class="green-btn big-btn blog-more" value="Create New Post">                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php //asd($_SERVER); ?>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#morebutton').click(function () {
+            getBlogs();
+        })
+        $('.ullimonth').hide();
+        $('.bloglihder').click(function () {
+            var id = $(this).attr('id');
+            $('.ullimonth').each(function () {
+                if ($(this).attr('id') != 'ulmonth_2016') {
+                    $(this).hide();
+                }
+            })
+            $('.nav__item').removeClass('active');
+
+            if ($('#ulmonth_' + id).is(':visible')) {
+                $('#ulmonth_' + id).hide();
+            } else {
+                $('#ulmonth_' + id).show();
+            }
+            $(this).parent().parent().parent().addClass('active');
+//        var i = 1;
+//        $('#ulmonth_'+id).find('li').each(function(){
+//            if(i==1){
+//                //$(this).addClass('navliactive');
+//            }
+//            i++;
+//        });
+        })
+
+        $('.navli').click(function () {
+            $('.navli').removeClass('navliactive');
+            $('#blogpage').val(1);
+            $(this).addClass('navliactive');
+            var start = $(this).attr('start');
+            var end = $(this).attr('end');
+            getMonthBlog(start, end);
+        })
+
+
+
+        $('#newpost').click(function () {
+            createNewPost();
+        })
+        var blogpopup = {};
+        blogpopup = {
+            'baseurl': '<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->url('home') ?>',
+            openpopup: function () {
+                $('#koolguru-pop').click();
+            },
+            setpopuptitle: function (title) {
+                $('#poptitle').text('');
+                $('#poptitle').text(title);
+            },
+            setpopupmsg: function (msg) {
+                $('#pop-msg').text('');
+                $('#pop-msg').text(msg);
+            },
+            popupclose: function () {
+                $('#pop-close').click();
+            },
+            createpopupfooterbtn: function () {
+                var _this = this;
+                var btnstr = '';
+                btnstr += "&nbsp;<input id='loginbtn' type='button' class='green-btn pop-btn margin-Top10-Btm40' value='Log In'>";
+                btnstr += "&nbsp;<input id='cancel' type='button' class='green-btn pop-btn margin-Top10-Btm40' value='Cancel'>";
+                $('#pop-footer').html(btnstr);
+                $('#cancel').click(function () {
+                    _this.popupclose();
+                });
+
+                $('#loginbtn').click(function () {
+                    var redirecturl = _this.baseurl + 'studentlogin';
+                    window.location.assign(redirecturl);
+                });
+            },
+        }
+        app.blogpopup = blogpopup;
+        $('#morebutton').click();
+    });
+
+    function createNewPost() {
+        var url = '<?php echo $this->basePath() . '/checklogin'; ?>';
+        $.ajax({url: url, success: function (result) {
+                if (result == 1) {
+                    var redirecturl = '<?php echo $this->basePath() . '/add'; ?>';
+                    window.location.assign(redirecturl);
+                } else {
+                    app.blogpopup.setpopuptitle('Confirmation');
+                    app.blogpopup.setpopupmsg('For making a post you need to login first');
+                    app.blogpopup.createpopupfooterbtn();
+                    app.blogpopup.openpopup();
+                }
+            }});
+    }
+
+    function getBlogs() {
+        var start = $('.navliactive').attr('start');
+        var end = $('.navliactive').attr('end');
+        var blogpage = $('#blogpage').val();
+        var url = '<?php echo $this->basePath() . '/getblog'; ?>';
+        //$('.loader').show();
+        $.ajax({url: url, data: 'start=' + start + '&end=' + end + '&blogpage=' + blogpage, success: function (result) {
+                renderBlogs(result, 1);
+                blogpage = parseInt(blogpage) + 1;
+                $('#blogpage').val(blogpage);
+            }});
+    }
+
+    function getMonthBlog(start, end) {
+        var url = '<?php echo $this->basePath() . '/getblog'; ?>';
+        var blogpage = $('#blogpage').val();
+        $.ajax({url: url, data: 'start=' + start + '&end=' + end + '&blogpage=' + blogpage, success: function (result) {
+                renderBlogs(result, 0);
+                blogpage = parseInt(blogpage) + 1;
+                $('#blogpage').val(blogpage);
+            }});
+    }
+
+    function renderBlogs(jsondata, append) {
+        var blosstrg = '';
+        $.each(jQuery.parseJSON(jsondata), function (index, item) {
+            blosstrg += '<div class="cards">';
+            blosstrg += '<div class="card card-profile card-profile-forum">';
+            blosstrg += '<div class="card-discussion no-image">';
+            blosstrg += '<div class="card-aside"></div>';
+            blosstrg += '<div class="card-body blog-wdth-min">';
+            blosstrg += '<div class="card-reason">';
+            blosstrg += item.username + ' wrote on ' + item.datetime;
+            blosstrg += '</div>';
+            blosstrg += '<h2 class="discussion-title" dir="auto">';
+            blosstrg += item.title;
+            blosstrg += '</h2>';
+            blosstrg += '<div class="card-summary">';
+            blosstrg += '<div class="card-summary-content truncate" data-truncate-lines="2" dir="auto" style="float: none; position: static;">';
+            blosstrg += item.post;
+            blosstrg += '</div>';
+            blosstrg += '</div>';
+            blosstrg += '<footer class="card-footer" data-role="footer"><ul class="actions">';
+            blosstrg += '<li class="action">';
+            blosstrg += '<span class="icon-lock icon-tiny spacing-right-small"></span><span id="blog-like-' + item.id + '">' + item.like_count + '     </span><span onclick="bloglike(' + item.id + ',this)" alt="' + item.alt + '"> Like</span>';
+            blosstrg += '</li>';
+            blosstrg += '</ul></footer></div></div></div></div>';
+        });
+
+        if (append == 1) {
+            $('#blogarea').append(blosstrg);
+        } else {
+            if (blosstrg == '') {
+                blosstrg += '<div class="cards">';
+                blosstrg += '<div class="card card-profile card-profile-forum">';
+                blosstrg += '<div class="card-discussion no-image">';
+                blosstrg += '<div class="card-aside"></div>';
+                blosstrg += '<div class="card-body blog-wdth-min">';
+                blosstrg += '<div class="card-reason">';
+                //blosstrg += item.username +'wrote on ' +item.datetime;
+                blosstrg += '</div>';
+                blosstrg += '<h2 class="discussion-title" dir="auto">';
+                //blosstrg += item.title;
+                blosstrg += '</h2>';
+                blosstrg += '<div class="card-summary">';
+                blosstrg += '<div class="card-summary-content truncate" data-truncate-lines="2" dir="auto" style="float: none; position: static;">';
+                blosstrg += 'No Record Found';
+                blosstrg += '</div>';
+                blosstrg += '</div>';
+                blosstrg += '<footer class="card-footer" data-role="footer"><ul class="actions">';
+                blosstrg += '<li class="action">';
+                blosstrg += '<span class="icon-lock icon-tiny spacing-right-small"></span>';
+                blosstrg += '</li>';
+                blosstrg += '</ul></footer></div></div></div></div>';
+            }
+            $('#blogarea').html(blosstrg);
+        }
+    }
+
+    function bloglike(blogid, obj) {
+        var likecount = $('#blog-like-' + blogid).text();
+        var url = '<?php echo $this->basePath() . '/updatelike'; ?>';
+        var status = 0;
+        if ($(obj).attr('alt') == 0) {
+            $('#blog-like-' + blogid).text(parseInt(likecount) + 1);
+            $(obj).attr('alt', 1);
+            status = 1;
+        } else {
+            $('#blog-like-' + blogid).text(parseInt(likecount) - 1);
+            $(obj).attr('alt', 0);
+        }
+        $.ajax({url: url, data: 'id=' + blogid + '&lkstatus=' + status, success: function (result) {
+
+            }});
+    }
+</script>
