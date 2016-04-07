@@ -7,8 +7,10 @@
             <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/index.phtml</file>
             <file>file:/C:/wamp/www/koolguruweb/module/Blog/view/blog/index/index.phtml</file>
             <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/demoquiz.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/ZF2AuthAcl/view/zf2-auth-acl/index/index.phtml</file>
             <file>file:/C:/wamp/www/koolguruweb/public/css/style.css</file>
             <file>file:/C:/wamp/www/koolguruweb/module/Blog/src/blog/Controller/IndexController.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/ZF2AuthAcl/view/zf2-auth-acl/index/student-login.phtml</file>
             <file>file:/C:/wamp/www/koolguruweb/public/css_theme/style.css</file>
         </group>
     </open-files>

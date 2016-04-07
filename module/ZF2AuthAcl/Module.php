@@ -77,7 +77,8 @@ class Module {
             'Blog\Controller\Index-checklogin',
             'Blog\Controller\Index-add',
             'Blog\Controller\Index-getblog',
-            'Blog\Controller\Index-updatelike'
+            'Blog\Controller\Index-updatelike',
+            'Services\Conntroller\User-userlogin'
         );
 
         //$requestUri = $request->getRequestUri();
