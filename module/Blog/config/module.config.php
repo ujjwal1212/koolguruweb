@@ -69,6 +69,21 @@ return array(
                 ),
             ),
             
+            'updatestatus' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/updatestatus[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Blog\Controller\Index',
+                        'action' => 'updatestatus',
+                    ),
+                ),
+            ),
+            
             'add' => array(
                 'type' => 'segment',
                 'options' => array(
@@ -80,6 +95,21 @@ return array(
                     'defaults' => array(
                         'controller' => 'Blog\Controller\Index',
                         'action' => 'add',
+                    ),
+                ),
+            ),
+            
+            'bloglist' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/bloglist[/:action][/:id][/page/:page][/msg/:msg]',
+                    'constraints' => array(
+                        'action' => '(?!\bpage\b)[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'Blog\Controller\Index',
+                        'action' => 'bloglist',
                     ),
                 ),
             ),
