@@ -1,9 +1,10 @@
 <?php
 $errorflashMessage = $this->flashMessenger()->getErrorMessages();
-$title = 'Manage Chapters';
+$title = 'Manage Blogs';
 $default_order = 'ASC';
 $url_order = $this->order == 'ASC' ? 'DESC' : 'ASC';
 $query = '';
+//asd($users);
 if (isset($data['search_box'])) {
     $query .= '&search_box=' . $data['search_box'];
 }
@@ -31,7 +32,7 @@ if (!$this->isAjax) {
             <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                 <div class="sub-header-actions">
                     <!--<a class="big-btn green-btn import-btn" id="import_center" href="#">IMPORT</a>-->
-                    <a class="big-btn green-btn" href="<?php echo $this->url('chapter', array('action' => 'add')); ?>">CREATE</a>
+                    <a class="big-btn green-btn" href="<?php echo $this->url('blog', array('action' => 'add')); ?>">CREATE</a>
                 </div>
             <?php } ?>
 
@@ -68,7 +69,7 @@ if (!$this->isAjax) {
         ?>
         <?php
         $search_form = $this->form;
-        $search_form->setAttribute('action', $this->url('chapter', array('action' => 'index')));
+        $search_form->setAttribute('action', $this->url('blog', array('action' => 'bloglist')));
         $search_form->prepare();
         echo $this->form()->openTag($search_form);
         ?>
@@ -114,22 +115,20 @@ if (!$this->isAjax) {
                             <a href="javascript:void(0);">ID<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="name">
-                            <a href="javascript:void(0);">CODE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);">Title<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="type">
-                            <a href="javascript:void(0);">TITLE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);">POST<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="type">
-                            Description
+                            <a href="javascript:void(0);">STATUS<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                        </th>
+                        
+                        <th class="type">
+                            <a href="javascript:void(0);">Created/Updated On<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="type">
-                            Subjects
-                        </th>
-                        <th class="type">
-                            IsDemo
-                        </th>
-                        <th class="type">
-                            Status
+                            Created/Updated By
                         </th>
                         <?php if ($roleCode == 'sa') { ?>
                             <th class="actions">ACTIONS</th>
@@ -151,22 +150,19 @@ if (!$this->isAjax) {
                             <a href="javascript:void(0);" onclick="grid.sort('id', '<?php echo ($this->order_by == 'id') ? $url_order : $default_order; ?>');">ID<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="name">
-                            <a href="javascript:void(0);" onclick="grid.sort('code', '<?php echo ($this->order_by == 'code') ? $url_order : $default_order; ?>');">CODE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);" onclick="grid.sort('title', '<?php echo ($this->order_by == 'title') ? $url_order : $default_order; ?>');">Title<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="type">
-                            <a href="javascript:void(0);" onclick="grid.sort('title', '<?php echo ($this->order_by == 'title') ? $url_order : $default_order; ?>');">TITLE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
+                            <a href="javascript:void(0);" onclick="grid.sort('post', '<?php echo ($this->order_by == 'post') ? $url_order : $default_order; ?>');">POST<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="type">
-                            Description
+                            <a href="javascript:void(0);" onclick="grid.sort('status', '<?php echo ($this->order_by == 'status') ? $url_order : $default_order; ?>');">Status<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="type">
-                            Subjects
+                            <a href="javascript:void(0);" onclick="grid.sort('updated_at', '<?php echo ($this->order_by == 'updated_at') ? $url_order : $default_order; ?>');">Created/Updated On<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
                         <th class="type">
-                            Is Demo
-                        </th>
-                        <th class="type">
-                            Status
+                            Created/Updated By
                         </th>
                         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                             <th class="actions">ACTIONS</th>
@@ -175,42 +171,28 @@ if (!$this->isAjax) {
                 </thead>
                 <tbody>
                     <?php
-                    
-                    foreach ($this->paginator as $chapter) {
-                        
+                    foreach ($this->paginator as $question) :
                         ?>
                         <tr>
-                            <td class="id"><a class="blue-anchor" href="<?php echo $this->url('chapter', array('action' => 'index', 'id' => $chapter['id'])); ?>"><?php echo $this->escapeHtml($chapter['id']); ?></a></td>
-                            <td class="name"><?php echo $this->escapeHtml($chapter['code']); ?></td>
-                            <td class="type"><?php echo $this->escapeHtml($chapter['title']); ?></td>
-                            <td class="type"><?php echo $this->escapeHtml($chapter['content']); ?></td>
-                            
-                            <?php 
-                            if(count($subjects[$chapter['id']]) > 0){
-                                $substr = '';
-                                foreach($subjects[$chapter['id']] as $subject){
-                                    if($substr == ''){
-                                        $substr = $subject['subjecttitle'];
-                                    }else{
-                                        $substr .= ', '.$subject['subjecttitle'];
-                                    }
-                                }?>
-                            <td class="type"><?php echo $substr; ?></td>  
-                            <?php }else{?>
-                                <td class="type"></td>
-                            <?php }
-                            ?>
-                            <td class="type"><?php echo ($this->escapeHtml($chapter['isdemo'])==1) ? 'Yes' : 'No'; ?></td>
-                            <td class="type"><?php echo ($this->escapeHtml($chapter['status'])==1) ? 'Active' : 'Inactive'; ?></td>
-        <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
+                            <td class="id"><a class="blue-anchor" href="<?php echo $this->url('subject', array('action' => 'view', 'id' => $question['id'])); ?>"><?php echo $this->escapeHtml($question['id']); ?></a></td>
+                            <td class="name"><?php echo $this->escapeHtml($question['title']); ?></td>
+                            <td class="type"><?php echo $this->escapeHtml($question['post']); ?></td> 
+                            <td class="type status"><?php echo ($this->escapeHtml($question['status'])==1) ? 'Approved' : 'Not Approved'; ?></td> 
+                            <td class="type"><?php echo date('h:i A j F Y',$question['updated_at']);?></td>
+                            <td class="type"><?php echo ($question['is_student'] == 1) ? $users['is_student'][$question['updated_by']] : $users['is_admin'][$question['updated_by']];?></td>
+                             <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                                 <td class="actions">
-                                    <a href="<?php echo $this->url('chapter', array('action' => 'edit', 'id' => $chapter['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
+                                    <?php if($question['status'] == 0){?>
+                                    <a class="big-btn green-btn" href="javascript:void(0)" blog_id='<?php echo $question['id']?>' status="1" onclick="updatestatus(this)">Approve</a>
+                                    <?php }else{ ?>
+                                    <a class="big-btn green-btn" href="javascript:void(0)" blog_id='<?php echo $question['id']?>' status="0" onclick="updatestatus(this)">Dis Approve</a>
+                                    <?php } ?>
                                 </td>
                         <?php } ?>
                         </tr>
 
                         <?php
-                    }
+                    endforeach;
                     ?>
                 </tbody>
             </table>
@@ -246,8 +228,8 @@ if (!$this->isAjax) {
                     array('partial/paginator.phtml', 'subject'),
                     // the route to link to when a user clicks a control link
                     array(
-                'route' => 'chapter',
-                'routeParams' => array('action' => 'index'),
+                'route' => 'blog',
+                'routeParams' => array('action' => 'bloglist'),
                 'jsFunction' => 'grid.list',
                 'query' => $this->data
                     )
@@ -256,10 +238,31 @@ if (!$this->isAjax) {
 
             <?php
         }
-        $this->inlineScript()->appendFile('js/koolguru/searchgrid.js');
+        $this->inlineScript()->appendFile('../js/koolguru/searchgrid.js');
         ?>
 
     </div>
 
 
 </div>
+<script>
+function updatestatus(obj){
+    var  status = $(obj).attr('status');
+    var  blog_id = $(obj).attr('blog_id');
+    if(status == 1){
+        $(obj).parent().parent().find('.status').text('Approved');        
+        $(obj).text('Dis Approve');
+        $(obj).attr('status',0);
+        
+    }else{
+        $(obj).parent().parent().find('.status').text('Not Approved');
+        $(obj).text('Approve');
+        $(obj).attr('status',1);
+    }
+    
+    var url = '<?php echo $this->basePath() . '/updatestatus'; ?>';
+    $.ajax({url: url, data: 'status=' + status + '&blog_id=' + blog_id, success: function (result) {
+
+    }});
+}
+</script>
