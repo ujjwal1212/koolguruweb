@@ -241,7 +241,7 @@
                 blosstrg += '</div>';
                 blosstrg += '<footer class="card-footer" data-role="footer"><ul class="actions">';
                 blosstrg += '<li class="action">';
-                blosstrg += '<span class="icon-lock icon-tiny spacing-right-small"></span><span id="blog-like-' + item.id + '">' + item.like_count + '     </span><span onclick="bloglike(' + item.id + ',this)" alt="' + item.alt + '"> Like</span>';
+                blosstrg += '<span class="icon-lock icon-tiny spacing-right-small"></span><span id="blog-like-' + item.id + '">' + item.like_count + '     </span><span class="blog-like" onclick="bloglike(' + item.id + ',this)" alt="' + item.alt + '"> Like</span>';
                 blosstrg += '</li>';
                 blosstrg += '</ul></footer></div></div></div></div>';
             });
@@ -291,6 +291,6 @@
         }
         $.ajax({url: url, data: 'id=' + blogid + '&lkstatus=' + status, success: function (result) {
 
-            }});
+        }});
     }
 </script>
