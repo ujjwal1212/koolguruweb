@@ -13,6 +13,9 @@ use Subject\Model\SubjectTable;
 use Questionarie\Model\Level;
 use Questionarie\Model\LevelTable;
 
+use Subject\Model\Category;
+use Subject\Model\CategoryTable;
+
 use Package\Model\Package;
 use Package\Model\PackageTable;
 
@@ -23,6 +26,7 @@ class QuizController extends AbstractActionController {
     protected $packageTable;
     protected $CourseTable;
     protected $levelTable;
+    protected $CategoryTable;
     protected $CoursePackageTable;
 
     public function getAdapter() {
@@ -31,6 +35,14 @@ class QuizController extends AbstractActionController {
             $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
         }
         return $this->adapter;
+    }
+    
+    public function getCategoryTable() {
+        if (!$this->CategoryTable) {
+            $sm = $this->getServiceLocator();
+            $this->CategoryTable = $sm->get('Subject\Model\CategoryTable');
+        }
+        return $this->CategoryTable;
     }
     
     public function getlevelTable() {
@@ -171,6 +183,9 @@ class QuizController extends AbstractActionController {
         $levelList = array();
         $levelList = $this->getlevelTable()->getLevelDropdown(); 
         
+        $que_category = array();
+        $que_category = $this->getCategoryTable()->getCategoryList();
+        
         $form = new QuizForm('QuizForm',$subjects);
         $form->get('code')->setValue('xxx-xxx-xxx');
         $form->get('code')->setAttribute('readonly', TRUE);
@@ -182,7 +197,7 @@ class QuizController extends AbstractActionController {
         $request = $this->getRequest();
         if ($request->isPost()) {
             $package = new Package();
-            $data = $request->getPost();
+            $data = $request->getPost();            
             $form->setInputFilter($package->getInputFilter());
             $form->setData($data);
             if ($form->isValid() || 1) {
@@ -229,7 +244,7 @@ class QuizController extends AbstractActionController {
             }
         }
 
-        return array('form' => $form,'levelList'=>$levelList);
+        return array('form' => $form,'levelList'=>$levelList,'que_category'=>$que_category);
     }
 
     /**

@@ -203,7 +203,7 @@ class IndexController extends AbstractActionController {
         ));
     }
 
-    public function demoquizAction() {
+    public function demoquizAction() {        
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $js_path = $renderer->basePath('js/koolguru/application');
         $headScript = $this->getServiceLocator()->get('viewhelpermanager')
