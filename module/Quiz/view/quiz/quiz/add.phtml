@@ -134,7 +134,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                                 <div class="add-icon" id="addrow"></div>
                             </div>
                             <div class="pull-left quiz-left">
-                                <div class="delete-icon"></div>                                    
+                                <div class="delete-icon" id="delrow"></div>                                    
                             </div>
                         </div>
                     </li>
@@ -160,8 +160,12 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 </div>
 <script>
     $(document).ready(function () {
-        $('#addrow').click(function(){
+        $('.add-icon').click(function(){
             addnewrow(this)
+        });
+        
+        $('.delete-icon').click(function(){
+            deleterow(this);
         });
     
         $('#subject_id').change(function(){
@@ -187,6 +191,21 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         manageRows();
     }
     
+    function deleterow(obj){
+        console.log('sdfsd');
+        $(obj).parent().parent().remove();
+        manageRows();
+    }
+    
+    function bindclick(obj){        
+        $(obj).find('.add-icon').click(function(){
+            addnewrow(this);
+        });
+        $(obj).find('.delete-icon').click(function(){
+            deleterow(this);
+        });
+    }
+    
     function manageRows(){
         var i = 1;
         $('.quiz-level').each(function(){
@@ -197,7 +216,9 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
             $(this).find('.quecount').attr('id','count_'+i);
             $(this).find('.quecategory').attr('name','category_'+i);
             $(this).find('.quecategory').attr('id','category_'+i);
+            bindclick(this);
             i++;
         });
+        
     }
     </script>
