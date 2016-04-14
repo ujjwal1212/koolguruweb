@@ -68,7 +68,7 @@ if (!$this->isAjax) {
         ?>
         <?php
         $search_form = $this->form;
-        $search_form->setAttribute('action', $this->url('package', array('action' => 'index')));
+        $search_form->setAttribute('action', $this->url('quiz', array('action' => 'index')));
         $search_form->prepare();
         echo $this->form()->openTag($search_form);
         ?>
@@ -119,6 +119,15 @@ if (!$this->isAjax) {
                         <th class="type">
                             <a href="javascript:void(0);">TITLE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
+                        <th class="type">
+                            SUBJECT
+                        </th>
+                        <th class="type">
+                            CHAPTER
+                        </th>
+                        <th class="type">
+                            Pass Percentage
+                        </th>
                         <?php if ($roleCode == 'sa') { ?>
                             <th class="actions">ACTIONS</th>
     <?php } ?>
@@ -143,7 +152,16 @@ if (!$this->isAjax) {
                         </th>
                         <th class="type">
                             <a href="javascript:void(0);" onclick="grid.sort('title', '<?php echo ($this->order_by == 'title') ? $url_order : $default_order; ?>');">TITLE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
-                        </th> 
+                        </th>                        
+                        <th class="type">
+                            SUBJECT
+                        </th>
+                        <th class="type">
+                            CHAPTER
+                        </th>
+                        <th class="type">
+                            Pass Percentage
+                        </th>
                         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                             <th class="actions">ACTIONS</th>
     <?php } ?>
@@ -156,10 +174,13 @@ if (!$this->isAjax) {
                         <tr>
                             <td class="id"><a class="blue-anchor" href="<?php echo $this->url('package', array('action' => 'view', 'id' => $question['id'])); ?>"><?php echo $this->escapeHtml($question['id']); ?></a></td>
                             <td class="name"><?php echo $this->escapeHtml($question['code']); ?></td>
-                            <td class="type"><?php echo $this->escapeHtml($question['title']); ?></td>        
+                            <td class="type"><?php echo $this->escapeHtml($question['title']); ?></td>
+                            <td class="type"><?php echo $this->escapeHtml($question['subjecttitle']); ?></td>                            
+                            <td class="type"><?php echo $this->escapeHtml($question['chaptertitle']); ?></td>
+                            <td class="type"><?php echo $this->escapeHtml($question['pass_percentage']); ?></td>
         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                                 <td class="actions">
-                                    <a href="<?php echo $this->url('package', array('action' => 'edit', 'id' => $question['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
+                                    <a href="<?php echo $this->url('quiz', array('action' => 'edit', 'id' => $question['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
                                 </td>
                         <?php } ?>
                         </tr>
@@ -201,7 +222,7 @@ if (!$this->isAjax) {
                     array('partial/paginator.phtml', 'package'),
                     // the route to link to when a user clicks a control link
                     array(
-                'route' => 'package',
+                'route' => 'quiz',
                 'routeParams' => array('action' => 'index'),
                 'jsFunction' => 'grid.list',
                 'query' => $this->data

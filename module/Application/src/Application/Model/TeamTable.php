@@ -29,17 +29,19 @@ class TeamTable {
      * @param type $searchText
      * @return \Zend\Paginator\Paginator
      */
-    public function getTeam($id=0) {
+    public function getTeam($id=0,$isvisibleonfront=false) {
 
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('t' => 'team'));
         $select->columns(array('id','name', 'short_description','description','image','designation'));
         $select->where(array('t.status'=>1));
+        if($isvisibleonfront){
+            $select->where(array('t.isvisible_on_front'=>1));
+        }
         if($id > 0){
             $select->where(array('t.id'=>$id));
         }
-        
        
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())

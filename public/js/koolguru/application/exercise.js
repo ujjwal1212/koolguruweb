@@ -30,7 +30,7 @@ $(document).ready(function () {
             $('#pop-close').click();
         },
         
-        createpopupfooterbtn : function (data){
+        createpopupfooterbtn : function (data){             
             var _this = this;
             var btnstr = '';            
             for(var i in data){                
@@ -38,14 +38,21 @@ $(document).ready(function () {
                 btnstr += "&nbsp;<input id='"+temp[1]+"' type='button' class='green-btn pop-btn margin-Top10-Btm40' value='"+temp[0]+"'>";
             }
             $('#pop-footer').html(btnstr); 
-            for(var i in data){
-                var temp = data[i];
-                if(temp[2]!=''){                    
-                    $('#'+temp[1]).bind('click',function(){                       
-                       eval("_this." + temp[2] + "()");
+            for(var i in data){;
+                var temp = new Array();
+                temp = data[i];                
+                if(temp[2]!=''){  
+                    $('#'+temp[1]).click(function(){  
+                        if($(this).attr('id')=='nextque'){
+                            _this.openNextQuestion();
+                        }else if($(this).attr('id')=='solution'){
+                            _this.showQueSolution();
+                        }else{
+                            _this.popupclose();
+                        }
                     });
-                }else{
-                    $('#'+temp[1]).bind('click',function(){
+                }else{                       
+                    $('#'+temp[1]).click(function(){                        
                        _this.popupclose();
                     });
                 }
@@ -61,7 +68,8 @@ $(document).ready(function () {
                 }
             }
             this.setpopuptitle("Question's Solution");
-            this.setpopupmsg(solution);
+            this.setpopupmsg(solution);           
+            return false;
             $('#pop-footer').html('');
             var footerbtn = new Array();
             var btn1 = ['Reattempt','reattempt', ''];
@@ -72,7 +80,6 @@ $(document).ready(function () {
         },
         rendercurrentquestion: function () {
             this.renderquestioncount = parseInt(parseInt(this.renderquestioncount) + 1);
-            //console.log(this.questionlist.length);
             var quesobj = this.questionlist[this.currentquestion];
             var options = quesobj.options;            
             $('#' + this.renderid).html('');
@@ -152,7 +159,9 @@ $(document).ready(function () {
                     this.setpopupmsg('Your answer is correct');
                     var footerbtn = new Array();
                     var btn1 = ['Next Question', 'nextque', 'openNextQuestion'];
+                    var btn2 = ['Solution','solution', 'showQueSolution'];
                     footerbtn.push(btn1);
+                    footerbtn.push(btn2);
                     this.createpopupfooterbtn(footerbtn);
                     this.openpopup();
                 } else {
@@ -163,8 +172,10 @@ $(document).ready(function () {
                     var footerbtn = new Array();
                     var btn1 = ['Reattempt','reattempt', ''];
                     var btn2 = ['Solution','solution', 'showQueSolution'];
+                    var btn3 = ['Next Question', 'nextque', 'openNextQuestion'];
                     footerbtn.push(btn1);
-                    footerbtn.push(btn2);                    
+                    footerbtn.push(btn3);
+                    footerbtn.push(btn2);
                     this.createpopupfooterbtn(footerbtn);
                     this.openpopup();
                 }
@@ -175,7 +186,7 @@ $(document).ready(function () {
             
         },
         
-        openNextQuestion : function(){            
+        openNextQuestion : function(){ 
             this.popupclose();
             var curquestion = this.currentquestion;
             this.currentquestion = parseInt(curquestion + 1);
@@ -184,15 +195,8 @@ $(document).ready(function () {
             }
             this.rendercurrentquestion();
         },
-        nextquestion: function () {
-            console.log(this);
+        nextquestion: function () {            
             this.checkanswer();
-//            var curquestion = this.currentquestion;
-//            this.currentquestion = parseInt(curquestion + 1);
-//            if ((this.questionlist.length - 1) == curquestion) {
-//                this.currentquestion = 0;
-//            }
-//            this.rendercurrentquestion();
         },
         setquestionlist: function (json) {
             var arr = [];

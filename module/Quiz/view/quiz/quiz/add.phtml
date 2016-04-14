@@ -65,6 +65,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         </div>-->
         <div id="step1">
             <section id="basic_details">
+                <input type="hidden" id="rowcount" name="rowcount" value="1">
                 <?php
                 echo $this->formHidden($form->get('id'));
                 ?>
@@ -174,7 +175,6 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 
             $.ajax({url: url, success: function (result) {
                     var html = '<option value="">Select</option>';
-
                     $.each(JSON.parse(result), function(idx, obj) {
 
                         html += "<option value='"+obj.chapter_id+"'>"+obj.chaptertitle+"</option>";
@@ -191,10 +191,13 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         manageRows();
     }
     
-    function deleterow(obj){
-        console.log('sdfsd');
-        $(obj).parent().parent().remove();
-        manageRows();
+    function deleterow(obj){        
+        if($('.quiz-level').length < 2){
+            alert('You can not delete all');
+        }else{
+            $(obj).parent().parent().remove();
+            manageRows();
+        }
     }
     
     function bindclick(obj){        
@@ -217,6 +220,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
             $(this).find('.quecategory').attr('name','category_'+i);
             $(this).find('.quecategory').attr('id','category_'+i);
             bindclick(this);
+            $('#rowcount').val(i);
             i++;
         });
         

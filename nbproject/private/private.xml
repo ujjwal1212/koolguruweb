@@ -3,11 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Quiz/view/quiz/quiz/edit.phtml</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Quiz/Module.php</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Quiz/src/Quiz/Model/QuizlevelTable.php</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Quiz/src/Quiz/Model/Quizlevel.php</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Quiz/src/Quiz/Model/QuizTable.php</file>
             <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Quiz/view/quiz/quiz/add.phtml</file>
             <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Quiz/src/Quiz/Controller/QuizController.php</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Admin/src/Admin/Controller/AdminController.php</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Subject/src/Subject/Controller/CategoryController.php</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Subject/src/Subject/Model/CategoryTable.php</file>
         </group>
     </open-files>
 </project-private>

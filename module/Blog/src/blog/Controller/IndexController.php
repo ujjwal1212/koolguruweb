@@ -159,6 +159,8 @@ class IndexController extends AbstractActionController {
     
     public function updatelikeAction(){
         $session = new Container('User');
+        $userId = '';
+        $userId = $session->offsetGet('userId'); 
         
         $viewModel = new ViewModel(array(
         ));
@@ -166,21 +168,21 @@ class IndexController extends AbstractActionController {
         $this->layout('layout/empty');
         $request = $this->getRequest();        
         $response = $this->getResponse();
-        $blog_id = $_GET['id'];
-        $like_status = $_GET['lkstatus'];
-        
-        $this->getBlogTable()->getUpdateLikeCount($blog_id,$like_status);
-        
-        
-        $data['blog_id'] = $_GET['id'];
-        $data['status'] = $_GET['lkstatus'];
-        $data['user_id'] = $session->offsetGet('userId');
-        $data['is_student'] = $session->offsetGet('is_student');
-        $data['created_at'] = time();
-        $data['updated_at'] = time();
-        $this->getBloglikeTable()->updateStatus($data);
-        
-        
+        if($userId!=''){
+            $blog_id = $_GET['id'];
+            $like_status = $_GET['lkstatus'];
+
+            $this->getBlogTable()->getUpdateLikeCount($blog_id,$like_status);
+
+
+            $data['blog_id'] = $_GET['id'];
+            $data['status'] = $_GET['lkstatus'];
+            $data['user_id'] = $session->offsetGet('userId');
+            $data['is_student'] = $session->offsetGet('is_student');
+            $data['created_at'] = time();
+            $data['updated_at'] = time();
+            $this->getBloglikeTable()->updateStatus($data);
+        }
         $response->setContent(true);
         return $response;
     }
