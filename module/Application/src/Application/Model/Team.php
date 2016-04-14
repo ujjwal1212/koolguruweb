@@ -16,6 +16,7 @@ class Team implements InputFilterAwareInterface {
     public $description;
     public $image;
     public $status;
+    public $isvisible_on_front;
     public $created_at;
     public $created_by;
     public $updated_at;
@@ -37,6 +38,7 @@ class Team implements InputFilterAwareInterface {
         $this->updated_at = (isset($data['updated_at'])) ? $data['updated_at'] : null;
         $this->updated_by = (isset($data['updated_by'])) ? $data['updated_by'] : null;
         $this->status = (isset($data['status'])) ? $data['status'] : null;
+        $this->isvisible_on_front = (isset($data['isvisible_on_front'])) ? $data['isvisible_on_front'] : null;
     }
 
     public function getArrayCopy() {

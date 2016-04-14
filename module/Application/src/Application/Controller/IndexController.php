@@ -102,7 +102,7 @@ class IndexController extends AbstractActionController {
         $testimonials = array();
         $testimonials = $this->getTestimonialTable()->getTestimonial();
         $packages = $this->getPackageTable()->getPackages();
-        $teams = $this->getTeamTable()->getTeam();
+        $teams = $this->getTeamTable()->getTeam(0,true);
 
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $js_path = $renderer->basePath('js/koolguru/application');

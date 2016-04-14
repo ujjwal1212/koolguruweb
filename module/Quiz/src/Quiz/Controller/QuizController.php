@@ -12,12 +12,14 @@ use Subject\Model\Subject;
 use Subject\Model\SubjectTable;
 use Questionarie\Model\Level;
 use Questionarie\Model\LevelTable;
-
 use Subject\Model\Category;
 use Subject\Model\CategoryTable;
-
 use Package\Model\Package;
 use Package\Model\PackageTable;
+use Quiz\Model\Quiz;
+use Quiz\Model\QuizTable;
+use Quiz\Model\Quizlevel;
+use Quiz\Model\QuizlevelTable;
 
 class QuizController extends AbstractActionController {
 
@@ -28,6 +30,8 @@ class QuizController extends AbstractActionController {
     protected $levelTable;
     protected $CategoryTable;
     protected $CoursePackageTable;
+    protected $QuizTable;
+    protected $QuizlevelTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -35,6 +39,22 @@ class QuizController extends AbstractActionController {
             $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
         }
         return $this->adapter;
+    }
+    
+    public function getQuizTable() {
+        if (!$this->QuizTable) {
+            $sm = $this->getServiceLocator();
+            $this->QuizTable = $sm->get('Quiz\Model\QuizTable');
+        }
+        return $this->QuizTable;
+    }
+    
+    public function getQuizlevelTable() {
+        if (!$this->QuizlevelTable) {
+            $sm = $this->getServiceLocator();
+            $this->QuizlevelTable = $sm->get('Quiz\Model\QuizlevelTable');
+        }
+        return $this->QuizlevelTable;
     }
     
     public function getCategoryTable() {
@@ -111,11 +131,11 @@ class QuizController extends AbstractActionController {
             $form->get('order')->setValue($order);
             $form->setData($data);
             if ($form->isValid()) {
-                $paginator = $this->getPackageTable()->fetchAll(true, $order_by, $order, $searchText);
+                $paginator = $this->getQuizTable()->fetchAll(true, $order_by, $order, $searchText);
             }
         } else {
             // grab the paginator from the CenterTable
-            $paginator = $this->getPackageTable()->fetchAll(true, $order_by, $order, $searchText);
+            $paginator = $this->getQuizTable()->fetchAll(true, $order_by, $order, $searchText);
         }
         $row_count = $paginator->getTotalItemCount();
         // set the current page to what has been passed in query string, or to 1 if none set
@@ -196,50 +216,68 @@ class QuizController extends AbstractActionController {
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $package = new Package();
+            $quiz = new Quiz();
             $data = $request->getPost();            
-            $form->setInputFilter($package->getInputFilter());
+            $form->setInputFilter($quiz->getInputFilter());
             $form->setData($data);
             if ($form->isValid() || 1) {
                 $validatorName = new \Zend\Validator\Db\NoRecordExists(
                         array(
-                    'table' => 'package',
+                    'table' => 'quiz',
                     'field' => 'title',
                     'adapter' => $this->getAdapter()
                         )
                 );
-                if ($validatorName->isValid(trim($package->title))) {
+                if ($validatorName->isValid(trim($quiz->title))) {
                     $no_duplicate_data = 1;
                 } else {
                     $flashMessage = $this->flashMessenger()->getErrorMessages();
                     if (empty($flashMessage)) {
-                        $this->flashMessenger()->setNamespace('error')->addMessage('Package Name already Exists.');
+                        $this->flashMessenger()->setNamespace('error')->addMessage('Quiz Name already Exists.');
                     }
                     $no_duplicate_data = 0;
                 }
                 if ($no_duplicate_data == 1) {
-                    $packageList = $this->getPackageTable()->fetchAll(false, 'id', 'ASC', '');
-                    $package->exchangeArray($form->getData());
+                    
+                    $quizList = $this->getQuizTable()->fetchAll(false, 'id', 'ASC', '');                    
+                    $quiz->exchangeArray($form->getData());
                     $id = 0;
-                    $packageCode = 'KGPKG-000-';
-                    foreach ($packageList as $packageId) {
-                        $id = $packageId['id'];
+                    $quizCode = 'KGQZ-000-';
+                    foreach ($quizList as $quizId) {
+                        $id = $quizId['id'];
                     }
-                    $packageCode .= '' . intval($id) + 1;
-                    $imagePath = $this->uploadImage($packageCode);
-                    $package->image_path = $imagePath;
-                    $package->code = $packageCode;
+                    $quizCode .= '' . intval($id) + 1;
+                    $quiz->code = $quizCode;
                     $data->created_at = time();
                     $data->created_by = $session->offsetGet('userId');
                     $data->updated_at = time();
                     $data->updated_by = $session->offsetGet('userId');
-                    $packageId = $this->getPackageTable()->savePackage($package);
-                    if (isset($data->courseId)) {
-                        $this->getCoursePackageTable()->savePackageCourse($data, $packageId);
+                    $quizId = $this->getQuizTable()->saveQuiz($quiz);
+                    //asd($data);
+                    // Now create data for saving quiz level mapping
+                    $quizlevel = array();
+                    //$quizId = 1;
+                    for($i=1; $i<=$data['rowcount']; $i++){
+                        $t = array();
+                        $t['quiz_id'] =  $quizId;
+                        $t['level_id'] =  $data['level_'.$i];
+                        $t['category_id'] =  $data['category_'.$i];
+                        $t['ques_nos'] =  $data['count_'.$i];
+                        $t['created_at'] = time();
+                        $t['created_by'] = $session->offsetGet('userId');
+                        $t['updated_at'] = time();
+                        $t['updated_by'] = $session->offsetGet('userId');
+                        $quizlevel[] = $t;
                     }
+                    if(!empty($quizlevel)){
+                        foreach($quizlevel as $data){
+                            $this->getQuizlevelTable()->saveQuizLevel($data);
+                        }
+                    }
+                    
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
-                    $this->flashMessenger()->setNamespace('success')->addMessage('Package created successfully');
-                    return $this->redirect()->toRoute('package');
+                    $this->flashMessenger()->setNamespace('success')->addMessage('Quiz created successfully');
+                    return $this->redirect()->toRoute('quiz');
                 }
             }
         }
@@ -252,120 +290,90 @@ class QuizController extends AbstractActionController {
      * @return type
      */
     public function editAction() {
+        $levelList = array();
+        $levelList = $this->getlevelTable()->getLevelDropdown(); 
+        
+        $que_category = array();
+        $que_category = $this->getCategoryTable()->getCategoryList();
+        
+        $subList = $this->getsubjectTable()->getSubjectList();
+        $subjects = array();
+        foreach($subList as $sub){
+            $subjects[$sub['id']] = $sub['title'];
+        }
         $id = (int) $this->params()->fromRoute('id', 0);
 
         if (!$id) {
-            return $this->redirect()->toRoute('package', array('action' => 'add'));
+            return $this->redirect()->toRoute('quiz', array('action' => 'add'));
         }
         $page = (int) $this->params()->fromRoute('page', 0);
 
         $session = new Container('User');
         $courseList = $this->getCourseTable()->getCourseDropdown();
-        $form = new PackageForm('PackageForm', $courseList);
+        $form = new QuizForm('QuizForm', $subjects);
         $form->get('code')->setAttribute('readonly', TRUE);
-        $package = $this->getPackageTable()->getPackage($id);
+        $quiz = $this->getQuizTable()->getQuiz($id);        
         $form->get('id')->setValue($id);
-        $form->bind($package);
-        $courseMapData = $this->getCoursePackageTable()->getCourseMapData($id);
+        $form->bind($quiz);
+        
+        
+        $quizlevel = array();
+        $quizlevel = $this->getQuizlevelTable()->getQuizlevelByQuiz($id);
+        
+        
 
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $package = new Package();
+            $quiz = new Quiz();
             $data = $request->getPost();
-            $package->exchangeArray($data);
-            $form->setInputFilter($package->getInputFilter());
+            $quiz->exchangeArray($data);
+            $form->setInputFilter($quiz->getInputFilter());
             $form->setData($data);
-
+            
             if ($form->isValid() || 1) {
-                $validatorName = new \Zend\Validator\Db\NoRecordExists(
-                        array(
-                    'table' => 'package',
-                    'field' => 'title',
-                    'adapter' => $this->getAdapter(),
-                    'exclude' => array(
-                        'field' => 'id',
-                        'value' => $id,
-                    )
-                        )
-                );
-                if ($validatorName->isValid(trim($package->title))) {
-                    $no_duplicate_data = 1;
-                } else {
-                    $flashMessage = $this->flashMessenger()->getErrorMessages();
-                    if (empty($flashMessage)) {
-                        $this->flashMessenger()->setNamespace('error')->addMessage('Package Name already Exists.');
-                    }
-                    $no_duplicate_data = 0;
-                }
+                $no_duplicate_data = 1;
                 if ($no_duplicate_data == 1) {
-                    $packageList = $this->getPackageTable()->fetchAll(false, 'id', 'ASC', '');
-                    if ($_FILES['image_path']['tmp_name']) {
-                        if ($package->image_path) {
-                            unlink($package->image_path);
-                        }
-                        $imagePath = $this->uploadImage($package->code);
-                        $package->image_path = $imagePath;
-                    } else {
-                        $package->image_path = NULL;
-                    }
+                    $quizList = $this->getQuizTable()->fetchAll(false, 'id', 'ASC', '');                    
                     $data->updated_date = time();
-                    $data->updated_by = $session->offsetGet('userId');
-
-                    $packageId = $this->getPackageTable()->savePackage($package);
-                    if (isset($data->courseId)) {
-                        $this->getCoursePackageTable()->savePackageCourse($data, $id);
+                    $data->updated_by = $session->offsetGet('userId');                    
+                    $Id = $this->getQuizTable()->saveQuiz($quiz);
+                    
+                    //asd($data);
+                    // Now create data for saving quiz level mapping
+                    $quizlevel = array();
+                    $quizId = $quiz->id;
+                    $data = $_POST;
+                    //asd($data);
+                    for($i=1; $i<=$data['rowcount']; $i++){
+                        $t = array();
+                        $t['quiz_id'] =  $quizId;
+                        $t['level_id'] =  $data['level_'.$i];
+                        $t['category_id'] =  $data['category_'.$i];
+                        $t['ques_nos'] =  $data['count_'.$i];
+                        $t['created_at'] = time();
+                        $t['created_by'] = $session->offsetGet('userId');
+                        $t['updated_at'] = time();
+                        $t['updated_by'] = $session->offsetGet('userId');
+                        $quizlevel[] = $t;
                     }
+                    // First delete old entry
+                    $this->getQuizlevelTable()->deleteQuizLevel($quizId);
+                    
+                    if(!empty($quizlevel)){
+                        foreach($quizlevel as $data){
+                            $this->getQuizlevelTable()->saveQuizLevel($data);
+                        }
+                    }
+                    
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
-                    $this->flashMessenger()->setNamespace('success')->addMessage('Package updated successfully');
+                    $this->flashMessenger()->setNamespace('success')->addMessage('Quiz updated successfully');
 
-                    return $this->redirect()->toRoute('package');
+                    return $this->redirect()->toRoute('quiz');
                 }
             }
         }
-        return array('form' => $form, 'id' => $id, 'page' => $page, 'courseMapData' => $courseMapData);
+        return array('form' => $form, 'id' => $id, 'page' => $page,'quiz' => $quiz,'levelList' => $levelList,'que_category'=>$que_category,'quizlevel'=>$quizlevel);
     }
 
-    public function uploadImage($code) {
-        if (isset($_FILES['image_path']['name']) && $_FILES['image_path']['name'] != '') {
-            $fileNameArr = explode('.', $_FILES['image_path']['name']);
-            $fileName = $code . '.' . $fileNameArr[1];
-            $targetDir = realpath(__DIR__ . '../../../../../../') . '/data/images/';
-            $targetFile = $targetDir . $fileName;
-            move_uploaded_file($_FILES["image_path"]["tmp_name"], $targetFile);
-            return $targetFile;
-        } else {
-            return NULL;
-        }
-    }
-
-    /**
-     * function to delete Package
-     * @return type
-     */
-    public function deleteAction() {
-        
-    }
-
-    /**
-     * function for Package view
-     * @return type
-     */
-    public function viewAction() {
-        $id = (int) $this->params()->fromRoute('id', 0);
-
-        if (!$id) {
-            return $this->redirect()->toRoute('package', array('action' => 'add'));
-        }
-        $page = (int) $this->params()->fromRoute('page', 0);
-
-        $session = new Container('User');
-
-        $package = $this->getPackageTable()->getPackageDetails($id);
-        $courseMapData = $this->getCoursePackageTable()->getCourseMapData($id);
-        return array(
-            'package' => $package,
-            'courseMapData' => $courseMapData
-        );
-    }
-
+    
 }
