@@ -65,6 +65,7 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
         </div>-->
         <div id="step1">
             <section id="basic_details">
+                <input type="hidden" id="rowcount" name="rowcount" value="1">
                 <?php
                 echo $this->formHidden($form->get('id'));
                 ?>
@@ -106,32 +107,37 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <label class='label'>IS ACTIVE: </label>
                         <?php echo $this->formElement($form->get('status')); ?>
                     </li>
-                    <li class="form-row">                    
-                        <div class="pull-left width-100">
-                            <div>Question Level</div> 
-                            <select name="chapter_id" id="chapter_id">
-                                <option value="">Select</option>
-                                <?php foreach($levelList as $k=>$v){?>
-                                    <option value="<?php echo $k;?>"><?php echo $v;?></option>
-                                <?php } ?>
-                            </select>
-                        </div>
-                        <div class="pull-left width-100">
-                            <div>Question Count</div>
-                                <input type="text" id="count">
-                            </div>
-			<div class="pull-left width-100">
-                            <div>Category</div>
-                                <select name="chapter_id" id="chapter_id">
+                    <li class="form-row">
+                        <div class="quiz-level" row="1">
+                            <div class="pull-left width-100">
+                                <div>Question Level</div> 
+                                <select class="levl" name="level_1" id="level_1">
                                     <option value="">Select</option>
+                                    <?php foreach($levelList as $k=>$v){?>
+                                        <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
-                            <div class="pull-left"> 
-                                <div class="add-icon"></div>
+                            <div class="pull-left width-100 quiz-left">
+                                <div>Question Count</div>
+                                    <input type="text" id="count_1" class="quecount text-height" name="count_1">
                             </div>
-                            <div class="pull-left">
-                                <div class="delete-icon"></div>                                    
+                            <div class="pull-left width-100 quiz-left">
+                                <div>Category</div>
+                                <select class="quecategory" name="category_1" id="category_1">
+                                    <option value="">Select</option>
+                                    <?php foreach($que_category as $k=>$v){?>
+                                        <option value="<?php echo $k;?>"><?php echo $v;?></option>
+                                    <?php } ?>
+                                </select>
                             </div>
+                            <div class="pull-left quiz-left"> 
+                                <div class="add-icon" id="addrow"></div>
+                            </div>
+                            <div class="pull-left quiz-left">
+                                <div class="delete-icon" id="delrow"></div>                                    
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </section>
@@ -155,20 +161,68 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 </div>
 <script>
     $(document).ready(function () {
-    
-    $('#subject_id').change(function(){
-        var subject = $(this).val();        
-        var url = '<?php echo $this->basePath() . '/quiz/getchapter?subject='; ?>' + subject;
+        $('.add-icon').click(function(){
+            addnewrow(this)
+        });
         
-        $.ajax({url: url, success: function (result) {
-                var html = '<option value="">Select</option>';
-                
-                $.each(JSON.parse(result), function(idx, obj) {
-                    
-                    html += "<option value='"+obj.chapter_id+"'>"+obj.chaptertitle+"</option>";
-                });
-                $('#chapter_id').html(html);
-        }});
+        $('.delete-icon').click(function(){
+            deleterow(this);
+        });
+    
+        $('#subject_id').change(function(){
+            var subject = $(this).val();        
+            var url = '<?php echo $this->basePath() . '/quiz/getchapter?subject='; ?>' + subject;
+
+            $.ajax({url: url, success: function (result) {
+                    var html = '<option value="">Select</option>';
+                    $.each(JSON.parse(result), function(idx, obj) {
+
+                        html += "<option value='"+obj.chapter_id+"'>"+obj.chaptertitle+"</option>";
+                    });
+                    $('#chapter_id').html(html);
+            }});
+        });
     });
-    });
+    
+    function addnewrow(obj){
+        var clone = $(obj).parent().parent().clone();
+        $(obj).parent().parent().parent().append('</br></br></br></br>');
+        $(obj).parent().parent().parent().append(clone);
+        manageRows();
+    }
+    
+    function deleterow(obj){        
+        if($('.quiz-level').length < 2){
+            alert('You can not delete all');
+        }else{
+            $(obj).parent().parent().remove();
+            manageRows();
+        }
+    }
+    
+    function bindclick(obj){        
+        $(obj).find('.add-icon').click(function(){
+            addnewrow(this);
+        });
+        $(obj).find('.delete-icon').click(function(){
+            deleterow(this);
+        });
+    }
+    
+    function manageRows(){
+        var i = 1;
+        $('.quiz-level').each(function(){
+            $(this).attr('row',i);
+            $(this).find('.levl').attr('name','level_'+i);
+            $(this).find('.levl').attr('id','level_'+i);
+            $(this).find('.quecount').attr('name','count_'+i);
+            $(this).find('.quecount').attr('id','count_'+i);
+            $(this).find('.quecategory').attr('name','category_'+i);
+            $(this).find('.quecategory').attr('id','category_'+i);
+            bindclick(this);
+            $('#rowcount').val(i);
+            i++;
+        });
+        
+    }
     </script>

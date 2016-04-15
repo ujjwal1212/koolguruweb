@@ -318,3 +318,7 @@ input, button, select, textarea {
 .navliactive{
     color: #c2c9d4;
 }
+
+.blog-like{
+    cursor: pointer;
+}

@@ -6,8 +6,10 @@ use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Zend\Db\ResultSet\ResultSet;
 use Zend\Db\TableGateway\TableGateway;
-use Package\Model\Quiz;
-use Package\Model\QuizTable;
+use Quiz\Model\Quiz;
+use Quiz\Model\QuizTable;
+use Quiz\Model\Quizlevel;
+use Quiz\Model\QuizlevelTable;
 
 class Module {
 
@@ -44,6 +46,17 @@ class Module {
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Quiz());
                     return new TableGateway('quiz', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Quiz\Model\QuizlevelTable' => function($sm) {
+                    $tableGateway = $sm->get('QuizlevelTableGateway');
+                    $table = new QuizlevelTable($tableGateway);
+                    return $table;
+                },
+                'QuizlevelTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Quizlevel());
+                    return new TableGateway('quiz_level', $dbAdapter, null, $resultSetPrototype);
                 },
                 
             )

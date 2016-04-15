@@ -47,6 +47,21 @@ class StudentTable {
                 ->toArray();
         return $resultset;
     }
+    
+    public function fetchAdmin() {
+
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('d' => 'users'));
+                
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        return $resultset;
+    }
+    
+    
+    
 
     public function getStateList(){
         $sql = new Sql($this->tableGateway->getAdapter());
