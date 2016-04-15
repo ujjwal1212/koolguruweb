@@ -78,14 +78,13 @@ class Module {
             'Blog\Controller\Index-add',
             'Blog\Controller\Index-getblog',
             'Blog\Controller\Index-updatelike',
-            'Services\Conntroller\User-userlogin'
+            'UserRest\Controller\ClientRest-index',
         );
 
         //$requestUri = $request->getRequestUri();
         $controller = $event->getRouteMatch()->getParam('controller');
 
         $action = $event->getRouteMatch()->getParam('action');
-
         $requestedResourse = $controller . "-" . $action;
         $session = new Container('User');
         if ($session->offsetExists('email')) {
