@@ -13,7 +13,8 @@ return array(
         'Package',
         'Quiz',
         'Blog',
-        'Services'
+        'Services',
+        'UserRest'
     ),
 
     // These are various options for the listeners attached to the ModuleManager
