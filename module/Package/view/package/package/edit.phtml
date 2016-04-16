@@ -1,0 +1,174 @@
+<?php
+$this->inlineScript()->appendFile($this->basePath() . '/js/koolguru/package/package.js');
+$form = $this->form;
+$form->setAttribute('action', $this->url('package', array('action' => 'edit', 'id' => $id, 'page' => $page)));
+$form->setAttribute('class', 'detect_changes');
+$form->prepare();
+echo $this->form()->openTag($form);
+$errorflashMessage = $this->flashMessenger()->getErrorMessages();
+?>
+<section class="sub-header">
+    <div class="container">
+        <div class="sub-header-title">
+            <?php
+            $title = 'Edit Package';
+            ?>
+            <a class="back-icon" href="<?php echo $this->url('package', array('action' => 'index')); ?>"></a>
+            <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
+                <?php
+                /* Adding Breadcrumb */
+                echo $this->navigation('navigation')
+                        ->breadcrumbs()
+                        ->setMinDepth(0)
+                        ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                ?>
+                <?php //echo $this->content; ?>
+
+            </h1>
+        </div>
+        <div class="sub-header-actions"></div>
+    </div>
+</section>
+
+<div class="container">
+    <div class="forms" id="add-trainee-form">
+        <?php
+        $errorflashMessage = $this->flashMessenger()->getCurrentErrorMessages();
+        $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+        if (empty($errorflashMessage) && !empty($successflashMessage)) {
+            ?>
+            <div id="global-success-msg-page" class="global-page-success">
+                <?php
+                foreach ($successflashMessage as $succMsg) {
+                    echo $errMsg;
+                }
+                ?>
+
+            </div>
+            <?php
+        } else {
+            if (!empty($errorflashMessage)) {
+                ?>
+                <div id="global-error-msg-page"   class="global-page-error"><?php
+                    foreach ($errorflashMessage as $errMsg) {
+                        echo $errMsg;
+                    }
+                    ?></div>
+                <?php
+            }
+        }
+        ?>
+        <div class="upper-submit">
+            <?php
+            echo $this->formSubmit($form->get('submit'));
+            ?>
+        </div>
+        <div id="step1">
+            <section id="basic_details">
+                <?php
+                echo $this->formHidden($form->get('id'));
+                ?>
+
+                <ul>
+                    <li class="form-row">                    
+                        <label class='label'>UPLOAD IMAGE: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('image_path')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>PACKAGE CODE: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('code')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>PACKAGE NAME: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('title')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>DESCRIPTION: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('description')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>PRICE: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('price')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>DURATION: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('duration')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>FACE TO FACE CLASSROOM: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('ff_classroom')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>WHAT USER GETS: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('whatuserget')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>RELEVANT FOR: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('relevant_for')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>ADVANTAGES: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('advantage')); ?>
+                    </li>
+                    <li class="form-row">                    
+                        <label class='label'>IS ACTIVE: </label>
+                        <?php echo $this->formElement($form->get('status')); ?>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <div id="step2">
+            <section id="basic_details">
+                <?php
+                echo "<h2 class='h2'>Add Courses</h2>";
+                ?>
+                <ul>
+                    <li class="form-row">                    
+                        <label class='label'>SELECT COURSE: </label>
+                        <?php echo $this->formElement($form->get('course_id')); ?>
+                    </li>
+                    <li class="form-row">
+                        <a href="javascript:void(0)" class="green-btn big-btn" id="add_option">Add Course</a>
+                    </li>
+                </ul>
+            </section>
+            <table border="1" class="table center-listing" id="course_table">
+                <thead>
+                    <tr>
+                        <th class="fname"><input type='hidden' id='action' value='add'><?php echo $this->escapeHtml('COURSE NAME'); ?></th>
+                        <th class="actions"><?php echo $this->escapeHtml('ACTION'); ?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php $i = 0;
+                    foreach ($courseMapData as $map) {
+                        ?>
+                        <tr id="<?php echo $i; ?>">
+                            <td class='fname'><input type='hidden' name='courseId[]' value="<?php echo $map['course_id']; ?>"/><?php echo $map['title']; ?></td>
+                            <td><a href='javascript:void(0)' class='btnDelete delete-icon' onclick="DeleteRow('<?php echo $i; ?>')" id='row_<?php echo $i; ?>' title='delete'></a></td>
+                        </tr>
+                        <?php $i++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+        <div class="form-footer text-center">
+            <?php
+            echo $this->formRow($form->get('previous'));
+            echo $this->formRow($form->get('next'));
+            ?>
+        </div>
+        <?php
+        echo $this->formHidden($form->get('created_at'));
+        echo $this->formHidden($form->get('created_by'));
+        echo $this->formHidden($form->get('updated_at'));
+        echo $this->formHidden($form->get('updated_by'));
+        ?>
+        <div id="form-footer">
+            <?php
+            echo $this->form()->closeTag();
+            ?>
+        </div>
+    </div>
+</div>
