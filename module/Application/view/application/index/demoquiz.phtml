@@ -58,7 +58,7 @@
                 <div class="tabs" id='content-4'>                    
                     <div id="quiz"></div>
                 </div>
-                
+
             </main>            
         </div>
     </div>
@@ -80,7 +80,7 @@
             if (tabno == 3) {
                 $('.loader').show();
                 var url = '<?php echo $this->basePath() . '/exercise'; ?>';
-                $.ajax({url: url, success: function (result) {                        
+                $.ajax({url: url, success: function (result) {
                         app.excercise.renderid = 'excercise';
                         if (app.excercise.currentquestion == '') {
                             app.excercise.currentquestion = 0;
@@ -104,8 +104,16 @@
                         $('.loader').hide();
                     }});
             }
-            
+
             app.demoquiz.opencurrenttab();
         });
     });
+    function changeVid(chapterId,subjectId) {
+        var video = document.getElementById('video');
+
+        if (Modernizr.video && Modernizr.video.webm) {
+            video.setAttribute("src", "http://koolguru.co.in/ppt/"+subjectId+"_"+chapterId+".mp4");
+        }
+        video.load();
+    }
 </script>
