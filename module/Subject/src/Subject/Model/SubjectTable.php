@@ -37,8 +37,12 @@ class SubjectTable {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('s' => 'subjects'));
+        $select->join(array('csm'=>'course_subject_map'),'csm.subject_id = s.id',array(),'left');
+        $select->join(array('c'=>'course'),'c.id = csm.course_id',array('course_title'=>'title'),'left');
         $select->columns(array('id', 'code', 'title'));
+        
         $select->order($order_by . ' ' . $order);
+        
         if (isset($searchText) && trim($searchText) != '') {
             $select->where->like('s.title', "%" . $searchText . "%")
             ->or->like('s.code', "%" . $searchText . "%")
@@ -111,8 +115,8 @@ class SubjectTable {
         }
         return $row;
     }
-
-    public function getSubjectDetails($id) {
+    
+    public function getSubjectDet($id) {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('s' => 'subjects'));
@@ -124,6 +128,20 @@ class SubjectTable {
                 ->toArray();
         return $resultset;
     }
+
+    public function getSubjecCoursetDetails($id) {
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('csm' => 'course_subject_map'));
+        $select->columns(array('course_id'));       
+        $select->where(array('csm.subject_id' => $id));
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        return $resultset;
+    }
+    
+    
     
     public function getSubjectList() {
         $sql = new Sql($this->tableGateway->getAdapter());

@@ -12,12 +12,15 @@ use Subject\Model\Subject;
 use Subject\Model\SubjectTable;
 use Student\Model\Course;
 use Student\Model\CourseTable;
+use Student\Model\Coursesubject;
+use Student\Model\CoursesubjectTable;
 
 class SubjectController extends AbstractActionController {
 
     protected $adapter;
     protected $subjectTable;
     protected $courseTable;
+    protected $coursesubjectTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -25,6 +28,14 @@ class SubjectController extends AbstractActionController {
             $this->adapter = $sm->get('Zend\Db\Adapter\Adapter');
         }
         return $this->adapter;
+    }
+    
+    public function getCourseSubjectTable() {
+        if (!$this->coursesubjectTable) {
+            $sm = $this->getServiceLocator();
+            $this->coursesubjectTable = $sm->get('Subject\Model\CoursesubjectTable');
+        }
+        return $this->coursesubjectTable;
     }
 
     public function getSubjectTable() {
@@ -153,6 +164,7 @@ class SubjectController extends AbstractActionController {
                 if ($no_duplicate_data == 1) {
                     $subjectList = $this->getSubjectTable()->fetchAll(false, 'id', 'ASC', '');
                     $subject->exchangeArray($form->getData());
+                    
                     $id = 0;
                     $subjectCode = 'KGSUB-000-';
                     foreach ($subjectList as $subjectId) {
@@ -169,7 +181,19 @@ class SubjectController extends AbstractActionController {
                     $data->created_by = $session->offsetGet('userId');
                     $data->updated_at = time();
                     $data->updated_by = $session->offsetGet('userId');
-                    $questionId = $this->getSubjectTable()->saveSubject($subject);
+                    $subId = '';
+                    $subId = $this->getSubjectTable()->saveSubject($subject);                    
+                    $courseSubjectMapData = array();
+                    $courseSubjectMapData['subject_id'] =  $subId;
+                    $courseSubjectMapData['course_id'] =  $data->course_id;
+                    $courseSubjectMapData['created_at'] = time();
+                    $courseSubjectMapData['created_by'] = $session->offsetGet('userId');
+                    $courseSubjectMapData['updated_at'] = time();
+                    $courseSubjectMapData['updated_by'] = $session->offsetGet('userId');
+                    
+                    $this->getCourseSubjectTable()->saveCaurseSubjectMap($courseSubjectMapData);
+                    
+                    
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
                     $this->flashMessenger()->setNamespace('success')->addMessage('Subject created successfully');
                     return $this->redirect()->toRoute('subject');
@@ -185,6 +209,9 @@ class SubjectController extends AbstractActionController {
      * @return type
      */
     public function editAction() {
+        $courseList = $this->getCourseTable()->getCourseDropdown();
+        
+        
         $id = (int) $this->params()->fromRoute('id', 0);
 
         if (!$id) {
@@ -193,9 +220,16 @@ class SubjectController extends AbstractActionController {
         $page = (int) $this->params()->fromRoute('page', 0);
 
         $session = new Container('User');
-        $form = new SubjectForm('SubjectForm');
+        $form = new SubjectForm('SubjectForm',$courseList);
         $form->get('code')->setAttribute('readonly', TRUE);
         $subject = $this->getSubjectTable()->getSubject($id);
+        
+        $subjects = array();
+        $subjects = $this->getSubjectTable()->getSubjecCoursetDetails($id);       
+        $form->get('id')->setValue($id);
+        if(!empty($subjects)){
+            $form->get('course_id')->setValue($subjects[0]['course_id']);
+        }
         $form->get('id')->setValue($id);
         $form->bind($subject);
 
@@ -244,6 +278,22 @@ class SubjectController extends AbstractActionController {
                     $data->updated_by = $session->offsetGet('userId');
 
                     $subjectId = $this->getSubjectTable()->saveSubject($subject);
+                    $courseSubjectMapData = array();
+                    if(empty($subjects)){                        
+                        $courseSubjectMapData['subject_id'] =  $subjectId;
+                        $courseSubjectMapData['course_id'] =  $data->course_id;
+                        $courseSubjectMapData['created_at'] = time();
+                        $courseSubjectMapData['created_by'] = $session->offsetGet('userId');
+                        $courseSubjectMapData['updated_at'] = time();
+                        $courseSubjectMapData['updated_by'] = $session->offsetGet('userId');                    
+                        $this->getCourseSubjectTable()->saveCaurseSubjectMap($courseSubjectMapData);
+                    }else{
+                        $courseSubjectMapData['course_id'] =  $data->course_id;                       
+                        $courseSubjectMapData['updated_at'] = time();
+                        $courseSubjectMapData['updated_by'] = $session->offsetGet('userId');
+                        $this->getCourseSubjectTable()->updateCaurseSubjectMap($courseSubjectMapData,$subjectId);
+                    }                    
+                    
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Level created successfully by user ' . $session->offsetGet('userId'));
                     $this->flashMessenger()->setNamespace('success')->addMessage('Subject updated successfully');
 
