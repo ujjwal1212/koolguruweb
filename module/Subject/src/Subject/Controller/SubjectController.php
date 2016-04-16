@@ -10,11 +10,14 @@ use Subject\Form\SearchForm;
 use Subject\Form\SubjectForm;
 use Subject\Model\Subject;
 use Subject\Model\SubjectTable;
+use Student\Model\Course;
+use Student\Model\CourseTable;
 
 class SubjectController extends AbstractActionController {
 
     protected $adapter;
     protected $subjectTable;
+    protected $courseTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -30,6 +33,14 @@ class SubjectController extends AbstractActionController {
             $this->subjectTable = $sm->get('Subject\Model\SubjectTable');
         }
         return $this->subjectTable;
+    }
+    
+    public function getCourseTable() {
+        if (!$this->courseTable) {
+            $sm = $this->getServiceLocator();
+            $this->courseTable = $sm->get('Student\Model\CourseTable');
+        }
+        return $this->courseTable;
     }
 
     /**
@@ -102,8 +113,10 @@ class SubjectController extends AbstractActionController {
      * @return type
      */
     public function addAction() {
+        $courseList = $this->getCourseTable()->getCourseDropdown();
+        
         $session = new Container('User');
-        $form = new SubjectForm('SubjectForm');
+        $form = new SubjectForm('SubjectForm',$courseList);
         $form->get('code')->setValue('xxx-xxx-xxx');
         $form->get('code')->setAttribute('readonly', TRUE);
         $form->get('created_at')->setValue(time());

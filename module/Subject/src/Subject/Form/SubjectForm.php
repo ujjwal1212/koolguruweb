@@ -10,7 +10,7 @@ use Zend\Form\Form;
  */
 class SubjectForm extends Form {
 
-    public function __construct($name = NULL) {
+    public function __construct($name = NULL,$courselist) {
         // we want to ignore the name passed
         parent::__construct($name);
 
@@ -37,6 +37,22 @@ class SubjectForm extends Form {
                 'label_attributes' => array(
                     'class' => 'label'
                 ),
+            ),
+        ));
+        
+        $this->add(array(
+            'type' => 'Select',
+            'name' => 'course_id',
+            'options' => array(
+                'label' => 'SELECT Course',
+                'label_attributes' => array(
+                    'class' => 'label'
+                ),
+                'empty_option' => 'Select',
+                'value_options' => $courselist,
+            ),
+            'attributes' => array(
+                'id' => 'course_id',
             ),
         ));
         $this->add(array(
