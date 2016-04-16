@@ -379,7 +379,7 @@ $_SESSION['basedomain']['path'] = 'http://localhost/koolguruweb';
                                 Legal</span>
                             <ul class="nav-child unstyled small">
                                 <li>
-                                    <a href="#">Privacy Policy</a>
+                                    <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'privacy')) ?>">Privacy Policy</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo $this->url('application/default', array('controller' => 'index', 'action' => 'faq')); ?>">FAQ's</a>
