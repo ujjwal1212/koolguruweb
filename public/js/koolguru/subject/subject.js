@@ -7,6 +7,10 @@ $(document).ready(function () {
             code: {
                 required: true,
             },
+            
+            course_id: {
+                required: true,
+            },
         },
         messages: {
             title: {
@@ -14,6 +18,10 @@ $(document).ready(function () {
             },
             code: {
                 required: "Please enter code",
+            },
+            
+            course_id: {
+                required: "Please select course",
             },
         }
     });
