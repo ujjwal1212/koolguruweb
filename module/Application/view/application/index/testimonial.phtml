@@ -1,0 +1,28 @@
+<div class="staff staff-content">
+    <div class="reservation_top">
+        <div class="container">          	 
+            <h3 class="hist"></h3>
+            <div class="row row-login">
+                <?php if(!empty($testimonials)){?>
+                    <?php foreach($testimonials as $testi){?>
+                    <div class="testimonial-box">
+                                <div class="testimonial-left-content">
+                                    <div>
+                                    <img  src="<?php echo $this->basePath() . '/img/'.$testi['image'];?>" alt=""/>
+                                    </div>
+                                </div>
+                                <div class="testimonial-right-content">
+                                    <div class="testimonial-degree">
+                                        <?php echo $testi['name'];?>
+                                    </div>
+                                    <div class="testimonial-degree">
+                                        <?php echo $testi['degree'];?>
+                                    </div>
+                                    <?php echo $testi['description'];?>
+                                </div>
+                            </div>
+                    <?php }} ?>
+            </div>
+        </div>
+    </div>
+</div>
