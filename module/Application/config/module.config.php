@@ -44,6 +44,21 @@ return array(
                 ),
             ),
             
+            'privacy-policy' => array(
+                'type' => 'segment',
+                'options' => array(
+                    'route' => '/privacy-policy[/:action][/:id]',
+                    'constraints' => array(
+                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                        'id' => '[0-9]+',
+                    ),
+                    'defaults' => array(
+                        'controller' => 'application\Controller\Index',
+                        'action' => 'privacy',
+                    ),
+                ),
+            ),
+            
             'exercise' => array(
                 'type' => 'segment',
                 'options' => array(
