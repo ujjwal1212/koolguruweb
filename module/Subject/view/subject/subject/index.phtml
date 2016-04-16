@@ -119,6 +119,9 @@ if (!$this->isAjax) {
                         <th class="type">
                             <a href="javascript:void(0);">TITLE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th>
+                        <th class="type">
+                            Course
+                        </th>
                         <?php if ($roleCode == 'sa') { ?>
                             <th class="actions">ACTIONS</th>
     <?php } ?>
@@ -144,6 +147,9 @@ if (!$this->isAjax) {
                         <th class="type">
                             <a href="javascript:void(0);" onclick="grid.sort('title', '<?php echo ($this->order_by == 'title') ? $url_order : $default_order; ?>');">TITLE<i class="icon-chevron-<?php echo $url_order == 'ASC' ? 'down' : 'up' ?>"></i></a>
                         </th> 
+                        <th class="type">
+                            Course
+                        </th>
                         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                             <th class="actions">ACTIONS</th>
     <?php } ?>
@@ -156,7 +162,8 @@ if (!$this->isAjax) {
                         <tr>
                             <td class="id"><a class="blue-anchor" href="<?php echo $this->url('subject', array('action' => 'view', 'id' => $question['id'])); ?>"><?php echo $this->escapeHtml($question['id']); ?></a></td>
                             <td class="name"><?php echo $this->escapeHtml($question['code']); ?></td>
-                            <td class="type"><?php echo $this->escapeHtml($question['title']); ?></td>        
+                            <td class="type"><?php echo $this->escapeHtml($question['title']); ?></td>
+                            <td class="type"><?php echo $this->escapeHtml($question['course_title']); ?></td>
         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                                 <td class="actions">
                                     <a href="<?php echo $this->url('subject', array('action' => 'edit', 'id' => $question['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
