@@ -9,6 +9,15 @@ use ZF2AuthAcl\Utility\UserPassword;
 class ClientRestController extends AbstractActionController {
 
     protected $adapter;
+    protected $ChapterTable;
+
+    public function getChapterTable() {
+        if (!$this->ChapterTable) {
+            $sm = $this->getServiceLocator();
+            $this->ChapterTable = $sm->get('Application\Model\ChapterTable');
+        }
+        return $this->ChapterTable;
+    }
 
     public function indexAction() {
         $client = new HttpClient();
@@ -64,6 +73,21 @@ class ClientRestController extends AbstractActionController {
                 $response = $this->getResponse();
                 $response->getHeaders()->addHeaderLine('content-type', 'text/html; charset=utf-8');
                 $response->setContent($userDetails);
+                return $response;
+            case 'demoquiz':
+                $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
+                $js_path = $renderer->basePath('js/koolguru/application');
+                $headScript = $this->getServiceLocator()->get('viewhelpermanager')
+                        ->get('headScript');
+
+                $headScript->appendFile($js_path . '/demoquiz.js');
+                $headScript->appendFile($js_path . '/exercise.js');
+                $headScript->appendFile($js_path . '/quiz.js');
+                $demochapter_id = 0;
+                $demochapter = $this->getChapterTable()->getDemoChapter();
+                $response = $this->getResponse();
+                $response->getHeaders()->addHeaderLine('content-type', 'text/html; charset=utf-8');
+                $response->setContent(json_encode($demochapter));
                 return $response;
         }
 
