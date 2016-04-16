@@ -79,6 +79,10 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <?php echo $this->formElement($form->get('title')); ?>
                     </li>
                     <li class="form-row">                    
+                        <label class='label'>Course: <span class='required'>*</span></label>
+                        <?php echo $this->formElement($form->get('course_id')); ?>
+                    </li>
+                    <li class="form-row">                    
                         <label class='label'>IS ACTIVE: </label>
                         <?php echo $this->formElement($form->get('status')); ?>
                     </li>

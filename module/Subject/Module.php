@@ -10,6 +10,8 @@ use Subject\Model\Category;
 use Subject\Model\CategoryTable;
 use Subject\Model\Subject;
 use Subject\Model\SubjectTable;
+use Subject\Model\Coursesubject;
+use Subject\Model\CoursesubjectTable;
 
 class Module {
 
@@ -57,6 +59,17 @@ class Module {
                     $resultSetPrototype = new ResultSet();
                     $resultSetPrototype->setArrayObjectPrototype(new Subject());
                     return new TableGateway('subjects', $dbAdapter, null, $resultSetPrototype);
+                },
+                'Subject\Model\CoursesubjectTable' => function($sm) {
+                    $tableGateway = $sm->get('CoursesubjectTableGateway');
+                    $table = new CoursesubjectTable($tableGateway);
+                    return $table;
+                },
+                'CoursesubjectTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Coursesubject());
+                    return new TableGateway('course_subject_map', $dbAdapter, null, $resultSetPrototype);
                 },
             )
         );
