@@ -9278,3 +9278,6 @@ ul li {
     top: 60px;
     text-align: center;
 }
+.textalignleft{
+        text-align: -webkit-left !important;
+}
