@@ -186,7 +186,7 @@ if (!$this->isAjax) {
                             <td class="type"><?php echo $this->escapeHtml($chapter['content']); ?></td>
                             
                             <?php 
-                            if(count($subjects[$chapter['id']]) > 0){
+                            if(isset($subjects[$chapter['id']]) && count($subjects[$chapter['id']]) > 0){
                                 $substr = '';
                                 foreach($subjects[$chapter['id']] as $subject){
                                     if($substr == ''){
@@ -243,7 +243,7 @@ if (!$this->isAjax) {
                     // the paginator object
                     $this->paginator, 'sliding',
                     // the partial to use to render the control
-                    array('partial/paginator.phtml', 'subject'),
+                    array('partial/paginator.phtml', 'chapter'),
                     // the route to link to when a user clicks a control link
                     array(
                 'route' => 'chapter',

@@ -10,6 +10,7 @@ class ClientRestController extends AbstractActionController {
 
     protected $adapter;
     protected $ChapterTable;
+    protected $QuestionTable;
 
     public function getChapterTable() {
         if (!$this->ChapterTable) {
@@ -17,6 +18,15 @@ class ClientRestController extends AbstractActionController {
             $this->ChapterTable = $sm->get('Application\Model\ChapterTable');
         }
         return $this->ChapterTable;
+    }
+
+    public function getQuestionTable() {
+        if (!$this->QuestionTable) {
+            $sm = '';
+            $sm = $this->getServiceLocator();
+            $this->QuestionTable = $sm->get('Questionarie\Model\QuestionTable');
+        }
+        return $this->QuestionTable;
     }
 
     public function indexAction() {
@@ -88,6 +98,34 @@ class ClientRestController extends AbstractActionController {
                 $response = $this->getResponse();
                 $response->getHeaders()->addHeaderLine('content-type', 'text/html; charset=utf-8');
                 $response->setContent(json_encode($demochapter));
+                return $response;
+            case 'demoquizques':
+                $demoQuiz = array();
+                $demoQuiz = $this->getChapterTable()->getDemoQuiz();
+                $questions = array();
+                foreach ($demoQuiz as $data) {
+                    $ques = $this->getQuestionTable()->getDemoExcerciseQuestions($data['quiz_id'], $data['level_id'], $data['category_id'], $data['ques_nos']);
+                    $questions = array_merge($questions, $ques);
+                }
+
+                $demochapterquizque = array();
+                if (!empty($questions)) {
+                    foreach ($questions as $key => $v) {
+                        $demochapterquizque[$v['que_id']] = $v;
+                    }
+                }
+                $response = $this->getResponse();
+                $response->getHeaders()->addHeaderLine('content-type', 'text/html; charset=utf-8');
+                $response->setContent(json_encode($demochapterquizque));
+                return $response;
+            case 'demoquizexer':
+                $demoQuiz = array();
+                $demoQuiz = $this->getChapterTable()->getDemoQuiz();
+                $questions = $this->getQuestionTable()->getDemoExcerciseQuestions($demoQuiz[0]['quiz_id'], 3, $demoQuiz[0]['category_id'], 3);
+
+                $response = $this->getResponse();
+                $response->getHeaders()->addHeaderLine('content-type', 'text/html; charset=utf-8');
+                $response->setContent(json_encode($questions));
                 return $response;
         }
 
