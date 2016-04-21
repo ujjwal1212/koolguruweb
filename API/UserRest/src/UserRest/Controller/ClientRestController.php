@@ -116,16 +116,19 @@ class ClientRestController extends AbstractActionController {
                 }
                 $response = $this->getResponse();
                 $response->getHeaders()->addHeaderLine('content-type', 'text/html; charset=utf-8');
-                $response->setContent(json_encode($demochapterquizque));
+                $response->setContent(json_encode($questions));
                 return $response;
             case 'demoquizexer':
                 $demoQuiz = array();
                 $demoQuiz = $this->getChapterTable()->getDemoQuiz();
                 $questions = $this->getQuestionTable()->getDemoExcerciseQuestions($demoQuiz[0]['quiz_id'], 3, $demoQuiz[0]['category_id'], 3);
-
+                $questionFinal = array();
+                foreach ($questions as $question){
+                    $questionFinal[] = $question;
+                }
                 $response = $this->getResponse();
                 $response->getHeaders()->addHeaderLine('content-type', 'text/html; charset=utf-8');
-                $response->setContent(json_encode($questions));
+                $response->setContent(json_encode($questionFinal));
                 return $response;
         }
 
