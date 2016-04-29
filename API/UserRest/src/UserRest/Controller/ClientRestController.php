@@ -104,7 +104,7 @@ class ClientRestController extends AbstractActionController {
                 $demoQuiz = $this->getChapterTable()->getDemoQuiz();
                 $questions = array();
                 foreach ($demoQuiz as $data) {
-                    $ques = $this->getQuestionTable()->getDemoExcerciseQuestions($data['quiz_id'], $data['level_id'], $data['category_id'], $data['ques_nos']);
+                    $ques = $this->getQuestionTable()->getDemoExcerciseQuestions($data['quiz_id'], $data['level_id'], $data['category_id'], $data['ques_nos'], true);
                     $questions = array_merge($questions, $ques);
                 }
 
@@ -121,9 +121,9 @@ class ClientRestController extends AbstractActionController {
             case 'demoquizexer':
                 $demoQuiz = array();
                 $demoQuiz = $this->getChapterTable()->getDemoQuiz();
-                $questions = $this->getQuestionTable()->getDemoExcerciseQuestions($demoQuiz[0]['quiz_id'], 3, $demoQuiz[0]['category_id'], 3);
+                $questions = $this->getQuestionTable()->getDemoExcerciseQuestions($demoQuiz[0]['quiz_id'], 3, $demoQuiz[0]['category_id'], 3, true);
                 $questionFinal = array();
-                foreach ($questions as $question){
+                foreach ($questions as $question) {
                     $questionFinal[] = $question;
                 }
                 $response = $this->getResponse();
