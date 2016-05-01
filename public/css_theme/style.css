@@ -9281,3 +9281,11 @@ ul li {
 .textalignleft{
         text-align: -webkit-left !important;
 }
+ .payumoney {
+        border: 0px;
+        height: 52px;
+        width: 290px;
+        background: url('images/payu_account_button_long_03.png');
+        background-repeat: no-repeat;
+        cursor: pointer;
+    }

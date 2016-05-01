@@ -32,6 +32,7 @@ class IndexController extends AbstractActionController {
     protected $TestimonialTable;
     protected $TeamTable;
     protected $packageTable;
+    protected $OrderTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -64,6 +65,14 @@ class IndexController extends AbstractActionController {
             $this->SendqueryTable = $sm->get('Application\Model\SendqueryTable');
         }
         return $this->SendqueryTable;
+    }
+
+    public function getOrderTable() {
+        if (!$this->OrderTable) {
+            $sm = $this->getServiceLocator();
+            $this->OrderTable = $sm->get('Application\Model\OrderTable');
+        }
+        return $this->OrderTable;
     }
 
     public function getChapterTable() {
@@ -102,7 +111,7 @@ class IndexController extends AbstractActionController {
         $testimonials = array();
         $testimonials = $this->getTestimonialTable()->getTestimonial();
         $packages = $this->getPackageTable()->getPackages();
-        $teams = $this->getTeamTable()->getTeam(0,true);
+        $teams = $this->getTeamTable()->getTeam(0, true);
 
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $js_path = $renderer->basePath('js/koolguru/application');
@@ -138,6 +147,7 @@ class IndexController extends AbstractActionController {
         $package = $this->getPackageTable()->getPackageDetails($id);
         return array(
             'package' => $package,
+            'id' => $id,
         );
     }
 
@@ -160,7 +170,7 @@ class IndexController extends AbstractActionController {
     public function faqAction() {
         
     }
-    
+
     public function privacyAction() {
         
     }
@@ -207,7 +217,7 @@ class IndexController extends AbstractActionController {
         ));
     }
 
-    public function demoquizAction() {        
+    public function demoquizAction() {
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
         $js_path = $renderer->basePath('js/koolguru/application');
         $headScript = $this->getServiceLocator()->get('viewhelpermanager')
@@ -233,11 +243,11 @@ class IndexController extends AbstractActionController {
         $request = $this->getRequest();
         $data = $request->getPost();
         $response = $this->getResponse();
-        
+
         $demoQuiz = array();
-        $demoQuiz = $this->getChapterTable()->getDemoQuiz();        
-        $questions = $this->getQuestionTable()->getDemoExcerciseQuestions($demoQuiz[0]['quiz_id'],3,$demoQuiz[0]['category_id'],3);
-        
+        $demoQuiz = $this->getChapterTable()->getDemoQuiz();
+        $questions = $this->getQuestionTable()->getDemoExcerciseQuestions($demoQuiz[0]['quiz_id'], 3, $demoQuiz[0]['category_id'], 3);
+
         $response->setContent(json_encode($questions));
         return $response;
     }
@@ -251,23 +261,90 @@ class IndexController extends AbstractActionController {
         $request = $this->getRequest();
         $data = $request->getPost();
         $response = $this->getResponse();
-        
+
         $demoQuiz = array();
         $demoQuiz = $this->getChapterTable()->getDemoQuiz();
         $questions = array();
-        foreach($demoQuiz as $data){
-            $ques = $this->getQuestionTable()->getDemoExcerciseQuestions($data['quiz_id'],$data['level_id'],$data['category_id'],$data['ques_nos']);
-            $questions = array_merge($questions,$ques);
+        foreach ($demoQuiz as $data) {
+            $ques = $this->getQuestionTable()->getDemoExcerciseQuestions($data['quiz_id'], $data['level_id'], $data['category_id'], $data['ques_nos']);
+            $questions = array_merge($questions, $ques);
         }
-        
+
         $demochapterquizque = array();
-        if(!empty($questions)){
-            foreach($questions as $key=>$v){
+        if (!empty($questions)) {
+            foreach ($questions as $key => $v) {
                 $demochapterquizque[$v['que_id']] = $v;
             }
         }
         $response->setContent(json_encode($demochapterquizque));
         return $response;
+    }
+
+    public function initiatetransactionAction() {
+        $session = new Container('User');
+        $userId = '';
+        $userId = $session->offsetGet('userId');
+        $viewModel = new ViewModel(array(
+        ));
+        $package_id = isset($_GET['id']) ? $_GET['id'] : '';
+        $viewModel->setTerminal(true);
+        $this->layout('layout/empty');
+        $orderId = $this->getOrderTable()->saveTransaction($package_id, $userId);
+        $response = $this->getResponse();
+        $response->setContent($orderId);
+        return $response;
+    }
+
+    public function userpayAction() {
+        $session = new Container('User');
+        $userData = array();
+        $userData['firstname'] = $session->offsetGet('fname');
+        $userData['email'] = $session->offsetGet('email');
+        $userData['phone'] = $session->offsetGet('mobile');
+        $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
+        $hash = '';
+        $userId = $session->offsetGet('userId');
+        $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
+        $js_path = $renderer->basePath('js/koolguru/application');
+        $headScript = $this->getServiceLocator()->get('viewhelpermanager')
+                ->get('headScript');
+        $config = $this->getServiceLocator()->get('Config');
+//        $config['payu_config']
+        $headScript->appendFile($js_path . '/contact_us.js');
+        $errorMsg = '';
+        $successMsg = '';
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
+
+        if (!$id) {
+            return $this->redirect()->toRoute('home');
+        }
+        $package = $this->getPackageTable()->getPackageDetails($id);
+        $request = $this->getRequest();
+        $hashSequence = $config['payu_config']['merchant_key'] . '|' . $txnid . '|' . $package[0]['price'] . '|' . $package[0]['title'] . '|' . $userData['firstname'] . '|' . $userData['email'];
+        $hashVarsSeq = explode('|', $hashSequence);
+        $hash_string = '';
+        foreach ($hashVarsSeq as $hash_var) {
+            $hash_string .= isset($hash_var) ? $hash_var : '';
+            $hash_string .= '|';
+        }
+        $hash_string .= $config['payu_config']['merchant_salt'];
+        $hash = strtolower(hash('sha512', $hash_string));
+        $action = $config['payu_config']['payu_base_url'] . '/_payment';
+        return new ViewModel(array(
+            'errorMsg' => $errorMsg,
+            'successMsg' => $successMsg,
+            'packages' => $package,
+            'userData' => $userData,
+            'config' => $config['payu_config'],
+            'action' => $action,
+            'hash'=>$hash,
+            'txnid'=>$txnid
+        ));
+    }
+
+    public function payresponseAction() {
+        return new ViewModel(array(
+        ));
     }
 
 }

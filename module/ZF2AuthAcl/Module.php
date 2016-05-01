@@ -79,6 +79,10 @@ class Module {
             'Blog\Controller\Index-getblog',
             'Blog\Controller\Index-updatelike',
             'UserRest\Controller\ClientRest-index',
+            'Application\Controller\Index-packagedetails',
+            'Application\Controller\Index-userpay',
+            'Application\Controller\Index-paysuccess',
+            'Application\Controller\Index-payfailure',
         );
 
         //$requestUri = $request->getRequestUri();
