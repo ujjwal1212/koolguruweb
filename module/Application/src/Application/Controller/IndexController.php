@@ -303,6 +303,7 @@ class IndexController extends AbstractActionController {
         $userData['email'] = $session->offsetGet('email');
         $userData['phone'] = $session->offsetGet('mobile');
         $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
+        
         $hash = '';
         $userId = $session->offsetGet('userId');
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
@@ -322,15 +323,19 @@ class IndexController extends AbstractActionController {
         
         $package = $this->getPackageTable()->getPackageDetails($id);
         $request = $this->getRequest();
-        $hashSequence = $config['payu_config']['merchant_key'] . '|' . $txnid . '|' . $package[0]['price'] . '|' . $package[0]['title'] . '|' . $userData['firstname'] . '|' . $userData['email'];
+        $hashSequence = $config['payu_config']['merchant_key'] . '|' . $txnid . '|' . 5000 . '|' . $package[0]['title'] . '|' . $userData['firstname'] . '|' . $userData['email'];
         $hashVarsSeq = explode('|', $hashSequence);
         $hash_string = '';
         foreach ($hashVarsSeq as $hash_var) {
             $hash_string .= isset($hash_var) ? $hash_var : '';
             $hash_string .= '|';
         }
+        $hash_string .= '||||||||||';
         $hash_string .= $config['payu_config']['merchant_salt'];
+        //echo $hash_string;
+        //die;
         $hash = strtolower(hash('sha512', $hash_string));
+        
         $action = $config['payu_config']['payu_base_url'] . '/_payment';
         return new ViewModel(array(
             'errorMsg' => $errorMsg,
