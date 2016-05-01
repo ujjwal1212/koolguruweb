@@ -85,7 +85,7 @@ $(document).ready(function () {
             $('#' + this.renderid).html('');
             var renderhtml = '';
             renderhtml += "<br><div class='questionborder' style='margin-top:10px'>";
-            renderhtml += "<h4 class='questiontitle'><span>" + this.renderquestioncount + '.</span>' +quesobj.title + "</h4>";
+            renderhtml += "<h4 class='questiontitle'><span class='excerciseleft'>" + this.renderquestioncount + '.</span>' +quesobj.title + "</h4>";
             renderhtml += "<div class='book_date btm'>";
             renderhtml += "<ul>";
             for (key in options) {

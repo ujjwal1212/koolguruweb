@@ -217,8 +217,10 @@ class QuestionTable {
         $k = shuffle($ques_keys);
 
         for ($i = 0; $i < $count; $i++) {
-            $ques_keys[$i];
-            $ne_que[$ques_keys[$i]] = $questions[$ques_keys[$i]];
+            if(isset($ques_keys[$i])){
+                $ques_keys[$i];
+                $ne_que[$ques_keys[$i]] = $questions[$ques_keys[$i]];
+            }
         }
         return $ne_que;
     }

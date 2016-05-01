@@ -107,7 +107,7 @@ class ChapterTable {
         $select->from(array('c' => 'chapters'))
                 ->join(array('sc'=>'subject_chapter_map'),'sc.chapter_id=c.id')
                 ->join(array('s'=>'subjects'),'s.id = sc.subject_id',array('chapter_id'=>'id','subject_title'=>'title'),'left');
-        $select->columns(array('chapter_id'=>'id', 'demo_chapter_title'=>'title','chapter_content'=>'content'));
+        $select->columns(array('chapter_id'=>'id', 'demo_chapter_title'=>'title','chapter_content'=>'content','chapter_type'=>'chapter_type'));
         $select->where(array('c.isdemo'=>1));
         $select->where(array('c.status'=>1));
         $select->where(array('s.status'=>1));

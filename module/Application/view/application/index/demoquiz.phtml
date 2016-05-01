@@ -1,3 +1,6 @@
+<?php
+//asd($demochapter);
+?>
 <style>
     #content-2{
         position: initial !important;
@@ -12,23 +15,29 @@
     <div class="reservation_top">
         <div class="container">
             <main>
+                <?php if($demochapter[0]['chapter_type'] <= 1){?>
                 <label for="tab1" id='tab-1' class="kooltab">About Chapter</label>                
-                <label for="tab2" id='tab-2' class="kooltab"><span>Chapter Presentation</span></label>                
+                <label for="tab2" id='tab-2' class="kooltab"><span>Chapter Presentation</span></label> 
+                <?php } ?>
                 <label for="tab3" id='tab-3' class="kooltab">Exercise</label>                
                 <label for="tab4" id='tab-4' class="kooltab">Quiz</label>
+                <?php if($demochapter[0]['chapter_type'] <= 1){?>
                 <div class="tabs" id='content-1'>
                     <br>
                     <div>
                         <?php echo $demochapter[0]['chapter_content'] ?>
                     </div>
                 </div>
+                <?php } ?>
 
                 <!-- Tab for verbal ability -->
+                <?php if($demochapter[0]['chapter_type'] <= 1){?>
                 <div class="tabs" id='content-2'>
                     <br>
                     <div id='media-player'>
                         <video id='media-video' controls>                            
                             <?php
+                            
                             $ppt = '';
                             if (!empty($demochapter)) {
                                 $ppt = $demochapter[0]['subject_id'] . '-' . $demochapter[0]['chapter_id'];
@@ -51,6 +60,7 @@
                         </div>
                     </div>
                 </div>
+                <?php } ?>
                 <!-- Tab for verbal ability -->
                 <div class="tabs" id='content-3'>                    
                     <div id="excercise"></div>
@@ -63,9 +73,18 @@
         </div>
     </div>
 </div>
+
+<?php 
+$currenttab = 1;
+if($demochapter[0]['chapter_type'] > 1){
+    $currenttab = 3;
+}
+
+?>
+
 <script type="text/javascript">
     $(document).ready(function () {
-        app.demoquiz.currenttab = 1;
+        app.demoquiz.currenttab = <?php echo $currenttab; ?>;
         app.demoquiz.hidealltab();
         app.demoquiz.makeEnableAllTab();
         app.demoquiz.opencurrenttab();

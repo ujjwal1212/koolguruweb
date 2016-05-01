@@ -87,7 +87,10 @@ $(document).ready(function () {
 
     $('#add_option').click(function () {
         var tableRowId = window.parent.$('#option_table > tbody > tr').length + 1;
-        var optionDesc = $('#question_desc').val();
+        //var optionDesc = $('#question_desc').text();
+        var optionDesc = CKEDITOR.instances['question_desc'].getData();
+        //return false;
+        alert(optionDesc);
         if ($('#is_correct').is(':checked')) {
             var correct = 'Yes';
             var isCorrect = '1';
