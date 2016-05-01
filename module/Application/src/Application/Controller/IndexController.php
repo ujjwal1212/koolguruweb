@@ -296,6 +296,7 @@ class IndexController extends AbstractActionController {
     }
 
     public function userpayAction() {
+        
         $session = new Container('User');
         $userData = array();
         $userData['firstname'] = $session->offsetGet('fname');
@@ -318,6 +319,7 @@ class IndexController extends AbstractActionController {
         if (!$id) {
             return $this->redirect()->toRoute('home');
         }
+        
         $package = $this->getPackageTable()->getPackageDetails($id);
         $request = $this->getRequest();
         $hashSequence = $config['payu_config']['merchant_key'] . '|' . $txnid . '|' . $package[0]['price'] . '|' . $package[0]['title'] . '|' . $userData['firstname'] . '|' . $userData['email'];
