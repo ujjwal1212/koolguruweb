@@ -100,7 +100,7 @@
                                         <ul>
                                             <li class="form-row">
                                                 <label class="label">Amount:<span class="required">*</span></label>
-                                                <input name="amount" type="text" id="amount" class="input" value="5000" readonly>
+                                                <input name="amount" type="text" id="amount" class="input" value="<?php echo (int) $packages[0]['price']; ?>" readonly>
                                             </li>
                                             <li class="form-row">
                                                 <label class="label">First Name:</label>
@@ -117,8 +117,8 @@
                                             <li class="form-row">
                                                 <label class="label">Product Info<span class="required">*</span></label>
                                                 <textarea name="productinfo" id="productinfo" class="input" readonly><?php echo $packages[0]['title'] ?></textarea>
-                                                <input type="hidden" id="surl" name="surl" value="<?php echo $this->basePath() . '/application/index/payresponse' ?>"/>
-                                                <input type="hidden" id="furl" name="furl" value="<?php echo $this->basePath() . '/application/index/payresponse1' ?>"/>
+                                                <input type="hidden" id="surl" name="surl" value="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->url('home') . 'application/index/payresponse?id=' . $packages[0]['id']; ?>"/>
+                                                <input type="hidden" id="furl" name="furl" value="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $this->url('home') . 'application/index/payresponse?id=' . $packages[0]['id']; ?>"/>
                                                 <input type="hidden" name="service_provider" value="" size="64" />
                                             </li>  
                                         </ul>

