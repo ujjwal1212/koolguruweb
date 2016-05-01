@@ -81,8 +81,7 @@ class Module {
             'UserRest\Controller\ClientRest-index',
             'Application\Controller\Index-packagedetails',
             'Application\Controller\Index-userpay',
-            'Application\Controller\Index-paysuccess',
-            'Application\Controller\Index-payfailure',
+            'Application\Controller\Index-payresponse',
         );
 
         //$requestUri = $request->getRequestUri();
