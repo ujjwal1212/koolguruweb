@@ -149,7 +149,7 @@ class QuestionForm extends Form {
             'type' => 'Zend\Form\Element\Textarea',
             'name' => 'question_desc',
             'attributes' => array(
-                'class' => 'input',
+                'class' => 'input ckeditor',
                 'id' => 'question_desc',
             ),
             'options' => array(
