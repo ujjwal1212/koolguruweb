@@ -144,7 +144,12 @@ class IndexController extends AbstractActionController {
         $view = new ViewModel();
         $loginForm = new LoginForm('loginForm');
         $loginForm->setInputFilter(new LoginFilter());
-
+        if (isset($_GET['redirect'])) {
+            $session = new Container('User');
+            if (!$session->offsetExists('referer')) {
+                $session->offsetSet('referer', $_SERVER['HTTP_REFERER']);
+            }
+        }
         if ($request->isPost()) {
             $data = $request->getPost();
             $loginForm->setData($data);
@@ -169,9 +174,9 @@ class IndexController extends AbstractActionController {
                     $userDetails = $this->_getStudentDetails(array(
                         'student.email' => $data['email']
                             ), array(
-                        'id', 'status', 'fname', 'mname', 'lname','isprofilecompleted'
-                    ));                   
-                    if ($userDetails[0]['status'] == 1) {                        
+                        'id', 'status', 'fname', 'mname', 'lname', 'isprofilecompleted','mobile'
+                    ));
+                    if ($userDetails[0]['status'] == 1) {
                         $session = new Container('User');
                         $session->offsetSet('email', $data['email']);
                         $session->offsetSet('userId', $userDetails[0]['id']);
@@ -180,11 +185,16 @@ class IndexController extends AbstractActionController {
                         $session->offsetSet('roleCode', 'st');
                         $session->offsetSet('fname', $userDetails[0]['fname']);
                         $session->offsetSet('lname', $userDetails[0]['lname']);
+                        $session->offsetSet('mobile', $userDetails[0]['mobile']);
                         $session->offsetSet('isprofilecompleted', $userDetails[0]['isprofilecompleted']);
                         $session->offsetSet('is_student', 1);
 //                        $this->getServiceLocator()->get('Zend\Log')->info('Login Successful for user ' . $data['email']);
-                        // Redirect to page after successful login     
-                        return $this->redirect()->toRoute('student', array());
+                        // Redirect to page after successful login 
+                        if ($session->offsetExists('referer')) {
+                            return $this->redirect()->toUrl($session->offsetGet('referer'));
+                        } else {
+                            return $this->redirect()->toRoute('student', array());
+                        }
                     } else {
                         $this->flashMessenger()->addMessage(array(
                             'error' => 'You are not authorized to login'
@@ -595,7 +605,7 @@ class IndexController extends AbstractActionController {
         }
         return array('form' => $form, 'errRecVar' => $errNo);
     }
-    
+
     /**
      * Functio to set password for first time user
      * @return type
