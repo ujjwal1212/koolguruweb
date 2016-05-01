@@ -210,13 +210,14 @@ if (!$this->isAjax) {
                             <?php }
                             ?>
                             <td class="type"><?php echo ($this->escapeHtml($chapter['isdemo'])==1) ? 'Yes' : 'No'; ?></td>
+                            
+                            <td class="type"><?php echo ($this->escapeHtml($chapter['status'])==1) ? 'Active' : 'Inactive'; ?></td>
                             <td>
                                 <?php if($chapter['chapter_type'] > 0){?>
                                 <?php echo $chapter_type[$chapter['chapter_type']];?>
                                 <?php } ?>
                             </td>
-                            <td class="type"><?php echo ($this->escapeHtml($chapter['status'])==1) ? 'Active' : 'Inactive'; ?></td>
-        <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
+                            <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                                 <td class="actions">
                                     <a href="<?php echo $this->url('chapter', array('action' => 'edit', 'id' => $chapter['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
                                 </td>
