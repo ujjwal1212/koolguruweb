@@ -90,7 +90,7 @@ $(document).ready(function () {
         //var optionDesc = $('#question_desc').text();
         var optionDesc = CKEDITOR.instances['question_desc'].getData();
         //return false;
-        alert(optionDesc);
+       
         if ($('#is_correct').is(':checked')) {
             var correct = 'Yes';
             var isCorrect = '1';
