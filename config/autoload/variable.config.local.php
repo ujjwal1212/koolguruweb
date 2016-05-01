@@ -12,5 +12,13 @@ return array(
             'password' => 'koolguru@123',
         ),
     ),
+    'payu_config' => array(
+        // Merchant key here as provided by Payu
+        'merchant_key' => 'gtKFFx',
+        // Merchant Salt as provided by Payu
+        'merchant_salt' => 'eCwWELxi',
+        // End point - change to https://secure.payu.in for LIVE mode
+        'payu_base_url' => 'https://test.payu.in',
+    )
 );
 ?>
