@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Zend Framework (http://framework.zend.com/)
  *
@@ -17,6 +18,8 @@ use Application\Model\Sendquery;
 use Application\Model\SendqueryTable;
 use Application\Model\Chapter;
 use Application\Model\ChapterTable;
+use Application\Model\Order;
+use Application\Model\OrderTable;
 use Application\Model\Subject;
 use Application\Model\SubjectTable;
 use Application\Model\Testimonial;
@@ -24,22 +27,19 @@ use Application\Model\TestimonialTable;
 use Application\Model\Team;
 use Application\Model\TeamTable;
 
-class Module
-{
-    public function onBootstrap(MvcEvent $e)
-    {
-        $eventManager        = $e->getApplication()->getEventManager();
+class Module {
+
+    public function onBootstrap(MvcEvent $e) {
+        $eventManager = $e->getApplication()->getEventManager();
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
     }
 
-    public function getConfig()
-    {
+    public function getConfig() {
         return include __DIR__ . '/config/module.config.php';
     }
 
-    public function getAutoloaderConfig()
-    {
+    public function getAutoloaderConfig() {
         return array(
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
@@ -48,7 +48,7 @@ class Module
             ),
         );
     }
-    
+
     public function getServiceConfig() {
         return array(
             'factories' => array(
@@ -63,7 +63,6 @@ class Module
                     $resultSetPrototype->setArrayObjectPrototype(new Sendquery());
                     return new TableGateway('send_query', $dbAdapter, null, $resultSetPrototype);
                 },
-                        
                 'Application\Model\SubjectTable' => function($sm) {
                     $tableGateway = $sm->get('SubjectTableGateway');
                     $table = new SubjectTable($tableGateway);
@@ -75,7 +74,6 @@ class Module
                     $resultSetPrototype->setArrayObjectPrototype(new Subject());
                     return new TableGateway('subjects', $dbAdapter, null, $resultSetPrototype);
                 },
-                        
                 'Application\Model\ChapterTable' => function($sm) {
                     $tableGateway = $sm->get('ChapterTableGateway');
                     $table = new ChapterTable($tableGateway);
@@ -109,7 +107,19 @@ class Module
                     $resultSetPrototype->setArrayObjectPrototype(new Team());
                     return new TableGateway('team', $dbAdapter, null, $resultSetPrototype);
                 },
+                'Application\Model\OrderTable' => function($sm) {
+                    $tableGateway = $sm->get('OrderTableGateway');
+                    $table = new OrderTable($tableGateway);
+                    return $table;
+                },
+                'OrderTableGateway' => function ($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $resultSetPrototype = new ResultSet();
+                    $resultSetPrototype->setArrayObjectPrototype(new Order());
+                    return new TableGateway('orders', $dbAdapter, null, $resultSetPrototype);
+                },
             ),
         );
     }
+
 }
