@@ -3,6 +3,9 @@ $(document).ready(function () {
         rules: {
             title: {
                 required: true,
+            },            
+            chapter_type: {
+                required: true,
             },
             content: {
                 required: true,
@@ -14,6 +17,10 @@ $(document).ready(function () {
             },
             content: {
                 required: "Please enter chapter description",
+            },
+            
+            chapter_type: {
+                required: "Please select chapter chapter type",
             },
         }
     });

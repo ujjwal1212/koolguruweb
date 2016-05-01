@@ -1,4 +1,6 @@
 <?php
+$chapter_type[1] = 'Koolguru';
+$chapter_type[2] = 'Others';
 $errorflashMessage = $this->flashMessenger()->getErrorMessages();
 $title = 'Manage Chapters';
 $default_order = 'ASC';
@@ -132,6 +134,9 @@ if (!$this->isAjax) {
                         <th class="type">
                             Status
                         </th>
+                        <th class="type">
+                            Type
+                        </th>
                         <?php if ($roleCode == 'sa') { ?>
                             <th class="actions">ACTIONS</th>
     <?php } ?>
@@ -169,6 +174,9 @@ if (!$this->isAjax) {
                         <th class="type">
                             Status
                         </th>
+                        <th class="type">
+                            Type
+                        </th>
                         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                             <th class="actions">ACTIONS</th>
     <?php } ?>
@@ -202,12 +210,18 @@ if (!$this->isAjax) {
                             <?php }
                             ?>
                             <td class="type"><?php echo ($this->escapeHtml($chapter['isdemo'])==1) ? 'Yes' : 'No'; ?></td>
+                            <td>
+                                <?php if($chapter['chapter_type'] > 0){?>
+                                <?php echo $chapter_type[$chapter['chapter_type']];?>
+                                <?php } ?>
+                            </td>
                             <td class="type"><?php echo ($this->escapeHtml($chapter['status'])==1) ? 'Active' : 'Inactive'; ?></td>
         <?php if ((isset($roleCode)) && ($roleCode == 'sa')) { ?>
                                 <td class="actions">
                                     <a href="<?php echo $this->url('chapter', array('action' => 'edit', 'id' => $chapter['id'], 'page' => $this->page)); ?>"><span class="edit-icon" title="edit"></span></a>
                                 </td>
                         <?php } ?>
+                                
                         </tr>
 
                         <?php

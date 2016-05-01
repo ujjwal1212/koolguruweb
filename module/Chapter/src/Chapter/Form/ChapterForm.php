@@ -11,9 +11,11 @@ use Zend\Form\Form;
 class ChapterForm extends Form {
 
     public function __construct($name = NULL) {
+        $chapter_type[1] = 'Koolguru';
+        $chapter_type[2] = 'Others';
+        
         // we want to ignore the name passed
         parent::__construct($name);
-
 
         $this->setAttribute('method', 'post');
         $this->setAttribute('enctype', 'multipart/form-data');
@@ -22,7 +24,23 @@ class ChapterForm extends Form {
             'attributes' => array(
                 'type' => 'hidden',
             ),
-        ));        
+        ));
+        
+        $this->add(array(
+            'type' => 'Select',
+            'name' => 'chapter_type',
+            'options' => array(
+                'label' => 'Chapter Type',
+                'label_attributes' => array(
+                    'class' => 'label'
+                ),
+                'empty_option' => 'Select Type',
+                'value_options' => $chapter_type,
+            ),
+            'attributes' => array(
+                'id' => 'chapter_type',
+            ),
+        ));
         
                 
         $this->add(array(
