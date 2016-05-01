@@ -3,10 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Application/view/application/index/privacy.phtml</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Application/view/application/index/faq.phtml</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Application/view/layout/layout.phtml</file>
-            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/public/css_theme/style.css</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Blog/view/blog/index/index.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Application/src/Application/Controller/IndexController.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/packagedetails.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/ZF2AuthAcl/src/ZF2AuthAcl/Model/RecoverEmailTable.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/Application/view/application/index/userpay.phtml</file>
+            <file>file:/C:/wamp/www/koolguruweb/config/autoload/variable.config.local.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/ZF2AuthAcl/Module.php</file>
+            <file>file:/C:/wamp/www/koolguruweb/public/css_theme/style.css</file>
+            <file>file:/C:/wamp/www/koolguruweb/module/ZF2AuthAcl/src/ZF2AuthAcl/Controller/IndexController.php</file>
         </group>
     </open-files>
 </project-private>

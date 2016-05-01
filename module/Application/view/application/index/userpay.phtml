@@ -1,0 +1,149 @@
+
+<div class="main"> 
+    <div class="reservation_top">
+        <div class="container hidden-x">
+            <?php
+            $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+            $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+            if (empty($errorflashMessage) && !empty($successflashMessage)) {
+                ?>
+                <div id="global-success-msg-page" class="global-page-success">
+                    <?php
+                    foreach ($successflashMessage as $succMsg) {
+                        echo $succMsg;
+                    }
+                    ?>
+
+                </div>
+            <?php } else { ?>
+                <div id="global-error-msg-page"   class="global-page-error"><?php
+                    foreach ($errorflashMessage as $errMsg) {
+                        echo $errMsg;
+                    }
+                    ?></div>
+            <?php } ?>
+            <div class="row-login">
+                <div class="col-md-5">
+                    <div class="contact_left">
+                        <h3>Package Details</h3>
+                        <div class="widget wpo-educator-grid small">
+
+                            <div class="widget-content tribe-events-list">
+                                <div>	
+                                    <?php
+                                    $i = 0;
+                                    foreach ($packages as $package) {
+                                        ?>
+                                        <div class="col-lg-8 col-md-3 col-sm-6 col-xs-12">
+                                            <article class="course course-item"> 
+                                                <div class="course-image">
+
+                                                    <div class="package-box-even"><?php echo $package['title'] ?></div>
+                    <!--                                    <img width="870" height="593" src="css_theme/images/courses-9.jpg" class="attachment-course-image wp-post-image" alt="courses-9">-->
+
+                                                </div>
+                                                <div class="course-inner">
+                                                    <div class="course-header">
+                                                        <h4><a href=""><?php echo $package['title'] ?></a></h4>
+                                                        <div class="author"><span>Price:  <?php echo $package['price'] ?></span></div>
+                                                    </div>
+                                                    <div class="course-meta">
+                                                        <div class="left">
+                                                            <span class="duration"><i class="uicon icon-duration"></i> 
+                                                                <span class="val"><?php echo $package['duration'] ?></span>
+                                                            </span>				
+                                                        </div>
+                                                    </div>
+                                                </div>	
+                                            </article> 
+                                        </div>
+                                    <?php }
+                                    ?>
+                                </div>
+                            </div>	
+                        </div>                    </div>
+                </div>
+                <div class="col-md-7 contact_right">
+                    <form action="<?php echo $action; ?>" method="post" name="payuForm" id="payu-payment-form">
+                        <div class="tabs" id="content-1" style="display: block;">
+                            <input type="hidden" name="key" value="<?php echo $config['merchant_key'] ?>" />
+                            <input type="hidden" name="hash" value="<?php echo $hash ?>"/>
+                            <input type="hidden" name="txnid" value="<?php echo $txnid ?>" />
+                            <div class="container">
+                                <div class="forms" id="contact-form">
+                                    <section id="basic_details">
+                                        <?php
+                                        //$flashMessenger = $this->flashMessenger();
+                                        //echo $flashMessenger->getMessages();
+                                        ?>
+                                        <?php
+                                        $errorflashMessage = $this->flashMessenger()->getErrorMessages();
+                                        $successflashMessage = $this->flashMessenger()->getCurrentSuccessMessages();
+                                        if (empty($errorflashMessage) && !empty($successflashMessage)) {
+                                            ?>
+                                            <div id="global-success-msg-page" class="global-page-success">
+                                                <?php
+                                                foreach ($successflashMessage as $succMsg) {
+                                                    echo $errMsg;
+                                                }
+                                                ?>
+
+                                            </div>
+                                        <?php } else { ?>
+                                            <div id="global-error-msg-page"   class="global-page-error"><?php
+                                                foreach ($errorflashMessage as $errMsg) {
+                                                    echo $errMsg;
+                                                }
+                                                ?></div>
+                                        <?php } ?>
+                                        <h3 class="h3">Payment Details</h3>
+                                        <ul>
+                                            <li class="form-row">
+                                                <label class="label">Amount:<span class="required">*</span></label>
+                                                <input name="amount" type="text" id="amount" class="input" value="<?php echo $packages[0]['price'] ?>" readonly>
+                                            </li>
+                                            <li class="form-row">
+                                                <label class="label">First Name:</label>
+                                                <input name="firstname" type="text" id="firstname" class="input" value="<?php echo $userData['firstname']; ?>" readonly>
+                                            </li>
+                                            <li class="form-row">
+                                                <label class="label">Email:<span class="required">*</span></label>
+                                                <input name="email" type="text" id="email" class="input" value="<?php echo $userData['email']; ?>" readonly>
+                                            </li>
+                                            <li class="form-row">
+                                                <label class="label">Phone<span class="required">*</span></label>
+                                                <input name="phone" type="text" id="phone" class="input" value="<?php echo $userData['phone']; ?>" readonly>
+                                            </li>  
+                                            <li class="form-row">
+                                                <label class="label">Product Info<span class="required">*</span></label>
+                                                <textarea name="productinfo" id="productinfo" class="input" readonly><?php echo $packages[0]['title'] ?></textarea>
+                                                <input type="hidden" id="surl" name="surl" value="<?php echo $this->basePath() . '/application/index/payresponse' ?>"/>
+                                                <input type="hidden" id="furl" name="furl" value=""/>
+                                            </li>  
+                                        </ul>
+                                        <div class="form-footer">
+                                            <input type="submit" value="" class="payumoney" onclick="submitPayuForm()" />
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div></form>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var hash = '<?php echo $hash ?>';
+    function submitPayuForm() {
+        if (hash == '') {
+            return;
+        }
+        var payuForm = document.forms.payuForm;
+        payuForm.submit();
+    }
+</script>
