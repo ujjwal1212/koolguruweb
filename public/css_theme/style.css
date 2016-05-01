@@ -9231,8 +9231,8 @@ a:hover, a:focus{ color:inherit; text-decoration: none;}
     font-weight: bold;
     font-size: 25px;
     text-transform: uppercase;
-    text-align: center;
-    padding-top: 25px;
+/*    text-align: center;
+    padding-top: 25px;*/
 }
 .package-title span a{
     text-decoration: none;
