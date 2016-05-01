@@ -33,6 +33,7 @@ class IndexController extends AbstractActionController {
     protected $TeamTable;
     protected $packageTable;
     protected $OrderTable;
+    protected $RecoverEmailTable;
 
     public function getAdapter() {
         if (!$this->adapter) {
@@ -57,6 +58,14 @@ class IndexController extends AbstractActionController {
             $this->packageTable = $sm->get('Package\Model\PackageTable');
         }
         return $this->packageTable;
+    }
+
+    public function getRecoverEmailTable() {
+        if (!$this->RecoverEmailTable) {
+            $sm = $this->getServiceLocator();
+            $this->RecoverEmailTable = $sm->get('ZF2AuthAcl\Model\RecoverEmailTable');
+        }
+        return $this->RecoverEmailTable;
     }
 
     public function getSendqueryTable() {
@@ -296,14 +305,14 @@ class IndexController extends AbstractActionController {
     }
 
     public function userpayAction() {
-        
+
         $session = new Container('User');
         $userData = array();
         $userData['firstname'] = $session->offsetGet('fname');
         $userData['email'] = $session->offsetGet('email');
         $userData['phone'] = $session->offsetGet('mobile');
         $txnid = substr(hash('sha256', mt_rand() . microtime()), 0, 20);
-        
+
         $hash = '';
         $userId = $session->offsetGet('userId');
         $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
@@ -320,10 +329,10 @@ class IndexController extends AbstractActionController {
         if (!$id) {
             return $this->redirect()->toRoute('home');
         }
-        
+
         $package = $this->getPackageTable()->getPackageDetails($id);
         $request = $this->getRequest();
-        $hashSequence = $config['payu_config']['merchant_key'] . '|' . $txnid . '|' . 5000 . '|' . $package[0]['title'] . '|' . $userData['firstname'] . '|' . $userData['email'];
+        $hashSequence = $config['payu_config']['merchant_key'] . '|' . $txnid . '|' . (int) $package[0]['price'] . '|' . $package[0]['title'] . '|' . $userData['firstname'] . '|' . $userData['email'];
         $hashVarsSeq = explode('|', $hashSequence);
         $hash_string = '';
         foreach ($hashVarsSeq as $hash_var) {
@@ -335,7 +344,7 @@ class IndexController extends AbstractActionController {
         //echo $hash_string;
         //die;
         $hash = strtolower(hash('sha512', $hash_string));
-        
+
         $action = $config['payu_config']['payu_base_url'] . '/_payment';
         return new ViewModel(array(
             'errorMsg' => $errorMsg,
@@ -344,13 +353,41 @@ class IndexController extends AbstractActionController {
             'userData' => $userData,
             'config' => $config['payu_config'],
             'action' => $action,
-            'hash'=>$hash,
-            'txnid'=>$txnid
+            'hash' => $hash,
+            'txnid' => $txnid
         ));
     }
 
     public function payresponseAction() {
+        $request = $this->getRequest();
+        $renderer = $this->serviceLocator->get('Zend\View\Renderer\RendererInterface');
+        $session = new Container('User');
+        $userId = $session->offsetGet('userId');
+        $data = $request->getPost();
+        $success = 0;
+        $failure = 0;
+        $id = isset($_GET['id']) ? $_GET['id'] : 0;
+        if ($data->status == 'success') {
+            $flag = $this->getOrderTable()->updateTransaction($id, $userId);
+            $orderDetails = $this->getOrderTable()->getOrderDetails($id, $userId);
+            $package = $this->getPackageTable()->getPackageDetails($id);
+            if ($orderDetails[0]['status']) {
+                $success = 1;
+                $subscriptionId = $this->getOrderTable()->saveSubscription($id, $userId, $orderDetails[0]['id'], $package);
+                $subject = 'Oder Id : ' . $data['txnid'];
+                $emailData = array('email' => $data->firstname, 'package' => $package[0]['title']);
+                $content = $renderer->render('zf2-auth-acl/index/tpl/subscription', array('emailData' => $emailData));
+                $this->getRecoverEmailTable()->sendEmailToUser($subject, $content, $data->email);
+            } else {
+                $failure = 1;
+            }
+        } else {
+            $failure = 1;
+        }
         return new ViewModel(array(
+            'success' => $success,
+            'failure' => $failure,
+            'txnid' => $data->txnid,
         ));
     }
 
