@@ -68,7 +68,7 @@ class ChapterTable {
         $sql = new Sql($this->tableGateway->getAdapter());
         $select = $sql->select();
         $select->from(array('c' => 'chapters'));
-        $select->columns(array('id', 'title', 'code','content','status','isdemo'));        
+        $select->columns(array('id', 'title', 'code','content','status','isdemo','chapter_type'));        
         $select->order($order_by . ' ' . $order);
         if (isset($searchText) && trim($searchText) != '') {
             $select->where->like('c.title', "%" . $searchText . "%")
@@ -104,6 +104,7 @@ class ChapterTable {
         $data = array(
             'title' => trim($chapter->title),
             'content' => trim($chapter->content),
+            'chapter_type' => trim($chapter->chapter_type),
             'status' => $chapter->status,
             'isdemo' => $chapter->isdemo
         );

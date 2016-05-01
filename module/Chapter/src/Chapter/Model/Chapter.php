@@ -19,6 +19,7 @@ class Chapter implements InputFilterAwareInterface {
     public $created_by;
     public $updated_at;
     public $updated_by;
+    public $chapter_type;
     protected $inputFilter;
 
     //protected $_dbAdapter;
@@ -34,6 +35,7 @@ class Chapter implements InputFilterAwareInterface {
         $this->created_by = (isset($data['created_by'])) ? $data['created_by'] : null;
         $this->updated_at = (isset($data['updated_at'])) ? $data['updated_at'] : null;
         $this->updated_by = (isset($data['updated_by'])) ? $data['updated_by'] : null;
+        $this->chapter_type = (isset($data['chapter_type'])) ? $data['chapter_type'] : null;
     }
 
    // Add the following method:

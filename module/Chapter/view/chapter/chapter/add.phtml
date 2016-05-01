@@ -76,6 +76,10 @@ $errorflashMessage = $this->flashMessenger()->getErrorMessages();
                         <?php echo $this->formElement($form->get('content')); ?>
                     </li>
                     <li class="form-row">                    
+                        <label class='label'>Chapter Type: </label>
+                        <?php echo $this->formElement($form->get('chapter_type')); ?>
+                    </li>
+                    <li class="form-row">                    
                         <label class='label'>Is Demo: </label>
                         <?php echo $this->formElement($form->get('isdemo')); ?>
                     </li>
