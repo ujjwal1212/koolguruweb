@@ -1,0 +1,122 @@
+<?php
+if (isset($_SESSION['User']['roleCode'])):
+    $roleCode = $_SESSION['User']['roleCode'];
+endif;
+?>
+<!--<section class="sub-header">
+    <div class="container">
+        <div class="sub-header-title">
+            <?php
+            $title = 'Package Details';
+            $this->headTitle($title);
+            ?>
+            <h1 class="h1"><?php echo $this->escapeHtml($title); ?>
+
+                <?php
+                /* Adding Breadcrumb */
+//                echo $this->navigation('navigation')
+//                        ->breadcrumbs()
+//                        ->setMinDepth(0)
+//                        ->setPartial(array('partial/breadcrumb.phtml', 'Application'));
+                ?>
+            </h1>
+        </div>
+    </div>
+</section>-->
+
+<div class="container">
+<div class="forms">
+    <div class="package_detail_left">
+        <ul>
+            <li class="package-title">
+                <?php echo $package[0]['title']; ?>
+<!--                <span class="separator-img"></span>
+                <span><a href="javascript:void(0)">BUY NOW</a></span>-->
+            </li>
+            <li title="relevant for" class="package-relevant"><?php
+                if (!empty($package[0]['relevant_for'])) {
+                    $userGetsArr = explode(',', $package[0]['relevant_for']);
+                    echo '<br/>';
+                    echo '<ul>';
+                    ?>
+                <li><span class="package-headers"> RELEVANT FOR</span></li>
+                <span class="package-text">
+                    <?php
+                    foreach ($userGetsArr as $gets) {
+                        echo '<li>';
+                        echo $gets;
+                        echo '</li>';
+                    }
+                    echo '</ul>';
+                }
+                ?></span>
+            <ul>
+
+                <li>
+                    <span title="Duration"></span><span class="package-headers"> DURATION<br/></span><span class="package-text"> <?php echo $package[0]['duration'] ?></span>
+                </li>
+                <li>
+                    <span title="Price"></span><span class="package-headers"> PRICE<br/></span><span class="package-text"><?php echo $package[0]['price'] ?></span>
+                </li>
+                <li>
+                    <span title="Face to Face Class-room"></span><span class="package-headers"> FACE TO FACE CLASSROOM<br/></span><span class="package-text"><?php echo $package[0]['ff_classroom'] ?></span>
+                </li>
+                <li>
+                    <span title="advantage"></span><span class="package-headers"> ADVANTAGE <br/></span><span class="package-text"><?php
+                        if (!empty($package[0]['advantage'])) {
+                            $userGetsArr = explode(',', $package[0]['advantage']);
+                            echo '<ul>';
+                            foreach ($userGetsArr as $gets) {
+                                echo '<li>';
+                                echo $gets;
+                                echo '</li>';
+                            }
+                            echo '</ul>';
+                        }
+                        ?></span>
+                </li>
+                <li>
+                    <span title="what user gets"></span><span class="package-headers"> WHAT USER GETS<br/></span><span class="package-text"><?php
+                        if (!empty($package[0]['whatuserget'])) {
+                            $userGetsArr = explode(',', $package[0]['whatuserget']);
+                            echo '<ul>';
+                            foreach ($userGetsArr as $gets) {
+                                echo '<li>';
+                                echo $gets;
+                                echo '</li>';
+                            }
+                            echo '</ul>';
+                        }
+                        ?></span>
+                </li>
+            </ul> 
+            <a href="javascript:void(0)" class="wpcf7-form-control wpcf7-submit demo-chapter">
+
+                <input type="button" value="BUY NOW" class="wpcf7-form-control wpcf7-submit"></a>
+            </li>
+            <li>
+                <?php
+                if ($package[0]['image_path']) {
+                    $packagePathArr = explode('/', $package[0]['image_path']);
+                    foreach ($packagePathArr as $imageName) {
+                        $imageFile = $imageName;
+                    }
+                    ?>
+                    <img alt="Subject Image" src="<?php echo $_SESSION['basedomain']['path'] . '/data/images/' . $imageFile; ?>" style="height:auto; width: 25%;border-radius: 50%;"/>
+                <?php } ?>
+            </li>
+        </ul>  
+    </div> 
+</div>
+    <div id="form-footer">
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
