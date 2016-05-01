@@ -86,13 +86,14 @@ class ChapterController extends AbstractActionController {
             }
         } else {
             // grab the paginator from the CenterTable
-            $paginator = $this->getChapterTable()->fetchAll(true, $order_by, $order, $searchText);
+            $paginator = $this->getChapterTable()->fetchAll(true, $order_by, $order, $searchText);            
         }
         //$paginator1 = $paginator;
+        $allchapters = $this->getChapterTable()->getAllChapter();
         $subjects = array();
-        foreach($paginator as $chapter){          
-          $temp = $this->getSubjectTable()->getChapterSubjects($chapter['id']); 
-          $subjects[$chapter['id']] = $temp;
+        foreach($allchapters as $chapter){   
+            $temp = $this->getSubjectTable()->getChapterSubjects($chapter['id']); 
+            $subjects[$chapter['id']] = $temp;
         }
         
         $row_count = $paginator->getTotalItemCount();

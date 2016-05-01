@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/koolguruweb/API/UserRest/src/UserRest/Controller/UserRestController.php</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Questionarie/src/Questionarie/Model/QuestionTable.php</file>
-            <file>file:/C:/wamp/www/koolguruweb/module/Application/src/Application/Model/ChapterTable.php</file>
-            <file>file:/C:/wamp/www/koolguruweb/API/UserRest/src/UserRest/Controller/ClientRestController.php</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Application/view/application/index/privacy.phtml</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Application/view/application/index/faq.phtml</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/module/Application/view/layout/layout.phtml</file>
+            <file>file:/C:/wamp/www/myapp/koolguruweb-clone/public/css_theme/style.css</file>
         </group>
     </open-files>
 </project-private>

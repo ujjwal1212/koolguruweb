@@ -40,6 +40,18 @@ class ChapterTable {
         }
         return $key;
     }
+    
+    public function getAllChapter(){
+        $sql = new Sql($this->tableGateway->getAdapter());
+        $select = $sql->select();
+        $select->from(array('c' => 'chapters'));                
+        $select->columns(array('id'));
+
+        $statement = $sql->prepareStatementForSqlObject($select);
+        $resultset = $this->resultSetPrototype->initialize($statement->execute())
+                ->toArray();
+        return $resultset;
+    }
 
     /**
      * Function to Fetch listing for Manage question Page
